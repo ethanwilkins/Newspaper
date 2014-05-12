@@ -1,0 +1,14 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$back: 240;
+$border: 225;
+
+#card {
+	background: rgb($back, $back, $back);
+	border: 1px solid rgb($border, $border, $border);
+	padding: 15px 20px;
+	margin: 0 auto;
+	width: 80%;
+}

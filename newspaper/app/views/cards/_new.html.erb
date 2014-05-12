@@ -1,0 +1,12 @@
+<%= form_for @card do |f| %>
+	<div id="card">
+		<p>
+			<%= f.label "Type your code here:" %><br>
+			<%= f.text_field :code %>
+		</p>
+		<p>
+			<%= f.submit "Redeem Card" %>
+		</p>
+	</div>
+	</br>
+<% end %>
