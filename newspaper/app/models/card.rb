@@ -16,9 +16,9 @@ class Card < ActiveRecord::Base
     end
   end
   
-  def redeem(code)
+  def redeem
     codes = [123, 1234, 1245]
-    if codes.include? code
+    if codes.include? self.code
       true
     end
   end
