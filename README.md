@@ -1,2 +1,3 @@
 Newspaper
 =========
+A spanish newspaper
