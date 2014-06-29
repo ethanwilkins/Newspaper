@@ -5,14 +5,14 @@ class Card < ActiveRecord::Base
   def title
     case self.code
       when 123
-        "Title"
+        "Aligator"
     end
   end
   
   def picture
     case self.code
       when 123
-        "cards/picture"
+        "cards/aligator.png"
     end
   end
   

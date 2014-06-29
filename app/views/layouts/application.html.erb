@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>El Periódico</title>
+	<title>El Heroe</title>
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= csrf_meta_tags %>
@@ -29,9 +29,6 @@
 							<%= link_to "Log in", sessions_new_path %>
 						</td>
 					<% else %>
-						<td>
-							<%= button_to "Cards", user_cards_path(current_user), method: :get %>
-						</td>
 						<td>
 							<%= button_to "Log out", sessions_destroy_path, method: :get %>
 						</td>

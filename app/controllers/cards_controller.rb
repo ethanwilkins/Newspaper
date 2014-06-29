@@ -1,9 +1,4 @@
 class CardsController < ApplicationController
-  def index
-    @card = Card.new
-    @cards = current_user.cards
-  end
-  
   def show
     @card = Card.find(params[:id])
   end
