@@ -2,8 +2,8 @@ class WelcomeController < ApplicationController
   def index
     @user = User.new
     if current_user
-      @card = Card.new
-      @cards = current_user.cards
+      @game_board = GameBoard.new
+      @game_boards = current_user.game_boards
     end
   end
 end

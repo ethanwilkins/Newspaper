@@ -1,12 +1,13 @@
+<div id="card">
 <%= form_for @card do |f| %>
-	<div id="card">
-		<p>
-			<%= f.label "Type your code here:" %><br>
-			<%= f.text_field :code %>
-		</p>
-		<p>
-			<%= f.submit "Redeem Card" %>
-		</p>
-	</div>
-	</br>
+	<%= hidden_field_tag :game_board_id, params[:id] %>
+	<p>
+		<%= f.label "Type your code here:" %>
+		<%= text_field_tag :code %>
+	</p>
+	<p>
+		<%= f.submit "Redeem Card" %>
+	</p>
 <% end %>
+</div>
+</br>

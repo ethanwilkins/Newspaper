@@ -1,0 +1,6 @@
+<% if current_user.admin %>
+	<%= render 'welcome' %>
+	<%= render 'codes/new' %>
+<% else %>
+	<p align="center">Check your privilege.</p>
+<% end %>

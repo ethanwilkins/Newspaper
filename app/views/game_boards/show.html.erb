@@ -1,0 +1,12 @@
+<div id="card">
+	<% @game_board.cards.each do |card| %>
+		<%= image_tag card.image %>
+	<% end %>
+	
+	<% if @game_board.cards.size < 1 %>
+		<p align="center">You have no cards on this board.</p>
+	<% end %>
+</div>
+</br>
+
+<%= render 'cards/new' %>

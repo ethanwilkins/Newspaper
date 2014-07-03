@@ -1,25 +1,23 @@
 class Card < ActiveRecord::Base
   belongs_to :user
-  validates :code, numericality: true
+  belongs_to :game_board
+  
+  validates :code_id, presence: true
   
   def title
-    case self.code
-      when 123
-        "Aligator"
-    end
+    Code.find(code_id).title if code_id
   end
   
-  def picture
-    case self.code
-      when 123
-        "cards/aligator.png"
-    end
+  def image
+    Code.find(code_id).image if code_id
   end
   
-  def redeem
-    codes = [123, 1234, 1245]
-    if codes.include? self.code
-      true
+  def self.redeem(code)
+    _code = Code.find_by_code(code)
+    unless _code.is_a_board
+      _code
+    else
+      nil
     end
   end
 end

@@ -4,13 +4,14 @@ class CardsController < ApplicationController
   end
   
   def create
-    @user = User.find(current_user)
-    @card = @user.cards.new(params[:card].permit(:code))
+    @code = Card.redeem params[:code]
+    @game_board = GameBoard.find(params[:game_board_id])
+    @card = @game_board.cards.new(code_id: @code.id) if @code
     
-    if @card.save and @card.redeem
-      redirect_to user_card_path(current_user, @card)
+    if @code and @card.save
+      redirect_to :back
     else
-      redirect_to user_cards_path(current_user)
+      redirect_to :back
     end
   end
 end

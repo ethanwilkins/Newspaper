@@ -1,0 +1,12 @@
+<%= form_for @game_board do |f| %>
+	<div id="card">
+		<p>
+			<%= f.label "Type your code here:" %>
+			<%= text_field_tag :code %>
+		</p>
+		<p>
+			<%= f.submit "Redeem" %>
+		</p>
+	</div>
+	</br>
+<% end %>

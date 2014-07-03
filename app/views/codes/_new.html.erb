@@ -1,0 +1,20 @@
+<div id="card">
+<p align="center">Submit new codes</p>
+<%= form_for @code, :html => {:multipart => true, "data-ajax" => false} do |f| %>
+	<p>
+		<%= f.text_field :code, placeholder: "Code" %>
+	</p>
+	<p>
+		<%= f.select :is_a_board, options_for_select([["Card", false], ["Game Board", true]])%>
+	</p>
+	<p>
+		<%= f.text_field :title, placeholder: "Title" %>
+	</p>
+	<p>
+		<%= f.file_field :image %>
+	</p>
+	<p>
+		<%= f.submit "Submit" %>
+	</p>
+<% end %>
+</div>

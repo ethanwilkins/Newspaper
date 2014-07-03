@@ -1,0 +1,16 @@
+<%= render "game_boards/new" %>
+
+<% @game_boards.each do |board| %>
+	<div id="card">
+		<% board.cards.each do |card| %>
+			<%= image_tag card.image, size: "50x50" %>
+		<% end %>
+		
+		<% if board.cards.size < 1 %>
+			<p align="center">You have no cards on this board</p>
+		<% end %>
+		
+		<%= button_to "Show", user_game_board_path(current_user, board), method: :get %>
+	</div>
+	</br>
+<% end %>

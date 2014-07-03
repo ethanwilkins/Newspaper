@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   get 'sessions/destroy'
   
   post 'cards/create', as: 'cards'
+  
+  post 'game_boards/create', as: 'game_boards'
+  
+  get 'admin', to: 'admin#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -33,9 +37,13 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+  
+  resources :codes
 
   resources :users do
-    resources :cards
+    resources :game_boards do
+      resources :cards
+    end
     resources :articles do
       resources :comments
     end

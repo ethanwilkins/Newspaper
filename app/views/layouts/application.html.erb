@@ -20,8 +20,7 @@
 			<table align="center">
 				<tr>
 					<td>
-						<%= button_to "", root_path, method: :get,
-							"data-icon" => "home", "data-iconpos" => "notext" %>
+						<%= button_to "Home", root_path, method: :get %>
 					</td>
 					<% unless current_user %>
 						<td>
@@ -29,6 +28,9 @@
 							<%= link_to "Log in", sessions_new_path %>
 						</td>
 					<% else %>
+						<td>
+							<%= button_to "News", user_articles_path(current_user), method: :get %>
+						</td>
 						<td>
 							<%= button_to "Log out", sessions_destroy_path, method: :get %>
 						</td>
