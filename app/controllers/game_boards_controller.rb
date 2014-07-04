@@ -12,6 +12,6 @@ class GameBoardsController < ApplicationController
   
   def show
     @game_board = GameBoard.find(params[:id])
-    @card = @game_board.cards.new
+    @card = Card.new
   end
 end

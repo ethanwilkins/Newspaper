@@ -5,6 +5,10 @@
 		<%= f.text_field :code, placeholder: "Code" %>
 	</p>
 	<p>
+		<%= f.select :advertiser, options_for_select([["Advertiser", nil],
+			["Gas Station", "gas_station"], ["Mexican Store", "mexican_store"]]) %>
+	</p>
+	<p>
 		<%= f.select :is_a_board, options_for_select([["Card", false], ["Game Board", true]])%>
 	</p>
 	<p>

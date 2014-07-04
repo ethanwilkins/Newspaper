@@ -5,11 +5,11 @@ class Card < ActiveRecord::Base
   validates :code_id, presence: true
   
   def title
-    Code.find(code_id).title if code_id
+    Code.find(code_id).title
   end
   
   def image
-    Code.find(code_id).image if code_id
+    Code.find(code_id).image
   end
   
   def self.redeem(code)
