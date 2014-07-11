@@ -15,31 +15,14 @@
 
 <body>
 	<div data-role="page" data-url="<%= request.path %>">
-
-		<div data-role="header">
-			<table align="center">
-				<tr>
-					<td>
-						<%= button_to "Home", root_path, method: :get %>
-					</td>
-					<% unless current_user %>
-						<td>
-							<%= link_to "Sign up", root_url %> or
-							<%= link_to "Log in", sessions_new_path %>
-						</td>
-					<% else %>
-						<td>
-							<%= button_to "News", user_articles_path(current_user), method: :get %>
-						</td>
-						<td>
-							<%= button_to "Log out", sessions_destroy_path, method: :get %>
-						</td>
-					<% end %>
-				</tr>
-			</table>
-		</div>
+		
+		<%= render "welcome/nav" %>
 
 		<div data-role="content">
+			<% flash.each do |name, message| %>
+				<div id="card"><p align="center"><%= message %></p></div></br>
+			<% end %>
+			
 			<%= yield %>
 		</div>
 

@@ -2,9 +2,7 @@
 
 <% @game_boards.each do |board| %>
 	<div id="card">
-		<% board.cards.each do |card| %>
-			<%= image_tag card.image, size: "50x50" %>
-		<% end %>
+		<%= render "game_boards/grid", cards: board.cards %>
 		
 		<% if board.cards.size < 1 %>
 			<p align="center">You have no cards on this board</p>

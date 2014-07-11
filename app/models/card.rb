@@ -2,13 +2,11 @@ class Card < ActiveRecord::Base
   belongs_to :user
   belongs_to :game_board
   
-  validates :code_id, presence: true
-  
-  def title
+  def code_title
     Code.find(code_id).title
   end
   
-  def image
+  def code_image
     Code.find(code_id).image
   end
   

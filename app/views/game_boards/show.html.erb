@@ -1,25 +1,7 @@
 <div id="card">
-	<% interval = 0 %>
-	<table>
-	<% @game_board.cards.each do |card| %>
-		<% if interval == 0 %>
-		<tr>
-			<td><%= image_tag card.image %></td>
-		<% elsif interval < 4 %>
-			<td><%= image_tag card.image %></td>
-		<% elsif interval % 4 == 0 %>
-		</tr>
-		<tr>
-			<td><%= image_tag card.image %></td>
-		<% elsif interval > 4 %>
-			<td><%= image_tag card.image %></td>
-		<% end %>
-		<% interval += 1 %>
-	<% end %>
-		</tr>
-	</table>
+	<%= render "game_boards/grid", cards: @cards %>
 	
-	<% if @game_board.cards.size < 1 %>
+	<% if @cards.size < 1 %>
 		<p align="center">You have no cards on this board.</p>
 	<% end %>
 </div>
