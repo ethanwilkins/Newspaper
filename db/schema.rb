@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140711011819) do
+ActiveRecord::Schema.define(version: 20140714040948) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20140711011819) do
     t.integer  "game_board_id"
     t.string   "image"
     t.string   "title"
+    t.boolean  "redeemed"
+    t.integer  "board_loc"
   end
 
   create_table "codes", force: true do |t|
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140711011819) do
     t.boolean  "is_a_board"
     t.string   "advertiser"
     t.integer  "board_number"
+    t.integer  "board_loc"
   end
 
   create_table "comments", force: true do |t|

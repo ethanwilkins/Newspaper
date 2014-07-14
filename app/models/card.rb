@@ -12,7 +12,7 @@ class Card < ActiveRecord::Base
   
   def self.redeem(code)
     _code = Code.find_by_code(code)
-    unless _code.is_a_board
+    unless _code and _code.is_a_board
       _code
     else
       nil

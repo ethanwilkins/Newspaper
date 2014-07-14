@@ -6,11 +6,13 @@ class CardsController < ApplicationController
   def create
     @code = Card.redeem params[:code]
     @game_board = GameBoard.find(params[:game_board_id])
-    @card = @game_board.cards.new(code_id: @code.id) if @code
+    @card = @game_board.cards.find_by_board_loc(@code.board_loc) if @code
     
-    if @code and @card.save
+    if @card
+      @card.update redeemed: true, code_id: @code.id
       redirect_to :back
     else
+      flash[:error] = "Invalid code."
       redirect_to :back
     end
   end
