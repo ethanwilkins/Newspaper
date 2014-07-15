@@ -3,23 +3,11 @@ class GameBoard < ActiveRecord::Base
   has_many :cards, dependent: :destroy
   
   def populate
-    case board_number
-    when 1
-      for image in Dir.glob("app/assets/images/cards/board_1/bw/*.png")
-        cards.create image: "cards/board_1/bw/#{image.split('/').last}"
-      end
-    when 2
-      for image in Dir.glob("app/assets/images/cards/board_2/bw/*.png")
-        cards.create image: "cards/board_2/bw/#{image.split('/').last}"
-      end
-    when 3
-      for image in Dir.glob("app/assets/images/cards/board_3/bw/*.png")
-        cards.create image: "cards/board_3/bw/#{image.split('/').last}"
-      end
-    when 4
-      for image in Dir.glob("app/assets/images/cards/board_4/bw/*.png")
-        cards.create image: "cards/board_4/bw/#{image.split('/').last}"
-      end
+    board_loc = 1
+    for image in Dir.glob("app/assets/images/cards/board_#{board_number.to_s}/bw/*.png")
+      cards.create image: "cards/board_#{board_number.to_s}/bw/#{image.split('/').last}",
+        board_loc: board_loc
+      board_loc += 1
     end
   end
   

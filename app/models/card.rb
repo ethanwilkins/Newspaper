@@ -2,6 +2,18 @@ class Card < ActiveRecord::Base
   belongs_to :user
   belongs_to :game_board
   
+  def redeemed_img
+    new_img = ""
+    image.split('/').each do |thing|
+      unless thing == "bw"
+        new_img << "/" + thing
+      else
+        new_img << "/color"
+      end
+    end
+    return new_img
+  end
+  
   def code_title
     Code.find(code_id).title
   end
