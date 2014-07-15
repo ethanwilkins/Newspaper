@@ -40,6 +40,6 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 # uploader for images
-# gem 'rmagick'
+gem 'rmagick'
 gem 'carrierwave'
 
