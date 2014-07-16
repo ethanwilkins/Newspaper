@@ -4,9 +4,13 @@ class Card < ActiveRecord::Base
   
   def redeemed_img
     new_img = ""
-    image.split('/').each do |thing|
-      unless thing == "bw"
-        new_img << "/" + thing
+    image.split('/').each do |string|
+      unless string == "bw"
+        if new_img.empty?
+          new_img << string
+        else
+          new_img << "/" + string
+        end
       else
         new_img << "/color"
       end

@@ -1,8 +1,5 @@
 class Code < ActiveRecord::Base
   validates :code, presence: true
-  validates :is_a_board, presence: true
-  
-  validate :board_num_if_board, on: :create
   
   mount_uploader :image, ImageUploader
   
