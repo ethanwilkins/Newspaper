@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714040948) do
+ActiveRecord::Schema.define(version: 20140716010731) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140714040948) do
     t.string   "advertiser"
     t.integer  "board_number"
     t.integer  "board_loc"
+    t.date     "expiration"
   end
 
   create_table "comments", force: true do |t|

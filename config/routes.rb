@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   
   post 'game_boards/create', as: 'game_boards'
   
+  delete 'codes/destroy', as: 'destroy_code'
+  
   get 'admin', to: 'admin#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

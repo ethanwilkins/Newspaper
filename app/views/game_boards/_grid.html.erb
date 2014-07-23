@@ -6,15 +6,15 @@
 	<% cards.each do |card| %>
 		<% if interval == 0 %>
 		<tr>
-			<td><%= card_image(card.image) %></td>
+			<td class="bw_game_card"><%= card_image(card.image) %></td>
 		<% elsif interval < 4 %>
-			<td><%= card_image(card.image) %></td>
+			<td class="bw_game_card"><%= card_image(card.image) %></td>
 		<% elsif interval % 4 == 0 %>
 		</tr>
 		<tr>
-			<td><%= card_image(card.image) %></td>
+			<td class="bw_game_card"><%= card_image(card.image) %></td>
 		<% elsif interval > 4 %>
-			<td><%= card_image(card.image) %></td>
+			<td class="bw_game_card"><%= card_image(card.image) %></td>
 		<% end %>
 		<% interval += 1 %>
 	<% end %>

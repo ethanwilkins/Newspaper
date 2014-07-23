@@ -1,0 +1,10 @@
+<% for code in @codes %>
+	<div id="card">
+		<div align="center">
+			<%= code.code %>
+			<%= link_to "Edit", edit_code_path(code) %>
+			<%= link_to "Delete", destroy_code_path(code), method: :delete,
+				data: { confirm: 'Are you sure?' } %>
+		</div>
+	</div></br>
+<% end %>

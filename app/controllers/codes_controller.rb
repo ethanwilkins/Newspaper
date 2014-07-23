@@ -1,4 +1,23 @@
 class CodesController < ApplicationController
+  def new
+    @code = Code.new
+  end
+  
+  def index
+    @codes = Code.all.reverse
+  end
+  
+  def edit
+    @code = Code.find(params[:id])
+  end
+  
+  def update
+    @code = Code.find(params[:id])
+    @code.update(params[:code].permit(:code, :is_a_board, :title, :image,
+      :advertiser, :board_number, :board_loc))
+    redirect_to :back
+  end
+  
   def create
     @code = Code.new(params[:code].permit(:code, :is_a_board, :title, :image,
       :advertiser, :board_number, :board_loc))

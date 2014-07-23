@@ -1,9 +1,11 @@
 <div id="card">
-	<%= render "game_boards/grid", cards: @cards %>
-	
 	<% if @cards.size < 1 %>
 		<p align="center">You have no cards on this board.</p>
 	<% end %>
+	
+	<%= render "game_boards/grid", cards: @cards %>
+	<%= button_to "Reset", user_game_board_path(@game_board), method: :get %>
+	<%= button_to "Delete", user_game_board_path(@game_board), method: :delete %>
 </div>
 </br>
 

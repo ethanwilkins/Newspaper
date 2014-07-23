@@ -1,6 +1,10 @@
 <% if current_user.admin %>
-	<%= render 'welcome' %>
-	<%= render 'codes/new' %>
+	<%= render 'stats' %>
+	
+	<div id="card">
+		<%= button_to "Register codes", new_code_path, method: :get %>
+		<%= button_to "List codes", codes_path, method: :get %>
+	</div>
 <% else %>
 	<p align="center">Check your privilege.</p>
 <% end %>

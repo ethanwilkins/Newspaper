@@ -1,4 +1,10 @@
 class GameBoardsController < ApplicationController
+  def reset
+    @game_board = GameBoard.find(params[:id])
+    @game_board.cards.destroy_all
+    @game_board.populate
+  end
+  
   def create
     @code = GameBoard.redeem params[:code]
     @game_board = current_user.game_boards.new(code_id: @code.id) if @code
@@ -9,6 +15,12 @@ class GameBoardsController < ApplicationController
     else
       redirect_to :back
     end
+  end
+  
+  def destroy
+    @game_board = GameBoard.find(params[:id])
+    @game_board.destroy
+    redirect_to root_url
   end
   
   def show
