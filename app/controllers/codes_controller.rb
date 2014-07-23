@@ -1,4 +1,9 @@
 class CodesController < ApplicationController
+  def clear
+    Code.destroy_all
+    redirect_to :back
+  end
+  
   def new
     @code = Code.new
   end
@@ -15,7 +20,7 @@ class CodesController < ApplicationController
     @code = Code.find(params[:id])
     @code.update(params[:code].permit(:code, :is_a_board, :title, :image,
       :advertiser, :board_number, :board_loc))
-    redirect_to :back
+    redirect_to codes_path
   end
   
   def create
@@ -32,7 +37,7 @@ class CodesController < ApplicationController
       else
         flash[:error] = "Invalid input."
       end
-      redirect_to :back
+      redirect_to admin_path
     end
   end
 end

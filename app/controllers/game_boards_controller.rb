@@ -3,6 +3,7 @@ class GameBoardsController < ApplicationController
     @game_board = GameBoard.find(params[:id])
     @game_board.cards.destroy_all
     @game_board.populate
+    redirect_to :back
   end
   
   def create
@@ -24,7 +25,8 @@ class GameBoardsController < ApplicationController
   end
   
   def show
-    @cards = GameBoard.find(params[:id]).cards
+    @game_board = GameBoard.find(params[:id])
+    @cards = @game_board.cards
     @card = Card.new
   end
 end

@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   
   delete 'codes/destroy', as: 'destroy_code'
   
+  delete 'codes/clear', as: 'clear'
+  
+  delete 'game_boards/destroy/:id', to: 'game_boards#destroy', as: 'destroy_board'
+  
+  get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
+  
   get 'admin', to: 'admin#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

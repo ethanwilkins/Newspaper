@@ -2,12 +2,11 @@
 
 <% @game_boards.each do |board| %>
 	<div id="card">
-		<%= render "game_boards/grid", cards: board.cards %>
-		
 		<% if board.cards.size < 1 %>
 			<p align="center">You have no cards on this board</p>
 		<% end %>
 		
+		<%= render "game_boards/grid", cards: board.cards %></br>
 		<%= button_to "Show", user_game_board_path(current_user, board), method: :get %>
 	</div>
 	</br>

@@ -4,8 +4,20 @@
 	<% end %>
 	
 	<%= render "game_boards/grid", cards: @cards %>
-	<%= button_to "Reset", user_game_board_path(@game_board), method: :get %>
-	<%= button_to "Delete", user_game_board_path(@game_board), method: :delete %>
+	</br>
+	<table align="center">
+		<tr>
+			<td>
+				<%= link_to "Reset", reset_path(@game_board),
+					data: { confirm: 'Are you sure?' } %>
+			</td>
+			<td>|</td>
+			<td>
+				<%= link_to "Delete", destroy_board_path(@game_board),
+					method: :delete, data: { confirm: 'Are you sure?' } %>
+			</td>
+		</tr>
+	</table>
 </div>
 </br>
 

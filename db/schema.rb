@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140716010731) do
+ActiveRecord::Schema.define(version: 20140723173003) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 20140716010731) do
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "game_board_id"
     t.boolean  "is_a_board"
     t.string   "advertiser"
     t.integer  "board_number"

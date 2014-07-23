@@ -26,12 +26,10 @@ class Card < ActiveRecord::Base
     Code.find(code_id).image
   end
   
-  def self.redeem(code)
+  def self.redeem(code, board_num)
     _code = Code.find_by_code(code)
     unless _code and _code.is_a_board
-      _code
-    else
-      nil
+      _code if _code.board_number == board_num
     end
   end
 end

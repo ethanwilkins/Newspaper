@@ -1,3 +1,7 @@
+<div id="large_button">
+	<%= button_to "Clear all", clear_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+</div></br>
+
 <% for code in @codes %>
 	<div id="card">
 		<div align="center">
