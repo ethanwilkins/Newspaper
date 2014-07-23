@@ -19,7 +19,7 @@
 			<% end %>
 		</tr>
 	</table>
-	<% if current_user.admin %>
+	<% if current_user and current_user.admin %>
 		<div id="top_right">
 			<%= link_to "Admin", admin_path %>
 		</div>
