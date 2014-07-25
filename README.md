@@ -1,3 +1,0 @@
-Newspaper
-=========
-A spanish newspaper

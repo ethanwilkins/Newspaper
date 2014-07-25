@@ -1,5 +1,9 @@
 #!/bin/bash
 
+cd /Users/ethanwilkins/Documents/GitHub/
+
+rm -rf newspaper/*
+
 cp -r /Users/ethanwilkins/Documents/ruby/rails/newspaper/ /Users/ethanwilkins/Documents/GitHub/newspaper/
 
 cd /Users/ethanwilkins/Documents/GitHub/newspaper
