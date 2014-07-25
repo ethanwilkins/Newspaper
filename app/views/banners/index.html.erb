@@ -1,7 +1,9 @@
-<%= image_tag @banner.image if @banner %>
-
-<% @banners.each do |banner| %>
+<% if @banner %>
 	<div id="card">
-		<%= image_tag banner.image %>
-	</div>
+		<div align="center">Current banner</div></br>
+		<div align="center"><%= image_tag @banner.image, id: :banner %></div>
+	</div></br>
+	<%= render "edit" %>
+<% else %>
+	<%= render "new" %>
 <% end %>

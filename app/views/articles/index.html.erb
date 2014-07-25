@@ -1,2 +1,14 @@
-<h1>Article#index</h1>
-<p>Find me in app/views/article/index.html.erb</p>
+<% if current_user.writer or current_user.admin %>
+	<div id="large_button">
+		<%= button_to "Write an article", new_article_path, method: :get %>
+	</div>
+<% end %>
+
+<% @articles.each do |article| %>
+	<div id="card">
+		<div align="center"><%= article.title %></div>
+		<div align="center"><%= image_tag article.image %></div>
+		<div align="center"><%= article.body %></div>
+	</div>
+<% end %>
+		

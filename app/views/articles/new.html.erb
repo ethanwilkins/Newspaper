@@ -1,2 +1,17 @@
-<h1>Article#new</h1>
-<p>Find me in app/views/article/new.html.erb</p>
+<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<div id="card">
+		<p>
+			<%= f.text_field :title, placeholder: "Title" %>
+		</p>
+		<p>
+			<%= f.file_field :image %>
+		</p>
+		<p>
+			<%= f.text_area :body, placeholder: "Body" %>
+		</p>
+		<p>
+			<%= f.submit "Publish" %>
+		</p>
+	</div>
+	</br>
+<% end %>

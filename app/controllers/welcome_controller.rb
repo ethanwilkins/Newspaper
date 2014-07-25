@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   def index
+    @banner = Banner.last
     @user = User.new
     if current_user
       @game_board = GameBoard.new

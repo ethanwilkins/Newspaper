@@ -1,0 +1,12 @@
+<%= form_for @new_banner, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<div id="card">
+		<p align="center">Upload a banner</p>
+		<p>
+			<%= f.file_field :image %>
+		</p>
+		<p>
+			<%= f.submit "Upload" %>
+		</p>
+	</div>
+	</br>
+<% end %>

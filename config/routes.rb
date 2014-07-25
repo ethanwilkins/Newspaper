@@ -48,13 +48,13 @@ Rails.application.routes.draw do
   
   resources :codes
   resources :banners
+  resources :articles do
+    resources :comments
+  end
 
   resources :users do
     resources :game_boards do
       resources :cards
-    end
-    resources :articles do
-      resources :comments
     end
   end
   

@@ -11,7 +11,7 @@
 				</td>
 			<% else %>
 				<td>
-					<%= button_to "News", user_articles_path(current_user), method: :get %>
+					<%= button_to "News", articles_path, method: :get %>
 				</td>
 				<td>
 					<%= button_to "Log out", sessions_destroy_path, method: :get %>
