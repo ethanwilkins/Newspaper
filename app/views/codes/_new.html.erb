@@ -1,15 +1,14 @@
 <div id="card">
-<p align="center">Submit new codes</p>
+<p align="center">Register codes</p>
 <%= form_for @code, :html => {:multipart => true, "data-ajax" => false} do |f| %>
 	<p>
 		<%= f.text_field :code, placeholder: "Code" %>
 	</p>
 	<p>
-		<%= f.select :advertiser, options_for_select([["Advertiser", nil],
-			["Gas Station", "gas_station"], ["Mexican Store", "mexican_store"]]) %>
+		<%= f.text_field :advertiser, placeholder: "Advertiser" %>
 	</p>
 	<p>
-		<%= f.select :is_a_board, options_for_select([["Card", false], ["Game Board", true]])%>
+		<%= f.select :is_a_board, options_for_select([["Card or Board", nil],["Card", false], ["Board", true]])%>
 	</p>
 	<p>
 		<%= f.select :board_number, options_for_select([["Board number", nil], 1, 2, 3, 4])%>
@@ -28,4 +27,4 @@
 		<%= f.submit "Submit" %>
 	</p>
 <% end %>
-</div>
+</div></br>

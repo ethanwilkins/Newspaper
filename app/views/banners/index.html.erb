@@ -1,0 +1,7 @@
+<%= image_tag @banner.image if @banner %>
+
+<% @banners.each do |banner| %>
+	<div id="card">
+		<%= image_tag banner.image %>
+	</div>
+<% end %>

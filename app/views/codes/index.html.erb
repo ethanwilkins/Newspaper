@@ -1,14 +1,18 @@
 <div id="large_button">
-	<%= button_to "Clear all codes", clear_path, method: :delete, data: { confirm: 'Are you sure?' } %>
 </div></br>
 
-<% for code in @codes %>
-	<div id="card">
+<%= render "new" %>
+
+<% unless @codes.empty? %>
+<div id="card">
+	<%= button_to "Clear all codes", clear_path, method: :delete, data: { confirm: 'Are you sure?' } %></br>
+	<% for code in @codes %>
 		<div align="center">
 			<%= code.code %>
 			<%= link_to "Edit", edit_code_path(code) %>
 			<%= link_to "Delete", destroy_code_path(code), method: :delete,
 				data: { confirm: 'Are you sure?' } %>
-		</div>
-	</div></br>
+		</div></br>
+	<% end %>
+</div></br>
 <% end %>

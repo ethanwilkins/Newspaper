@@ -2,8 +2,8 @@
 	<%= render 'stats' %>
 	
 	<div id="card">
-		<%= button_to "Register codes", new_code_path, method: :get %>
-		<%= button_to "List codes", codes_path, method: :get %>
+		<%= button_to "Codes", codes_path, method: :get %>
+		<%= button_to "Banner", banners_path, method: :get %>
 	</div>
 <% else %>
 	<p align="center">Check your privilege.</p>

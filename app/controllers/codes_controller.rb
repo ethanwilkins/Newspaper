@@ -4,11 +4,8 @@ class CodesController < ApplicationController
     redirect_to :back
   end
   
-  def new
-    @code = Code.new
-  end
-  
   def index
+    @code = Code.new
     @codes = Code.all.reverse
   end
   
@@ -39,5 +36,11 @@ class CodesController < ApplicationController
       end
       redirect_to admin_path
     end
+  end
+  
+  def destroy
+    @code = Code.find(params[:id])
+    @code.destroy
+    redirect_to :back
   end
 end

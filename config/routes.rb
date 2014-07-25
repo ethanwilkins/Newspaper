@@ -7,15 +7,15 @@ Rails.application.routes.draw do
   
   post 'cards/create', as: 'cards'
   
-  post 'game_boards/create', as: 'game_boards'
-  
-  delete 'codes/destroy', as: 'destroy_code'
-  
   delete 'codes/clear', as: 'clear'
+  
+  delete 'codes/destroy/:id', to: 'codes#destroy', as: 'destroy_code'
   
   delete 'game_boards/destroy/:id', to: 'game_boards#destroy', as: 'destroy_board'
   
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
+  
+  post 'game_boards/create', as: 'game_boards'
   
   get 'admin', to: 'admin#index'
 
@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   #   end
   
   resources :codes
+  resources :banners
 
   resources :users do
     resources :game_boards do
