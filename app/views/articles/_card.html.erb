@@ -1,0 +1,12 @@
+<% time_ago = time_ago_in_words(article.created_at) + " ago" %>
+
+<% if time_ago.include? "about" %>
+	<% time_ago.slice! "about " %>
+<% end %>
+
+<div id="card">
+	<%= link_to time_ago, article_path(article), id: :top_right_time %>
+	
+	<%= render "content", article: article %>
+	<%= render "info", article: article %>
+</div></br>

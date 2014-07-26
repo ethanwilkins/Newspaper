@@ -1,10 +1,12 @@
 <table align="center">
 	<tr>
-		<% unless article.comments.empty? %>
-			<td>
+		<td>
+			<% unless article.comments.empty? %>
 				<%= link_to pluralize(article.comments.size, "comment"),
-					article_path(article), id: :comment_number %>
-			</td>
-		<% end %>
+					article_path(article), id: :info %>
+			<% else %>
+				<%= link_to "Reply", post_path(post), id: :info %>
+			<% end %>
+		</td>
 	</td>
 </table>

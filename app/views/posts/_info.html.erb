@@ -3,9 +3,9 @@
 		<td>
 		<% unless post.comments.empty? %>
 			<%= link_to pluralize(post.comments.size, "comment"),
-				post_path(post), id: :comment_number %>
+				post_path(post), id: :info %>
 		<% else %>
-			<%= link_to "Reply", post_path(post), id: :comment_number %>
+			<%= link_to "Reply", post_path(post), id: :info %>
 		<% end %>
 		</td>
 	</td>
