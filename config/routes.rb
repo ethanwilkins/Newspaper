@@ -15,6 +15,10 @@ Rails.application.routes.draw do
   
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
+  get "hashtags/search/:query", to: "hashtags#search", as: "tagged"
+  
+  get "hashtags/search", as: "search"
+  
   post 'game_boards/create', as: 'game_boards'
   
   post 'comments/create', as: 'comments'

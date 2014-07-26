@@ -1,0 +1,9 @@
+<% unless post.hashtags.empty? %>
+<table align="center">
+	<tr>
+	<% post.hashtags.each do |tag| %>
+		<td><%= link_to tag.tag, tagged_path(tag.tag) %></td>
+	<% end %>
+	</tr>
+</table>
+<% end %>

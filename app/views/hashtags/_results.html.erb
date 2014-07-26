@@ -1,0 +1,8 @@
+<% if @tags %>
+	<% @tags.each do |tag| %>
+		<% if tag.post_id %>
+			<% post = tag.item %>
+			<%= render "posts/card", post: post %>
+		<% end %>
+	<% end %>
+<% end %>

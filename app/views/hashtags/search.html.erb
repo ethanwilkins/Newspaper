@@ -1,0 +1,9 @@
+<%= render "search_bar" %>
+
+<%= render "results" %>
+
+<% if @no_results %>
+	<div id="card">
+		<p align="center"><%= @no_results %></p>
+	</div>
+<% end %>

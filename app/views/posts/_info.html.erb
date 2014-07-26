@@ -1,0 +1,12 @@
+<table align="center">
+	<tr>
+		<td>
+		<% unless post.comments.empty? %>
+			<%= link_to pluralize(post.comments.size, "comment"),
+				post_path(post), id: :comment_number %>
+		<% else %>
+			<%= link_to "Reply", post_path(post), id: :comment_number %>
+		<% end %>
+		</td>
+	</td>
+</table>

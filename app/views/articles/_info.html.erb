@@ -1,7 +1,10 @@
 <table align="center">
 	<tr>
-		<td>
-			<!-- time ago and number of comments -->
-		</td>
+		<% unless article.comments.empty? %>
+			<td>
+				<%= link_to pluralize(article.comments.size, "comment"),
+					article_path(article), id: :comment_number %>
+			</td>
+		<% end %>
 	</td>
 </table>

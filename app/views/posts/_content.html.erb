@@ -1,9 +1,11 @@
-<div id="card">
-	<div align="center"><%= link_to post.title, post_path(post) %></div>
-	
-	<% if post.image %>
-		<div align="center"><%= image_tag post.image %></div>
+<% if post.image %>
+	<div align="center"><%= image_tag post.image %></div>
+<% end %>
+
+<p align="center"><%= post.body %>
+
+	<% post.hashtags.each do |tag| %>
+		<%= link_to tag.tag, tagged_path(tag.tag) %> 
 	<% end %>
-	
-	<p align="center"><%= post.body %></p>
-</div></br>
+
+</p>

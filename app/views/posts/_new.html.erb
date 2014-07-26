@@ -1,11 +1,7 @@
 <%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 	<div id="card">
-		<p align="center">Start a thread</p>
 		<p>
-			<%= f.text_field :title, placeholder: "Title" %>
-		</p>
-		<p>
-			<%= f.text_area :body, placeholder: "Body" %>
+			<%= f.text_area :body, placeholder: "Start a thread..." %>
 		</p>
 		<p>
 			<%= f.submit "Post" %>
