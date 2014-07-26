@@ -1,2 +1,5 @@
-<h1>Article#show</h1>
-<p>Find me in app/views/article/show.html.erb</p>
+<div id="card">
+	<div align="center"><%= link_to @article.title, article_path(@article) %></div>
+	<div align="center"><%= image_tag @article.image %></div>
+	<div align="center"><%= @article.body %></div>
+</div></br>
