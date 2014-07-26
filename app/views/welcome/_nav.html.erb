@@ -1,4 +1,4 @@
-<div data-role="header">
+<div id="nav" data-role="header">
 	<table align="center">
 		<tr>
 			<td>
@@ -14,14 +14,15 @@
 					<%= button_to "News", articles_path, method: :get %>
 				</td>
 				<td>
-					<%= button_to "Log out", sessions_destroy_path, method: :get %>
+					<%= button_to "Social", articles_path, method: :get %>
 				</td>
 			<% end %>
 		</tr>
 	</table>
-	<% if current_user and current_user.admin %>
+	<% if current_user %>
 		<div id="top_right">
-			<%= link_to "Admin", admin_path %>
+			<%= link_to("Admin", admin_path) if current_user.admin %>
+			<%= link_to("Log out", sessions_destroy_path) unless current_user.admin %>
 		</div>
 	<% end %>
 </div>

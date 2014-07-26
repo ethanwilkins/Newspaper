@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140725044348) do
+ActiveRecord::Schema.define(version: 20140726004328) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20140725044348) do
     t.text     "body"
     t.integer  "user_id"
     t.boolean  "draft"
+    t.string   "image"
   end
 
   create_table "banners", force: true do |t|
