@@ -22,7 +22,8 @@
 	<% if current_user %>
 		<div id="top_right">
 			<%= link_to("Admin", admin_path) if current_user.admin %>
-			<%= link_to("Log out", sessions_destroy_path) unless current_user.admin %>
+			<%= link_to("Log out", sessions_destroy_path,
+				data: { confirm: 'Are you sure?' }) unless current_user.admin %>
 		</div>
 	<% end %>
 </div>
