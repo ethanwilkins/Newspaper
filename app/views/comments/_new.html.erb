@@ -1,0 +1,22 @@
+<!-- new comment for articles and posts and replies to comments -->
+
+<%= form_for @comment, html: {multipart: true, "data-ajax" => false} do |f| %>
+
+	<% if @article %>
+		<%= hidden_field_tag :article_id, @article.id %>
+	<% elsif @post %>
+		<%= hidden_field_tag :post_id, @post.id %>
+	<% elsif @reply %>
+		<%= hidden_field_tag :comment_id, @reply.id %>
+	<% end %>
+	
+	<div id="card">
+		<p>
+			<%= f.text_area :text, placeholder: "Leave a comment..." %>
+		</p>
+		<p>
+			<%= f.submit "Comment" %>
+		</p>
+	</div>
+	</br>
+<% end %>

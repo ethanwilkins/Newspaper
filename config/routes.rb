@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   
   post 'game_boards/create', as: 'game_boards'
   
+  post 'comments/create', as: 'comments'
+  
   get 'admin', to: 'admin#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -47,10 +49,9 @@ Rails.application.routes.draw do
   #   end
   
   resources :codes
+  resources :posts
   resources :banners
-  resources :articles do
-    resources :comments
-  end
+  resources :articles
 
   resources :users do
     resources :game_boards do

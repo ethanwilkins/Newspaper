@@ -1,0 +1,7 @@
+<div id="large_button">
+	<%= button_to "Start a thread", new_post_path, method: :get %>
+</div></br>
+
+<% @posts.each do |post| %>
+	<%= render "content", post: post %>
+<% end %>

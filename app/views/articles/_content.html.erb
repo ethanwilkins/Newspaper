@@ -1,0 +1,9 @@
+<div id="card">
+	<div align="center"><%= link_to article.title, article_path(article) %></div>
+	
+	<% if article.image %>
+		<div align="center"><%= image_tag article.image %></div>
+	<% end %>
+	
+	<p align="center"><%= article.body %></p>
+</div></br>
