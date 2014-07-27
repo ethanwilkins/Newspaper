@@ -1,3 +1,21 @@
 // Place all the styles related to the comment controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$info_color: rgb(190, 190, 190);
+
+#comment_link {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#top_right_time {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}

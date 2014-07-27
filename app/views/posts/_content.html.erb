@@ -1,11 +1,11 @@
-<% if post.image %>
+<% if post.image.url %>
 	<div align="center"><%= image_tag post.image %></div>
 <% end %>
 
-<p align="center"><%= post.body %>
-
+<p align="center">
+	<%= post.body %>
 	<% post.hashtags.each do |tag| %>
-		<%= link_to tag.tag, tagged_path(tag.tag) %> 
+		<%= link_to tag.tag, tagged_path(tag.tag) %>
+		<%= " " %>
 	<% end %>
-
 </p>
