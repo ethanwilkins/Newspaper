@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726190427) do
+ActiveRecord::Schema.define(version: 20140729005943) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 20140726190427) do
   create_table "hashtags", force: true do |t|
     t.integer  "post_id"
     t.string   "tag"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "notes", force: true do |t|
+    t.string   "message"
+    t.string   "action"
+    t.boolean  "checked",       default: false
+    t.integer  "item_id"
+    t.integer  "user_id"
+    t.integer  "other_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

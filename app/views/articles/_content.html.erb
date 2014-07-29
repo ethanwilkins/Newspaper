@@ -2,7 +2,8 @@
 
 <% if article.image.url %>
 	</br>
-	<div align="center"><%= image_tag article.image, id: :post_image %></div>
+	<div align="center"><%= link_to image_tag(article.image,
+		id: :post_image), article_path(article) %></div>
 <% end %>
 
 <p align="center"><%= article.body %></p>

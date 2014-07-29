@@ -16,6 +16,11 @@
 				<td>
 					<%= button_to "Social", posts_path, method: :get %>
 				</td>
+				<td>
+					<% notes = current_user.notes.unchecked.size.to_s %>
+					<% notes = "+ " + current_user.notes.unchecked.size.to_s if current_user.notes.unchecked.size > 0 %>
+					<%= button_to notes, notes_path, method: :get %>
+				</td>
 			<% end %>
 		</tr>
 	</table>

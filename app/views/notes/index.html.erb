@@ -1,0 +1,25 @@
+<% if current_user %>
+	<% if current_user.notes.empty? %>
+		<div id="card"><p align="center">You have zero notifications.</p></div>
+	<% end %>
+	<br>
+
+	<% @notes.each do |note| %>
+		<div id="card">
+			<table align="center">
+				<tr>
+					<td>
+						<% case note.action.to_sym %>
+							<% when :post_comment %>
+								<%= link_to note.message, post_path(note.item_id) %>
+							<% when :article_comment %>
+								<%= link_to note.message, article_path(note.item_id)%>
+							<% when :comment_reply %>
+								<%= link_to note.message, comment_path(note.item_id) %>
+						<% end %>
+					</td>
+				</tr>
+			</table>
+		</div><br>
+	<% end %>
+<% end %>

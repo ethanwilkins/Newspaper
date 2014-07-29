@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :game_boards, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :notes, dependent: :destroy
   # validations for creation of user
   validates :name, presence: true
   validates :password, presence: true

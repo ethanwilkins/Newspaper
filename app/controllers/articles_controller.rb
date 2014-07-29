@@ -5,7 +5,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
-    @comments = @article.comments
+    @comments = @article.comments.reverse
     @comment = Comment.new
   end
   
@@ -20,6 +20,7 @@ class ArticlesController < ApplicationController
   
   def create
     @article = Article.new(params[:article].permit(:title, :body, :image))
+    @article.user_id = current_user.id
     
     if @article.save
       redirect_to articles_path

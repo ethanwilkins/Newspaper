@@ -4,6 +4,10 @@
 	</div></br>
 <% end %>
 
+<% if @articles.empty? %>
+	<div id="card"><p align="center">No articles have been published.</p></div>
+<% end %>
+
 <% @articles.each do |article| %>
 	<%= render "card", article: article %>
 <% end %>
