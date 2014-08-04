@@ -1,0 +1,6 @@
+<% unless comment.comments.empty? %>
+	<%= link_to pluralize(comment.comments.size, "reply"),
+		comment_path(comment), id: :comment_link %>
+<% else %>
+	<%= link_to "Reply", comment_path(comment), id: :comment_link %>
+<% end %>

@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comments = @post.comments.reverse
-    @comment = Comment.new
+    @new_comment = Comment.new
   end
   
   def index

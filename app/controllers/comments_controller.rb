@@ -1,4 +1,10 @@
 class CommentsController < ApplicationController
+  def show
+    @comment = Comment.find(params[:id])
+    @replies = @comment.comments.reverse
+    @new_comment = Comment.new
+  end
+  
   def create
     @comment = Comment.new(params[:comment].permit(:text))
     @comment.user_id = current_user.id

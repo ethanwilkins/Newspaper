@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   
   get "hashtags/search/:query", to: "hashtags#search", as: "tagged"
   
-  get 'comments/show/:id', to: 'comment#show', as: 'comment'
+  get 'comments/show/:id', to: 'comments#show', as: 'comment'
   
   get "hashtags/search", as: "search"
   

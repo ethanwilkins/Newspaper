@@ -1,0 +1,11 @@
+<% time_ago = time_ago_in_words(comment.created_at) + " ago" %>
+<!-- takes the word 'about' out of time_ago -->
+<% if time_ago.include? "about" %>
+	<% time_ago.slice! "about " %>
+<% end %>
+
+<div id="card">
+	<%= link_to time_ago, comment_path(comment), id: :top_right_time %>
+	<p align="center"><%= comment.text %></p>
+	<%= render "comments/comment_link", comment: comment %>
+</div></br>

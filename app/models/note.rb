@@ -11,7 +11,7 @@ class Note < ActiveRecord::Base
   end
   
   def self.notify(sender, receiver, action, item_id=1)
-    if self != sender then
+    if sender != receiver then
       name = sender.name.capitalize
       case action
         when :post_comment

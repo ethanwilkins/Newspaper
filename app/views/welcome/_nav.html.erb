@@ -18,8 +18,12 @@
 				</td>
 				<td>
 					<% notes = current_user.notes.unchecked.size.to_s %>
-					<% notes = "+ " + current_user.notes.unchecked.size.to_s if current_user.notes.unchecked.size > 0 %>
-					<%= button_to notes, notes_path, method: :get %>
+					<% if current_user.notes.unchecked.size > 0 %>
+						<% notes = "+ " + current_user.notes.unchecked.size.to_s %>
+						<%= button_to notes, notes_path, method: :get %>
+					<% else %>
+						<%= button_to notes, notes_path, method: :get %>
+					<% end %>
 				</td>
 			<% end %>
 		</tr>

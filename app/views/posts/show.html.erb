@@ -3,7 +3,5 @@
 <%= render "comments/new" %>
 
 <% @comments.each do |comment| %>
-	<div id="card">
-		<p align="center"><%= comment.text %></p>
-	</div></br>
+	<%= render "comments/card", comment: comment %>
 <% end %>

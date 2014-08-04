@@ -1,0 +1,7 @@
+<%= render "comments/card", comment: @comment %>
+
+<%= render "comments/new" %>
+
+<% @replies.each do |reply| %>
+	<%= render "comments/card", comment: reply %>
+<% end %>
