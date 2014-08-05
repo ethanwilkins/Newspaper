@@ -10,7 +10,10 @@ class CardsController < ApplicationController
     
     if @card
       @card.update redeemed: true, code_id: @code.id, image: @card.redeemed_img
-      flash[:notice] = "You won!" if @game_board.you_won!
+      if @game_board.you_won!
+        flash[:notice] = "You won!"
+        # could create prize here or inside you_won!
+      end
       redirect_to :back
     else
       flash[:error] = "Invalid code."
