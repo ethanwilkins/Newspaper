@@ -25,16 +25,25 @@ class CodesController < ApplicationController
       :advertiser, :board_number, :board_loc))
     
     if @code.save
+      flash[:notice] = "Code saved."
       redirect_to :back
     else
-      if @code.is_a_board and @code.board_number.nil?
-        flash[:error] = "Boards require a number."
-      elsif @code.code.nil?
+      if @code.code.nil?
         flash[:error] = "A code must be entered."
+        
+      elsif @code.errors.include? :board_code_exists
+        flash[:error] = @code.errors[:board_code_exists].first
+        
+      elsif @code.errors.include? :card_code_exists
+        flash[:error] = @code.errors[:card_code_exists].first
+        
+      elsif @code.errors.include? :board_needs_number
+        flash[:error] = @code.errors[:board_needs_number].first
+        
       else
-        flash[:error] = "Invalid input."
+        flash[:error] = "Invalid input"
       end
-      redirect_to admin_path
+      redirect_to :back
     end
   end
   

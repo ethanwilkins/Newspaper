@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729005943) do
+ActiveRecord::Schema.define(version: 20140804203611) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -77,6 +77,9 @@ ActiveRecord::Schema.define(version: 20140729005943) do
     t.string   "tag"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "article_id"
+    t.integer  "comment_id"
+    t.integer  "user_id"
   end
 
   create_table "notes", force: true do |t|

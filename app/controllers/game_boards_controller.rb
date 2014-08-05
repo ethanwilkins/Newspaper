@@ -10,7 +10,7 @@ class GameBoardsController < ApplicationController
     @code = GameBoard.redeem params[:code]
     @game_board = current_user.game_boards.new(code_id: @code.id) if @code
     
-    if @code and @game_board.save
+    if @game_board.save
       @game_board.populate
       redirect_to user_game_board_path(current_user, @game_board)
     else

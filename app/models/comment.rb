@@ -4,4 +4,5 @@ class Comment < ActiveRecord::Base
   # for comment replies
   belongs_to :comment
   has_many :comments
+  has_many :hashtags
 end
