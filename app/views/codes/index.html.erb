@@ -8,10 +8,12 @@
 			<strong><%= "#{code.code}: " %></strong>
 			<%= "Card #{code.board_loc} on Board #{code.board_number}" unless code.is_a_board %>
 			<%= "Board #{code.board_number}" if code.is_a_board %>
+			<div>
 			<!-- code controls for manipulating codes -->
 			<%= link_to "Edit", edit_code_path(code) %>
 			<%= link_to "Delete", destroy_code_path(code), method: :delete,
 				data: { confirm: 'Are you sure?' } %>
+			</div>
 		</div><hr id="gray_horizon">
 	<% end %>
 </div></br>

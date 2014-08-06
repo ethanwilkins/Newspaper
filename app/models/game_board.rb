@@ -3,20 +3,18 @@ class GameBoard < ActiveRecord::Base
   has_many :cards, dependent: :destroy
   
   def you_won!
-    wins = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16], # horizontal lines
-            [1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16], # vertical lines
-            [1, 2, 5, 6], [2, 3, 6, 7], [3, 4, 7, 8], [5, 6, 9, 10], [6, 7, 10, 11], # small squares
-            [7, 8, 11, 12], [9, 10, 13, 14], [10, 11, 14, 15], [11, 12, 15, 16], # small squares
-            [1, 4, 13, 16]] # large square
     winner = false
-    for win in wins
-      not_a_win = false
+    Prize.wins.each do |key, win|
+      a_win = true
       for num in win
         unless cards.find_by_board_loc(num).redeemed
-          not_a_win = true
+          a_win = false
         end
       end
-      winner = true unless not_a_win
+      if a_win
+        winner = true
+        User.find(user_id).prizes.create winning_combo: key.to_s
+      end
     end
     return winner
   end
