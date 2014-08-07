@@ -4,6 +4,7 @@ class GameBoard < ActiveRecord::Base
   
   def you_won!
     winner = false
+    user = User.find(user_id)
     Prize.wins.each do |key, win|
       a_win = true
       for num in win
@@ -11,9 +12,9 @@ class GameBoard < ActiveRecord::Base
           a_win = false
         end
       end
-      if a_win
+      if a_win and Prize.not_won_before(key.to_s, user)
         winner = true
-        User.find(user_id).prizes.create winning_combo: key.to_s
+        user.prizes.create winning_combo: key.to_s
       end
     end
     return winner

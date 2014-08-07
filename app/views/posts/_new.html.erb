@@ -1,11 +1,23 @@
-<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
-	<div id="card">
+<div id="card">
+	<table align="center">
+		<tr>
+			<td>
+				<%= button_to "Jokes", posts_path, method: :get %>
+			</td>
+			<td>
+				<%= button_to "Questions", posts_path, method: :get %>
+			</td>
+			<td>
+				<%= button_to "Search", search_path, method: :get %>
+			</td>
+		</tr>
+	</table>
+	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<p>
 			<%= f.text_area :body, placeholder: "Start a thread..." %>
 		</p>
 		<p>
 			<%= f.submit "Post" %>
 		</p>
-	</div>
-	</br>
-<% end %>
+	<% end %>
+</div></br>

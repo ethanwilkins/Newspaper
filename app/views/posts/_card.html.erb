@@ -7,6 +7,6 @@
 <div id="card">
 	<%= link_to time_ago, post_path(post), id: :top_right_time %>
 	
-	<%= render "content", post: post %>
-	<%= render "comment_link", post: post %>
+	<%= render "posts/content", post: post %>
+	<%= render "posts/comment_link", post: post %>
 </div></br>

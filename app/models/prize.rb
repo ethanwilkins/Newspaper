@@ -1,6 +1,10 @@
 class Prize < ActiveRecord::Base
   belongs_to :user
   
+  def self.not_won_before(key, user)
+    true unless user.prizes.find_by_winning_combo(key)
+  end
+  
   def self.wins
     # a hash containing all possible winning combinations, the key of your winning combo gets saved
     { h1: [1, 2, 3, 4],   h2: [5, 6, 7, 8],    h3: [9, 10, 11, 12],  h4: [13, 14, 15, 16], # horizontal lines
