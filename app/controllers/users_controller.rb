@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user].permit(:name, :password))
+    @user = User.new(params[:user].permit(:name, :zip_code, :password))
     @user.name.downcase!
     
     if @user.save
