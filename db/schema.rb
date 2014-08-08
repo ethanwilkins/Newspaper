@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140806195331) do
+ActiveRecord::Schema.define(version: 20140808012005) do
+
+  create_table "ads", force: true do |t|
+    t.string   "advertiser"
+    t.string   "image"
+    t.integer  "zip_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -85,10 +93,10 @@ ActiveRecord::Schema.define(version: 20140806195331) do
   create_table "notes", force: true do |t|
     t.string   "message"
     t.string   "action"
-    t.boolean  "checked",       default: false
+    t.boolean  "checked",    default: false
     t.integer  "item_id"
     t.integer  "user_id"
-    t.integer  "other_user_id"
+    t.integer  "sender_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -108,6 +116,7 @@ ActiveRecord::Schema.define(version: 20140806195331) do
     t.string   "winning_combo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "board_number"
   end
 
   create_table "users", force: true do |t|

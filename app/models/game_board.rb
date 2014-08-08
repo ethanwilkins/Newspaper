@@ -1,6 +1,7 @@
 class GameBoard < ActiveRecord::Base
   belongs_to :user
   has_many :cards, dependent: :destroy
+  has_many :prizes, dependent: :destroy
   
   def you_won!
     winner = false
@@ -12,9 +13,12 @@ class GameBoard < ActiveRecord::Base
           a_win = false
         end
       end
-      if a_win and Prize.not_won_before(key.to_s, user)
+      if a_win and Prize.not_won_before(key.to_s, board_number)
+        user.prizes.create winning_combo: key.to_s, board_number: board_number
+        Note.notify(nil, user, :you_won)
         winner = true
-        user.prizes.create winning_combo: key.to_s
+      elsif a_win
+        winner = true
       end
     end
     return winner

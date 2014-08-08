@@ -16,6 +16,8 @@
 								<%= link_to note.message, article_path(note.item_id)%>
 							<% when :comment_reply %>
 								<%= link_to note.message, comment_path(note.item_id) %>
+							<% when :you_won %>
+								<%= link_to note.message, notes_path %>
 						<% end %>
 					</td>
 				</tr>

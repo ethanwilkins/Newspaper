@@ -12,7 +12,11 @@ class Note < ActiveRecord::Base
   
   def self.notify(sender, receiver, action, item_id=1)
     if sender != receiver then
-      name = sender.name.capitalize
+      if sender
+        name = sender.name.capitalize
+      else
+        sender = User.first
+      end
       case action
         when :post_comment
           message = "#{name} commented on your post."
@@ -20,8 +24,10 @@ class Note < ActiveRecord::Base
           message = "#{name} commented on your article."
         when :comment_reply
           message = "#{name} replied to your comment."
+        when :you_won
+          message = "You won! Call 555-5454 now!"
       end
-      receiver.notes.create!(message: message, other_user_id: sender.id,
+      receiver.notes.create!(message: message, sender_id: sender.id,
         action: action.to_s, item_id: item_id)
     end
   end
