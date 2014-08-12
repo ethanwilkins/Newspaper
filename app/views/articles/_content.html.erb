@@ -1,10 +1,17 @@
 <article>
-	</br><div align="center"><%= link_to article.title, article_path(article) %></div>
+	<h3 align="center"><%= link_to article.title, article_path(article) %></h3>
 
 	<% if article.image.url %>
-		</br><div align="center"><%= link_to image_tag(article.image,
+		<div align="center"><%= link_to image_tag(article.image,
 			id: :post_image), article_path(article) %></div></br>
 	<% end %>
-
-	<p id="article_body"><%= article.body %></p></br>
+	
+	<!-- tests size of article before applying justified style -->
+	<% if article.body.size > 100 %>
+		<div id="body_of_article">
+	<% else %>
+		<div align="center">
+	<% end %>
+		<%= article.body %>
+	</div></br>
 </article>
