@@ -1,5 +1,9 @@
+<!-- posts -->
+
 <%= render "new" %>
 
 <% @posts.each do |post| %>
-	<%= render "posts/card", post: post %>
+	<% unless post.joke or post.question %>
+		<%= render "posts/card", post: post %>
+	<% end %>
 <% end %>

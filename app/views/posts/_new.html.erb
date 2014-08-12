@@ -1,20 +1,41 @@
 <div id="card">
+	<% unless defined? post_type %>
 	<table align="center">
 		<tr>
 			<td>
-				<%= button_to "Jokes", posts_path, method: :get %>
+				<%= link_to "Jokes", jokes_path, method: :get %>
 			</td>
 			<td>
-				<%= button_to "Questions", posts_path, method: :get %>
+			|
 			</td>
 			<td>
-				<%= button_to "Search", search_path, method: :get %>
+				<%= link_to "Questions", questions_path, method: :get %>
+			</td>
+			<td>
+			|
+			</td>
+			<td>
+				<%= link_to "Search", search_path, method: :get %>
 			</td>
 		</tr>
 	</table>
+	<% end %>
+	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
+		<% if defined? post_type %>
+			<% if post_type == :joke %>
+				<%= hidden_field_tag :joke, true %>
+				<% placeholder = "Tell a joke..." %>
+			<% elsif post_type == :question %>
+				<%= hidden_field_tag :question, true %>
+				<% placeholder = "Ask a question..." %>
+			<% end %>
+		<% else %>
+			<% placeholder = "Start a thread..." %>
+		<% end %>
+		
 		<p>
-			<%= f.text_area :body, placeholder: "Start a thread..." %>
+			<%= f.text_area :body, placeholder: placeholder %>
 		</p>
 		<p>
 			<%= f.submit "Post" %>

@@ -25,7 +25,7 @@ class AdsController < ApplicationController
   end
   
   def index
-    @new_ad = Ad.new
+    @ad = Ad.new
     @ads = Ad.all.reverse
   end
   

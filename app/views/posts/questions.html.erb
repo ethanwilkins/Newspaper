@@ -1,0 +1,9 @@
+<%= render "new", post_type: :question %>
+
+<% for question in @questions %>
+	<div id="card">
+		<p align="center">
+			<%= question.body %>
+		</p>
+	</div>
+<% end %>
