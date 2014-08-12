@@ -8,8 +8,9 @@ class UsersController < ApplicationController
     @user.name.downcase!
     
     if @user.save
-      user = User.last
-      session[:user_id] = user.id
+      user = User.last # need to change this eventually
+      session[:user_id] = user.id # could log into user created at the same time
+      # UserMailer.welcome_user(user).deliver
       redirect_to root_url
     else
       render "new"

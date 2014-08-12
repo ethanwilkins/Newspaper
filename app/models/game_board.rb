@@ -16,6 +16,8 @@ class GameBoard < ActiveRecord::Base
       if a_win and Prize.not_won_before(key.to_s, board_number)
         user.prizes.create winning_combo: key.to_s, board_number: board_number
         Note.notify(nil, user, :you_won)
+        # emails admin about the user win
+        UserMailer.user_won(user).deliver
         winner = true
       elsif a_win
         winner = true
