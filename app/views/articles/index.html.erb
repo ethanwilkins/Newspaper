@@ -2,6 +2,10 @@
 	<div id="large_button">
 		<%= button_to "Write an article", new_article_path, method: :get %>
 	</div></br>
+<% else %>
+	<div id="large_button">
+		<%= button_to "Plan an event", new_event_path, method: :get %>
+	</div></br>
 <% end %>
 
 <% @articles.each do |article| %>

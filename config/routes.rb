@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :banners
   resources :articles
+  resources :events
   resources :notes
   resources :ads
 

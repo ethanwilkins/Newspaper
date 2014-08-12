@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140812081532) do
+ActiveRecord::Schema.define(version: 20140812085105) do
 
   create_table "ads", force: true do |t|
     t.string   "advertiser"
@@ -71,6 +71,19 @@ ActiveRecord::Schema.define(version: 20140812081532) do
     t.text     "text"
     t.integer  "comment_id"
     t.integer  "post_id"
+  end
+
+  create_table "events", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.text     "body"
+    t.date     "date"
+    t.time     "time"
+    t.boolean  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "image"
+    t.string   "location"
   end
 
   create_table "game_boards", force: true do |t|
