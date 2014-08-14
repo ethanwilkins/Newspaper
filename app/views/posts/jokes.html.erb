@@ -1,9 +1,5 @@
 <%= render "new", post_type: :joke %>
 
 <% for joke in @jokes %>
-	<div id="card">
-		<p align="center">
-			<%= joke.body %>
-		</p>
-	</div>
+	<%= render "posts/card", post: joke %>
 <% end %>

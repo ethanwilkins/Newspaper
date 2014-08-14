@@ -1,5 +1,4 @@
 <div id="card">
-	<% unless defined? post_type %>
 	<table align="center">
 		<tr>
 			<td>
@@ -19,26 +18,28 @@
 			</td>
 		</tr>
 	</table>
-	<% end %>
 	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if defined? post_type %>
 			<% if post_type == :joke %>
 				<%= hidden_field_tag :joke, true %>
 				<% placeholder = "Tell a joke..." %>
+				<% submit_text = "Post" %>
 			<% elsif post_type == :question %>
 				<%= hidden_field_tag :question, true %>
 				<% placeholder = "Ask a question..." %>
+				<% submit_text = "Ask" %>
 			<% end %>
 		<% else %>
 			<% placeholder = "Start a thread..." %>
+			<% submit_text = "Post" %>
 		<% end %>
 		
 		<p>
 			<%= f.text_area :body, placeholder: placeholder %>
 		</p>
 		<p>
-			<%= f.submit "Post" %>
+			<%= f.submit submit_text %>
 		</p>
 	<% end %>
 </div></br>

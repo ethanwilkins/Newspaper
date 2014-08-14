@@ -1,0 +1,11 @@
+<%= render "new" %>
+
+<% @adverts.each do |advert| %>
+	<div id="card">
+		<div align="center">
+			<%= image_tag advert.image %>
+			<%= advert.advertiser %>
+			<%= advert.zip_code %>
+		</div>
+	</div></br>
+<% end %>

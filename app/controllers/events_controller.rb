@@ -13,4 +13,8 @@ class EventsController < ApplicationController
       redirect_to :back
     end
   end
+  
+  def index
+    @events = Event.all.reverse
+  end
 end

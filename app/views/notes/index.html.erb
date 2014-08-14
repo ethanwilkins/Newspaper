@@ -5,19 +5,30 @@
 	<br>
 
 	<% @notes.each do |note| %>
+		<% time_ago = time_ago_in_words(note.created_at) + " ago" %>
+		<% if time_ago.include? "about" %>
+			<% time_ago.slice! "about " %>
+		<% end %>
 		<div id="card">
 			<table align="center">
 				<tr>
 					<td>
 						<% case note.action.to_sym %>
 							<% when :post_comment %>
-								<%= link_to note.message, post_path(note.item_id) %>
+								<%= link_to time_ago, post_path(note.item_id), id: :top_left_time %>
+								<p><%= link_to note.message, post_path(note.item_id) %></p>
+								
 							<% when :article_comment %>
-								<%= link_to note.message, article_path(note.item_id)%>
+								<%= link_to time_ago, article_path(note.item_id), id: :top_left_time %>
+								<p><%= link_to note.message, article_path(note.item_id) %></p>
+								
 							<% when :comment_reply %>
-								<%= link_to note.message, comment_path(note.item_id) %>
+								<%= link_to time_ago, comment_path(note.item_id), id: :top_left_time %>
+								<p><%= link_to note.message, comment_path(note.item_id) %></p>
+								
 							<% when :you_won %>
-								<%= link_to note.message, notes_path %>
+								<%= link_to time_ago, notes_path, id: :top_left_time %>
+								<p><%= link_to note.message, notes_path %></p>
 						<% end %>
 					</td>
 				</tr>

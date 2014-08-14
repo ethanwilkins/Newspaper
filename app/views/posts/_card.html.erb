@@ -5,8 +5,13 @@
 <% end %>
 
 <div id="card">
-	<%= link_to time_ago, post_path(post), id: :top_right_time %>
+	<%= link_to time_ago, post_path(post), id: :top_left_time %>
 	
 	<%= render "posts/content", post: post %>
-	<%= render "posts/comment_link", post: post %>
+	
+	<% if defined? post_type and post_type == :question %>
+		<%= render "posts/answer_link", post: post %>
+	<% else %>
+		<%= render "posts/comment_link", post: post %>
+	<% end %>
 </div></br>
