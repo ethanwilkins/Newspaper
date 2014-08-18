@@ -1,0 +1,21 @@
+<% for event in @events %>
+	<div id="card">
+		<div align="center"><strong>Title: </strong><%= event.title %></div></br>
+		<div align="center"><strong>Description: </strong><%= event.body %></div></br>
+		<div align="center"><strong>Locaction: </strong><%= event.location %></div></br>
+
+		<table align="center">
+			<tr>
+				<td>
+					<%= link_to "Approve", approve_event_path(event) %>
+				</td>
+				<td>
+					|
+				</td>
+				<td>
+					<%= link_to "Deny", deny_event_path(event) %>
+				</td>
+			</tr>
+		</table>
+	</div></br>
+<% end %>

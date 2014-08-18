@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$info_color: rgb(190, 190, 190);
+
 #post_image {
 	width: 80%;
+}
+
+#top_right_vote {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+#top_left_time {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	left: 10px;
+	top: 10px;
 }

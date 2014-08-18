@@ -1,0 +1,11 @@
+<% if current_user.id != post.user_id %>
+	<% unless Vote.up_voted?(post, current_user) %>
+		<td>
+			<%= link_to "Like", up_vote_post_path(post), id: :top_right_vote %>
+		</td>
+	<% else %>
+		<td>
+			<%= link_to "Unlike", un_vote_post_path(post), id: :top_right_vote %>
+		</td>
+	<% end %>
+<% end %>

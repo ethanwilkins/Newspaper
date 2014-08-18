@@ -1,4 +1,16 @@
 class CommentsController < ApplicationController
+  def up_vote
+    @comment = Comment.find(params[:id])
+    Vote.up_vote!(@comment, current_user)
+    redirect_to :back
+  end
+  
+  def un_vote
+    @comment = Comment.find(params[:id])
+    Vote.un_vote!(@comment, current_user)
+    redirect_to :back
+  end
+
   def show
     @comment = Comment.find(params[:id])
     @replies = @comment.comments.reverse

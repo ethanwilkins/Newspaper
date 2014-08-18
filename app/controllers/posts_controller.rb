@@ -1,4 +1,16 @@
 class PostsController < ApplicationController
+  def up_vote
+    @post = Post.find(params[:id])
+    Vote.up_vote!(@post, current_user)
+    redirect_to :back
+  end
+  
+  def un_vote
+    @post = Post.find(params[:id])
+    Vote.un_vote!(@post, current_user)
+    redirect_to :back
+  end
+
   def create
     @post = current_user.posts.new(params[:post].permit(:title, :body, :image))
     @post.question = params[:question]
@@ -25,12 +37,12 @@ class PostsController < ApplicationController
   end
   
   def jokes
-    @jokes = Post.jokes
+    @jokes = Post.jokes.reverse
     @post = Post.new
   end
   
   def questions
-    @questions = Post.questions
+    @questions = Post.questions.reverse
     @post = Post.new
   end
 end

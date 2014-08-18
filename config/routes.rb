@@ -17,7 +17,15 @@ Rails.application.routes.draw do
   
   get "hashtags/search/:query", to: "hashtags#search", as: "tagged"
   
+  get "posts/up_vote/:id", to: "posts#up_vote", as: "up_vote_post"
+  
+  get "posts/un_vote/:id", to: "posts#un_vote", as: "un_vote_post"
+  
   get 'comments/show/:id', to: 'comments#show', as: 'comment'
+
+  get 'events/approve/:id', to: 'events#approve', as: 'approve_event'
+
+  get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
   
   get "hashtags/search", as: "search"
   
