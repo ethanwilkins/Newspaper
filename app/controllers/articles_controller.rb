@@ -2,6 +2,11 @@ class ArticlesController < ApplicationController
   def index
     @articles = Article.all.reverse
   end
+  
+  def ad_index
+    @advert = Article.new
+    @adverts = Article.ads.reverse
+  end
 
   def show
     @article = Article.find(params[:id])
@@ -19,11 +24,17 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = Article.new(params[:article].permit(:title, :body, :image))
+    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code))
     @article.user_id = current_user.id
+    @article.ad = params[:ad]
     
-    if @article.save
+    if @article.save and @article.ad
+      flash[:notice] = "Advertisement saved successfully."
+      redirect_to :back
+      
+    elsif @article.save
       redirect_to articles_path
+      
     else
       flash[:error] = "Invalid input"
       redirect_to :back

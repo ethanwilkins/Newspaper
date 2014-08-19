@@ -1,0 +1,18 @@
+<%= form_for @advert, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<%= hidden_field_tag :ad, true %>
+	<div id="card">
+		<p>
+			<%= f.file_field :image %>
+		</p>
+		<p>
+			<%= f.text_field :title, placeholder: "Company" %>
+		</p>
+		<p>
+			<%= f.text_field :zip_code, placeholder: "Zip" %>
+		</p>
+		<p>
+			<%= f.submit "Upload" %>
+		</p>
+	</div>
+	</br>
+<% end %>

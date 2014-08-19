@@ -11,15 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140813144446) do
-
-  create_table "adverts", force: true do |t|
-    t.string   "advertiser"
-    t.string   "image"
-    t.integer  "zip_code"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20140819030430) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -29,6 +21,8 @@ ActiveRecord::Schema.define(version: 20140813144446) do
     t.integer  "user_id"
     t.boolean  "draft"
     t.string   "image"
+    t.boolean  "ad"
+    t.integer  "zip_code"
   end
 
   create_table "banners", force: true do |t|

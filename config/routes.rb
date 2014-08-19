@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   
   get 'posts/questions', as: 'questions'
   
+  get 'articles/ad_index', as: 'ad_index'
+  
   get 'posts/jokes', as: 'jokes'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -70,7 +72,6 @@ Rails.application.routes.draw do
   resources :posts
   resources :banners
   resources :articles
-  resources :adverts
   resources :events
   resources :notes
 
