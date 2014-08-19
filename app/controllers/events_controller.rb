@@ -2,13 +2,16 @@ class EventsController < ApplicationController
   def approve
     @event = Event.find(params[:id])
     @event.update approved: true
-    User.find(@event.user_id)
+    Note.notify(current_user, User.find(@event.user_id),
+      :event_approved, @event.id)
     redirect_to :back
   end
 
   def deny
     @event = Event.find(params[:id])
     @event.update approved: false
+    Note.notify(current_user, User.find(@event.user_id),
+      :event_denied, @event.id)
     redirect_to :back
   end
 
@@ -27,6 +30,10 @@ class EventsController < ApplicationController
       flash[:error] = "Invalid input"
       redirect_to :back
     end
+  end
+  
+  def show
+    @event = Event.find(params[:id])
   end
   
   def index

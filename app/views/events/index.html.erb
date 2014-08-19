@@ -1,8 +1,6 @@
 <% for event in @events %>
 	<div id="card">
-		<div align="center"><strong>Title: </strong><%= event.title %></div></br>
-		<div align="center"><strong>Description: </strong><%= event.body %></div></br>
-		<div align="center"><strong>Locaction: </strong><%= event.location %></div></br>
+		<%= render "events/content", event: event %>
 
 		<table align="center">
 			<tr>

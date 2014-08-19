@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   def up_vote
     @post = Post.find(params[:id])
     Vote.up_vote!(@post, current_user)
+    Note.notify(current_user, User.find(@post.user_id), :like_post, @post.id)
     redirect_to :back
   end
   

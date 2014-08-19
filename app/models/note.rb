@@ -24,6 +24,12 @@ class Note < ActiveRecord::Base
           message = "#{name} commented on your article."
         when :comment_reply
           message = "#{name} replied to your comment."
+        when :like_post
+          message = "#{name} liked your post."
+        when :event_approved
+          message = "Your event was approved."
+        when :event_denied
+          message = "Your event was denied."
         when :you_won
           message = "You won! Call 555-5454 now!"
       end
