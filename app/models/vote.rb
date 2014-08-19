@@ -14,19 +14,13 @@ class Vote < ActiveRecord::Base
     vote ||= obj.votes.find_by_voter_id(user.id)
     vote.update up: false if vote
   end
-  
-  def self.score(obj)
-    _score = (obj.votes.up_votes.size.to_i - obj.votes.down_votes.size.to_i) - 
-      (Date.today - obj.created_at.to_date).to_i
-    return _score
-  end
 
   def self.up_voted?(obj, user)
     vote ||= obj.votes.find_by_voter_id(user)
     vote.up if vote
   end
   
-  def self.up_votes
-    where up: true
+  def self.score(obj)
+    obj.up_votes.size.to_i
   end
 end

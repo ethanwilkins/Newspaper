@@ -4,8 +4,19 @@ class Post < ActiveRecord::Base
   has_many :hashtags, dependent: :destroy
   has_many :votes, dependent: :destroy
   
-  scope :jokes, -> { where joke: true }
   scope :questions, -> { where question: true }
   
   mount_uploader :image, ImageUploader
+  
+  def self.jokes
+    where(joke: true).sort_by(&:score)
+  end
+  
+  def score
+    Vote.score(self)
+  end
+  
+  def up_votes
+    votes.where up: true
+  end
 end
