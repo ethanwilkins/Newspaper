@@ -11,10 +11,10 @@
 				</td>
 			<% else %>
 				<td>
-					<%= button_to "News", articles_path, method: :get %>
+					<%= button_to "Social", posts_path, method: :get %>
 				</td>
 				<td>
-					<%= button_to "Social", posts_path, method: :get %>
+					<%= button_to "Games", user_game_boards_path(current_user), method: :get %>
 				</td>
 				<td>
 					<% notes = current_user.notes.unchecked.size.to_s %>

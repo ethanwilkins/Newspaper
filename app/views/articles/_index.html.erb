@@ -9,7 +9,7 @@
 <% end %>
 
 <% @articles.each do |article| %>
-	<%= render("card", article: article) unless article.ad %>
+	<%= render("articles/card", article: article) unless article.ad %>
 <% end %>
 
 <% if @articles.empty? %>

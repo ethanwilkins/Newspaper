@@ -1,3 +1,7 @@
+<div id="large_button">
+	<%= button_to "Plan an event", new_event_path, method: :get %>
+</div></br>
+
 <% for event in @events %>
 	<div id="card">
 		<%= render "events/content", event: event %>

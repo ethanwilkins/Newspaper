@@ -3,8 +3,7 @@ class WelcomeController < ApplicationController
     @banner = Banner.last
     @user = User.new
     if current_user
-      @game_board = GameBoard.new
-      @game_boards = current_user.game_boards.reverse
+      @articles = Article.all.reverse
     end
   end
 end
