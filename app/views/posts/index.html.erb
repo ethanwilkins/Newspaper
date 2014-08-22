@@ -3,7 +3,7 @@
 <%= render "new" %>
 
 <% @posts.each do |post| %>
-	<% unless post.joke or post.question %>
+	<% unless post.joke or post.question or post.art %>
 		<%= render "posts/card", post: post %>
 	<% end %>
 <% end %>

@@ -16,6 +16,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(params[:post].permit(:title, :body, :image))
     @post.question = params[:question]
     @post.joke = params[:joke]
+    @post.art = params[:art]
     
     if @post.save
       Hashtag.extract(@post) if @post.body
@@ -44,6 +45,11 @@ class PostsController < ApplicationController
   
   def questions
     @questions = Post.questions.reverse
+    @post = Post.new
+  end
+  
+  def art
+    @art = Post.art.reverse
     @post = Post.new
   end
 end

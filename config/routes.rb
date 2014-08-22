@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   get 'articles/ad_index', as: 'ad_index'
   
   get 'posts/jokes', as: 'jokes'
+  
+  get 'posts/art', as: 'art'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

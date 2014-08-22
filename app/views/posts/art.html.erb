@@ -1,0 +1,5 @@
+<%= render "new", post_type: :art %>
+
+<% for post in @art %>
+	<%= render "posts/card", post: post %>
+<% end %>

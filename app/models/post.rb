@@ -5,6 +5,7 @@ class Post < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   
   scope :questions, -> { where question: true }
+  scope :art, -> { where art: true }
   
   mount_uploader :image, ImageUploader
   

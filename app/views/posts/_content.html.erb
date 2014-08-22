@@ -1,5 +1,7 @@
 <% if post.image.url %>
-	<div align="center"><%= image_tag post.image %></div>
+	</br><div align="center">
+		<%= link_to image_tag(post.image, id: :post_image), post_path(post) %>
+	</div>
 <% end %>
 
 <p align="center">

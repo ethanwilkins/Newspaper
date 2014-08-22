@@ -2,19 +2,25 @@
 	<table align="center">
 		<tr>
 			<td>
-				<%= link_to "Jokes", jokes_path, method: :get %>
+				<%= link_to "Jokes", jokes_path %>
 			</td>
 			<td>
 			|
 			</td>
 			<td>
-				<%= link_to "Questions", questions_path, method: :get %>
+				<%= link_to "Media", art_path %>
 			</td>
 			<td>
 			|
 			</td>
 			<td>
-				<%= link_to "Search", search_path, method: :get %>
+				<%= link_to "Questions", questions_path %>
+			</td>
+			<td>
+			|
+			</td>
+			<td>
+				<%= link_to "Search", search_path %>
 			</td>
 		</tr>
 	</table>
@@ -29,6 +35,13 @@
 				<%= hidden_field_tag :question, true %>
 				<% placeholder = "Ask a question..." %>
 				<% submit_text = "Ask" %>
+			<% elsif post_type == :art %>
+				<%= hidden_field_tag :art, true %>
+				<% placeholder = "Share some art..." %>
+				<% submit_text = "Post" %>
+				<p>
+					<%= f.file_field :image %>
+				</p>
 			<% end %>
 		<% else %>
 			<% placeholder = "Start a thread..." %>
