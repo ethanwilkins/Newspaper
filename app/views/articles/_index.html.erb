@@ -1,3 +1,5 @@
+<!-- articles -->
+
 <% if current_user.writer or current_user.admin %>
 	<div id="large_button">
 		<%= button_to "Write an article", new_article_path, method: :get %>

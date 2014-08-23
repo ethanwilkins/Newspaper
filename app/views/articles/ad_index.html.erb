@@ -6,6 +6,7 @@
 			<div><%= image_tag advert.image, id: :post_image %></div></br>
 			<div><strong>Company: </strong><%= advert.title %></div>
 			<div><strong>Zip: </strong><%= advert.zip_code %></div>
+			<div><strong>Views: </strong><%= advert.views ? advert.views : 0 %></div>
 		</div>
 	</div></br>
 <% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140822222156) do
+ActiveRecord::Schema.define(version: 20140823012732) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140822222156) do
     t.boolean  "ad"
     t.integer  "zip_code"
     t.string   "hyperlink"
+    t.integer  "views"
   end
 
   create_table "banners", force: true do |t|
