@@ -1,5 +1,9 @@
 <%= render "new", post_type: :joke %>
 
+<% pos_on_page = 0 %>
+<% ad_pos = Random.new.rand @jokes.size %>
 <% for joke in @jokes %>
 	<%= render "posts/card", post: joke %>
+	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
+	<% pos_on_page += 1 %>
 <% end %>

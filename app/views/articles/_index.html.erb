@@ -11,11 +11,9 @@
 <% end %>
 
 <% if @articles.empty? %>
-	<div id="card"><p align="center">No articles have been published yet.</p></div>
+	<div id="card"><p align="center">
+		No articles have been published yet.
+	</p></div>
 <% end %>
 
-<% @articles.each do |article| %>
-	<%= render("articles/card", article: article) unless article.ad %>
-<% end %>
-
-<%= render "articles/ad_card" %>
+<%= render "articles/feed" %>

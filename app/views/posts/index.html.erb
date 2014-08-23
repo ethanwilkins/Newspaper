@@ -2,8 +2,12 @@
 
 <%= render "new" %>
 
+<% pos_on_page = 0 %>
+<% ad_pos = Random.new.rand @posts.size %>
 <% @posts.each do |post| %>
 	<% unless post.joke or post.question or post.art %>
 		<%= render "posts/card", post: post %>
 	<% end %>
+	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
+	<% pos_on_page += 1 %>
 <% end %>

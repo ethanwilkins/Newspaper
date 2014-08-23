@@ -33,5 +33,6 @@ class GameBoardsController < ApplicationController
   def index
     @game_board = GameBoard.new
     @game_boards = current_user.game_boards.reverse
+    @advert = Article.local_advert(current_user)
   end
 end

@@ -1,0 +1,7 @@
+<% pos_on_page = 0 %>
+<% ad_pos = Random.new.rand @articles.size %>
+<% @articles.each do |article| %>
+	<%= render("articles/card", article: article) unless article.ad %>
+	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
+	<% pos_on_page += 1 %>
+<% end %>

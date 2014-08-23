@@ -34,21 +34,25 @@ class PostsController < ApplicationController
   end
   
   def index
+    @advert = Article.local_advert(current_user)
     @posts = Post.all.reverse
     @post = Post.new
   end
   
   def jokes
+    @advert = Article.local_advert(current_user)
     @jokes = Post.jokes.reverse
     @post = Post.new
   end
   
   def questions
+    @advert = Article.local_advert(current_user)
     @questions = Post.questions.reverse
     @post = Post.new
   end
   
   def art
+    @advert = Article.local_advert(current_user)
     @art = Post.art.reverse
     @post = Post.new
   end
