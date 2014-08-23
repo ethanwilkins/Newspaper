@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code))
+    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code, :hyperlink))
     @article.user_id = current_user.id
     @article.ad = params[:ad]
     
