@@ -1,7 +1,7 @@
 <% if @advert %>
 	<div id="card"></br>
 		<div align="center">
-			<div><%= link_to image_tag(@advert.image), @advert.hyperlink, id: :post_image %></div>
+			<div><%= link_to image_tag(@advert.image, id: :post_image), @advert.hyperlink %></div>
 		</div></br>
 	</div>
 <% end %>
