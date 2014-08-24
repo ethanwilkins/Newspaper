@@ -12,7 +12,7 @@
 	
 	<%= render "posts/content", post: post %>
 	
-	<% if defined? post_type and post_type == :question %>
+	<% if post.question %>
 		<%= render "posts/answer_link", post: post %>
 	<% else %>
 		<%= render "posts/comment_link", post: post %>
