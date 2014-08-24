@@ -8,7 +8,7 @@ $info_color: rgb(190, 190, 190);
 	width: 80%;
 }
 
-#top_right_vote {
+#top_right_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -16,10 +16,34 @@ $info_color: rgb(190, 190, 190);
 	top: 10px;
 }
 
-#top_left_time {
+#top_left_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
 	left: 10px;
 	top: 10px;
+}
+
+#bottom_right_link {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+#bottom_left_link {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}
+
+#bottom_center_right_link {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	right: 60px;
+	bottom: 10px;
 }

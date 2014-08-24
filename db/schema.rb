@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140823012732) do
+ActiveRecord::Schema.define(version: 20140824012937) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(version: 20140823012732) do
     t.boolean  "writer"
     t.integer  "zip_code"
     t.string   "email"
+    t.string   "icon"
+    t.text     "bio"
   end
 
   create_table "votes", force: true do |t|

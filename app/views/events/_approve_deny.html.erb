@@ -1,0 +1,15 @@
+<% if current_user.admin %>
+	<table align="center">
+		<tr>
+			<td>
+				<%= link_to "Approve", approve_event_path(event) %>
+			</td>
+			<td>
+				|
+			</td>
+			<td>
+				<%= link_to "Deny", deny_event_path(event) %>
+			</td>
+		</tr>
+	</table>
+<% end %>

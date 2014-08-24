@@ -1,9 +1,9 @@
 <% if current_user.id != post.user_id %>
 	<% unless Vote.up_voted?(post, current_user) %>
-		<%= link_to "Like #{post.up_votes.size}", up_vote_post_path(post), id: :top_right_vote %>
+		<%= link_to "Like #{post.up_votes.size}", up_vote_post_path(post), id: :bottom_right_link %>
 	<% else %>
-		<%= link_to "Unlike #{post.up_votes.size}", un_vote_post_path(post), id: :top_right_vote %>
+		<%= link_to "Unlike #{post.up_votes.size}", un_vote_post_path(post), id: :bottom_right_link %>
 	<% end %>
 <% else %>
-	<%= link_to "Likes #{post.up_votes.size}", post_path(post), id: :top_right_vote %>
+	<%= link_to "Likes #{post.up_votes.size}", post_path(post), id: :bottom_right_link %>
 <% end %>

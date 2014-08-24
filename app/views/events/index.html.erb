@@ -5,19 +5,6 @@
 <% for event in @events %>
 	<div id="card">
 		<%= render "events/content", event: event %>
-
-		<table align="center">
-			<tr>
-				<td>
-					<%= link_to "Approve", approve_event_path(event) %>
-				</td>
-				<td>
-					|
-				</td>
-				<td>
-					<%= link_to "Deny", deny_event_path(event) %>
-				</td>
-			</tr>
-		</table>
+		<%= render "events/approve_deny", event: event %>
 	</div></br>
 <% end %>

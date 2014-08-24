@@ -1,0 +1,14 @@
+<div id="card">
+	<div align="center">
+		<% if @user.icon.url %>
+			</br><div><%= image_tag @user.icon, id: :user_icon %></div>
+		<% end %>
+		
+		<h3><%= @user.name %></h3>
+		<p><%= @user.bio %></p>
+	</div>
+	
+	<%= render "users/card_links" %>
+</div></br>
+
+<%= render "users/wall" %>

@@ -14,5 +14,6 @@ class HashtagsController < ApplicationController
         @no_results = "No results were found."
       end
     end
+    @advert = Article.local_advert(current_user)
   end
 end

@@ -1,0 +1,2 @@
+<% user = User.find(article.user_id) %>
+<%= link_to "Written by " + user.name, user_path(user), id: :top_right_link %>

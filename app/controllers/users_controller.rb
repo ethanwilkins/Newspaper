@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def show
+    @user = User.find(params[:id])
+  end
+  
   def new
     @user = User.new
   end
@@ -14,6 +18,21 @@ class UsersController < ApplicationController
       redirect_to root_url
     else
       render "new"
+    end
+  end
+  
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    
+    if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code))
+      redirect_to @user
+    else
+      flash[:error] = "User profile could not be updated."
+      redirect_to :back
     end
   end
 end

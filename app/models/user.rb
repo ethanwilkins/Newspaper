@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_numericality_of :zip_code
   validates_uniqueness_of :name
+  
+  mount_uploader :icon, ImageUploader
 
   def self.authenticate(name, password)
     user = find_by_name(name.downcase)
