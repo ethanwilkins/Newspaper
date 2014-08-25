@@ -1,7 +1,7 @@
 <% if current_user.id != post.user_id %>
 	<% unless Vote.up_voted?(post, current_user) %>
 		<% if post.up_votes.size > 0 %>
-			<% link_lable = "Like #{post.up_votes.size}" %>
+			<% link_label = "Like #{post.up_votes.size}" %>
 		<% else %>
 			<% link_label = "Like" %>
 		<% end %>
