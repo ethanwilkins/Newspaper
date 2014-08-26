@@ -20,4 +20,12 @@ class Post < ActiveRecord::Base
   def up_votes
     votes.where up: true
   end
+  
+  private
+  
+  def text_or_image?
+    if text.empty? and !image.url
+      errors.add(:post, "cannot be empty.")
+    end
+  end
 end

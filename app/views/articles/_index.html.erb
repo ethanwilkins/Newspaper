@@ -1,10 +1,10 @@
 <!-- articles -->
 
-<% if current_user.writer or current_user.admin %>
+<% if current_user and (current_user.writer or current_user.admin) %>
 	<div id="large_button">
 		<%= button_to "Write an article", new_article_path, method: :get %>
 	</div></br>
-<% else %>
+<% elsif current_user %>
 	<div id="large_button">
 		<%= button_to "Local Events", events_path, method: :get %>
 	</div></br>
