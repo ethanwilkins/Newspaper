@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
   
+  get 'events/pending', as: 'pending_events'
+  
   get "hashtags/search", as: "search"
   
   post 'game_boards/create', as: 'game_boards'

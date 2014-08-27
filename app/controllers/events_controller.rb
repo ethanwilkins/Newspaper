@@ -14,6 +14,11 @@ class EventsController < ApplicationController
       :event_denied, @event.id)
     redirect_to :back
   end
+  
+  def pending
+    @events = Event.pending.reverse
+    render "events/index"
+  end
 
   def new
     @event = Event.new
@@ -25,18 +30,18 @@ class EventsController < ApplicationController
     
     if @event.save
       flash[:notice] = "Event submitted successfully."
-      redirect_to articles_path
+      redirect_to :back
     else
       flash[:error] = "Invalid input"
       redirect_to :back
     end
   end
   
-  def show
-    @event = Event.find(params[:id])
+  def index
+    @events = Event.approved.reverse
   end
   
-  def index
-    @events = Event.pending.reverse
+  def show
+    @event = Event.find(params[:id])
   end
 end
