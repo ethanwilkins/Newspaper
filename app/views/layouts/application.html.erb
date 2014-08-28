@@ -8,20 +8,25 @@
 	<%= csrf_meta_tags %>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.js"></script>
+	
+	<!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </head>
 
 
 <body>
-	<div id="main" data-role="page" data-url="<%= request.path %>">
-		
+	<div id="main">
 		<%= render "welcome/nav" %>
 		
-		<%= render "banners/banner" %>
-		
-		<div data-role="content">
+		<div id="content">
+			<!-- shows the banner at log in -->
+			<%= render "banners/banner" %>
+			<!-- shows all errors and notices in a card -->
 			<% flash.each do |name, message| %>
 				<div id="card"><p align="center"><%= message %></p></div></br>
 			<% end %>
