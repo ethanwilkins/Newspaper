@@ -21,3 +21,7 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+
+html {
+	background: rgb(245, 245, 245);
+}

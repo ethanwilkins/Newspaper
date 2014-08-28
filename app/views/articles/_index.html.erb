@@ -1,12 +1,16 @@
 <!-- articles -->
 
 <% if current_user and (current_user.writer or current_user.admin) %>
-	<div id="large_button">
-		<%= button_to "Write an article", new_article_path, method: :get %>
+	<div align="center">
+		<%= button_to new_article_path, method: :get, class: "btn btn-default btn-lg" do %>
+			Write an article <span class="glyphicon glyphicon-pencil"></span>
+		<% end %>
 	</div></br>
 <% elsif current_user %>
-	<div id="large_button">
-		<%= button_to "Local Events", events_path, method: :get %>
+	<div align="center">
+		<%= button_to events_path, method: :get, class: "btn btn-default btn-lg" do %>
+			Local Events
+		<% end %>
 	</div></br>
 <% end %>
 

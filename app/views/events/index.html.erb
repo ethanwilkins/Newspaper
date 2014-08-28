@@ -1,5 +1,6 @@
-<div id="large_button">
-	<%= button_to "Plan an event", new_event_path, method: :get %>
+<div align="center">
+	<%= button_to "Plan an event", new_event_path,
+		method: :get, class: "btn btn-default btn-lg" %>
 </div></br>
 
 <% for event in @events %>
