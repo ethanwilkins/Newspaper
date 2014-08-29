@@ -2,23 +2,23 @@
 <p align="center">Register codes</p>
 <%= form_for @code, :html => {:multipart => true, "data-ajax" => false} do |f| %>
 	<p>
-		<%= f.text_field :code, placeholder: "Code" %>
+		<%= f.text_field :code, placeholder: "Code", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :advertiser, placeholder: "Advertiser" %>
+		<%= f.text_field :advertiser, placeholder: "Advertiser", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :is_a_board, options_for_select([["Card or Board", nil],["Card", false], ["Board", true]])%>
+		<%= f.select :is_a_board, options_for_select([["Card or Board", nil],["Card", false], ["Board", true]]), {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :board_number, options_for_select([["Board number", nil], 1, 2, 3, 4])%>
+		<%= f.select :board_number, options_for_select([["Board number", nil], 1, 2, 3, 4]), {}, class: "form-control" %>
 	</p>
 	<p>
 		<%= f.select :board_loc, options_for_select([["Pos. on board", nil], 1, 2, 3, 4, 5,
-			6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]) %>
+			6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]), {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.submit "Submit" %>
+		<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>
 </div></br>

@@ -1,19 +1,19 @@
 <div id="card">
 <%= form_for @event do |f| %>
 	<p>
-		<%= f.text_field :title, placeholder: "Title" %>
+		<%= f.text_field :title, placeholder: "Title", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_area :body, placeholder: "Description" %>
+		<%= f.text_area :body, placeholder: "Description", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :location, placeholder: "Location" %>
+		<%= f.text_field :location, placeholder: "Location", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.date_select :date %>
+		<%= f.date_select :date, {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.submit "Submit" %>
+		<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>
 </div>

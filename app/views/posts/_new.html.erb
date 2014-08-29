@@ -2,7 +2,6 @@
 	<div align="center">
 		<div class="btn-group">
 			<button type="button" class="btn btn-default"><%= link_to "Jokes", jokes_path %></button>
-			<button type="button" class="btn btn-default"><%= link_to "Media", art_path %></button>
 			<button type="button" class="btn btn-default"><%= link_to "Questions", questions_path %></button>
 			<button type="button" class="btn btn-default"><%= link_to "Search", search_path %></button>
 		</div>
@@ -32,10 +31,10 @@
 		<% end %>
 		
 		<p>
-			<%= f.text_area :body, placeholder: placeholder %>
+			<%= f.text_area :body, placeholder: placeholder, class: "form-control" %>
 		</p>
 		<p>
-			<%= f.submit submit_text %>
+			<%= f.submit submit_text, class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	<% end %>
 </div></br>

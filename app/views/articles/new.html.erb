@@ -1,16 +1,16 @@
 <%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
 	<div id="card">
 		<p>
-			<%= f.text_field :title, placeholder: "Title" %>
+			<%= f.text_field :title, placeholder: "Title", class: "form-control" %>
 		</p>
 		<p>
-			<%= f.file_field :image %>
+			<%= f.file_field :image, class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_area :body, placeholder: "Body" %>
+			<%= f.text_area :body, placeholder: "Body", class: "form-control" %>
 		</p>
 		<p>
-			<%= f.submit "Publish" %>
+			<%= f.submit "Publish", class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
 	</br>

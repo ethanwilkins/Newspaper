@@ -2,7 +2,8 @@
 
 <% unless @codes.empty? %>
 <div id="card">
-	<%= button_to "Clear all codes", clear_path, method: :delete, data: { confirm: 'Are you sure?' } %></br>
+	<%= button_to "Clear all codes", clear_path, method: :delete,
+		data: { confirm: 'Are you sure?' }, class: "btn btn-default btn-lg btn-block" %></br>
 	<% for code in @codes %>
 		<div align="center">
 			<strong><%= "#{code.code}: " %></strong>

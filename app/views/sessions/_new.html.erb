@@ -1,17 +1,15 @@
 <div id="card">
 <%= form_tag sessions_create_path do %>
   <p>
-    <%= label_tag :name %>
-    <%= text_field_tag :name %>
+    <%= text_field_tag :name, nil, placeholder: "Name", class: "form-control" %>
   </p>
- 
-  <p>
-    <%= label_tag :password %>
-    <%= password_field_tag :password %>
-  </p>
- 
-  <p>
-    <%= submit_tag "Log in" %>
-  </p>
+  <div class="input-group">
+	  <%= password_field_tag :password, nil, placeholder: "Password", class: "form-control" %>
+	  <span class="input-group-btn">
+		  <button class="btn btn-default" type="submit">
+			  <i class="glyphicon glyphicon-log-in"></i>
+		  </button>
+	  </span>
+  </div>
 <% end %>
 </div></br>

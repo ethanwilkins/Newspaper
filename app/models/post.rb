@@ -4,6 +4,8 @@ class Post < ActiveRecord::Base
   has_many :hashtags, dependent: :destroy
   has_many :votes, dependent: :destroy
   
+  validates_presence_of :body
+  
   scope :questions, -> { where question: true }
   scope :art, -> { where art: true }
   
@@ -24,7 +26,7 @@ class Post < ActiveRecord::Base
   private
   
   def text_or_image?
-    if text.empty? and !image.url
+    if body.empty? and !image.url
       errors.add(:post, "cannot be empty.")
     end
   end
