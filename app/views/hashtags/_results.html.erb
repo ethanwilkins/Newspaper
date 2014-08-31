@@ -6,3 +6,9 @@
 		<% end %>
 	<% end %>
 <% end %>
+
+<% if @no_results %>
+	<div id="card">
+		<div align="center"><%= @no_results %></div>
+	</div></br>
+<% end %>

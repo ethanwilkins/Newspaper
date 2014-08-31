@@ -1,0 +1,60 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<%= link_to "El Heroe", root_path, class: "navbar-brand" %>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<% unless current_user %>
+				<li>
+					<%= link_to "Log in", root_url %>
+				</li>
+				<li>
+					<%= link_to "Sign up", new_user_path %>
+				</li>
+				<% else %>
+				<li>
+					<%= link_to "Social", posts_path %>
+				</li>
+				<li>
+					<%= link_to "Games", user_game_boards_path(current_user) %>
+				</li>
+				<li>
+					<%= link_to notes_path do %>
+						<% if current_user.notes.unchecked.size > 0 %>
+							<div>Notes <span class="badge">
+								<%= current_user.notes.unchecked.size %>
+							</span></div>
+						<% else %>
+							<div>Notes</div>
+						<% end %>
+					<% end %>
+				</li>
+				<% end %>
+			</ul>
+			<% if current_user %>
+			<!-- the search bar accessible from nav -->
+			<div class="navbar-form navbar-left">
+				<%= render "hashtags/search_bar" %>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<% if current_user.admin %>
+				<li>
+					<%= link_to "Admin", admin_path %>
+				</li>
+				<% end %>
+				<li>
+					<%= link_to "Log out", sessions_destroy_path,
+					data: { confirm: 'Are you sure you want to log out?' } %>
+				</li>
+			</ul>
+			<% end %>
+		</div><!--/.nav-collapse -->
+	</div>
+</div>

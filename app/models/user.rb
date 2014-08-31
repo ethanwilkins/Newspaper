@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_numericality_of :zip_code
   validates_uniqueness_of :name
+
+  before_save :downcase_name
   
   mount_uploader :icon, ImageUploader
 
@@ -21,5 +23,9 @@ class User < ActiveRecord::Base
     else
       nil
     end
+  end
+  
+  def downcase_name
+    name.downcase!
   end
 end

@@ -1,11 +1,7 @@
-<%= render "search_bar" %>
+<div id="card">
+	<%= render "search_bar" %>
+</div></br>
 
 <%= render "results" %>
-
-<% if @no_results %>
-	<div id="card">
-		<p align="center"><%= @no_results %></p>
-	</div></br>
-<% end %>
 
 <%= render "articles/ad_card" %>
