@@ -5,19 +5,18 @@
 	
 	<%= render "game_boards/grid", cards: @cards %>
 	</br>
-	<table align="center">
-		<tr>
-			<td>
-				<%= link_to "Reset", reset_path(@game_board),
-					data: { confirm: 'Are you sure?' } %>
-			</td>
-			<td>|</td>
-			<td>
-				<%= link_to "Delete", destroy_board_path(@game_board),
-					method: :delete, data: { confirm: 'Are you sure?' } %>
-			</td>
-		</tr>
-	</table>
+	<div align="center">
+		<div class="btn-group">
+			<%= link_to reset_path(@game_board), class: "btn btn-default",
+				data: { confirm: 'Are you sure you want to reset the board?' } do %>
+					Reset
+			<% end %>
+			<%= link_to destroy_board_path(@game_board), class: "btn btn-default",
+				method: :delete, data: { confirm: 'Are you sure you want to delete the board?' } do %>
+					Delete
+			<% end %>
+		</div>
+	</div>
 </div>
 </br>
 

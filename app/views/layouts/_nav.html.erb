@@ -39,11 +39,12 @@
 				<% end %>
 			</ul>
 			<% if current_user %>
-			<!-- the search bar accessible from nav -->
-			<div class="navbar-form navbar-left">
-				<%= render "hashtags/search_bar" %>
-			</div>
 			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<div class="navbar-form navbar-left" id="search_bar">
+						<%= render "hashtags/search_bar" %>
+					</div>
+				</li>
 				<% if current_user.admin %>
 				<li>
 					<%= link_to "Admin", admin_path %>
