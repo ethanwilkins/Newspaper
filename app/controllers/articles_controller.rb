@@ -14,13 +14,23 @@ class ArticlesController < ApplicationController
     @new_comment = Comment.new
   end
   
-  def edit
-    @article = Article.find(params[:id])
-    @article.update(params[:article].permit(:title, :body, :image))
+  def ad_edit
+    @advert = Article.find(params[:id])
   end
 
   def new
     @article = Article.new
+  end
+  
+  def update
+    @article = Article.find(params[:id])
+    @article.update(params[:article].permit(:title, :body, :image, :zip_code))
+    
+    if @article.ad
+      redirect_to ad_index_path
+    else
+      redirect_to root_url
+    end
   end
   
   def create
@@ -39,5 +49,11 @@ class ArticlesController < ApplicationController
       flash[:error] = "Invalid input"
       redirect_to :back
     end
+  end
+  
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to :back
   end
 end

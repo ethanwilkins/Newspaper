@@ -1,15 +1,14 @@
 </br>
 <% if post.image.url %>
 	</br><div align="center">
-		<%= link_to image_tag(post.image, id: :post_image), post_path(post) %>
-	</div>
+		<%= link_to image_tag(post.image, id: :standard_post_image), post_path(post) %>
+	</div></br>
 <% end %>
 
-<p align="center">
+<p align="center" id="post_body_text">
 	<%= post.body %>
 	<% post.hashtags.each do |tag| %>
 		<%= link_to tag.tag, tagged_path(tag.tag) %>
 		<%= " " %>
 	<% end %>
 </p>
-</br>

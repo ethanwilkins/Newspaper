@@ -1,0 +1,20 @@
+<!-- tabs -->
+
+<%= form_for @tab, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<div id="card">
+		<p>
+			<%= f.label "Choose an icon for the tab" %>
+			<%= f.file_field :icon, class: "form-control" %>
+		</p>
+		<p>
+			<%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+		</p>
+		<p>
+			<%= f.text_area :description, placeholder: "Description", class: "form-control" %>
+		</p>
+		<p>
+			<%= f.submit "Create", class: "btn btn-default btn-lg btn-block" %>
+		</p>
+	</div>
+	</br>
+<% end %>

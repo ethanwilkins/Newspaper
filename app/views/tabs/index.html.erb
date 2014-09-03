@@ -1,0 +1,41 @@
+<!-- tabs -->
+
+<% if @tabs.present? %>
+	<div align="center">
+		<%= link_to new_tab_path, class: "btn btn-default btn-lg" do %>
+			Create a tab <span class="glyphicon glyphicon-plus-sign"></span>
+		<% end %>
+	</div></br>
+	
+	<% for tab in @tabs %>
+		<div id="card">
+			<div align="center">
+				<table>
+					<tr>
+						<td>
+							<%= link_to image_tag(tab.icon, size: "25x25", id: :tab_icon), tab_path(tab) %>
+						</td>
+						<td>
+							<%= link_to tab.name, tab_path(tab) %>
+						</td>
+					</tr>
+				</table>
+
+				<div id="tab_description">
+					<%= tab.description %>
+				</div>
+				<div>
+					Posts: <%= tab.posts.size %>
+				</div>
+			</div>
+		</div></br>
+	<% end %>
+	
+<% else %>
+	<div id="card">
+		<div align="center">
+			There aren't any user created tabs yet.
+			Click <%= link_to "here", new_tab_path %> to create one.
+		</div>
+	</div>
+<% end %>

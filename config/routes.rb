@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   
   delete 'game_boards/destroy/:id', to: 'game_boards#destroy', as: 'destroy_board'
   
+  delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
+  
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
   get "hashtags/search/:query", to: "hashtags#search", as: "tagged"
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
   get "posts/un_vote/:id", to: "posts#un_vote", as: "un_vote_post"
   
   get 'comments/show/:id', to: 'comments#show', as: 'comment'
+  
+  get 'articles/ad_edit/:id', to: 'articles#ad_edit', as: 'ad_edit'
 
   get 'events/approve/:id', to: 'events#approve', as: 'approve_event'
 
@@ -78,6 +82,7 @@ Rails.application.routes.draw do
   resources :articles
   resources :events
   resources :notes
+  resources :tabs
 
   resources :users do
     resources :game_boards do

@@ -1,0 +1,22 @@
+<!-- tabs -->
+
+<div id="card"></br>
+	<div align="center">
+		<%= image_tag @tab.icon, size: "200x200" %>
+		<h3>
+			<%= @tab.name %>
+		</h3>
+	</div>
+</div></br>
+
+<%= render "posts/new" %>
+
+<% pos_on_page = 0 %>
+<% ad_pos = Random.new.rand @posts.size if @posts.present? %>
+<% for post in @posts %>
+	<%= render "posts/card", post: post %>
+	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
+	<% pos_on_page += 1 %>
+<% end %>
+
+</br>

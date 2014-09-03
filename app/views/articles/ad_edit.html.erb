@@ -1,0 +1,20 @@
+<%= form_for @advert, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<div id="card">
+		<p>
+			<%= f.file_field :image, class: "form-control" %>
+		</p>
+		<p>
+			<%= f.text_field :title, placeholder: "Company", class: "form-control" %>
+		</p>
+		<p>
+			<%= f.text_field :hyperlink, placeholder: "URL", class: "form-control" %>
+		</p>
+		<p>
+			<%= f.text_field :zip_code, placeholder: "Zip", class: "form-control" %>
+		</p>
+		<p>
+			<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
+		</p>
+	</div>
+	</br>
+<% end %>

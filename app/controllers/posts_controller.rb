@@ -17,6 +17,7 @@ class PostsController < ApplicationController
     @post.question = params[:question]
     @post.joke = params[:joke]
     @post.art = params[:art]
+    @post.tab_id = params[:tab_id]
     
     if @post.save
       Hashtag.extract(@post) if @post.body

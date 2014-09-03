@@ -4,8 +4,12 @@
 
 $info_color: rgb(190, 190, 190);
 
-#post_image {
+#standard_post_image {
 	width: 80%;
+}
+
+#post_body_text {
+	margin-bottom: 15px;
 }
 
 #top_right_link {
@@ -46,4 +50,12 @@ $info_color: rgb(190, 190, 190);
 	position: absolute;
 	right: 60px;
 	bottom: 10px;
+}
+
+#top_center_right_link {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+	right: 50px;
+	top: 10px;
 }
