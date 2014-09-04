@@ -1,0 +1,15 @@
+<% if current_user.admin %>
+	<div align="center">
+		<div class="btn-group">
+			<%= link_to approve_tab_path(tab), class: "btn btn-default",
+				data: { confirm: "Are you sure you want to approve this tab?" } do %>
+				Approve
+			<% end %>
+			
+			<%= link_to deny_tab_path(tab), class: "btn btn-default",
+				data: { confirm: "Are you sure you want to deny this tab?" } do %>
+				Deny
+			<% end %>
+		</div>
+	</div>
+<% end %>

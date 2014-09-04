@@ -30,6 +30,10 @@ class Note < ActiveRecord::Base
           message = "Your event was approved."
         when :event_denied
           message = "Your event was denied."
+        when :tab_approved
+          message = "Your tab was approved."
+        when :tab_denied
+          message = "Your tab was denied."
         when :you_won
           message = "You won! Call 555-5454 now!"
       end

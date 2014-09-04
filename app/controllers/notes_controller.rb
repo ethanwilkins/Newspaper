@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   def index
     if current_user then
-      @notes = current_user.notes.reverse
+      @notes = current_user.notes.reverse.first 10
       @notes.each do |note|
         note.update checked: true
       end

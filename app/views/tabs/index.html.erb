@@ -8,33 +8,13 @@
 	</div></br>
 	
 	<% for tab in @tabs %>
-		<div id="card">
-			<div align="center">
-				<table>
-					<tr>
-						<td>
-							<%= link_to image_tag(tab.icon, size: "25x25", id: :tab_icon), tab_path(tab) %>
-						</td>
-						<td>
-							<%= link_to tab.name, tab_path(tab) %>
-						</td>
-					</tr>
-				</table>
-
-				<div id="tab_description">
-					<%= tab.description %>
-				</div>
-				<div>
-					Posts: <%= tab.posts.size %>
-				</div>
-			</div>
-		</div></br>
+		<%= render "tabs/card", tab: tab %>
 	<% end %>
 	
 <% else %>
 	<div id="card">
 		<div align="center">
-			There aren't any user created tabs yet.
+			No user created tabs have been approved yet.
 			Click <%= link_to "here", new_tab_path %> to create one.
 		</div>
 	</div>

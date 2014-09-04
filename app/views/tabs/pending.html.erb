@@ -1,0 +1,11 @@
+<% if @tabs.present? %>
+	<h3 align="center">Pending Tabs</h3></br>
+<% else %>
+	<div id="card">
+		<div align="center">There aren't any pending tabs right now.</div>
+	</div>
+<% end %>
+
+<% for tab in @tabs %>
+	<%= render "tabs/card", tab: tab %>
+<% end %>

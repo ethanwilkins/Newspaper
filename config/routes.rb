@@ -30,6 +30,10 @@ Rails.application.routes.draw do
   get 'events/approve/:id', to: 'events#approve', as: 'approve_event'
 
   get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
+
+  get 'tabs/approve/:id', to: 'tabs#approve', as: 'approve_tab'
+
+  get 'tabs/deny/:id', to: 'tabs#deny', as: 'deny_tab'
   
   get 'events/pending', as: 'pending_events'
   
@@ -44,6 +48,8 @@ Rails.application.routes.draw do
   get 'posts/questions', as: 'questions'
   
   get 'articles/ad_index', as: 'ad_index'
+  
+  get 'tabs/pending', as: 'pending_tabs'
   
   get 'posts/jokes', as: 'jokes'
   

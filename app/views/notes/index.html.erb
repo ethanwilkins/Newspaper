@@ -35,6 +35,14 @@
 						<%= link_to time_ago, event_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, event_path(note.item_id) %></p>
 						
+					<% when :tab_approved %>
+						<%= link_to time_ago, tab_path(note.item_id), id: :top_left_link %>
+						<p><%= link_to note.message, tab_path(note.item_id) %></p>
+						
+					<% when :tab_denied %>
+						<%= link_to time_ago, tab_path(note.item_id), id: :top_left_link %>
+						<p><%= link_to note.message, tab_path(note.item_id) %></p>
+						
 					<% when :you_won %>
 						<%= link_to time_ago, notes_path, id: :top_left_link %>
 						<p><%= link_to note.message, notes_path %></p>

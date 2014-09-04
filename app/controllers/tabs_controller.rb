@@ -1,4 +1,24 @@
 class TabsController < ApplicationController
+  def pending
+    @tabs = Tab.pending.reverse
+  end
+  
+  def approve
+    @tab = Tab.find(params[:id])
+    @tab.update approved: true
+    Note.notify(current_user, User.find(@tab.user_id),
+      :tab_approved, @tab.id)
+    redirect_to :back
+  end
+
+  def deny
+    @tab = Tab.find(params[:id])
+    @tab.update approved: false
+    Note.notify(current_user, User.find(@tab.user_id),
+      :tab_denied, @tab.id)
+    redirect_to :back
+  end
+  
   def new
     @tab = Tab.new
   end
@@ -15,7 +35,7 @@ class TabsController < ApplicationController
   end
   
   def index
-    @tabs = Tab.all.reverse
+    @tabs = Tab.approved.reverse
   end
   
   def show
