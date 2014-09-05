@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :posts
   has_many :notes
   # validations for creation of user
+  validates :name, presence: true
+  validates :password, presence: true
   validates_confirmation_of :password
   validates_numericality_of :zip_code
   validates_uniqueness_of :name
