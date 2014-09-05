@@ -24,12 +24,8 @@
 		<%= render "layouts/nav" %>
 		
 		<div id="content">
-			<!-- shows the banner at log in -->
 			<%= render "banners/banner" %>
-			<!-- shows all errors and notices in a card -->
-			<% flash.each do |name, message| %>
-				<div id="card"><p align="center"><%= message %></p></div></br>
-			<% end %>
+			<%= render "layouts/messages" %>
 			
 			<%= yield %>
 		</div>

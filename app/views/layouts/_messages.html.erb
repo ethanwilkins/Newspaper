@@ -1,0 +1,5 @@
+<!-- shows all errors and notices in a card -->
+
+<% flash.each do |name, message| %>
+	<div id="card"><div align="center"><%= message %></div></div></br>
+<% end %>

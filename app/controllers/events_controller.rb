@@ -30,7 +30,7 @@ class EventsController < ApplicationController
     
     if @event.save
       flash[:notice] = "Event submitted successfully."
-      redirect_to :back
+      redirect_to root_url
     else
       flash[:error] = "Invalid input"
       redirect_to :back
@@ -38,6 +38,7 @@ class EventsController < ApplicationController
   end
   
   def index
+    Event.remove_expired
     @events = Event.approved.reverse
   end
   

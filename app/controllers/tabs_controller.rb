@@ -25,8 +25,10 @@ class TabsController < ApplicationController
   
   def create
     @tab = Tab.new(params[:tab].permit(:icon, :name, :description))
+    @tab.user_id = current_user.id
     
     if @tab.save
+      flash[:notice] = "Your tab was successfully submitted."
       redirect_to tabs_path
     else
       flash[:error] = "Invalid input"

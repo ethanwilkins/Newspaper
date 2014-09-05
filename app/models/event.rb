@@ -1,9 +1,12 @@
 class Event < ActiveRecord::Base
-  def self.approved
-    where approved: true
-  end
+  scope :approved, -> { where approved: true }
+	scope :pending, -> { where approved: nil }
   
-	def self.pending
-		where approved: nil
-	end
+  def self.remove_expired
+    for event in Event.all
+      if event.date > DateTime.now
+        event.destroy
+      end
+    end
+  end
 end

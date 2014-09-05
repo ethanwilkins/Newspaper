@@ -16,7 +16,8 @@ class UsersController < ApplicationController
       # UserMailer.welcome_user(user).deliver
       redirect_to root_url
     else
-      render "new"
+      flash[:error] = "Invalid input"
+      redirect_to :back
     end
   end
   
