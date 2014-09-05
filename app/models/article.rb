@@ -6,7 +6,7 @@ class Article < ActiveRecord::Base
   def self.local_advert(user)
     local_ads = where(ad: true, zip_code: user.zip_code)
     local_ad = local_ads.limit(Random.new.rand 1..local_ads.size).last if local_ads.size > 0
-    local_ad.view
+    local_ad.view if local_ad
     return local_ad
   end
   
