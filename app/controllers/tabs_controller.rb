@@ -43,6 +43,7 @@ class TabsController < ApplicationController
   def show
     @advert = Article.local_advert(current_user)
     @tab = Tab.find(params[:id])
+    @subtabs = @tab.popular_subtabs
     @posts = @tab.posts.reverse
     @post = Post.new
   end

@@ -1,11 +1,13 @@
 <div id="card">
-	<div align="center">
-		<div class="btn-group">
-			<%= link_to "Jokes", jokes_path, class: "btn btn-default" %>
-			<%= link_to "Questions", questions_path, class: "btn btn-default" %>
-			<%= link_to "More", tabs_path, class: "btn btn-default" %>
-		</div>
-	</div></br>
+	<% unless @tab %>
+		<div align="center">
+			<div class="btn-group">
+				<%= link_to "Jokes", jokes_path, class: "btn btn-default" %>
+				<%= link_to "Questions", questions_path, class: "btn btn-default" %>
+				<%= link_to "More", tabs_path, class: "btn btn-default" %>
+			</div>
+		</div></br>
+	<% end %>
 	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if @tab %>

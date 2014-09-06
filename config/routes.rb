@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   resources :events
   resources :notes
   resources :tabs
+  resources :subtabs
 
   resources :users do
     resources :game_boards do

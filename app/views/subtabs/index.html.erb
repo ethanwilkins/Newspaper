@@ -1,0 +1,21 @@
+<!-- tabs -->
+
+<% if @tabs.present? %>
+	<div align="center">
+		<%= link_to new_tab_path, class: "btn btn-default btn-lg" do %>
+			Create a tab <span class="glyphicon glyphicon-plus-sign"></span>
+		<% end %>
+	</div></br>
+	
+	<% for tab in @tabs %>
+		<%= render "tabs/card", tab: tab %>
+	<% end %>
+	
+<% else %>
+	<div id="card">
+		<div align="center">
+			No user created tabs have been approved yet.
+			Click <%= link_to "here", new_tab_path %> to create one.
+		</div>
+	</div>
+<% end %>

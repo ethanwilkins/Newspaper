@@ -1,0 +1,28 @@
+<!-- tabs -->
+
+<div id="card">
+	<div align="center">
+		<table>
+			<tr>
+				<td>
+					<%= link_to image_tag(tab.icon, size: "25x25", id: :tab_icon), tab_path(tab) %>
+				</td>
+				<td>
+					<%= link_to tab.name, tab_path(tab) %>
+				</td>
+			</tr>
+		</table>
+		
+		<div id="tab_description">
+			<%= tab.description %>
+		</div>
+		
+		<% if current_user.admin and tab.approved.nil? %>
+			</br><%= render "tabs/approve_deny", tab: tab %>
+		<% else %>	
+			<div>
+				Posts: <%= tab.posts.size %>
+			</div>
+		<% end %>
+	</div>
+</div></br>

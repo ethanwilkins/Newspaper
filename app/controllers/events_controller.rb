@@ -19,6 +19,11 @@ class EventsController < ApplicationController
     @events = Event.pending.reverse
     render "events/index"
   end
+  
+  def index
+    @events = Event.approved.reverse
+    Event.remove_expired(@events)
+  end
 
   def new
     @event = Event.new
@@ -35,11 +40,6 @@ class EventsController < ApplicationController
       flash[:error] = "Invalid input"
       redirect_to :back
     end
-  end
-  
-  def index
-    Event.remove_expired
-    @events = Event.approved.reverse
   end
   
   def show
