@@ -1,10 +1,15 @@
 class SubtabsController < ApplicationController
   def approve
     @subtab = Subtab.find(params[:id])
-    @subtab.update approved: true
-    Note.notify(current_user, User.find(@subtab.user_id),
-      :subtab_approved, @subtab.id)
-    redirect_to :back
+    if @subtab.update approved: true
+      Note.notify(current_user, User.find(@subtab.user_id),
+        :subtab_approved, @subtab.id)
+      flash[:notice] = "The subtab was successfully approved."
+      redirect_to :back
+    else
+      flash[:error] = "The subtab could not be approved."
+      redirect_to :back
+    end
   end
 
   def deny

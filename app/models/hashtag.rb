@@ -20,7 +20,7 @@ class Hashtag < ActiveRecord::Base
       if tag.include? "#"
         # removes tag from text
         text.slice! tag
-        # @post would not update
+        # updates body without tag
         Post.find(post.id).update(body: text)
         # pushes each tag into post
         post.hashtags.create(tag: tag)
