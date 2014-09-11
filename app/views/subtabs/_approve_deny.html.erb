@@ -1,13 +1,15 @@
+<!-- subtabs -->
+
 <% if current_user.admin %>
 	<div align="center">
 		<div class="btn-group">
-			<%= link_to approve_tab_path(tab), class: "btn btn-default",
-				data: { confirm: "Are you sure you want to approve this tab?" } do %>
+			<%= link_to approve_subtab_path(subtab), class: "btn btn-default",
+				data: { confirm: "Are you sure you want to approve this subtab?" } do %>
 				Approve
 			<% end %>
 			
-			<%= link_to deny_tab_path(tab), class: "btn btn-default",
-				data: { confirm: "Are you sure you want to deny this tab?" } do %>
+			<%= link_to deny_subtab_path(subtab), class: "btn btn-default",
+				data: { confirm: "Are you sure you want to deny this subtab?" } do %>
 				Deny
 			<% end %>
 		</div>

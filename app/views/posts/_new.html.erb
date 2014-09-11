@@ -1,17 +1,21 @@
 <div id="card">
-	<% unless @tab %>
-		<div align="center">
-			<div class="btn-group">
-				<%= link_to "Jokes", jokes_path, class: "btn btn-default" %>
-				<%= link_to "Questions", questions_path, class: "btn btn-default" %>
+	<div align="center">
+		<div class="btn-group">
+			<%= link_to "Jokes", jokes_path, class: "btn btn-default" %>
+			<%= link_to "Questions", questions_path, class: "btn btn-default" %>
+			<% unless @tab %>
 				<%= link_to "More", tabs_path, class: "btn btn-default" %>
-			</div>
-		</div></br>
-	<% end %>
+			<% else %>
+				<%= link_to "More", tab_subtabs_path(@tab), class: "btn btn-default" %>
+			<% end %>
+		</div>
+	</div></br>
 	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if @tab %>
 			<%= hidden_field_tag :tab_id, params[:id] %>
+		<% elsif @subtab %>
+			<%= hidden_field_tag :subtab_id, params[:id] %>
 		<% end %>
 		
 		<% if defined? post_type %>

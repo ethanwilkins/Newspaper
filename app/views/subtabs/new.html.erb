@@ -1,6 +1,7 @@
 <!-- subtabs -->
 
 <%= form_for @subtab, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<%= hidden_field_tag :tab_id, params[:tab_id] %>
 	<div id="card">
 		<p>
 			<%= f.label "Choose an icon for the subtab" %>

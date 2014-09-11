@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'sessions/destroy'
   
+  post 'subtabs/create', as: 'subtabs'
+  
   post 'cards/create', as: 'cards'
   
   delete 'codes/clear', as: 'clear'
@@ -34,6 +36,10 @@ Rails.application.routes.draw do
   get 'tabs/approve/:id', to: 'tabs#approve', as: 'approve_tab'
 
   get 'tabs/deny/:id', to: 'tabs#deny', as: 'deny_tab'
+
+  get 'subtabs/approve/:id', to: 'subtabs#approve', as: 'approve_subtab'
+
+  get 'subtabs/deny/:id', to: 'subtabs#deny', as: 'deny_subtab'
   
   get 'events/pending', as: 'pending_events'
   
@@ -88,8 +94,10 @@ Rails.application.routes.draw do
   resources :articles
   resources :events
   resources :notes
-  resources :tabs
-  resources :subtabs
+  
+  resources :tabs do
+    resources :subtabs
+  end
 
   resources :users do
     resources :game_boards do

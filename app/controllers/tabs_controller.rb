@@ -1,6 +1,7 @@
 class TabsController < ApplicationController
   def pending
     @tabs = Tab.pending.reverse
+    @subtabs = Subtab.pending.reverse
   end
   
   def approve

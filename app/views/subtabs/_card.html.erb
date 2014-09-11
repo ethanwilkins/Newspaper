@@ -1,27 +1,27 @@
-<!-- tabs -->
+<!-- subtabs -->
 
 <div id="card">
 	<div align="center">
 		<table>
 			<tr>
 				<td>
-					<%= link_to image_tag(tab.icon, size: "25x25", id: :tab_icon), tab_path(tab) %>
+					<%= link_to image_tag(subtab.icon, size: "25x25", id: :tab_icon), tab_subtab_path(subtab.tab_id, subtab) %>
 				</td>
 				<td>
-					<%= link_to tab.name, tab_path(tab) %>
+					<%= link_to subtab.name, tab_subtab_path(subtab.tab_id, subtab) %>
 				</td>
 			</tr>
 		</table>
 		
 		<div id="tab_description">
-			<%= tab.description %>
+			<%= subtab.description %>
 		</div>
 		
-		<% if current_user.admin and tab.approved.nil? %>
-			</br><%= render "tabs/approve_deny", tab: tab %>
+		<% if current_user.admin and subtab.approved.nil? %>
+			</br><%= render "subtabs/approve_deny", subtab: subtab %>
 		<% else %>	
 			<div>
-				Posts: <%= tab.posts.size %>
+				Posts: <%= subtab.posts.size %>
 			</div>
 		<% end %>
 	</div>

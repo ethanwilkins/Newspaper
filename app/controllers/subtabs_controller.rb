@@ -1,8 +1,4 @@
 class SubtabsController < ApplicationController
-  def pending
-    @subtabs = Subtab.pending.reverse
-  end
-  
   def approve
     @subtab = Subtab.find(params[:id])
     @subtab.update approved: true
@@ -24,12 +20,13 @@ class SubtabsController < ApplicationController
   end
   
   def create
-    @subtab = Subtab.new(params[:tab].permit(:icon, :name, :description))
+    @subtab = Subtab.new(params[:subtab].permit(:icon, :name, :description))
     @subtab.user_id = current_user.id
+    @subtab.tab_id = params[:tab_id]
     
     if @subtab.save
       flash[:notice] = "Your subtab was successfully submitted."
-      redirect_to subtabs_path
+      redirect_to tab_path(@subtab.tab_id)
     else
       flash[:error] = "Invalid input"
       redirect_to :back
@@ -37,7 +34,8 @@ class SubtabsController < ApplicationController
   end
   
   def index
-    @subtabs = Subtab.approved.reverse
+    @tab = Tab.find(params[:tab_id])
+    @subtabs = @tab.subtabs.approved.reverse
   end
   
   def show

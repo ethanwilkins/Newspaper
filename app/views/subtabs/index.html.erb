@@ -1,21 +1,21 @@
-<!-- tabs -->
+<!-- subtabs -->
 
-<% if @tabs.present? %>
+<% if @subtabs.present? %>
 	<div align="center">
-		<%= link_to new_tab_path, class: "btn btn-default btn-lg" do %>
-			Create a tab <span class="glyphicon glyphicon-plus-sign"></span>
+		<%= link_to new_tab_subtab_path(@tab), class: "btn btn-default btn-lg" do %>
+			Create a subtab <span class="glyphicon glyphicon-plus-sign"></span>
 		<% end %>
 	</div></br>
 	
-	<% for tab in @tabs %>
-		<%= render "tabs/card", tab: tab %>
+	<% for subtab in @subtabs %>
+		<%= render "subtabs/card", subtab: subtab %>
 	<% end %>
 	
 <% else %>
 	<div id="card">
 		<div align="center">
-			No user created tabs have been approved yet.
-			Click <%= link_to "here", new_tab_path %> to create one.
+			No user created subtabs have been approved yet.
+			Click <%= link_to "here", new_tab_subtab_path(@tab) %> to create one.
 		</div>
 	</div>
 <% end %>
