@@ -3,22 +3,22 @@
 	:html => {:multipart => true, "data-ajax" => false} do |f| %>
 	<%= hidden_field_tag id: @user.id %>
 	<p>
-		<%= f.file_field :icon %>
+		<%= f.file_field :icon, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :name, placeholder: "Name" %>
+		<%= f.text_field :name, placeholder: "Name", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :email, placeholder: "Email" %>
+		<%= f.text_field :email, placeholder: "Email", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_area :bio, placeholder: "Bio" %>
+		<%= f.text_area :bio, placeholder: "Bio", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :zip_code, placeholder: "Zip" %>
+		<%= f.text_field :zip_code, placeholder: "Zip", class: "form-control" %>
 	</p>
 	<p>
-		<%= f.submit "Update" %>
+		<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>
 </div>

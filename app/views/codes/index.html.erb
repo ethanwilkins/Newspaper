@@ -15,7 +15,10 @@
 			<%= link_to "Delete", destroy_code_path(code), method: :delete,
 				data: { confirm: 'Are you sure?' } %>
 			</div>
-		</div><hr id="gray_horizon">
+		</div>
+		<% if @codes.size > 1 %>
+			<hr id="gray_horizon">
+		<% end %>
 	<% end %>
 </div></br>
 <% end %>

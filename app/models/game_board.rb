@@ -26,20 +26,19 @@ class GameBoard < ActiveRecord::Base
     return winner
   end
   
+  def self.repopulate
+    for board in GameBoard.all
+      board.cards.destroy_all
+      board.populate
+    end
+  end
+  
   def populate
     board_loc = 1
     for image in Dir.glob("app/assets/images/cards/board_#{board_number.to_s}/bw/*.png")
       cards.create image: "cards/board_#{board_number.to_s}/bw/#{image.split('/').last}",
         board_loc: board_loc
       board_loc += 1
-    end
-  end
-  
-  def board_number
-    begin
-      Code.find(code_id).board_number
-    rescue
-      nil # nil to the rescue!
     end
   end
   

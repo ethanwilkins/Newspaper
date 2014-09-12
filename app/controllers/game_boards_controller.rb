@@ -8,7 +8,8 @@ class GameBoardsController < ApplicationController
   
   def create
     @code = GameBoard.redeem params[:code]
-    @game_board = current_user.game_boards.new(code_id: @code.id) if @code
+    @game_board = current_user.game_boards.new(code_id: @code.id,
+      board_number: @code.board_number) if @code
     
     if @game_board.save
       @game_board.populate

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140906002153) do
+ActiveRecord::Schema.define(version: 20140912013536) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20140906002153) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "code_id"
+    t.integer  "board_number"
   end
 
   create_table "hashtags", force: true do |t|
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 20140906002153) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "board_number"
+    t.integer  "game_board_id"
   end
 
   create_table "subtabs", force: true do |t|

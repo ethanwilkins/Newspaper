@@ -1,5 +1,6 @@
 class Card < ActiveRecord::Base
   belongs_to :user
+  belongs_to :code
   belongs_to :game_board
   
   def redeemed_img

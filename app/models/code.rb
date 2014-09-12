@@ -1,5 +1,5 @@
 class Code < ActiveRecord::Base
-  has_many :game_boards, dependent: :destroy
+  has_many :cards, dependent: :destroy
   
   validates :code, presence: true
   validates :code, uniqueness: true, numericality: true

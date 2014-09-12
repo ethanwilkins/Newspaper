@@ -1,6 +1,7 @@
 class CodesController < ApplicationController
   def clear
     Code.destroy_all
+    GameBoard.repopulate
     redirect_to :back
   end
   
