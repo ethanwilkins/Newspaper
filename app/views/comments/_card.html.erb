@@ -6,6 +6,6 @@
 
 <div id="card">
 	<%= link_to time_ago, comment_path(comment), id: :top_left_link %>
-	<p align="center"><%= comment.text %></p>
+	</br><div align="center"><%= comment.text %></div></br>
 	<%= render "comments/comment_link", comment: comment %>
 </div></br>
