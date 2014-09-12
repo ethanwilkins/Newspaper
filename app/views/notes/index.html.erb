@@ -10,41 +10,36 @@
 		<% end %>
 		<div id="card">
 			<div align="center" id="notes_card">
+				<%= link_to time_ago, notes_path, id: :top_left_link %>
 				<% case note.action.to_sym %>
 					<% when :post_comment %>
-						<%= link_to time_ago, post_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, post_path(note.item_id) %></p>
 						
 					<% when :article_comment %>
-						<%= link_to time_ago, article_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, article_path(note.item_id) %></p>
 						
 					<% when :comment_reply %>
-						<%= link_to time_ago, comment_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, comment_path(note.item_id) %></p>
 						
 					<% when :like_post %>
-						<%= link_to time_ago, post_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, post_path(note.item_id) %></p>
 						
 					<% when :event_approved %>
-						<%= link_to time_ago, event_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, event_path(note.item_id) %></p>
 						
 					<% when :event_denied %>
-						<%= link_to time_ago, event_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, event_path(note.item_id) %></p>
 						
 					<% when :tab_approved %>
-						<%= link_to time_ago, tab_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, tab_path(note.item_id) %></p>
 						
 					<% when :tab_denied %>
-						<%= link_to time_ago, tab_path(note.item_id), id: :top_left_link %>
 						<p><%= link_to note.message, tab_path(note.item_id) %></p>
 						
+					<% when :admin_messsage %>
+						<p><%= link_to note.message, notes_path %></p>
+						
 					<% when :you_won %>
-						<%= link_to time_ago, notes_path, id: :top_left_link %>
 						<p><%= link_to note.message, notes_path %></p>
 				<% end %>
 			</div>

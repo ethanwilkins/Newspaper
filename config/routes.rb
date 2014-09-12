@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   get 'subtabs/deny/:id', to: 'subtabs#deny', as: 'deny_subtab'
   
+  get 'notes/notify/:id', to: 'notes#notify', as: 'notify_user'
+  
   get 'events/pending', as: 'pending_events'
   
   get "hashtags/search", as: "search"
