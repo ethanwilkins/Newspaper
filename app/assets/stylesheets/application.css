@@ -14,6 +14,38 @@
  *= require_self
  */
 
+html {
+	background: rgb(245, 245, 245);
+}
+
+#card {
+	border: 1px solid rgb(225, 225, 225);
+	box-shadow: 0px 1px 2px rgb(200, 200, 200);
+	position: relative;
+	border-radius: 2.5px;
+	padding: 15px 20px;
+	background: white;
+	max-width: 550px;
+	margin: 0 auto;
+	width: 80%;
+}
+
+#elheroe_logo {
+	margin-top: -5px;
+}
+
+#main {
+	background: rgb(245, 245, 245);
+}
+
+#nav {
+	background: rgb(230, 230, 230);
+}
+
+#content {
+	padding-top: 75px;
+}
+
 a {
 	text-decoration: none;
 }
@@ -22,6 +54,20 @@ a:hover {
 	text-decoration: underline;
 }
 
-html {
-	background: rgb(245, 245, 245);
+#large_button {
+	width: 90%;
+	max-width: 590px;
+	margin: 0 auto;
+}
+
+#standard_img {
+	width: 80%;
+	max-width: 590px;
+}
+
+#top_right {
+	position: absolute;
+	right: 10px;
+	top: 5px;
+	font-size: 14px;
 }
