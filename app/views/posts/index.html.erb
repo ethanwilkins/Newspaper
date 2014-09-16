@@ -1,6 +1,6 @@
 <!-- posts -->
 
-<%= render "new" %>
+<%= render "new" if current_user %>
 
 <% pos_on_page = 0 %>
 <% ad_pos = Random.new.rand @posts.size %>

@@ -1,6 +1,6 @@
 <%= render "posts/card", post: @post %>
 
-<%= render "comments/new" %>
+<%= render "comments/new" if current_user %>
 
 <% @comments.each do |comment| %>
 	<%= render "comments/card", comment: comment %>
