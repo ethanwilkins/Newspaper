@@ -7,9 +7,7 @@
 		<% end %>
 	</div></br>
 	
-	<% for subtab in @subtabs %>
-		<%= render "subtabs/card", subtab: subtab %>
-	<% end %>
+	<%= render "tabs/grid", tabs: @subtabs %>
 	
 <% else %>
 	<div id="card">
