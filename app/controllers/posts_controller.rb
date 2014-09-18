@@ -20,6 +20,9 @@ class PostsController < ApplicationController
     @post.tab_id = params[:tab_id]
     @post.subtab_id = params[:subtab_id]
     
+    # for locale targeted content
+    @post.zip_code = current_user.zip_code
+    
     if @post.save
       Hashtag.extract(@post) if @post.body
       redirect_to :back

@@ -28,6 +28,7 @@ class SubtabsController < ApplicationController
     @subtab = Subtab.new(params[:subtab].permit(:icon, :name, :description))
     @subtab.user_id = current_user.id
     @subtab.tab_id = params[:tab_id]
+    @subtab.approved = true if current_user.admin
     
     if @subtab.save
       flash[:notice] = "Your subtab was successfully submitted."

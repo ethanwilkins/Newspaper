@@ -27,6 +27,7 @@ class TabsController < ApplicationController
   def create
     @tab = Tab.new(params[:tab].permit(:icon, :name, :description))
     @tab.user_id = current_user.id
+    @tab.approved = true if current_user.admin
     
     if @tab.save
       flash[:notice] = "Your tab was successfully submitted."

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912013536) do
+ActiveRecord::Schema.define(version: 20140917233024) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 20140912013536) do
     t.boolean  "art"
     t.integer  "tab_id"
     t.integer  "subtab_id"
+    t.integer  "zip_code"
   end
 
   create_table "prizes", force: true do |t|
@@ -154,6 +155,7 @@ ActiveRecord::Schema.define(version: 20140912013536) do
     t.string   "icon"
     t.boolean  "approved"
     t.integer  "user_id"
+    t.boolean  "sponsored"
   end
 
   create_table "users", force: true do |t|
@@ -168,6 +170,7 @@ ActiveRecord::Schema.define(version: 20140912013536) do
     t.string   "email"
     t.string   "icon"
     t.text     "bio"
+    t.integer  "network_size"
   end
 
   create_table "votes", force: true do |t|

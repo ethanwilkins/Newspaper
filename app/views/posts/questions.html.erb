@@ -3,7 +3,7 @@
 <% pos_on_page = 0 %>
 <% ad_pos = Random.new.rand @questions.size %>
 <% for question in @questions %>
-	<%= render "posts/card", post: question, post_type: :question %>
+	<%= render "posts/card", post: question, post_type: :question unless question.comments.present? %>
 	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
 	<% pos_on_page += 1 %>
 <% end %>

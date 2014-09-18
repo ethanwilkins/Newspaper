@@ -15,6 +15,20 @@ class User < ActiveRecord::Base
   before_save :downcase_name
   
   mount_uploader :icon, ImageUploader
+  
+  # determines if content.zip_code is close
+  # enough, based on user.network_size
+  def close_enough(content)
+    if content.zip_code and zip_code and network_size
+      if (content.zip_code - zip_code).abs < network_size
+        true
+      else
+        false
+      end
+    else
+      true
+    end
+  end
 
   def self.authenticate(name, password)
     user = find_by_name(name.downcase)

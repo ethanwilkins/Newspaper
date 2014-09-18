@@ -18,6 +18,10 @@
 		<%= f.text_field :zip_code, placeholder: "Zip", class: "form-control" %>
 	</p>
 	<p>
+		<%= f.select :network_size, options_for_select([["Network Size", nil],
+			["Small", 1], ["Medium", 25], ["Large", 100]]), {}, class: "form-control" %>
+	</p>
+	<p>
 		<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>
