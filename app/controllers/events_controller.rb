@@ -36,7 +36,11 @@ class EventsController < ApplicationController
     
     if @event.save
       flash[:notice] = "Event submitted successfully."
-      redirect_to root_url
+      if current_user.admin
+        redirect_to events_path
+      else
+        redirect_to root_url
+      end
     else
       flash[:error] = "Invalid input"
       redirect_to :back
