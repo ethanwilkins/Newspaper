@@ -9,6 +9,7 @@ class UsersController < ApplicationController
   
   def create
     @user = User.new(params[:user].permit(:name, :zip_code, :password))
+    @user.network_size = 1
     
     if @user.save
       user = User.last # need to change this eventually
