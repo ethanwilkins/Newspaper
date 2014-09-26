@@ -1,0 +1,19 @@
+<% if word =~ /\A#{URI::regexp}\z/ and !word.include? "user" and (word.include? "youtube" or word.include? "youtu.be") %>
+	<% word = word.slice 0...word.index("&") if word.include? "&" %>
+	<% word.sub! "watch?v=", "embed/" if word.include? "watch?v=" %>
+	<% word.sub! "youtu.be", "www.youtube.com/embed" if word.include? "youtu.be" %>
+	<iframe width="90%" height="315" src="<%= word %>" frameborder="0" allowfullscreen>
+	</iframe></br>
+<% elsif word =~ /\A#{URI::regexp}\z/ %>
+	<% if word.include? ".jpg" or word.include? ".png" or word.include? ".gif" %>
+		<div align="center"><%= image_tag word, width: "90%" %></div>
+	<% else %>
+		<% unless word.size > 25 %>
+			<%= link_to word + " ", word %>
+		<% else %>
+			<%= link_to word[0..25] + "... ", word %>
+		<% end %>
+	<% end %>
+<% else %>
+	<%= word + " " %>
+<% end %>
