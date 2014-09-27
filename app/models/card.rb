@@ -3,14 +3,6 @@ class Card < ActiveRecord::Base
   belongs_to :code
   belongs_to :game_board
   
-  def self.remove_expired(cards)
-    for card in cards
-      if DateTime.now.to_i - card.created_at.to_i > 2592000
-        card.destroy
-      end
-    end
-  end
-  
   def redeemed_img
     new_img = ""
     image.split('/').each do |string|

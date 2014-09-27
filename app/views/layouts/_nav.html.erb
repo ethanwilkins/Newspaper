@@ -26,15 +26,6 @@
 				<li>
 					<%= link_to "Social", posts_path %>
 				</li>
-				<% end %>
-			</ul>
-			<% if current_user %>
-			<ul class="nav navbar-nav navbar-right">
-				<li>
-					<div class="navbar-form navbar-left" id="search_bar">
-						<%= render "hashtags/search_bar" %>
-					</div>
-				</li>
 				<li>
 					<%= link_to notes_path do %>
 						<% if current_user.notes.unchecked.size > 0 %>
@@ -45,6 +36,18 @@
 							<div>Notes</div>
 						<% end %>
 					<% end %>
+				</li>
+				<% end %>
+			</ul>
+			<% if current_user %>
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<div class="navbar-form navbar-left" id="search_bar">
+						<%= render "hashtags/search_bar" %>
+					</div>
+				</li>
+				<li>
+					<%= link_to current_user.name.capitalize, user_path(current_user) %>
 				</li>
 				<% if current_user.admin %>
 				<li>
