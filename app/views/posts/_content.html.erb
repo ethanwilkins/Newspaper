@@ -7,7 +7,13 @@
 
 <% if post.body.present? or post.hashtags.present? %>
 	<p align="center" id="post_body_text">
-		<% for word in post.body.split(' ') %>
+		<% if current_user.english and post.english_version %>
+			<% body = post.english_version %>
+		<% else %>
+			<% body = post.body %>
+		<% end %>
+		
+		<% for word in body.split(' ') %>
 			<%= render "posts/embed", word: word %>
 		<% end %>
 

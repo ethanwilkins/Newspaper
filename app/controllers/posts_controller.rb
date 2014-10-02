@@ -1,4 +1,8 @@
 class PostsController < ApplicationController
+  def translation_requests
+    @posts = Post.where translation_requested: true
+  end
+  
   def up_vote
     @post = Post.find(params[:id])
     Vote.up_vote!(@post, current_user)
@@ -13,7 +17,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(params[:post].permit(:title, :body, :image))
+    @post = current_user.posts.new(params[:post].permit(:title, :body, :image, :translation_requested))
     @post.question = params[:question]
     @post.joke = params[:joke]
     @post.art = params[:art]
@@ -28,6 +32,18 @@ class PostsController < ApplicationController
       redirect_to :back
     else
       flash[:error] = "Invalid input"
+      redirect_to :back
+    end
+  end
+  
+  def update
+    @post = Post.find(params[:id])
+    @post.translation_requested = params[:translation_requested]
+    
+    if @post.update(params[:post].permit(:body, :english_version))
+      redirect_to @post
+    else
+      flash[:error] = "The post could not be updated."
       redirect_to :back
     end
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141002173243) do
+ActiveRecord::Schema.define(version: 20141002213110) do
 
   create_table "articles", force: true do |t|
     t.datetime "created_at"
@@ -124,6 +124,8 @@ ActiveRecord::Schema.define(version: 20141002173243) do
     t.integer  "tab_id"
     t.integer  "subtab_id"
     t.integer  "zip_code"
+    t.boolean  "translation_requested"
+    t.text     "english_version"
   end
 
   create_table "prizes", force: true do |t|

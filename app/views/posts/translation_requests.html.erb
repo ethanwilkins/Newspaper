@@ -1,0 +1,21 @@
+<% for post in @posts %>
+	<div id="card">
+		<div align="center">
+			<div><strong><%= post.body %></strong></div></br>
+			
+			<%= form_for post, url: post_path(post), method: :patch do |f| %>
+				<%= hidden_field_tag translation_requested: false %>
+				<%= hidden_field_tag id: post.id %>
+				<p>
+					<%= f.text_area :body, placeholder: "Spanish", class: "form-control" %>
+				</p>
+				<p>
+					<%= f.text_area :english_version, placeholder: "English", class: "form-control" %>
+				</p>
+				<p>
+					<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
+				</p>
+			<% end %>
+		</div>
+	</div></br>
+<% end %>
