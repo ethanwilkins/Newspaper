@@ -6,9 +6,9 @@
 			<%= link_to image_tag(tab.icon, size: "50x50", id: :tab_icon), tab_path(tab) %>
 		</div>
 		
-		<p>
+		<div>
 			<%= link_to tab.name, tab_path(tab) %>
-		</p>
+		</div>
 		
 		<% if current_user.admin and tab.approved.nil? %>
 			<% if tab.sponsored and tab.company %>

@@ -2,7 +2,7 @@
 
 1. Have sub tabs apear in the feed along side posts.
 
-5.  Have two fields that allow users to input a thread in both English and Spanish so that based on the user’s preference they either get the English or Spanish version of a post if either or is available.
+5. Have two fields that allow users to input a thread in both English and Spanish so that based on the user’s preference they either get the English or Spanish version of a post if either or is available.
 
 6. Have a button that a user can have their post submitted to an admin for translation to Spanish. This way English business can create a post and have it converted to Spanish at the push of a button. The post would of course go to an admin for translation and then once completed he post would go on to where ever they were going.
 
