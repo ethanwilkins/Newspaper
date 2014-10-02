@@ -1,7 +1,18 @@
-<!-- subtabs -->
+<!-- tabs -->
 
 <div id="card"></br>
-	<%= render "subtabs/new_subtab_button" %>
+	<div id="top_right_link">
+		<div class="btn-group">
+			<% if current_user.admin %>
+				<%= link_to destroy_tab_path(@tab), method: :delete, class: "btn btn-default",
+					data: { confirm: 'Are you sure you want to delete this tab?' } do %>
+					<span class="glyphicon glyphicon-trash"></span>
+				<% end %>
+			<% end %>
+			<%= render "subtabs/new_subtab_button" if @tab.approved %>
+		</div>
+	</div>
+	
 	<div align="center">
 		<%= image_tag @tab.icon, size: "200x200" %>
 		<h3>
@@ -9,8 +20,9 @@
 		</h3>
 	</div>
 </div></br>
-
-<%= render "posts/new" %>
+<% if @tab.approved and ((@tab.sponsored_only and current_user.business) or !@tab.sponsored_only) %>
+	<%= render "posts/new" %>
+<% end %>
 
 <% pos_on_page = 0 %>
 <% ad_pos = Random.new.rand @posts.size if @posts.present? %>

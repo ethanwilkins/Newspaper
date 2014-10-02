@@ -13,7 +13,20 @@
 			<%= f.text_area :description, placeholder: "Description", class: "form-control" %>
 		</p>
 		<p>
-			<%= f.submit "Create", class: "btn btn-default btn-lg btn-block" %>
+			<%= f.text_field :company, placeholder: "Company", class: "form-control" %>
+		</p>
+		<p class="form-control">
+			<%= f.label "Request verification of business" %>
+			<%= f.check_box :sponsored %>
+		</p>
+		<% if current_user.admin or current_user.business %>
+			<p class="form-control">
+				<%= f.label "Make this tab sponsored only" %>
+				<%= f.check_box :sponsored_only %>
+			</p>
+		<% end %>
+		<p>
+			<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
 	</br>

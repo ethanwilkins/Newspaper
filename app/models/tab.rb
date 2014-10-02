@@ -1,6 +1,6 @@
 class Tab < ActiveRecord::Base
   has_many :posts
-  has_many :subtabs
+  has_many :subtabs, dependent: :destroy
   
   mount_uploader :icon, ImageUploader
   

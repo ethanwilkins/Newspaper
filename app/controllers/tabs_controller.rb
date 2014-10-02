@@ -25,7 +25,7 @@ class TabsController < ApplicationController
   end
   
   def create
-    @tab = Tab.new(params[:tab].permit(:icon, :name, :description))
+    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only))
     @tab.user_id = current_user.id
     @tab.approved = true if current_user.admin
     
@@ -34,6 +34,16 @@ class TabsController < ApplicationController
       redirect_to tabs_path
     else
       flash[:error] = "Invalid input"
+      redirect_to :back
+    end
+  end
+  
+  def destroy
+    @tab = Tab.find(params[:id])
+    if @tab.destroy
+      redirect_to tabs_path
+    else
+      flash[:error] = "There was a problem trying to delete the tab."
       redirect_to :back
     end
   end

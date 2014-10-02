@@ -1,10 +1,6 @@
+#### Todo list ####
+
 1. Have sub tabs apear in the feed along side posts.
-
-2. Special accounts for business to post on to special tabs: This means that we would be able to provide a business with a code that they code then use to create said special account which would allow them to post thing to special tabs. Example: Bob’s Burgers creates an account with the code 555666. Which would allow them to post their special to the site on a tab called local  special which only users with business accounts could post to.
-
-3. We need a button to let the user access their account.
-
-4. Proper procedure for posting youtube videos?
 
 5.  Have two fields that allow users to input a thread in both English and Spanish so that based on the user’s preference they either get the English or Spanish version of a post if either or is available.
 
@@ -12,10 +8,25 @@
 
 7. Zip code issue http://bl.ocks.org/mbostock/5180185
 
-8. More tab
-
 9. How are we going to go about the Spanish implementation?
 
+
+#### DONE ####
+
 10. Is there a way that we can delete the tabs so as to be able to avoid duplicates in the future?
+done
 
 11. How is the ability to clear the game boards of game cards. We could also just make them expire every month.
+done
+
+8. More tab
+done
+
+2. Special accounts for business to post on to special tabs: This means that we would be able to provide a business with a code that they code then use to create said special account which would allow them to post thing to special tabs. Example: Bob’s Burgers creates an account with the code 555666. Which would allow them to post their special to the site on a tab called local  special which only users with business accounts could post to.
+done
+
+3. We need a button to let the user access their account.
+done
+
+4. Proper procedure for posting youtube videos?
+done

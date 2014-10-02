@@ -6,12 +6,18 @@
 			<%= link_to image_tag(tab.icon, size: "50x50", id: :tab_icon), tab_path(tab) %>
 		</div>
 		
-		<div>
+		<p>
 			<%= link_to tab.name, tab_path(tab) %>
-		</div>
+		</p>
 		
 		<% if current_user.admin and tab.approved.nil? %>
-			</br><%= render "tabs/approve_deny", tab: tab %>
+			<% if tab.sponsored and tab.company %>
+				<p>
+					<%= User.find(tab.user_id).name.capitalize +
+						" requested verification of their company, " + tab.company %>
+				</p>
+			<% end %>
+			<%= render "tabs/approve_deny", tab: tab %>
 		<% end %>
 	</div>
 </div></br>

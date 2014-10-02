@@ -22,6 +22,16 @@
 			["Small", 1], ["Medium", 75], ["Large", 350]]), {}, class: "form-control" %>
 	</p>
 	<p>
+		<%= f.select :english, options_for_select([["Language", nil],
+			["Spanish", false], ["English", true]]), {}, class: "form-control" %>
+	</p>
+	<% if current_user.admin %>
+		<p class="form-control">
+			<%= f.label "Business account" %>
+			<%= f.check_box :business %>
+		</p>
+	<% end %>
+	<p>
 		<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>

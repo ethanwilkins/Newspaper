@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     
-    if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code, :network_size))
+    if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code, :network_size, :business, :english))
       redirect_to @user
     else
       flash[:error] = "User profile could not be updated."
