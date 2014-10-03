@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user].permit(:name, :zip_code, :password))
     @user.network_size = 100
+    @user.ip = request.remote_ip.to_s
     
     if @user.save
       user = User.last # need to change this eventually
