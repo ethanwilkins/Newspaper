@@ -1,6 +1,12 @@
 <% for post in @posts %>
 	<div id="card">
 		<div align="center">
+			<% if post.image.url %>
+				<div>
+					<%= image_tag post.image, size: "80%" %>
+				</div></br>
+			<% end %>
+			<div><strong>Needs to be translated: </strong></div></br>
 			<div><strong><%= post.body %></strong></div></br>
 			
 			<%= form_for post, url: post_path(post), method: :patch do |f| %>
