@@ -1,0 +1,13 @@
+<div id="card">
+<%= form_for @translation do |f| %>
+	<p>
+		<%= f.text_field :english, placeholder: "English", class: "form-control" %>
+	</p>
+	<p>
+		<%= f.text_field :spanish, placeholder: "Spanish", class: "form-control" %>
+	</p>
+	<p>
+		<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
+	</p>
+<% end %>
+</div>

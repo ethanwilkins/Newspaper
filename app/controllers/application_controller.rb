@@ -3,9 +3,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user
+  helper_method :current_user, :translator
 
   private
+  
+  def translator(english)
+    # takes string and searches Translation.all for a match unless user.english
+    unless current_user.english
+      spanish = Translation.where(english: english)
+    end
+    return spanish.present? ? spanish.last.spanish : english
+  end
 
   def current_user
     @current_user ||= User.find(session[:user_id]) if session[:user_id]
