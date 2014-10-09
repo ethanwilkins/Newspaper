@@ -7,9 +7,9 @@ class TranslationsController < ApplicationController
     @translation = Translation.new(params[:translation].permit(:english, :spanish))
     
     if @translation.save
-      flash[:notice] = "Translation saved successfully."
+      flash[:notice] = translate("Translation saved successfully.")
     else
-      flash[:error] = "Translation could not be saved."
+      flash[:error] = translate("Translation could not be saved.")
     end
     redirect_to :back
   end
