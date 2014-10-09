@@ -4,14 +4,15 @@
 
 7. Zip code issue http://bl.ocks.org/mbostock/5180185
 
-9. How are we going to go about the Spanish implementation?
-
 maybe through a dedicated controller or even a model for submitting
 a record containing the english and spanish version for each control
 A form for submitting each word perhaps
 
 
 #### DONE ####
+
+9. How are we going to go about the Spanish implementation?
+done
 
 10. Is there a way that we can delete the tabs so as to be able to avoid duplicates in the future?
 done

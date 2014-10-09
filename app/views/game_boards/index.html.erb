@@ -3,11 +3,11 @@
 <% @game_boards.each do |board| %>
 	<div id="card">
 		<% if board.cards.size < 1 %>
-			<p align="center">You have no cards on this board</p>
+			<p align="center"> <%= translate "You have no cards on this board" %></p>
 		<% end %>
 		
 		<%= render "game_boards/grid", cards: board.cards %></br>
-		<%= button_to "Show", user_game_board_path(current_user, board),
+		<%= button_to translate("Show"), user_game_board_path(current_user, board),
 			method: :get, class: "btn btn-default btn-lg btn-block" %>
 	</div>
 	</br>

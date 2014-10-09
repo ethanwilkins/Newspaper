@@ -1,3 +1,3 @@
 <% if current_user.admin and current_user != @user %>
-	<%= link_to "Notify", notify_user_path(@user), id: :top_center_right_link %>
+	<%= link_to translate("Notify"), notify_user_path(@user), id: :top_center_right_link %>
 <% end %>

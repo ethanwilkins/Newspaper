@@ -11,10 +11,11 @@ class GameBoardsController < ApplicationController
     @game_board = current_user.game_boards.new(code_id: @code.id,
       board_number: @code.board_number) if @code
     
-    if @game_board.save
+    if @game_board and @game_board.save
       @game_board.populate
       redirect_to user_game_board_path(current_user, @game_board)
     else
+      flash[:error] = "The code was not valid."
       redirect_to :back
     end
   end

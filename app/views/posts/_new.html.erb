@@ -4,16 +4,16 @@
 	<div align="center">
 		<div class="btn-group">
 			<% unless @tab %>
-				<%= link_to "Jokes", jokes_path, class: "btn btn-default" %>
-				<%= link_to "Questions", questions_path, class: "btn btn-default" %>
-				<%= link_to "More", tabs_path, class: "btn btn-default" %>
+				<%= link_to translate("Jokes"), jokes_path, class: "btn btn-default" %>
+				<%= link_to translate("Questions"), questions_path, class: "btn btn-default" %>
+				<%= link_to translate("More"), tabs_path, class: "btn btn-default" %>
 			<% else %>
 				<% for subtab in @subtabs %>
 					<% if subtab %>
 						<%= link_to subtab.name, tab_subtab_path(@tab, subtab), class: "btn btn-default" %>
 					<% end %>
 				<% end %>
-				<%= link_to "More", tab_subtabs_path(@tab), class: "btn btn-default" %>
+				<%= link_to translate("More"), tab_subtabs_path(@tab), class: "btn btn-default" %>
 			<% end %>
 		</div>
 	</div></br>
@@ -28,27 +28,27 @@
 		<% if defined? post_type %>
 			<% if post_type == :joke %>
 				<%= hidden_field_tag :joke, true %>
-				<% placeholder = "Tell a joke..." %>
-				<% submit_text = "Post" %>
+				<% placeholder = translate "Tell a joke..." %>
+				<% submit_text = translate "Post" %>
 			<% elsif post_type == :question %>
 				<%= hidden_field_tag :question, true %>
-				<% placeholder = "Ask a question..." %>
-				<% submit_text = "Ask" %>
+				<% placeholder = translate "Ask a question..." %>
+				<% submit_text = translate "Ask" %>
 			<% elsif post_type == :art %>
 				<%= hidden_field_tag :art, true %>
-				<% placeholder = "Share some art..." %>
-				<% submit_text = "Post" %>
+				<% placeholder = translate "Share some art..." %>
+				<% submit_text = translate "Post" %>
 			<% end %>
 		<% else %>
-			<% placeholder = "Start a thread..." %>
-			<% submit_text = "Post" %>
+			<% placeholder = translate "Start a thread..." %>
+			<% submit_text = translate "Post" %>
 		<% end %>
 		
 		<p>
 			<%= f.text_area :body, placeholder: placeholder, class: "form-control" %>
 		</p>
 		<p class="form-control">
-			<%= f.label "Request translation" %>
+			<%= f.label translate "Request translation" %>
 			<%= f.check_box :translation_requested %>
 		</p>
 		

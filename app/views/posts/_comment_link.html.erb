@@ -1,5 +1,5 @@
 <% unless post.comments.empty? %>
-	<%= link_to "Comment #{post.comments.size}", post_path(post), id: :bottom_left_link %>
+	<%= link_to translate("Comment") + " #{post.comments.size}", post_path(post), id: :bottom_left_link %>
 <% else %>
-	<%= link_to "Comment", post_path(post), id: :bottom_left_link %>
+	<%= link_to translate("Comment"), post_path(post), id: :bottom_left_link %>
 <% end %>
