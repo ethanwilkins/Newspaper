@@ -4,10 +4,10 @@ class SubtabsController < ApplicationController
     if @subtab.update approved: true
       Note.notify(current_user, User.find(@subtab.user_id),
         :subtab_approved, @subtab.id)
-      flash[:notice] = "The subtab was successfully approved."
+      flash[:notice] = translate "The subtab was successfully approved."
       redirect_to :back
     else
-      flash[:error] = "The subtab could not be approved."
+      flash[:error] = translate "The subtab could not be approved."
       redirect_to :back
     end
   end
@@ -31,10 +31,10 @@ class SubtabsController < ApplicationController
     @subtab.approved = true if current_user.admin
     
     if @subtab.save
-      flash[:notice] = "Your subtab was successfully submitted."
+      flash[:notice] = translate "Your subtab was successfully submitted."
       redirect_to tab_path(@subtab.tab_id)
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate "Invalid input"
       redirect_to :back
     end
   end

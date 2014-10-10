@@ -39,14 +39,14 @@ class ArticlesController < ApplicationController
     @article.ad = params[:ad]
     
     if @article.save and @article.ad
-      flash[:notice] = "Advertisement saved successfully."
+      flash[:notice] = translate "Advertisement saved successfully."
       redirect_to :back
       
     elsif @article.save
       redirect_to articles_path
       
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate "Invalid input"
       redirect_to :back
     end
   end

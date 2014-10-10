@@ -10,7 +10,7 @@ class BannersController < ApplicationController
     if @banner.save
       redirect_to :back
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate("Invalid input")
       redirect_to :back
     end
   end

@@ -12,10 +12,10 @@ class NotesController < ApplicationController
     @note.item_id = 1
     
     if @note.save
-      flash[:notice] = "The notification was sent."
+      flash[:notice] = translate("The notification was sent.")
       redirect_to User.find(@note.user_id)
     else
-      flash[:error] = "Invalid input."
+      flash[:error] = translate("Invalid input.")
       redirect_to :back
     end
   end

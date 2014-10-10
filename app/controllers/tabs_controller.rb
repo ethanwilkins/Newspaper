@@ -30,10 +30,10 @@ class TabsController < ApplicationController
     @tab.approved = true if current_user.admin
     
     if @tab.save
-      flash[:notice] = "Your tab was successfully submitted."
+      flash[:notice] = translate "Your tab was successfully submitted."
       redirect_to tabs_path
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate "Invalid input"
       redirect_to :back
     end
   end
@@ -43,7 +43,7 @@ class TabsController < ApplicationController
     if @tab.destroy
       redirect_to tabs_path
     else
-      flash[:error] = "There was a problem trying to delete the tab."
+      flash[:error] = translate "There was a problem trying to delete the tab."
       redirect_to :back
     end
   end

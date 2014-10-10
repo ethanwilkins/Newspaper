@@ -11,11 +11,11 @@ class CardsController < ApplicationController
     if @card
       @card.update redeemed: true, code_id: @code.id, image: @card.redeemed_img
       if @game_board.you_won!
-        flash[:notice] = "You won!"
+        flash[:notice] = translate "You won!"
       end
       redirect_to :back
     else
-      flash[:error] = "Invalid code."
+      flash[:error] = translate "Invalid code."
       redirect_to :back
     end
   end

@@ -26,11 +26,11 @@ class CodesController < ApplicationController
       :advertiser, :board_number, :board_loc))
     
     if @code.save
-      flash[:notice] = "Code saved."
+      flash[:notice] = translate "Code saved."
       redirect_to :back
     else
       if @code.code.nil?
-        flash[:error] = "A code must be entered."
+        flash[:error] = translate "A code must be entered."
         
       elsif @code.errors.include? :board_code_exists
         flash[:error] = @code.errors[:board_code_exists].first
@@ -42,7 +42,7 @@ class CodesController < ApplicationController
         flash[:error] = @code.errors[:board_needs_number].first
         
       else
-        flash[:error] = "Invalid input"
+        flash[:error] = translate "Invalid input"
       end
       redirect_to :back
     end

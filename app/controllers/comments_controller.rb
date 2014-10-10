@@ -44,7 +44,7 @@ class CommentsController < ApplicationController
       Note.notify(current_user, @user, action, item_id)
       redirect_to :back
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate "Invalid input"
       redirect_to :back
     end
   end

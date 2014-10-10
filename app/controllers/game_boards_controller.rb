@@ -15,7 +15,7 @@ class GameBoardsController < ApplicationController
       @game_board.populate
       redirect_to user_game_board_path(current_user, @game_board)
     else
-      flash[:error] = "The code was not valid."
+      flash[:error] = translate("The code was not valid.")
       redirect_to :back
     end
   end
