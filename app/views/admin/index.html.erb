@@ -1,4 +1,4 @@
-<% if current_user.admin %>
+<% if current_user and current_user.admin %>
 	<%= render 'stats' %>
 	
 	<div id="card">
@@ -11,5 +11,7 @@
 		<%= link_to "Tabs", pending_tabs_path, class: "btn btn-default btn-lg btn-block" %>
 	</div>
 <% else %>
-	<p align="center">Check your privilege.</p>
+	<div id="card">
+		<div align="center">Check your privilege.</div>
+	</div>
 <% end %>

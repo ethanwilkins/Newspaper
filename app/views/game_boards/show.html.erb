@@ -1,6 +1,6 @@
 <div id="card">
 	<% if @cards.size < 1 %>
-		<p align="center">You have no cards on this board.</p>
+		<p align="center"><%= translate("You have no cards on this board.") %></p>
 	<% end %>
 	
 	<%= render "game_boards/grid", cards: @cards %>
@@ -9,11 +9,11 @@
 		<div class="btn-group">
 			<%= link_to reset_path(@game_board), class: "btn btn-default",
 				data: { confirm: 'Are you sure you want to reset the board?' } do %>
-					Reset
+					<%= translate("Reset") %>
 			<% end %>
 			<%= link_to destroy_board_path(@game_board), class: "btn btn-default",
 				method: :delete, data: { confirm: 'Are you sure you want to delete the board?' } do %>
-					Delete
+					<%= translate("Delete") %>
 			<% end %>
 		</div>
 	</div>
