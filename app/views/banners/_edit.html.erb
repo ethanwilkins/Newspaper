@@ -1,7 +1,7 @@
 <%= form_for @banner, html: {multipart: true, "data-ajax" => false} do |f| %>
 	<%= hidden_field_tag id: @banner.id %>
 	<div id="card">
-		<p align="center">Upload a new banner</p>
+		<p align="center"><%= translate("Upload a new banner")%></p>
 		<div class="input-group">
 			<%= f.file_field :image, class: "form-control" %>
 			<span class="input-group-btn">

@@ -4,17 +4,17 @@
 	<%= hidden_field_tag :tab_id, params[:tab_id] %>
 	<div id="card">
 		<p>
-			<%= f.label "Choose an icon for the subtab" %>
+			<%= f.label translate("Choose an icon for the subtab") %>
 			<%= f.file_field :icon, class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+			<%= f.text_field :name, placeholder: translate("Name"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_area :description, placeholder: "Description", class: "form-control" %>
+			<%= f.text_area :description, placeholder: translate("Description"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.submit "Create", class: "btn btn-default btn-lg btn-block" %>
+			<%= f.submit translate("Create"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
 	</br>

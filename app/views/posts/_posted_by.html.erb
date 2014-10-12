@@ -1,3 +1,3 @@
 <% user = User.find_by_id(post.user_id) %>
 
-<%= link_to( "Posted by " + user.name, user_path(user), id: :top_right_link) if user %>
+<%= link_to( translate("Posted by ") + user.name, user_path(user), id: :top_right_link) if user %>

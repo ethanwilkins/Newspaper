@@ -2,13 +2,13 @@
 	<%= render 'stats' %>
 	
 	<div id="card">
-		<%= link_to "Codes", codes_path, class: "btn btn-default btn-lg btn-block" %></br>
-		<%= link_to "Events", pending_events_path, class: "btn btn-default btn-lg btn-block" %></br>
-		<%= link_to "Banner", banners_path, class: "btn btn-default btn-lg btn-block" %></br>
-		<%= link_to "Translate", translation_reqs_path, class: "btn btn-default btn-lg btn-block" %></br>
-		<%= link_to "Adverts", ad_index_path, class: "btn btn-default btn-lg btn-block" %></br>
-		<%= link_to "Notes", pending_tabs_path, class: "btn btn-default btn-lg btn-block" %></br>
-		<%= link_to "Tabs", pending_tabs_path, class: "btn btn-default btn-lg btn-block" %>
+		<%= link_to translate("Codes"), codes_path, class: "btn btn-default btn-lg btn-block" %></br>
+		<%= link_to translate("Events"), pending_events_path, class: "btn btn-default btn-lg btn-block" %></br>
+		<%= link_to translate("Banner"), banners_path, class: "btn btn-default btn-lg btn-block" %></br>
+		<%= link_to translate("Translate"), translation_reqs_path, class: "btn btn-default btn-lg btn-block" %></br>
+		<%= link_to translate("Adverts"), ad_index_path, class: "btn btn-default btn-lg btn-block" %></br>
+		<%= link_to translate("Notes"), pending_tabs_path, class: "btn btn-default btn-lg btn-block" %></br>
+		<%= link_to translate("Tabs"), pending_tabs_path, class: "btn btn-default btn-lg btn-block" %>
 	</div>
 <% else %>
 	<div id="card">

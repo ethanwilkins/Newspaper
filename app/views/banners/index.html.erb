@@ -1,6 +1,6 @@
 <% if @banner %>
 	<div id="card">
-		<div align="center">Current banner</div></br>
+		<div align="center"><%= translate("Current banner") %></div></br>
 		<div align="center"><%= image_tag @banner.image, id: :banner %></div>
 	</div></br>
 	<%= render "edit" %>

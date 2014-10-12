@@ -5,7 +5,7 @@
 <% end %>
 
 <div id="card">
-	<%= link_to time_ago, article_path(article), id: :top_left_link %>
+	<%= link_to translate(time_ago), article_path(article), id: :top_left_link %>
 	<%= render "articles/written_by", article: article %>
 	<%= render "articles/content", article: article %>
 	<%= render "articles/comment_link", article: article %>
