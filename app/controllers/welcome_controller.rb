@@ -6,12 +6,8 @@ class WelcomeController < ApplicationController
     end
     session[:more] = nil
     
-    @all_articles = Article.all.reverse
-    @articles = Article.all.reverse.
-      # drops first several posts if :page
-      drop((session[:page] ? session[:page] : 0) * page_size).
-      # only shows first several posts of resulting array
-      first(page_size)
+    @all_articles = Article.all
+    @articles = Article.all.reverse
     @banner = Banner.last
     @user = User.new
     if current_user
