@@ -1,29 +1,24 @@
 <div id="large_button">
-	<%= link_to "Site Translations", translations_path, class: "btn btn-default btn-lg btn-block" %>
+	<%= link_to translate("Site Translations"), translations_path, class: "btn btn-default btn-lg btn-block" %>
 </div></br>
 
 <% for post in @posts %>
 	<div id="card">
 		<div align="center">
-			<% if post.image.url %>
-				<div>
-					<%= image_tag post.image, size: "80%" %>
-				</div></br>
-			<% end %>
-			<div><strong>Needs to be translated: </strong></div></br>
-			<div><strong><%= post.body %></strong></div></br>
+			<p><strong><%= translate("Needs to be translated:") %> </strong></p>
+			<div><%= post.body %></div></br>
 			
 			<%= form_for post, url: post_path(post), method: :patch do |f| %>
 				<%= hidden_field_tag translation_requested: false %>
 				<%= hidden_field_tag id: post.id %>
 				<p>
-					<%= f.text_area :body, placeholder: "Spanish", class: "form-control" %>
+					<%= f.text_area :body, placeholder: translate("Spanish"), class: "form-control" %>
 				</p>
 				<p>
-					<%= f.text_area :english_version, placeholder: "English", class: "form-control" %>
+					<%= f.text_area :english_version, placeholder: translate("English"), class: "form-control" %>
 				</p>
 				<p>
-					<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
+					<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
 				</p>
 			<% end %>
 		</div>
