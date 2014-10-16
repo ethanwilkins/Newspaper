@@ -1,6 +1,17 @@
 class WelcomeController < ApplicationController
   def index
-    @articles = Article.all.reverse
+    # resets back to top
+    unless session[:more]
+      session[:page] = nil
+    end
+    session[:more] = nil
+    
+    @all_articles = Article.all
+    @articles = Article.all.reverse.
+      # drops first several posts if :feed_page
+      drop((session[:page] ? session[:page] : 0) * page_size).
+      # only shows first several posts of resulting array
+      first(page_size)
     @banner = Banner.last
     @user = User.new
     if current_user
