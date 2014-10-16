@@ -1,0 +1,14 @@
+<%= render "translations/new" %>
+
+<% for translation in @translations %>
+	<div id="card">
+		<div align="center">
+			<p>
+				<strong>English:</strong> <%= translation.english %>
+			</p>
+			<div>
+				<strong>Spanish:</strong> <%= translation.spanish %>
+			</div>
+		</div>
+	</div></br>
+<% end %>
