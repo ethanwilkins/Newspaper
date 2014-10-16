@@ -31,7 +31,7 @@ class PostsController < ApplicationController
       Hashtag.extract(@post) if @post.body
       redirect_to :back
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate "Invalid input"
       redirect_to :back
     end
   end
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
     if @post.update(params[:post].permit(:body, :english_version))
       redirect_to @post
     else
-      flash[:error] = "The post could not be updated."
+      flash[:error] = translate "The post could not be updated."
       redirect_to :back
     end
   end

@@ -6,33 +6,33 @@
 		<%= f.file_field :icon, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :name, placeholder: "Name", class: "form-control" %>
+		<%= f.text_field :name, placeholder: translate("Name"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :email, placeholder: "Email", class: "form-control" %>
+		<%= f.text_field :email, placeholder: translate("Email"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_area :bio, placeholder: "Bio", class: "form-control" %>
+		<%= f.text_area :bio, placeholder: translate("Bio"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :zip_code, placeholder: "Zip", class: "form-control" %>
+		<%= f.text_field :zip_code, placeholder: translate("Zip"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :network_size, options_for_select([["Network Size", nil],
-			["Small", 1], ["Medium", 75], ["Large", 350]]), {}, class: "form-control" %>
+		<%= f.select :network_size, options_for_select([[translate("Network Size"), nil],
+			[translate("Small"), 1], [translate("Medium"), 75], [translate("Large"), 350]]), {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :english, options_for_select([["Language", nil],
-			["Spanish", false], ["English", true]]), {}, class: "form-control" %>
+		<%= f.select :english, options_for_select([[translate("Language"), nil],
+			[translate("Spanish"), false], [translate("English"), true]]), {}, class: "form-control" %>
 	</p>
 	<% if current_user.admin %>
 		<p class="form-control">
-			<%= f.label "Business account" %>
+			<%= f.label translate("Business account") %>
 			<%= f.check_box :business %>
 		</p>
 	<% end %>
 	<p>
-		<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
+		<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>
 </div>

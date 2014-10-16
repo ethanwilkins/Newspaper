@@ -35,14 +35,14 @@ class EventsController < ApplicationController
     @event.user_id = current_user.id
     
     if @event.save
-      flash[:notice] = "Event submitted successfully."
+      flash[:notice] = translate "Event submitted successfully."
       if current_user.admin
         redirect_to events_path
       else
         redirect_to root_url
       end
     else
-      flash[:error] = "Invalid input"
+      flash[:error] = translate "Invalid input"
       redirect_to :back
     end
   end
