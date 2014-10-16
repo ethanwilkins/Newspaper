@@ -8,7 +8,7 @@ class WelcomeController < ApplicationController
     
     @articles = Article.all.reverse.
       # drops first several posts if :feed_page
-      drop((session[:page] ? session[:page] : 0) * page_size).
+      drop((session[:page] ? session[:page] : 1) * page_size).
       # only shows first several posts of resulting array
       first(page_size)
     @banner = Banner.last
