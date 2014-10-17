@@ -1,4 +1,4 @@
-<% if word =~ /\A#{URI::regexp}\z/ and word.include? "youtube" and !word.include? "user" and !word.include? "channel" %>
+<% if word =~ /\A#{URI::regexp}\z/ and word.include? "youtu" and !word.include? "user" and !word.include? "channel" %>
 	<% word = word.slice 0...word.index("&") if word.include? "&" %>
 	<% word.sub! "watch?v=", "embed/" if word.include? "watch?v=" %>
 	<% word.sub! "youtu.be", "www.youtube.com/embed" if word.include? "youtu.be" %>
