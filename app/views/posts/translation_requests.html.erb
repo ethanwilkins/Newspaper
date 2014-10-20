@@ -4,6 +4,8 @@
 
 <% for post in @posts %>
 	<div id="card">
+		<%= render "posts/time_ago", post: post %>
+		<%= render "posts/posted_by", post: post %></br>
 		<div align="center">
 			<p><strong><%= translate("Needs to be translated:") %> </strong></p>
 			<div><%= post.body %></div></br>
