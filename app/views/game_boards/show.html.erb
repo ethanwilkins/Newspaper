@@ -8,11 +8,11 @@
 	<div align="center">
 		<div class="btn-group">
 			<%= link_to reset_path(@game_board), class: "btn btn-default",
-				data: { confirm: 'Are you sure you want to reset the board?' } do %>
+				data: { confirm: translate("Are you sure you want to reset the board?") } do %>
 					<%= translate("Reset") %>
 			<% end %>
 			<%= link_to destroy_board_path(@game_board), class: "btn btn-default",
-				method: :delete, data: { confirm: 'Are you sure you want to delete the board?' } do %>
+				method: :delete, data: { confirm: translate("Are you sure you want to delete the board?") } do %>
 					<%= translate("Delete") %>
 			<% end %>
 		</div>
