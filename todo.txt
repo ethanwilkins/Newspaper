@@ -4,12 +4,69 @@
 
 7. Zip code issue http://bl.ocks.org/mbostock/5180185
 
-maybe through a dedicated controller or even a model for submitting
-a record containing the english and spanish version for each control
-A form for submitting each word perhaps
+
+
+
+
+
+
+
+Step 1: Find the density value
+
+User provided zip code = 5 digit number, Ex. zip code: 27610
+
+Zip_code = 27610 ***** Enter this value into the system wide zipcode data base, save each user zip provided *****
+
+ZipRadius = 10  // this is the value that we can change but will ultimately be the “absolute, static, no changing” value //
+
+ZipRangeBottom = zip_code - ZipRadius 
+
+zipRangeTop = zip_code + ZipRadius
+
+density_range = ZiprangeBotom…to..ZipRangeTop
+
+DataBaseCheck: at this point, check how many zip codes in the data base fall with in this range
+Return: The value of the number of zipcodes in the data base that fall with in the density_range
+this numerical value will be the “Density_Value” Density_Value determines the minimum and maximum
+amount of zip_codes in their area to access, cutting off the zip codes that are farthest away,
+the ones most different in numerical value, takes each zip code as a string of characters, and
+adds weight to the similarity of the first few characters, less weight to characters at the end
+of the string of numbers that match each other
+
+
+
+Step 2 : flip the density value
+
+Density_Value = // some number between the 1 and two times the
+ZipRadius added to the Zip_Code to derive the ZipRangeBotom and ZipRangeTop. //
+
+{
+	x = 1
+	y = 2 * ZipRadius
+	If Density_Value = x
+	then Fliped_Density_Value = y
+	not x++, y--
+}
+//Run this logical statement till it resolves to true
+
+I still have not come up with good values for the actual bullets for the “slider in the
+network size option” but ideally we will just take the Fliped_Densit_Value and multiply
+the bulleted value to create a range of zipcodes
+
+
+
+
+
+
+
 
 
 #### DONE ####
+
+maybe through a dedicated controller or even a model for submitting
+a record containing the english and spanish version for each control
+A form for submitting each word perhaps
+done
 
 9. How are we going to go about the Spanish implementation?
 done
