@@ -6,11 +6,6 @@
 
 
 
-
-
-
-
-
 Step 1: Find the density value
 
 User provided zip code = 5 digit number, Ex. zip code: 27610
@@ -34,7 +29,6 @@ adds weight to the similarity of the first few characters, less weight to charac
 of the string of numbers that match each other
 
 
-
 Step 2 : flip the density value
 
 Density_Value = // some number between the 1 and two times the
@@ -54,9 +48,7 @@ network size option” but ideally we will just take the Fliped_Densit_Value and
 the bulleted value to create a range of zipcodes
 
 
-
-
-
+Translation of zip code algorithm:
 
 
 

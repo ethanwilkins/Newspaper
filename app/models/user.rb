@@ -16,18 +16,20 @@ class User < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
+  ZIP_CODE_RANGE = 10
+  
   # determines if content.zip_code is close
   # enough, based on user.network_size
   def close_enough(content)
-    if content.zip_code and zip_code and network_size
-      if (content.zip_code - zip_code).abs < network_size
-        true
-      else
-        false
+    zips_in_range = 0
+    for user in User.all
+      if self.zip_code and self.network_size
+        if (self.zip_code - user.zip_code).abs < ZIP_CODE_RANGE
+          zips_in_range += 1
+        end
       end
-    else
-      true
     end
+    return true # for now
   end
 
   def self.authenticate(name, password)
