@@ -21,6 +21,7 @@ zipRangeTop = zip_code + ZipRadius
 density_range = ZiprangeBotom…to..ZipRangeTop
 
 DataBaseCheck: at this point, check how many zip codes in the data base fall with in this range
+
 Return: The value of the number of zipcodes in the data base that fall with in the density_range
 this numerical value will be the “Density_Value” Density_Value determines the minimum and maximum
 amount of zip_codes in their area to access, cutting off the zip codes that are farthest away,
@@ -46,10 +47,6 @@ ZipRadius added to the Zip_Code to derive the ZipRangeBotom and ZipRangeTop. //
 I still have not come up with good values for the actual bullets for the “slider in the
 network size option” but ideally we will just take the Fliped_Densit_Value and multiply
 the bulleted value to create a range of zipcodes
-
-
-Translation of zip code algorithm:
-
 
 
 
