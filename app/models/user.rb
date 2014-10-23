@@ -20,10 +20,10 @@ class User < ActiveRecord::Base
   
   def close_enough(content)
     zips_in_range = []
-    for user in User.all
+    for zip in Zip.all
       if self.zip_code and self.network_size and content.zip_code
-        if (self.zip_code - user.zip_code).abs < ZIP_CODE_RANGE + self.network_size
-          zips_in_range << user.zip_code
+        if (self.zip_code - zip).abs < ZIP_CODE_RANGE + self.network_size
+          zips_in_range << zip
         end
       end
     end

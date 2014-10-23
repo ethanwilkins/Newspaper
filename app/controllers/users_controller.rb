@@ -29,7 +29,6 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    # bug to fix later: resets to spanish with every update unless english chosen again
     if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code, :network_size, :business, :english))
       flash[:notice] = translate("Your account was successfully updated.")
       redirect_to @user
