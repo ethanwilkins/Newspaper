@@ -19,11 +19,12 @@ class User < ActiveRecord::Base
   ZIP_CODE_RANGE = 10
   
   def close_enough(content)
+    _close_enough = false
     zips_in_range = []
     for zip in Zip.all
       if self.zip_code and self.network_size and content.zip_code
-        if (self.zip_code - zip).abs < ZIP_CODE_RANGE + self.network_size
-          zips_in_range << zip
+        if (self.zip_code - zip.zip_code).abs < ZIP_CODE_RANGE + self.network_size
+          zips_in_range << zip.zip_code
         end
       end
     end
@@ -33,10 +34,11 @@ class User < ActiveRecord::Base
     end
     # removes the most different and searches for match
     for zip in zips_in_range.reverse.drop zips_in_range.size / 5
-      if content.zip == zip
-        return true
+      if content.zip_code == zip
+        _close_enough = true
       end
     end
+    return _close_enough
   end
 
   def self.authenticate(name, password)
