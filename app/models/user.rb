@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
     
     # removes the most different and searches for match
     zips_to_drop = zips_in_range.size / 5 # apply network size somehow
-    for zip in zips_in_range.reverse.drop zips_to_drop zips_in_range.size
+    for zip in zips_in_range.reverse.drop zips_to_drop
       if content.zip_code == zip
         _close_enough = true
       end
