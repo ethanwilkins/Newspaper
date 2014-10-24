@@ -7,6 +7,10 @@ class Tab < ActiveRecord::Base
   scope :pending, -> { where approved: nil }
   scope :approved, -> { where approved: true }
   
+  def self.most_popular
+    self.all.sort_by(&:popularity).last 2
+  end
+  
   def popular_subtabs
     tab1, tab2 = nil, nil
     popular_tabs = []
@@ -25,5 +29,9 @@ class Tab < ActiveRecord::Base
     popular_tabs << tab1
     popular_tabs << tab2
     return popular_tabs
+  end
+  
+  def popularity
+    posts.size
   end
 end

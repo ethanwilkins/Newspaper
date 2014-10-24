@@ -4,8 +4,9 @@
 	<div align="center">
 		<div class="btn-group">
 			<% unless @tab %>
-				<%= link_to translate("Jokes"), jokes_path, class: "btn btn-default" %>
-				<%= link_to translate("Questions"), questions_path, class: "btn btn-default" %>
+				<% for tab in Tab.most_popular %>
+					<%= link_to tab.name, tab_path(tab), class: "btn btn-default" %>
+				<% end %>
 				<%= link_to translate("More"), tabs_path, class: "btn btn-default" %>
 			<% else %>
 				<% for subtab in @subtabs %>
