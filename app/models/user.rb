@@ -23,17 +23,19 @@ class User < ActiveRecord::Base
     zips_in_range = []
     for zip in Zip.all
       if self.zip_code and self.network_size and content.zip_code
-        if (self.zip_code - zip.zip_code).abs < ZIP_CODE_RANGE + self.network_size
+        if (self.zip_code - zip.zip_code).abs < ZIP_CODE_RANGE
           zips_in_range << zip.zip_code
         end
       end
     end
+    
     # sorts by difference
     zips_in_range.sort_by! do |zip|
       (self.zip_code - zip).abs
     end
+    
     # removes the most different and searches for match
-    for zip in zips_in_range.reverse.drop zips_in_range.size / 5
+    for zip in zips_in_range.reverse.drop zips_in_range.size / 5 # apply network size somehow
       if content.zip_code == zip
         _close_enough = true
       end
