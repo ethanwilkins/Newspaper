@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :game_boards
   has_many :comments
+  has_many :articles
   has_many :prizes
   has_many :cards
   has_many :posts
