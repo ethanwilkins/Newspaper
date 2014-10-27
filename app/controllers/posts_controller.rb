@@ -56,8 +56,8 @@ class PostsController < ApplicationController
   end
   
   def show
-    @post = Post.find(params[:id])
-    @comments = @post.comments.reverse
+    @post = Post.find_by_id(params[:id])
+    @comments = @post.comments.reverse if @post
     @new_comment = Comment.new
     Activity.log_action(current_user, request.remote_ip.to_s, "posts_show", @post.id)
   end
