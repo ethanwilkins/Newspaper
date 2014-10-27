@@ -1,6 +1,7 @@
 class CardsController < ApplicationController
   def show
     @card = Card.find(params[:id])
+    Activity.log_action(current_user, request.remote_ip.to_s, "cards_show", @card.id)
   end
   
   def create
@@ -13,9 +14,11 @@ class CardsController < ApplicationController
       if @game_board.you_won!
         flash[:notice] = translate "You won!"
       end
+      Activity.log_action(current_user, request.remote_ip.to_s, "cards_create", @card.id)
       redirect_to :back
     else
       flash[:error] = translate "Invalid code."
+      Activity.log_action(current_user, request.remote_ip.to_s, "cards_create_fail")
       redirect_to :back
     end
   end

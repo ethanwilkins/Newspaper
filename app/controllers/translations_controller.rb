@@ -12,6 +12,7 @@ class TranslationsController < ApplicationController
       drop((session[:page] ? session[:page] : 0) * page_size).
       # only shows first several posts of resulting array
       first(page_size)
+    Activity.log_action(current_user, request.remote_ip.to_s, "translations_index")
   end
   
   def edit
@@ -27,8 +28,10 @@ class TranslationsController < ApplicationController
     
     if @translation.save
       flash[:notice] = translate("Translation saved successfully.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "translations_create", @translation.id)
     else
       flash[:error] = translate("Translation could not be saved.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "translations_create_fail")
     end
     redirect_to :back
   end

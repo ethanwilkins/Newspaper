@@ -1,18 +1,21 @@
 class PostsController < ApplicationController
   def translation_requests
     @posts = Post.where translation_requested: true
+    Activity.log_action(current_user, request.remote_ip.to_s, "posts_translation_requests")
   end
   
   def up_vote
     @post = Post.find(params[:id])
     Vote.up_vote!(@post, current_user)
     Note.notify(current_user, User.find(@post.user_id), :like_post, @post.id)
+    Activity.log_action(current_user, request.remote_ip.to_s, "posts_up_vote", @post.id)
     redirect_to :back
   end
   
   def un_vote
     @post = Post.find(params[:id])
     Vote.un_vote!(@post, current_user)
+    Activity.log_action(current_user, request.remote_ip.to_s, "posts_down_vote", @post.id)
     redirect_to :back
   end
 
@@ -29,9 +32,11 @@ class PostsController < ApplicationController
     
     if @post.save
       Hashtag.extract(@post) if @post.body
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_create", @post.id)
       redirect_to :back
     else
       flash[:error] = translate "Invalid input"
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_create_fail")
       redirect_to :back
     end
   end
@@ -41,9 +46,11 @@ class PostsController < ApplicationController
     @post.translation_requested = params[:translation_requested]
     
     if @post.update(params[:post].permit(:body, :english_version))
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_update", @post.id)
       redirect_to @post
     else
       flash[:error] = translate "The post could not be updated."
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_update_fail")
       redirect_to :back
     end
   end
@@ -52,29 +59,13 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @comments = @post.comments.reverse
     @new_comment = Comment.new
+    Activity.log_action(current_user, request.remote_ip.to_s, "posts_show", @post.id)
   end
   
   def index
     @advert = Article.local_advert(current_user)
     @posts = Post.all.reverse
     @post = Post.new
-  end
-  
-  def jokes
-    @advert = Article.local_advert(current_user)
-    @jokes = Post.jokes.reverse
-    @post = Post.new
-  end
-  
-  def questions
-    @advert = Article.local_advert(current_user)
-    @questions = Post.questions.reverse
-    @post = Post.new
-  end
-  
-  def art
-    @advert = Article.local_advert(current_user)
-    @art = Post.art.reverse
-    @post = Post.new
+    Activity.log_action(current_user, request.remote_ip.to_s, "posts_index")
   end
 end

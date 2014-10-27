@@ -1,6 +1,7 @@
 class HashtagsController < ApplicationController
   def tagged
     @tags = Hashtag.tagged(params[:tag]) if params[:tag]
+    Activity.log_action(current_user, request.remote_ip.to_s, "hashtags_tagged")
   end
   
   def search
@@ -15,5 +16,6 @@ class HashtagsController < ApplicationController
       end
     end
     @advert = Article.local_advert(current_user)
+    Activity.log_action(current_user, request.remote_ip.to_s, "hashtags_search", nil, params[:query])
   end
 end

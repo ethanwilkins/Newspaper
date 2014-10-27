@@ -2,6 +2,7 @@ class NotesController < ApplicationController
   def notify
     @user = User.find(params[:id])
     @note = Note.new
+    Activity.log_action(current_user, request.remote_ip.to_s, "notes_new")
   end
   
   def create
@@ -13,9 +14,11 @@ class NotesController < ApplicationController
     
     if @note.save
       flash[:notice] = translate("The notification was sent.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "notes_create", @note.id)
       redirect_to User.find(@note.user_id)
     else
       flash[:error] = translate("Invalid input.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "notes_create_fail")
       redirect_to :back
     end
   end
@@ -27,6 +30,7 @@ class NotesController < ApplicationController
         note.update checked: true
       end
     end
+    Activity.log_action(current_user, request.remote_ip.to_s, "notes_index")
   end
   
   def clear
@@ -34,6 +38,7 @@ class NotesController < ApplicationController
     @notes.each do |note|
       note.destroy!
     end
+    Activity.log_action(current_user, request.remote_ip.to_s, "notes_clear")
     redirect_to user_notes_path(current_user)
   end
 end

@@ -1,6 +1,7 @@
 <div id="card">
 	<p align="center"><%= translate("Welcome, Administrator") + " " + current_user.name.capitalize %>.</p>
 	<p align="center"><%= translate("Game Boards in play:") + " " + GameBoard.all.size.to_s %></p>
+	<p align="center"><%= translate("Total actions:") + " " + Activity.all.size.to_s %></p>
 	<p align="center"><%= translate("Total users:") + " " + User.all.size.to_s %></p>
 </div>
 </br>

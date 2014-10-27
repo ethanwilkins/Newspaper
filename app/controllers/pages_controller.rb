@@ -9,10 +9,12 @@ class PagesController < ApplicationController
       end
       session[:more] = :more
     end
+    Activity.log_action(current_user, request.remote_ip.to_s, "pages_more")
     redirect_to :back
   end
   
   def back
+    Activity.log_action(current_user, request.remote_ip.to_s, "pages_back")
     redirect_to :back
   end
 end

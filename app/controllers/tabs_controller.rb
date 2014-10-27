@@ -2,6 +2,7 @@ class TabsController < ApplicationController
   def pending
     @tabs = Tab.pending.reverse
     @subtabs = Subtab.pending.reverse
+    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_pending")
   end
   
   def approve
@@ -9,6 +10,7 @@ class TabsController < ApplicationController
     @tab.update approved: true
     Note.notify(current_user, User.find(@tab.user_id),
       :tab_approved, @tab.id)
+    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_approve", @tab.id)
     redirect_to :back
   end
 
@@ -17,11 +19,13 @@ class TabsController < ApplicationController
     @tab.update approved: false
     Note.notify(current_user, User.find(@tab.user_id),
       :tab_denied, @tab.id)
+    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_deny", @tab.id)
     redirect_to :back
   end
   
   def new
     @tab = Tab.new
+    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_new")
   end
   
   def create
@@ -31,9 +35,11 @@ class TabsController < ApplicationController
     
     if @tab.save
       flash[:notice] = translate "Your tab was successfully submitted."
+      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create", @tab.id)
       redirect_to tabs_path
     else
       flash[:error] = translate "Invalid input"
+      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create_fail")
       redirect_to :back
     end
   end
@@ -41,6 +47,7 @@ class TabsController < ApplicationController
   def destroy
     @tab = Tab.find(params[:id])
     if @tab.destroy
+      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_destroy")
       redirect_to tabs_path
     else
       flash[:error] = translate "There was a problem trying to delete the tab."
@@ -50,6 +57,7 @@ class TabsController < ApplicationController
   
   def index
     @tabs = Tab.approved.reverse
+    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_index")
   end
   
   def show
@@ -58,5 +66,6 @@ class TabsController < ApplicationController
     @subtabs = @tab.popular_subtabs
     @posts = @tab.posts.reverse
     @post = Post.new
+    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_show", @tab.id)
   end
 end
