@@ -57,9 +57,13 @@ class PostsController < ApplicationController
   
   def show
     @post = Post.find_by_id(params[:id])
-    @comments = @post.comments.reverse if @post
-    @new_comment = Comment.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_show", @post.id)
+    if @post
+      @new_comment = Comment.new
+      @comments = @post.comments.reverse
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_show", @post.id)
+    else
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_show_fail")
+    end
   end
   
   def index
