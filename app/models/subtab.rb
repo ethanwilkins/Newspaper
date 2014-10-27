@@ -6,4 +6,8 @@ class Subtab < ActiveRecord::Base
   
   scope :pending, -> { where approved: nil }
   scope :approved, -> { where approved: true }
+  
+  def popularity
+    posts.size
+  end
 end
