@@ -18,15 +18,13 @@ class User < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
-  ZIP_CODE_RANGE = 10
-  
   def close_enough(content)
     _close_enough = false
     zips_in_range = []
     for zip in Zip.all
       difference = (self.zip_code - zip.zip_code).abs
       if self.zip_code and self.network_size and content.zip_code
-        if difference < ZIP_CODE_RANGE + self.network_size
+        if difference < Zip.zip_code_range
           zips_in_range << zip.zip_code
         end
       end
