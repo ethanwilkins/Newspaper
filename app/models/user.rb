@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
       combined_density = zip.density + Zip.find_by_zip_code(self.zip_code).density
       if combined_density + total_density < self.network_size and not _close_enough
         total_density += combined_density
-        if zip.zip_code == self.zip_code
+        if zip.zip_code == content.zip_code
           _close_enough = true
         end
       else
