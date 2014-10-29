@@ -20,28 +20,37 @@ class User < ActiveRecord::Base
   
   def close_enough(content)
     _close_enough = false
+    
     zips_in_range = []
     for zip in Zip.all
-      difference = (self.zip_code - zip.zip_code).abs
+      # verifies values and gets zips within constant range
       if self.zip_code and self.network_size and content.zip_code
+        difference = (self.zip_code - zip.zip_code).abs
         if difference < Zip.zip_code_range
-          zips_in_range << zip.zip_code
+          zips_in_range << zip
         end
       end
     end
     
     # sorts by difference
     zips_in_range.sort_by! do |zip|
-      (self.zip_code - zip).abs
+      (self.zip_code - zip.zip_code).abs
     end
     
-    # removes the most different and searches for match
-    zips_to_drop = zips_in_range.size / 5 # the number to drop
-    for zip in zips_in_range.reverse.drop zips_to_drop
-      if content.zip_code == zip
-        _close_enough = true
+    total_density = 0
+    for zip in zips_in_range
+      # adds the density of the closest zips until network size is reached
+      combined_density = zip.density + Zip.find_by_zip_code(self.zip_code).density
+      if combined_density + total_density < self.network_size and not _close_enough
+        total_density += combined_density
+        if zip.zip_code == self.zip_code
+          _close_enough = true
+        end
+      elsif _close_enough
+        break
       end
     end
+    
     return _close_enough
   end
 

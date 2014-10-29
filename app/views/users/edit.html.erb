@@ -19,7 +19,8 @@
 	</p>
 	<p>
 		<%= f.select :network_size, options_for_select([[translate("Network Size"), @user.network_size],
-			[translate("Small"), 1], [translate("Medium"), 75], [translate("Large"), 350]]), {}, class: "form-control" %>
+			[translate("Small"), 20], [translate("Medium"), 50], [translate("Large"), 100],
+			[translate("Extra Large"), 250]]), {}, class: "form-control" %>
 	</p>
 	<p>
 		<%= f.select :english, options_for_select([[translate("Language"), @user.english],
