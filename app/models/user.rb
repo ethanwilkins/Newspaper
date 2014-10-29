@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
         if zip.zip_code == self.zip_code
           _close_enough = true
         end
-      elsif _close_enough
+      else
         break
       end
     end
