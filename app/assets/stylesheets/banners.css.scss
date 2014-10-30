@@ -2,7 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+$card_width: 94.5%;
+
 #banner {
-	width: 80%;
+	width: $card_width;
 	max-width: 550px;
 }

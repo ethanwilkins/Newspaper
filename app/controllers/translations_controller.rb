@@ -28,6 +28,7 @@ class TranslationsController < ApplicationController
       redirect_to translations_path
     else
       flash[:error] = translate("Invalid input.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "translations_update_fail", @translation.id)
       redirect_to :back
     end
   end
