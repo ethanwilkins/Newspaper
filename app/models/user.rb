@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     
     total_density = 0
     for zip in zips_in_range
-      # adds the density of the closest zips until network size is reached
+      # adds the density of the closest zips until match or network size reached
       combined_density = zip.density + Zip.find_by_zip_code(self.zip_code).density
       if combined_density + total_density < self.network_size and not _close_enough
         total_density += combined_density
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
       end
     end
     
-    return _close_enough
+    return zips_in_range
   end
 
   def self.authenticate(name, password)

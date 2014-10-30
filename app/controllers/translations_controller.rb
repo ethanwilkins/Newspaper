@@ -16,11 +16,20 @@ class TranslationsController < ApplicationController
   end
   
   def edit
-    
+    @translation = Translation.find(params[:id])
+    Activity.log_action(current_user, request.remote_ip.to_s, "translations_edit", @translation.id)
   end
   
   def update
-    
+    @translation = Translation.find(params[:id])
+    if @translation.update(params[:translation].permit(:english, :spanish))
+      flash[:notice] = translate("The translation was successfully updated.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "translations_update", @translation.id)
+      redirect_to translations_path
+    else
+      flash[:error] = translate("Invalid input.")
+      redirect_to :back
+    end
   end
   
   def create

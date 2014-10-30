@@ -2,6 +2,7 @@
 
 <% for translation in @translations %>
 	<div id="card">
+		<%= link_to "Edit", edit_translation_path(translation), id: :top_right_link %>
 		<div align="center">
 			<p>
 				<strong><%= translate("English:") %></strong> <%= translation.english %>

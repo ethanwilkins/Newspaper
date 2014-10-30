@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141027164659) do
+ActiveRecord::Schema.define(version: 20141030023348) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 20141027164659) do
     t.boolean  "sponsored"
     t.string   "company"
     t.boolean  "sponsored_only"
+    t.integer  "zip_code"
   end
 
   create_table "tasks", force: true do |t|

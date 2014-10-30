@@ -30,8 +30,9 @@ class TabsController < ApplicationController
   
   def create
     @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only))
-    @tab.user_id = current_user.id
     @tab.approved = true if current_user.admin
+    @tab.zip_code = current_user.zip_code
+    @tab.user_id = current_user.id
     
     if @tab.save
       flash[:notice] = translate "Your tab was successfully submitted."

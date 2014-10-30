@@ -57,15 +57,9 @@ Rails.application.routes.draw do
   
   get 'admin', to: 'admin#index'
   
-  get 'posts/questions', as: 'questions'
-  
   get 'articles/ad_index', as: 'ad_index'
   
   get 'tabs/pending', as: 'pending_tabs'
-  
-  get 'posts/jokes', as: 'jokes'
-  
-  get 'posts/art', as: 'art'
   
   get "pages/more", as: "more"
   
