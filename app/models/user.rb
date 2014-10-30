@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
       end
     end
     
-    return zips_in_range
+    return _close_enough
   end
 
   def self.authenticate(name, password)
