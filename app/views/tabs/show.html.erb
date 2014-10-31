@@ -19,7 +19,7 @@
 			<%= @tab.name %>
 		</h3>
 	</div>
-</div></br>
+</div>
 <% if @tab.approved and ((@tab.sponsored_only and current_user.business) or !@tab.sponsored_only) %>
 	<%= render "posts/new" %>
 <% end %>
