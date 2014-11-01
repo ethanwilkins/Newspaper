@@ -1,8 +1,8 @@
 <!-- articles -->
 
 <% if current_user and current_user.writer %>
-	<div id="large_button">
-		<%= button_to new_article_path, method: :get, class: "btn btn-default btn-lg btn-block" do %>
+	<div align="center">
+		<%= button_to new_article_path, method: :get, class: "btn btn-default btn-lg" do %>
 			<span class="glyphicon glyphicon-pencil"></span> <%= translate("Write an article") %>
 		<% end %>
 	</div></br>
@@ -17,9 +17,9 @@
 <% end %>
 
 <% if @articles.empty? %>
-	<div id="card"><p align="center">
+	<div id="card"><div align="center">
 		<%= translate("No articles have been published yet.") %>
-	</p></div>
+	</div></div>
 <% end %>
 
 <%= render "articles/feed" %>
