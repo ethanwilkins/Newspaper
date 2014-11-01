@@ -26,8 +26,9 @@ class GameBoardsController < ApplicationController
   def destroy
     @game_board = GameBoard.find(params[:id])
     @game_board.destroy
+    flash[:notice] = translate("The board was successfully deleted.")
     Activity.log_action(current_user, request.remote_ip.to_s, "game_boards_destroy")
-    redirect_to root_url
+    redirect_to user_game_boards_path(current_user)
   end
   
   def show

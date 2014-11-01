@@ -3,11 +3,15 @@
 <%= render "new" if current_user %>
 
 <% pos_on_page = 0 %>
-<% ad_pos = Random.new.rand @posts.size %>
+<% ad_pos = Random.new.rand @posts.size if @posts.present? %>
 <% @posts.each do |post| %>
 	<% unless post.joke or post.question or post.art or post.tab_id or post.subtab_id or post.translation_requested %>
 		<%= render "posts/card", post: post if current_user and current_user.close_enough(post) %>
 	<% end %>
-	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
+	<%= render "articles/ad_card" if defined? ad_pos and ad_pos == pos_on_page %>
 	<% pos_on_page += 1 %>
 <% end %>
+
+<%= render "articles/ad_card" if @posts.empty? %>
+
+</br>
