@@ -12,6 +12,14 @@
 	<% pos_on_page += 1 %>
 <% end %>
 
-<%= render "articles/ad_card" if @posts.empty? %>
+<% if @posts.empty? %>
+	<div id="card">
+		<div align="center">
+			There aren't any posts yet.
+		</div>
+	</div>
+
+	<%= render "articles/ad_card" %>
+<% end %>
 
 </br>
