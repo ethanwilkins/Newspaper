@@ -6,4 +6,4 @@
 	<% pos_on_page += 1 %>
 <% end %>
 
-<%= render "articles/ad_card" if @posts.nil? %>
+<%= render "articles/ad_card" if @articles.empty? %>
