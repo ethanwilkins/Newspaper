@@ -12,6 +12,14 @@
 	</div>
 <% end %>
 
+<% if @game_boards.empty? %>
+	<div id="card">
+		<div align="center">
+			<%= translate("You don't have any boards yet.") %>
+		</div>
+	</div>
+<% end %>
+
 <%= render "articles/ad_card" %>
 
 </br>

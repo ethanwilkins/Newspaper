@@ -32,9 +32,14 @@ class ArticlesController < ApplicationController
     @article.update(params[:article].permit(:title, :body, :image, :zip_code))
     
     if @article.ad
+      flash[:notice] = translate("Advert successfully updated.")
       redirect_to ad_index_path
-    else
+    elsif @article
+      flash[:notice] = translate("Article succussfully updated.")
       redirect_to root_url
+    else
+      flash[:error] = translate("Invalid input.")
+      redirect_to :back
     end
     Activity.log_action(current_user, request.remote_ip.to_s, "articles_update", @article.id)
   end

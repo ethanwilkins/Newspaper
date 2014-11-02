@@ -4,16 +4,19 @@
 			<%= f.file_field :image, class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :title, placeholder: "Company", class: "form-control" %>
+			<%= f.text_area :body, placeholder: translate("Text (optional)"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :hyperlink, placeholder: "URL", class: "form-control" %>
+			<%= f.text_field :title, placeholder: translate("Company"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :zip_code, placeholder: "Zip", class: "form-control" %>
+			<%= f.text_field :hyperlink, placeholder: translate("URL"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.submit "Update", class: "btn btn-default btn-lg btn-block" %>
+			<%= f.text_field :zip_code, placeholder: translate("Zip"), class: "form-control" %>
+		</p>
+		<p>
+			<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
 	</br>

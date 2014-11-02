@@ -1,7 +1,12 @@
+<!-- articles -->
+
 <% if @advert %>
-	<div id="card"></br>
+	<div id="card">
 		<div align="center">
-			<div><%= link_to image_tag(@advert.image, id: :standard_post_image), @advert.hyperlink %></div>
-		</div></br>
+			<div id="ad_image">
+				<%= link_to image_tag(@advert.image, id: :standard_post_image), @advert.hyperlink %>
+			</div>
+			<div id="ad_text"><%= @advert.body %></div>
+		</div>
 	</div>
 <% end %>
