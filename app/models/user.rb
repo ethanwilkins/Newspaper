@@ -29,6 +29,8 @@ class User < ActiveRecord::Base
         if difference < Zip.zip_code_range
           zips_in_range << zip
         end
+      else
+        _close_enough = true
       end
     end
     
