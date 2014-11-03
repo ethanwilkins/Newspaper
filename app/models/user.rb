@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   validates_numericality_of :zip_code
   validates_uniqueness_of :name
 
-  before_save :downcase_name
+  before_save :downcase_fields
   
   mount_uploader :icon, ImageUploader
   
@@ -65,7 +65,10 @@ class User < ActiveRecord::Base
     end
   end
   
-  def downcase_name
+  private
+  
+  def downcase_fields
     name.downcase!
+    email.downcase!
   end
 end
