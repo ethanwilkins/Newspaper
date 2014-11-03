@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   private
   
   def downcase_fields
+    email.downcase! if email
     name.downcase!
-    email.downcase!
   end
 end
