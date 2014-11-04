@@ -32,6 +32,7 @@ html {
 
 #content {
 	padding-top: 75px;
+	position: relative;
 }
 
 a {
