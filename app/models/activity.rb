@@ -3,6 +3,9 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   
+  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
+  after_validation :geocode
+  
   def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil)
     if user
       user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
