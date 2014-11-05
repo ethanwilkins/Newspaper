@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:name], params[:password])
     if user
       session[:user_id] = user.id
+      user.update ip: request.remote_ip.to_s
       Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create")
       redirect_to root_url
     else
