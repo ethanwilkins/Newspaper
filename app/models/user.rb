@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
+  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
+  after_validation :geocode
+  
   def close_enough(content)
     _close_enough = false
     

@@ -43,3 +43,5 @@ gem 'spring',        group: :development
 gem 'rmagick'
 gem 'carrierwave'
 
+# for location data
+gem 'geocoder'
