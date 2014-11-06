@@ -10,7 +10,7 @@ class Activity < ActiveRecord::Base
     _unique_locations = []
     for act in Activity.all
       unless _unique_locations.any? { |_act| _act.latitude == act.latitude } or \
-        _unique_locations.any? { |_act| _act.longitude == act.longitude }
+        _unique_locations.any? { |_act| _act.longitude == act.longitude } or act.latitude.nil?
         _unique_locations << act
       end
     end
