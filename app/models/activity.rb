@@ -29,7 +29,7 @@ class Activity < ActiveRecord::Base
     visits = []
     for visit in Activity.all
       unless visits.any? { |_visit| _visit.ip == visit.ip } or \
-        visits.any? { |_visit| _visit.user_id == visit.user_id }
+        (visits.any? { |_visit| _visit.user_id == visit.user_id } and visit.user_id.present?)
         visits << visit
       end
     end
