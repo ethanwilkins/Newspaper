@@ -25,16 +25,14 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def self.unique_visit_count
-    visit_count = 0
-    visits_counted = []
+  def self.unique_visits
+    visits = []
     for visit in Activity.all
-      unless visits_counted.any? { |_visit| _visit.ip == visit.ip } or \
-        visits_counted.any? { |_visit| _visit.user_id == visit.user_id }
-        visits_counted << visit
-        visit_count += 1
+      unless visits.any? { |_visit| _visit.ip == visit.ip } or \
+        visits.any? { |_visit| _visit.user_id == visit.user_id }
+        visits << visit
       end
     end
-    return visit_count
+    return visits
   end
 end
