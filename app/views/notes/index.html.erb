@@ -1,3 +1,5 @@
+<!-- notes -->
+
 <% if current_user %>
 	<% if current_user.notes.empty? %>
 		<div id="card"><div align="center">
@@ -48,4 +50,7 @@
 		</div>
 	<% end %>
 <% end %>
+
+<%= render "articles/ad_card" %>
+
 </br>

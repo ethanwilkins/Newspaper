@@ -30,6 +30,7 @@ class NotesController < ApplicationController
         note.update checked: true
       end
     end
+    @advert = Article.local_advert(current_user)
     Activity.log_action(current_user, request.remote_ip.to_s, "notes_index")
   end
   

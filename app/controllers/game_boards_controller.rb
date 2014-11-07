@@ -1,9 +1,9 @@
 class GameBoardsController < ApplicationController
   def reset
+    Activity.log_action(current_user, request.remote_ip.to_s, "game_boards_reset", @game_board.id)
     @game_board = GameBoard.find(params[:id])
     @game_board.cards.destroy_all
     @game_board.populate
-    Activity.log_action(current_user, request.remote_ip.to_s, "game_boards_reset", @game_board.id)
     redirect_to :back
   end
   
