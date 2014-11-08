@@ -3,10 +3,10 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   
-  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude,
+  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
+  reverse_geocoded_by :latitude, :longitude, 
     :region_code => :region_code, :city => :city
-  after_validation :geocode
-  before_save :save_zip_code
+  after_validation :geocode, :reverse_geocode
   
   def self.unique_locations
     _unique_locations = []
