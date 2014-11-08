@@ -36,10 +36,4 @@ class Activity < ActiveRecord::Base
     end
     return visits
   end
-  
-  private
-  
-  def save_zip_code
-    zip_code = [city, region_code].to_zip unless city.nil?
-  end
 end
