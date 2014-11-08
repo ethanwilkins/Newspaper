@@ -36,13 +36,4 @@ class Activity < ActiveRecord::Base
     end
     return visits
   end
-  
-  def self.get_missing_geo_for_unique_visits
-    for visit in unique_visits
-      if visit.latitude.nil?
-        visit.update ip: visit.ip
-        break
-      end
-    end
-  end
 end
