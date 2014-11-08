@@ -5,6 +5,7 @@ class Activity < ActiveRecord::Base
   
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   after_validation :geocode
+  before_save :save_zip_code
   
   def self.unique_locations
     _unique_locations = []
@@ -34,5 +35,11 @@ class Activity < ActiveRecord::Base
       end
     end
     return visits
+  end
+  
+  private
+  
+  def save_zip_code
+    zip_code = [latitude, longitude].to_zip if [latitude, longitude].to_zip
   end
 end
