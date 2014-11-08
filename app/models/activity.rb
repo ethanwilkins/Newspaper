@@ -3,8 +3,8 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   
-  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
-  geocoded_by :ip, :region_code => :region_code, :city => :city
+  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude,
+    :region_code => :region_code, :city => :city
   after_validation :geocode
   before_save :save_zip_code
   
