@@ -6,7 +6,6 @@ class Activity < ActiveRecord::Base
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude,
     :region_code => :region_code, :city => :city
   after_validation :geocode
-  before_save :save_zip_code
   
   def self.unique_locations
     _unique_locations = []
