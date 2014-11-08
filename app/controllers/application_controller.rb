@@ -13,8 +13,9 @@ class ApplicationController < ActionController::Base
   
   def translate(english)
     # takes string and searches Translation.all for a match unless user.english
-    unless (current_user and current_user.english) or request.host.to_s.include? "elhero.com"
-      spanish = Translation.where(english: english)
+    unless (current_user and current_user.english) or \
+      (request.host.to_s.include? "elhero.com" and not (current_user and current_user.english))
+        spanish = Translation.where(english: english)
     end
     return spanish.present? ? spanish.last.spanish : english
   end
