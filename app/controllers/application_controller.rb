@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   def translate(english)
     # takes string and searches Translation.all for a match unless user.english
-    if request.host.to_s.include? "elhero.com" or (current_user and current_user.english)
+    if request.host.to_s.include? "elhero.com" and not (current_user and current_user.english)
       spanish = nil
     elsif not current_user or (current_user and not current_user.english)
       spanish = Translation.where(english: english)
