@@ -3,7 +3,8 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   
-  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
+  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude,
+    :region_code => :region_code, :city => :city
   after_validation :geocode
   before_save :save_zip_code
   
@@ -40,6 +41,6 @@ class Activity < ActiveRecord::Base
   private
   
   def save_zip_code
-    zip_code = [latitude, longitude].to_zip if [latitude, longitude].to_zip
+    zip_code = [city, region_code].to_zip if [city, region_code].to_zip
   end
 end
