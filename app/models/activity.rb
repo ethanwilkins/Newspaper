@@ -19,7 +19,8 @@ class Activity < ActiveRecord::Base
   end
   
   def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil)
-    if false
+    case action
+    when "users_create", "sessions_create", "posts_create"
       if user
         user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
       else
