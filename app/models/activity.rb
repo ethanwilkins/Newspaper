@@ -19,10 +19,12 @@ class Activity < ActiveRecord::Base
   end
   
   def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil)
-    if user
-      user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
-    else
-      Activity.create action: action, ip: ip, item_id: item_id, data_string: data_string
+    if false
+      if user
+        user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
+      else
+        Activity.create action: action, ip: ip, item_id: item_id, data_string: data_string
+      end
     end
   end
   
