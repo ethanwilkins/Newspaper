@@ -16,12 +16,6 @@
 	</div></br>
 <% end %>
 
-<% if @articles.empty? %>
-	<div id="card"><div align="center">
-		<%= translate("There aren't any articles yet.") %>
-	</div></div>
-<% end %>
-
 <%= render "articles/feed" %>
 
 </br>
