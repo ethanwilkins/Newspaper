@@ -21,14 +21,12 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(params[:post].permit(:title, :body, :image, :translation_requested))
-    @post.question = params[:question]
-    @post.joke = params[:joke]
-    @post.art = params[:art]
-    @post.tab_id = params[:tab_id]
     @post.subtab_id = params[:subtab_id]
+    @post.tab_id = params[:tab_id]
     
     # for locale targeted content
     @post.zip_code = current_user.zip_code
+    @post.ip = request.remote_ip.to_s
     
     if @post.save
       Hashtag.extract(@post) if @post.body

@@ -30,9 +30,10 @@ class SubtabsController < ApplicationController
   
   def create
     @subtab = Subtab.new(params[:subtab].permit(:icon, :name, :description))
+    @subtab.approved = true if current_user.admin
+    @subtab.ip = request.remote_ip.to_s
     @subtab.user_id = current_user.id
     @subtab.tab_id = params[:tab_id]
-    @subtab.approved = true if current_user.admin
     
     if @subtab.save
       flash[:notice] = translate "Your subtab was successfully submitted."

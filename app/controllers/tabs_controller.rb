@@ -32,6 +32,7 @@ class TabsController < ApplicationController
     @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only))
     @tab.approved = true if current_user.admin
     @tab.zip_code = current_user.zip_code
+    @tab.ip = request.remote_ip.to_s
     @tab.user_id = current_user.id
     
     if @tab.save
