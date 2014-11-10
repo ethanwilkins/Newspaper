@@ -1,5 +1,7 @@
 <% if current_user and current_user.admin %>
-	<%= render 'stats' %>
+	<div id="card">
+		<div align="center"><%= translate("Welcome, Administrator") + " " + current_user.name.capitalize %></div>
+	</div>
 	
 	<div id="card">
 		<%= link_to translate("Codes"), codes_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
@@ -8,7 +10,7 @@
 		<%= link_to translate("Translate"), translation_reqs_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
 		<%= link_to translate("Adverts"), ad_index_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
 		<%= link_to translate("Notes"), notes_select_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-		<%= link_to translate("Data"), pending_tabs_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
+		<%= link_to translate("Data"), activities_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
 		<%= link_to translate("Tabs"), pending_tabs_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
 	</div></br>
 <% else %>

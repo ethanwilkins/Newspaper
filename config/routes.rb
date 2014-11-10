@@ -98,6 +98,7 @@ Rails.application.routes.draw do
   resources :posts
   resources :banners
   resources :translations
+  resources :activities
   resources :articles
   resources :events
   resources :notes
