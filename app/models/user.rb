@@ -24,39 +24,14 @@ class User < ActiveRecord::Base
   
   def close_enough(content)
     _close_enough = false
-    
-    zips_in_range = []
-    for zip in Zip.all
-      # verifies values and gets zips within constant range
-      if self.zip_code and self.network_size and content.zip_code
-        difference = (self.zip_code - zip.zip_code).abs
-        if difference < Zip.zip_code_range
-          zips_in_range << zip
-        end
-      else
+    if content.latitude and self.latitude
+      if GeoDistance.distance(content.latitude, content.longitude,
+        self.latitude, self.longitude).miles < self.network_size
         _close_enough = true
       end
+    else
+      _close_enough = true
     end
-    
-    # sorts by difference
-    zips_in_range.sort_by! do |zip|
-      (self.zip_code - zip.zip_code).abs
-    end
-    
-    total_density = 0
-    for zip in zips_in_range
-      # adds the density of the closest zips until match or network size reached
-      combined_density = zip.density + Zip.find_by_zip_code(self.zip_code).density
-      if combined_density + total_density < self.network_size and not _close_enough
-        total_density += combined_density
-        if zip.zip_code == content.zip_code
-          _close_enough = true
-        end
-      else
-        break
-      end
-    end
-    
     return _close_enough
   end
 
