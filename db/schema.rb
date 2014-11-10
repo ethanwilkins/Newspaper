@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141109233239) do
+ActiveRecord::Schema.define(version: 20141110000810) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -142,9 +142,9 @@ ActiveRecord::Schema.define(version: 20141109233239) do
     t.boolean  "translation_requested"
     t.text     "english_version"
     t.string   "ip"
-    t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "address"
   end
 
   create_table "prizes", force: true do |t|
@@ -167,9 +167,9 @@ ActiveRecord::Schema.define(version: 20141109233239) do
     t.boolean  "approved"
     t.integer  "tab_id"
     t.string   "ip"
-    t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "address"
   end
 
   create_table "tabs", force: true do |t|
@@ -185,9 +185,9 @@ ActiveRecord::Schema.define(version: 20141109233239) do
     t.boolean  "sponsored_only"
     t.integer  "zip_code"
     t.string   "ip"
-    t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "address"
   end
 
   create_table "tasks", force: true do |t|

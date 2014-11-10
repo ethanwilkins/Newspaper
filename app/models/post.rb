@@ -9,18 +9,11 @@ class Post < ActiveRecord::Base
   
   validate :text_or_image?, on: :create
   
-  scope :questions, -> { where question: true }
-  scope :art, -> { where art: true }
-  
   mount_uploader :image, ImageUploader
   
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
-  
-  def self.jokes
-    where(joke: true).sort_by(&:score)
-  end
   
   def score
     Vote.score(self)
