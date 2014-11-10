@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
     _close_enough = false
     if content.latitude and self.latitude
       if GeoDistance.distance(content.latitude, content.longitude,
-        self.latitude, self.longitude).miles < self.network_size
+        self.latitude, self.longitude).miles.number < self.network_size
         _close_enough = true
       end
     else
