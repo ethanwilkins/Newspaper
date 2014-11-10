@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base
   
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
-  after_validation :geocode, :reverse_geocode
+  before_save :geocode, :reverse_geocode
   
   def score
     Vote.score(self)
