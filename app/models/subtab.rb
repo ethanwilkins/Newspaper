@@ -4,7 +4,6 @@ class Subtab < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
-  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
   

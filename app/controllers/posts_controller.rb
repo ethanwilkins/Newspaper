@@ -27,6 +27,8 @@ class PostsController < ApplicationController
     # for locale targeted content
     @post.zip_code = current_user.zip_code
     @post.ip = request.remote_ip.to_s
+    @post.latitude = current_user.latitude
+    @post.longitude = current_user.longitude
     
     if @post.save
       Hashtag.extract(@post) if @post.body
