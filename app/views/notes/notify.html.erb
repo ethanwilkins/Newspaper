@@ -1,12 +1,1 @@
-<div id="card">
-	<%= form_for @note, :html => {:multipart => true, "data-ajax" => false} do |f| %>
-		<%= hidden_field_tag :user_id, params[:id] %>
-		<%= hidden_field_tag :note_action, :admin_message %>
-		<p>
-			<%= f.text_field :message, placeholder: "Message", class: "form-control" %>
-		</p>
-		<p>
-			<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
-		</p>
-	<% end %>
-</div></br>
+<%= render "notes/new" %>

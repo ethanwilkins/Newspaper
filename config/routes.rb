@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   
   get 'notes/notify/:id', to: 'notes#notify', as: 'notify_user'
   
+  get 'notes/select', as: "notes_select"
+  
   get 'posts/translation_requests', as: 'translation_reqs'
   
   get 'events/pending', as: 'pending_events'

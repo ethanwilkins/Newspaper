@@ -1,0 +1,14 @@
+<div id="card">
+	<% if @user %>
+		<p><%= translate("Send a notification to") %><%= " " + @user.name.capitalize %></p>
+	<% end %>
+	
+	<%= form_for @note, :html => {:multipart => true, "data-ajax" => false} do |f| %>
+		<%= hidden_field_tag :user_id, (@user ? @user.id : params[:id]) %>
+		<%= hidden_field_tag :note_action, :admin_message %>
+		<p>
+			<%= f.text_field :message, placeholder: "Message", class: "form-control" %>
+		</p>
+		<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
+	<% end %>
+</div></br>
