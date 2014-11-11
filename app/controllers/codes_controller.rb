@@ -1,7 +1,18 @@
 class CodesController < ApplicationController
   def clear
-    Code.destroy_all
-    GameBoard.repopulate
+    zip_code = params[:zip_code]
+    clear_all = params[:clear_all]
+    if zip_code.present?
+      Code.where(zip_code: zip_code).destroy_all
+      flash[:notice] = "Codes in #{zip_code} deleted successfully."
+    elsif clear_all
+      Code.destroy_all
+      flash[:notice] = translate("All codes deleted successfully.")
+    else
+      flash[:error] = translate("Invalid input.")
+      no_input = true
+    end
+    GameBoard.repopulate(zip_code) unless no_input
     Activity.log_action(current_user, request.remote_ip.to_s, "codes_clear")
     redirect_to :back
   end
@@ -27,10 +38,10 @@ class CodesController < ApplicationController
   
   def create
     @code = Code.new(params[:code].permit(:code, :is_a_board, :title, :image,
-      :advertiser, :board_number, :board_loc))
+      :advertiser, :board_number, :board_loc, :zip_code))
     
     if @code.save
-      flash[:notice] = translate "Code saved."
+      flash[:notice] = translate "Code saved successfully."
       Activity.log_action(current_user, request.remote_ip.to_s, "codes_create", @code.id)
       redirect_to :back
     else

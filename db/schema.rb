@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110000810) do
+ActiveRecord::Schema.define(version: 20141110204503) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20141110000810) do
     t.string   "title"
     t.boolean  "redeemed"
     t.integer  "board_loc"
+    t.integer  "zip_code"
   end
 
   create_table "codes", force: true do |t|
@@ -72,6 +73,7 @@ ActiveRecord::Schema.define(version: 20141110000810) do
     t.integer  "board_number"
     t.integer  "board_loc"
     t.date     "expiration"
+    t.integer  "zip_code"
   end
 
   create_table "comments", force: true do |t|
@@ -103,6 +105,7 @@ ActiveRecord::Schema.define(version: 20141110000810) do
     t.datetime "updated_at"
     t.integer  "code_id"
     t.integer  "board_number"
+    t.integer  "zip_code"
   end
 
   create_table "hashtags", force: true do |t|

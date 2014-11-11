@@ -26,8 +26,8 @@ class GameBoard < ActiveRecord::Base
     return winner
   end
   
-  def self.repopulate
-    for board in GameBoard.all
+  def self.repopulate(zip_code = nil)
+    for board in (zip_code ? GameBoard.where(zip_code: zip_code) : GameBoard.all)
       board.cards.destroy_all
       board.populate
     end

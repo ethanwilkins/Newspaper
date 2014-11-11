@@ -1,24 +1,28 @@
 <div id="card">
-<p align="center">Register codes</p>
+<p align="center"><%= translate("Register codes") %></p>
 <%= form_for @code, :html => {:multipart => true, "data-ajax" => false} do |f| %>
 	<p>
-		<%= f.text_field :code, placeholder: "Code", class: "form-control" %>
+		<%= f.text_field :code, placeholder: translate("Code"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.text_field :advertiser, placeholder: "Advertiser", class: "form-control" %>
+		<%= f.text_field :zip_code, placeholder: translate("Zip code"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :is_a_board, options_for_select([["Card or Board", nil],["Card", false], ["Board", true]]), {}, class: "form-control" %>
+		<%= f.text_field :advertiser, placeholder: translate("Advertiser"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :board_number, options_for_select([["Board number", nil], 1, 2, 3, 4]), {}, class: "form-control" %>
+		<%= f.select :is_a_board, options_for_select([[translate("Card or Board"), nil],[translate("Card"), false],
+			[translate("Board"), true]]), {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :board_loc, options_for_select([["Pos. on board", nil], 1, 2, 3, 4, 5,
+		<%= f.select :board_number, options_for_select([[translate("Board number"), nil], 1, 2, 3, 4]), {}, class: "form-control" %>
+	</p>
+	<p>
+		<%= f.select :board_loc, options_for_select([[translate("Pos. on board"), nil], 1, 2, 3, 4, 5,
 			6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ]), {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
+		<%= f.submit translate("Create"), class: "btn btn-default btn-lg btn-block" %>
 	</p>
 <% end %>
 </div>
