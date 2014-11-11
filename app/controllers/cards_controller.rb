@@ -10,7 +10,8 @@ class CardsController < ApplicationController
     @card = @game_board.cards.find_by_board_loc(@code.board_loc) if @code
     
     if @card
-      @card.update redeemed: true, code_id: @code.id, image: @card.redeemed_img
+      @card.update redeemed: true, code_id: @code.id,
+        image: @card.redeemed_img, zip_code: @code.zip_code
       if @game_board.you_won!
         flash[:notice] = translate "You won!"
       end

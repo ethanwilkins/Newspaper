@@ -27,7 +27,8 @@ class GameBoard < ActiveRecord::Base
   end
   
   def self.repopulate(zip_code = nil)
-    for board in (zip_code ? GameBoard.where(zip_code: zip_code) : GameBoard.all)
+    boards = zip_code.present? ? GameBoard.where(zip_code: zip_code) : GameBoard.all
+    for board in boards
       board.cards.destroy_all
       board.populate
     end

@@ -1,16 +1,16 @@
 class GameBoardsController < ApplicationController
   def reset
-    Activity.log_action(current_user, request.remote_ip.to_s, "game_boards_reset", @game_board.id)
     @game_board = GameBoard.find(params[:id])
     @game_board.cards.destroy_all
     @game_board.populate
+    Activity.log_action(current_user, request.remote_ip.to_s, "game_boards_reset", @game_board.id)
     redirect_to :back
   end
   
   def create
     @code = GameBoard.redeem params[:code]
     @game_board = current_user.game_boards.new(code_id: @code.id,
-      board_number: @code.board_number) if @code
+      board_number: @code.board_number, zip_code: @code.zip_code) if @code
     
     if @game_board and @game_board.save
       @game_board.populate
