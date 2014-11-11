@@ -1,13 +1,13 @@
-<!-- tabs -->
+<!-- subtabs -->
 
-<%= form_for @tab, html: {multipart: true, "data-ajax" => false} do |f| %>
+<%= form_for @subtab, html: {multipart: true, "data-ajax" => false} do |f| %>
 	<div id="card">
 		<p>
 			<%= f.label translate("Choose an icon for the tab") %>
 			<%= f.file_field :icon, class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :name, placeholder: translate("Name"), class: "form-control" %>
+			<%= f.text_field :name, value: @subtab.name, placeholder: translate("Name"), class: "form-control" %>
 		</p>
 		<p>
 			<%= f.text_field :english_name, placeholder: translate("English name (optional)"), class: "form-control" %>
@@ -29,7 +29,7 @@
 			</p>
 		<% end %>
 		<p>
-			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
+			<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
 	</br>

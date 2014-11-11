@@ -29,7 +29,7 @@ class TabsController < ApplicationController
   end
   
   def create
-    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only))
+    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only, :english_name))
     @tab.approved = true if current_user.admin
     @tab.zip_code = current_user.zip_code
     @tab.ip = request.remote_ip.to_s
@@ -48,6 +48,17 @@ class TabsController < ApplicationController
     end
   end
   
+  def update
+    @tab = Tab.find(params[:id])
+    if @tab.update(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only, :english_name))
+      flash[:notice] = translate("Tab updated successfully.")
+      redirect_to @tab
+    else
+      flash[:error] = translate("Invalid input.")
+      redirect_to :back
+    end
+  end
+  
   def destroy
     @tab = Tab.find(params[:id])
     if @tab.destroy
@@ -57,6 +68,10 @@ class TabsController < ApplicationController
       flash[:error] = translate "There was a problem trying to delete the tab."
       redirect_to :back
     end
+  end
+  
+  def edit
+    @tab = Tab.find(params[:id])
   end
   
   def index

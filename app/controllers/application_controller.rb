@@ -3,12 +3,21 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size
+  helper_method :current_user, :translate, :page_size, :name_shown
 
   private
   
   def page_size
     @page_size = 5
+  end
+  
+  def name_shown(item)
+    if (current_user and current_user.english and item.english_name.present?) or \
+      (request.host.to_s.include? "elhero.com" and not (current_user and not current_user.english))
+      item.english_name
+    else
+      item.name
+    end
   end
   
   def translate(english)

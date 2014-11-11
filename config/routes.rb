@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   get 'sessions/destroy'
   
+  put 'tabs/update'
+  
+  put 'subtabs/update'
+  
   post 'subtabs/create', as: 'subtabs'
   
   post 'cards/create', as: 'cards'

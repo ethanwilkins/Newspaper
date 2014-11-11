@@ -29,7 +29,7 @@ class SubtabsController < ApplicationController
   end
   
   def create
-    @subtab = Subtab.new(params[:subtab].permit(:icon, :name, :description))
+    @subtab = Subtab.new(params[:subtab].permit(:icon, :name, :description, :english_name))
     @subtab.approved = true if current_user.admin
     @subtab.ip = request.remote_ip.to_s
     @subtab.user_id = current_user.id
