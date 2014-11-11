@@ -6,12 +6,12 @@
 	<% end %>
 </div></br>
 
-<div id="top_right_below_nav">
+<div align="center">
 	<% local_or_global = (params[:scope] == "local" or params[:scope].nil?) ? :global : :local %>
-	<%= link_to tabs_path(scope: local_or_global), class: "btn btn-default" do %>
+	<%= link_to tabs_path(scope: local_or_global), class: "btn btn-default btn-lg" do %>
 		<%= translate local_or_global.to_s.capitalize %>
 	<% end %>
-</div>
+</div></br>
 
 <% if @tabs.present? %>
 	<%= render "tabs/grid", tabs: @tabs %>
