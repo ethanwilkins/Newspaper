@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
     _close_enough = false
     if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
       if GeoDistance.distance(content.latitude, content.longitude, self.latitude, self.longitude).miles.number < self.network_size
-        if content.is_a Post and content.zip_code != self.zip_code
+        if content.is_a? Post and content.zip_code != self.zip_code
           local_posts = Post.where(zip_code: content.zip_code).size
           _close_enough = true if local_posts < Random.rand(1..Post.all.size)
         else
