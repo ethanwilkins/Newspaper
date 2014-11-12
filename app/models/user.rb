@@ -11,7 +11,6 @@ class User < ActiveRecord::Base
   validates :name, presence: true
   validates :password, presence: true
   validates_confirmation_of :password
-  validates_numericality_of :zip_code
   validates_uniqueness_of :name
 
   before_save :downcase_fields
