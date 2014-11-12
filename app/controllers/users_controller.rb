@@ -22,7 +22,11 @@ class UsersController < ApplicationController
       Zip.record(@user.zip_code) # logs zip if its unique
       redirect_to root_url
     else
-      flash[:error] = translate("Invalid input")
+      if @user.errors.include? :non_numeric_zip
+        flash[:error] = @user.errors[:non_numeric_zip].first
+      else
+        flash[:error] = translate("Invalid input")
+      end
       Activity.log_action(current_user, request.remote_ip.to_s, "users_create_fail")
       redirect_to :back
     end

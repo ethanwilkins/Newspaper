@@ -12,14 +12,16 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates_confirmation_of :password
   validates_uniqueness_of :name
-
-  before_save :downcase_fields
   
-  mount_uploader :icon, ImageUploader
+  validate :numeric_zip_if_present
   
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
+
+  before_save :downcase_fields
+  
+  mount_uploader :icon, ImageUploader
   
   # show everything in user locale
   def close_enough(content)
@@ -53,5 +55,11 @@ class User < ActiveRecord::Base
   def downcase_fields
     email.downcase! if email
     name.downcase!
+  end
+  
+  def numeric_zip_if_present
+    if self.zip_code.present? and self.zip_code == 0
+      errors.add(:non_numeric_zip, "The zip code must be valid.")
+    end
   end
 end
