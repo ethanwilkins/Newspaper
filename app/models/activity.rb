@@ -7,6 +7,8 @@ class Activity < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
   
+  before_save :save_zip
+  
   def self.unique_locations
     _unique_locations = []
     for act in Activity.all
@@ -38,5 +40,17 @@ class Activity < ActiveRecord::Base
       end
     end
     return visits
+  end
+  
+  private
+  
+  def save_zip
+    # extracts zip code from full address
+    if address.present? and address.split(", ")[2].present?
+      place = address.split(", ")[2]
+      if place.split(" ")[1].present?
+        zip_code = place.split(" ")[1].to_i
+      end
+    end
   end
 end

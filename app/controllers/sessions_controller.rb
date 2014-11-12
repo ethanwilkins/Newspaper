@@ -9,6 +9,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       user.update ip: request.remote_ip.to_s
       Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create")
+      user.update zip_code: Activity.last.zip_code if user.zip_code.nil? and Activity.last.zip_code.present?
       redirect_to root_url
     else
       flash[:error] = translate "Invalid email or password"
