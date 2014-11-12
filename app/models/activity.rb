@@ -46,10 +46,10 @@ class Activity < ActiveRecord::Base
   
   def save_zip
     # extracts zip code from full address
-    if address.present? and address.split(", ")[2].present?
-      place = address.split(", ")[2]
+    if self.address.present? and self.address.split(", ")[2].present?
+      place = self.address.split(", ")[2]
       if place.split(" ")[1].present?
-        zip_code = place.split(" ")[1].to_i
+        self.zip_code = place.split(" ")[1].to_i
       end
     end
   end
