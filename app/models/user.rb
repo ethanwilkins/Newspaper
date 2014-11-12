@@ -22,12 +22,17 @@ class User < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
   
+  # show everything in user locale
   def close_enough(content)
     _close_enough = false
-    if content.latitude and self.latitude
-      if GeoDistance.distance(content.latitude, content.longitude,
-        self.latitude, self.longitude).miles.number < self.network_size
-        _close_enough = true
+    if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
+      if GeoDistance.distance(content.latitude, content.longitude, self.latitude, self.longitude).miles.number < self.network_size
+        if content.is_a Post and content.zip_code != self.zip_code
+          local_posts = Post.where(zip_code: content.zip_code).size
+          _close_enough = true if local_posts < Random.rand(1..Post.all.size)
+        else
+          _close_enough = true
+        end
       end
     else
       _close_enough = true
