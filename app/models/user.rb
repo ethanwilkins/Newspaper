@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
 
-  before_save :downcase_fields
+  before_save :downcase_fields, :generate_token
   
   mount_uploader :icon, ImageUploader
   
@@ -61,5 +61,11 @@ class User < ActiveRecord::Base
     if self.zip_code.present? and self.zip_code == 0
       errors.add(:non_numeric_zip, "The zip code must be valid.")
     end
+  end
+  
+  def generate_token
+    begin
+      self.auth_token = SecureRandom.urlsafe_base64
+    end while User.exists? auth_token: self.auth_token
   end
 end

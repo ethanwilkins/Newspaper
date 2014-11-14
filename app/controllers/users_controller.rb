@@ -15,10 +15,10 @@ class UsersController < ApplicationController
     @user.network_size = 100
     
     if @user.save
-      user = User.last # need to change this eventually, or ask about it
-      session[:user_id] = user.id # could log into user created at the same time
+      @user = User.last
+      cookies.permanent[:auth_token] = @user.auth_token
       Activity.log_action(current_user, request.remote_ip.to_s, "users_create", @user.id)
-      user.update zip_code: Activity.last.zip_code if user.zip_code.nil? and Activity.last.zip_code.present?
+      @user.update zip_code: Activity.last.zip_code if @user.zip_code.nil? and Activity.last.zip_code.present?
       Zip.record(@user.zip_code) # logs zip if its unique
       redirect_to root_url
     else
