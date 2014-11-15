@@ -1,7 +1,17 @@
-<%= render "comments/card", comment: @comment %>
+<!-- comments -->
 
-<%= render "comments/new" %>
+<% if @comment %>
+	<%= render "comments/card", comment: @comment %>
 
-<% @replies.each do |reply| %>
-	<%= render "comments/card", comment: reply %>
+	<%= render "comments/new" %>
+
+	<% @replies.each do |reply| %>
+		<%= render "comments/card", comment: reply %>
+	<% end %>
+<% else %>
+	<div id="card">
+		<div align="center">
+			This comment no longer exists.
+		</div>
+	</div>
 <% end %>
