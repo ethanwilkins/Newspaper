@@ -29,8 +29,11 @@ class User < ActiveRecord::Base
     if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
       if GeoDistance.distance(content.latitude, content.longitude, self.latitude, self.longitude).miles.number < self.network_size
         if content.is_a? Post and content.zip_code != self.zip_code
-          local_posts = Post.where(zip_code: content.zip_code).size
-          _close_enough = true if local_posts < Random.rand(1..Post.all.size)
+          near_content = Post.where(zip_code: content.zip_code).size
+          _close_enough = true if near_content < Random.rand(0..Post.all.size)
+        elsif content.is_a? Tab and content.zip_code != self.zip_code
+          near_content = Tab.where(zip_code: content.zip_code).size
+          _close_enough = true if near_content < Random.rand(0..Tab.all.size)
         else
           _close_enough = true
         end
