@@ -16,10 +16,10 @@ class CommentsController < ApplicationController
   def show
     @comment = Comment.find_by_id(params[:id])
     if @comment
+      @new_comment = Comment.new
       @replies = @comment.comments.reverse
       Activity.log_action(current_user, request.remote_ip.to_s, "comments_show", @comment.id)
     end
-    @new_comment = Comment.new
   end
   
   def create
