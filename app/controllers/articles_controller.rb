@@ -11,10 +11,12 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
-    @comments = @article.comments.reverse
-    @new_comment = Comment.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_show", @article.id)
+    @article = Article.find_by_id(params[:id])
+    if @article
+      @comments = @article.comments.reverse
+      @new_comment = Comment.new
+      Activity.log_action(current_user, request.remote_ip.to_s, "articles_show", @article.id)
+    end
   end
   
   def ad_edit

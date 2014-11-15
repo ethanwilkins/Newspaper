@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def show
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find_by_id(params[:id])
     if @comment
       @replies = @comment.comments.reverse
       Activity.log_action(current_user, request.remote_ip.to_s, "comments_show", @comment.id)
