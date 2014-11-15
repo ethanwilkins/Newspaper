@@ -7,6 +7,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:name], params[:password])
     if user
       user.update ip: request.remote_ip.to_s
+      user.update_token if user.auth_token.nil?
       cookies.permanent[:auth_token] = user.auth_token
       Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create")
       user.update zip_code: Activity.last.zip_code if user.zip_code.nil? and Activity.last.zip_code.present?
@@ -19,6 +20,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.update_token
     cookies.delete(:auth_token)
     Activity.log_action(current_user, request.remote_ip.to_s, "sessions_destroy")
     redirect_to root_url
