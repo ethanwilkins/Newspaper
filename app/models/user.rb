@@ -23,19 +23,18 @@ class User < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
-  # show everything in user locale
   def close_enough(content)
     _close_enough = false
     if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
       if GeoDistance.distance(content.latitude, content.longitude, self.latitude, self.longitude).miles.number < self.network_size
-        if content.is_a? Post and content.zip_code != self.zip_code
+        if content.zip_code == self.code_code
+          _close_enough = true
+        elsif content.is_a? Post
           near_content = Post.where(zip_code: content.zip_code).size
           _close_enough = true if near_content < Random.rand(0..Post.all.size)
-        elsif content.is_a? Tab and content.zip_code != self.zip_code
+        elsif content.is_a? Tab
           near_content = Tab.where(zip_code: content.zip_code).size
           _close_enough = true if near_content < Random.rand(0..Tab.all.size)
-        else
-          _close_enough = true
         end
       end
     else
