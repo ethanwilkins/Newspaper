@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     _close_enough = false
     if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
       if GeoDistance.distance(content.latitude, content.longitude, self.latitude, self.longitude).miles.number < self.network_size
-        if content.zip_code == self.code_code
+        if content.zip_code == self.zip_code
           _close_enough = true
         elsif content.is_a? Post
           near_content = Post.where(zip_code: content.zip_code).size
