@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   
   put 'subtabs/update'
   
+  post 'features/create', as: 'features'
+  
   post 'subtabs/create', as: 'subtabs'
   
   post 'cards/create', as: 'cards'
@@ -109,6 +111,7 @@ Rails.application.routes.draw do
   
   resources :tabs do
     resources :subtabs
+    resources :features
   end
 
   resources :users do

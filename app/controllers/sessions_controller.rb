@@ -11,7 +11,11 @@ class SessionsController < ApplicationController
       cookies.permanent[:auth_token] = user.auth_token
       Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create")
       user.update zip_code: Activity.last.zip_code if user.zip_code.nil? and Activity.last.zip_code.present?
-      redirect_to root_url
+      if Feature.page_jump(current_user)
+        redirect_to tab_path(Feature.page_jump(current_user))
+      else
+        redirect_to root_url
+      end
     else
       flash[:error] = translate "Invalid email or password"
       Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create_fail")
