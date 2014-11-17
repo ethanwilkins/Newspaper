@@ -4,7 +4,7 @@ class Code < ActiveRecord::Base
   validates :code, presence: true
   validates :code, uniqueness: true, numericality: true
   validates :zip_code, presence: true, numericality: true
-  validate :board_num_if_board, :unique_boards, :unique_cards
+  validate :board_num_if_board, :unique_cards
   
   mount_uploader :image, ImageUploader
   
