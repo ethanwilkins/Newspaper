@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
-  get "hashtags/search/:query", to: "hashtags#search", as: "tagged"
+  get "search/search/:query", to: "search#search", as: "tagged"
   
   get "posts/up_vote/:id", to: "posts#up_vote", as: "up_vote_post"
   
@@ -57,7 +57,7 @@ Rails.application.routes.draw do
   
   get 'events/pending', as: 'pending_events'
   
-  get "hashtags/search", as: "search"
+  get "search/search", as: "search"
   
   post 'game_boards/create', as: 'game_boards'
   

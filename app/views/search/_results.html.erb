@@ -1,0 +1,25 @@
+<!-- search -->
+
+<% if @no_results %>
+	<div id="card">
+		<div align="center"><%= @no_results %></div>
+	</div>
+<% end %>
+
+<% for result in @results %>
+	<% case result.class.to_s %>
+		<% when "User" %>
+			<div id="card">
+				<div align="center">
+					<div><%= link_to image_tag(result.icon, size: "50x50"), user_path(result) %></div></br>
+					<%= link_to result.name.capitalize, user_path(result) %>
+				</div>
+			</div>
+		<% when "Hashtag" %>
+			<% if result.post_id %>
+				<%= render "posts/card", post: result.item %>
+			<% elsif result.comment_id %>
+				<%= render "comments/card", comment: result.item %>
+			<% end %>
+	<% end %>
+<% end %>

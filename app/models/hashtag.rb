@@ -10,7 +10,11 @@ class Hashtag < ActiveRecord::Base
   end
   
   def self.tagged(_tag)
-    where("tag = ?", _tag)
+    if _tag.include? "#"
+      where "tag = ?", _tag.downcase
+    else
+      where "tag = ?", "#" + _tag.downcase
+    end
   end
   
   def self.extract(post)
