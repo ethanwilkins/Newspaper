@@ -1,14 +1,10 @@
+<!-- posts -->
+
 <div id="card">
 	<%= render "posts/time_ago", post: post %>
-	
 	<%= render "posts/posted_by", post: post %>
+	<%= render "posts/comment_link", post: post %>
 	<%= render "posts/vote", post: post %>
 	
 	<%= render "posts/content", post: post %>
-	
-	<% if post.question %>
-		<%= render "posts/answer_link", post: post %>
-	<% else %>
-		<%= render "posts/comment_link", post: post %>
-	<% end %>
 </div>
