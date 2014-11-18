@@ -5,13 +5,14 @@ class FeaturesController < ApplicationController
   end
   
   def create
+    @tab = Tab.find(params[:tab_id])
     @feature = Feature.new(params[:feature].permit(:action))
     @feature.user_id = current_user.id
-    @feature.tab_id = params[:tab_id]
+    @feature.tab_id = @tab.id
     
     if @feature.save
-      flash[:notice] = translate("Feature saved successfully.")
-      redirect_to :back
+      flash[:notice] = translate("Feature added successfully.")
+      redirect_to tab_path(@tab)
     else
       flash[:error] = translate("Invalid input.")
       redirect_to :back
