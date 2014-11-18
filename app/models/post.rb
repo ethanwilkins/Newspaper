@@ -14,6 +14,14 @@ class Post < ActiveRecord::Base
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
   
+  def self.delete_expired
+    for post in self.all
+      if post.expiration_date and post.expiration_date == Date.current
+        post.destroy
+      end
+    end
+  end
+  
   def score
     Vote.score(self)
   end

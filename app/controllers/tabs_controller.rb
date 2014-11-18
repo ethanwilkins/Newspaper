@@ -80,6 +80,7 @@ class TabsController < ApplicationController
   end
   
   def show
+    Post.delete_expired
     @advert = Article.local_advert(current_user)
     @tab = Tab.find(params[:id])
     @subtabs = @tab.popular_subtabs

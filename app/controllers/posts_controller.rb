@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(params[:post].permit(:title, :body, :image, :translation_requested))
+    @post = current_user.posts.new(params[:post].permit(:title, :body, :image, :translation_requested, :expiration_date))
     @post.subtab_id = params[:subtab_id]
     @post.tab_id = params[:tab_id]
     
@@ -29,6 +29,10 @@ class PostsController < ApplicationController
     @post.ip = request.remote_ip.to_s
     @post.latitude = current_user.latitude
     @post.longitude = current_user.longitude
+    
+    if @post.expiration_date == Date.current
+      @post.expiration_date = nil
+    end
     
     if @post.save
       Hashtag.extract(@post) if @post.body
@@ -67,6 +71,7 @@ class PostsController < ApplicationController
   end
   
   def index
+    Post.delete_expired
     @advert = Article.local_advert(current_user)
     @posts = Post.all.reverse
     @post = Post.new
