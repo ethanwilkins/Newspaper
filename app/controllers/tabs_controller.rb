@@ -34,8 +34,8 @@ class TabsController < ApplicationController
     @tab.zip_code = current_user.zip_code
     @tab.ip = request.remote_ip.to_s
     @tab.user_id = current_user.id
-    @post.latitude = current_user.latitude
-    @post.longitude = current_user.longitude
+    @tab.latitude = current_user.latitude
+    @tab.longitude = current_user.longitude
     
     if @tab.save
       flash[:notice] = translate "Your tab was successfully submitted."
