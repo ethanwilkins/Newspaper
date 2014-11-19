@@ -40,7 +40,7 @@ class TabsController < ApplicationController
     if @tab.save
       flash[:notice] = translate "Your tab was successfully submitted."
       Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create", @tab.id)
-      redirect_to tab_path(@tab)
+      redirect_to tabs_path
     else
       flash[:error] = translate "Invalid input"
       Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create_fail")
