@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     Post.delete_expired
+    Post.repopulate
     @user = User.find(params[:id])
     Activity.log_action(current_user, request.remote_ip.to_s, "users_show", @user.id)
   end

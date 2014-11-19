@@ -20,7 +20,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(params[:post].permit(:title, :body, :image, :translation_requested, :expiration_date))
+    @post = current_user.posts.new(params[:post].permit(:title, :body, :image,
+      :translation_requested, :expiration_date, :repopulation_interval))
     @post.subtab_id = params[:subtab_id]
     @post.tab_id = params[:tab_id]
     
@@ -72,6 +73,7 @@ class PostsController < ApplicationController
   
   def index
     Post.delete_expired
+    Post.repopulate
     @advert = Article.local_advert(current_user)
     @posts = Post.all.reverse
     @post = Post.new

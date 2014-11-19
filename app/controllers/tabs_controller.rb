@@ -40,7 +40,7 @@ class TabsController < ApplicationController
     if @tab.save
       flash[:notice] = translate "Your tab was successfully submitted."
       Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create", @tab.id)
-      redirect_to tabs_path
+      redirect_to tab_path(@tab)
     else
       flash[:error] = translate "Invalid input"
       Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create_fail")
@@ -62,10 +62,11 @@ class TabsController < ApplicationController
   def destroy
     @tab = Tab.find(params[:id])
     if @tab.destroy
+      flash[:notice] = translate("Tab deleted successfully.")
       Activity.log_action(current_user, request.remote_ip.to_s, "tabs_destroy")
       redirect_to tabs_path
     else
-      flash[:error] = translate "There was a problem trying to delete the tab."
+      flash[:error] = translate "There was a problem deleting the tab."
       redirect_to :back
     end
   end
@@ -81,6 +82,7 @@ class TabsController < ApplicationController
   
   def show
     Post.delete_expired
+    Post.repopulate
     @advert = Article.local_advert(current_user)
     @tab = Tab.find(params[:id])
     @subtabs = @tab.popular_subtabs

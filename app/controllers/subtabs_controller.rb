@@ -56,6 +56,7 @@ class SubtabsController < ApplicationController
   
   def show
     Post.delete_expired
+    Post.repopulate
     @advert = Article.local_advert(current_user)
     @subtab = Subtab.find(params[:id])
     @posts = @subtab.posts.reverse
