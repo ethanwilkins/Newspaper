@@ -41,7 +41,7 @@
 						<p><%= link_to note.message, tab_path(note.item_id) %></p>
 						
 					<% when :admin_message %>
-						<p><%= link_to note.message, notes_path %></p>
+						<p><%= link_to note.message, (note.url.present? ? note.url : notes_path) %></p>
 						
 					<% when :you_won %>
 						<p><%= link_to note.message, notes_path %></p>

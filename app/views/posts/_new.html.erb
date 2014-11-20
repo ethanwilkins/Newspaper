@@ -2,23 +2,8 @@
 
 <div id="card">
 	<% if @social %>
-	<div align="center">
-		<div class="btn-group">
-			<% unless @tab %>
-				<% for tab in Tab.most_popular %>
-					<%= link_to name_shown(tab), tab_path(tab), class: "btn btn-default" %>
-				<% end %>
-				<%= link_to translate("More"), tabs_path, class: "btn btn-default" %>
-			<% else %>
-				<% for subtab in @subtabs %>
-					<% if subtab %>
-						<%= link_to name_shown(subtab), tab_subtab_path(@tab, subtab), class: "btn btn-default" %>
-					<% end %>
-				<% end %>
-				<%= link_to translate("More"), tab_subtabs_path(@tab), class: "btn btn-default" %>
-			<% end %>
-		</div>
-	</div></br>
+		<%= render "tabs/pop_tabs" %>
+		</br>
 	<% end %>
 	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>

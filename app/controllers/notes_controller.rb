@@ -14,7 +14,7 @@ class NotesController < ApplicationController
   end
   
   def create
-    @note = Note.new(params[:note].permit(:message))
+    @note = Note.new(params[:note].permit(:message, :url))
     @note.user_id = params[:user_id]
     @note.sender_id = current_user.id
     @note.action = params[:note_action].to_s

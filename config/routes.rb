@@ -49,9 +49,9 @@ Rails.application.routes.draw do
 
   get 'subtabs/deny/:id', to: 'subtabs#deny', as: 'deny_subtab'
   
-  get 'notes/notify/:id', to: 'notes#notify', as: 'notify_user'
-  
   get 'notes/select', as: "notes_select"
+  
+  get 'notes/new/:id', to: 'notes#new', as: 'new_note'
   
   get 'posts/translation_requests', as: 'translation_reqs'
   
