@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
   
   def update
     @article = Article.find(params[:id])
-    @article.update(params[:article].permit(:title, :body, :image, :zip_code))
+    @article.update(params[:article].permit(:title, :body, :image, :zip_code, :english_version))
     
     if @article.ad
       flash[:notice] = translate("Advert successfully updated.")
@@ -52,7 +52,7 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code, :hyperlink))
+    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code, :hyperlink, :english_version))
     @article.user_id = current_user.id
     @article.ad = params[:ad]
     
