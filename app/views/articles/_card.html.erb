@@ -4,9 +4,9 @@
 	<%= render "articles/comment_link", article: article %>
 	
 	<% if current_user and current_user.admin %>
-		<%= link_to translate("Edit"), edit_article_path(article), id: :top_center_center_right_link  %>
+		<%= link_to translate("Edit"), edit_article_path(article), id: :bottom_left_link  %>
 		<%= link_to translate("Delete"), destroy_article_path(article), method: :delete,
-			data: { confirm: translate('Are you sure you want to delete this article?') }, id: :top_center_right_link %>
+			data: { confirm: translate('Are you sure you want to delete this article?') }, id: :bottom_center_left_link %>
 	<% end %>
 	
 	<%= render "articles/content", article: article %>
