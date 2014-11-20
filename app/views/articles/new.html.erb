@@ -19,7 +19,7 @@
 		</div>
 	<% end %>
 
-	<% for article in @articles %>
+	<% for article in @articles.reverse %>
 		<%= render("articles/card", article: article) unless article.ad %>
 	<% end %>
 <% end %>

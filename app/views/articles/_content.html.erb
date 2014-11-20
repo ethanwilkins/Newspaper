@@ -12,6 +12,10 @@
 	<% else %>
 		<div align="center">
 	<% end %>
+	<% if current_user and current_user.english and article.english_version %>
+		<%= article.english_version %>
+	<% else %>
 		<%= article.body %>
+	<% end %>
 	</div></br>
 </article>
