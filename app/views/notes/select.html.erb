@@ -1,14 +1,16 @@
 <% if current_user and current_user.admin %>
-	<div id="card">
-		<p><%= translate("Choose a user to notify")%></p>
-		<%= form_for notes_select_path, :method => "get" do |f| %>
-			<p><%= f.select :user_id, options_from_collection_for_select(@users,
-				:id, :name), {}, class: "form-control" %></p>
-			<%= f.submit "Submit", class: "btn btn-default btn-lg btn-block" %>
-		<% end %>
-	</div>
-
 	<% if @note %>
 		<%= render "notes/new" %>
 	<% end %>
+	
+	<div id="card">
+		<%= form_for notes_select_path, :method => "get" do |f| %>
+			<% options = [[translate("Choose a user to notify"), nil]] %>
+			<% @users.each { |user| options << [user.name, user.id] } %>
+			<p><%= f.select :user_id, options_for_select(options), {}, class: "form-control" %></p>
+			<%= f.submit "Select", class: "btn btn-default btn-lg btn-block" %>
+		<% end %>
+	</div>
 <% end %>
+
+</br>

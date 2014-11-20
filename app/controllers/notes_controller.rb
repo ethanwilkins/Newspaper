@@ -1,7 +1,9 @@
 class NotesController < ApplicationController
   def select
     @users = User.all
-    if params[:"/notes/select"]
+    bundle = params[:"/notes/select"]
+    user_id = bundle[:user_id] if bundle
+    if user_id.present?
       @user = User.find(params[:"/notes/select"][:user_id])
       @note = Note.new(user_id: @user.id)
     end
