@@ -1,6 +1,7 @@
 <!-- posts -->
 
 <div id="card">
+	<% if @social %>
 	<div align="center">
 		<div class="btn-group">
 			<% unless @tab %>
@@ -18,6 +19,7 @@
 			<% end %>
 		</div>
 	</div></br>
+	<% end %>
 	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if @tab %>

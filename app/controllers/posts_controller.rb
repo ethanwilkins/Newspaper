@@ -77,6 +77,7 @@ class PostsController < ApplicationController
     @advert = Article.local_advert(current_user)
     @posts = Post.all.reverse
     @post = Post.new
+    @social = true
     Activity.log_action(current_user, request.remote_ip.to_s, "posts_index")
   end
 end
