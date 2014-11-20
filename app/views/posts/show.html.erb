@@ -1,11 +1,11 @@
 <% if @post %>
 	<%= render "posts/card", post: @post %>
 
-	<%= render "comments/new" if current_user %>
-
 	<% @comments.each do |comment| %>
 		<%= render "comments/card", comment: comment %>
 	<% end %>
+
+	<%= render "comments/new" if current_user %>
 <% else %>
 	<div id="card">
 		<div align="center">
@@ -13,3 +13,5 @@
 		</div>
 	</div>
 <% end %>
+
+</br>

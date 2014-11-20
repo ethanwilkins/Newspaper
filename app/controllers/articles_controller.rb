@@ -23,9 +23,14 @@ class ArticlesController < ApplicationController
     @advert = Article.find(params[:id])
     Activity.log_action(current_user, request.remote_ip.to_s, "articles_ad_edit", @advert.id)
   end
+  
+  def edit
+    @article = Article.find(params[:id])
+  end
 
   def new
     @article = Article.new
+    @articles = Article.all
     Activity.log_action(current_user, request.remote_ip.to_s, "articles_new")
   end
   
@@ -58,7 +63,7 @@ class ArticlesController < ApplicationController
       
     elsif @article.save
       Activity.log_action(current_user, request.remote_ip.to_s, "articles_create", @article.id)
-      redirect_to articles_path
+      redirect_to root_url
       
     else
       flash[:error] = translate "Invalid input"
@@ -69,8 +74,12 @@ class ArticlesController < ApplicationController
   
   def destroy
     @article = Article.find(params[:id])
-    @article.destroy
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_destroy")
+    if @article.destroy
+      flash[:notice] = translate("Article successfully deleted.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "articles_destroy")
+    else
+      flash[:error] = translate("Article could not be deleted.")
+    end
     redirect_to :back
   end
 end

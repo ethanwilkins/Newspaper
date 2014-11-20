@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119024439) do
+ActiveRecord::Schema.define(version: 20141119222403) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -119,6 +119,11 @@ ActiveRecord::Schema.define(version: 20141119024439) do
     t.integer  "code_id"
     t.integer  "board_number"
     t.integer  "zip_code"
+  end
+
+  create_table "groups", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "hashtags", force: true do |t|
@@ -251,6 +256,7 @@ ActiveRecord::Schema.define(version: 20141119024439) do
     t.float    "longitude"
     t.string   "address"
     t.string   "auth_token"
+    t.boolean  "master"
   end
 
   create_table "votes", force: true do |t|

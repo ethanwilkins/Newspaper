@@ -1,6 +1,13 @@
 <div id="card">
 	<%= render "articles/time_ago", article: article %>
 	<%= render "articles/written_by", article: article %>
-	<%= render "articles/content", article: article %>
 	<%= render "articles/comment_link", article: article %>
+	
+	<% if current_user and current_user.admin %>
+		<%= link_to translate("Edit"), edit_article_path(article), id: :top_center_center_right_link  %>
+		<%= link_to translate("Delete"), destroy_article_path(article), method: :delete,
+			data: { confirm: translate('Are you sure you want to delete this article?') }, id: :top_center_right_link %>
+	<% end %>
+	
+	<%= render "articles/content", article: article %>
 </div>
