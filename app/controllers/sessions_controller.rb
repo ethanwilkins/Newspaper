@@ -24,8 +24,11 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    current_user.update_token
-    cookies.delete(:auth_token)
+    if current_user
+      current_user.update_token
+      cookies.delete(:auth_token)
+    end
+    flash[:notice] = translate("Log out successful.")
     Activity.log_action(current_user, request.remote_ip.to_s, "sessions_destroy")
     redirect_to root_url
   end

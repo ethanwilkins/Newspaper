@@ -12,31 +12,11 @@
 		<% elsif @subtab %>
 			<%= hidden_field_tag :subtab_id, params[:id] %>
 		<% end %>
-		
-		<% if defined? post_type %>
-			<% if post_type == :joke %>
-				<%= hidden_field_tag :joke, true %>
-				<% placeholder = translate "Tell a joke..." %>
-				<% submit_text = translate "Post" %>
-			<% elsif post_type == :question %>
-				<%= hidden_field_tag :question, true %>
-				<% placeholder = translate "Ask a question..." %>
-				<% submit_text = translate "Ask" %>
-			<% elsif post_type == :art %>
-				<%= hidden_field_tag :art, true %>
-				<% placeholder = translate "Share some art..." %>
-				<% submit_text = translate "Post" %>
-			<% end %>
-		<% else %>
-			<% placeholder = translate "Start a thread..." %>
-			<% submit_text = translate "Post" %>
-		<% end %>
-		
 		<p>
-			<%= f.text_area :body, placeholder: placeholder, class: "form-control" %>
+			<%= f.text_area :body, placeholder: translate("Start a thread..."), class: "form-control" %>
 		</p>
 		<p class="form-control">
-			<%= f.label translate "Request translation" %>
+			<%= f.label translate("Request translation") %>
 			<%= f.check_box :translation_requested %>
 		</p>
 		
@@ -62,7 +42,7 @@
 		<% end %>
 		
 		<p>
-			<%= f.submit submit_text, class: "btn btn-default btn-lg btn-block" %>
+			<%= f.submit translate("Post"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	<% end %>
 </div>

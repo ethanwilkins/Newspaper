@@ -6,5 +6,9 @@
 	<%= render "posts/comment_link", post: post %>
 	<%= render "posts/vote", post: post %>
 	
+	<% if current_user and current_user.admin %>
+		<%= link_to "Edit", edit_post_path(post), id: :bottom_center_center_left_link %>
+	<% end %>
+	
 	<%= render "posts/content", post: post %>
 </div>

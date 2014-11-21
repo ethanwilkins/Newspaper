@@ -1,0 +1,22 @@
+<!-- posts -->
+
+<% if current_user and current_user.admin %>
+	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
+		<div id="card">
+			<p>
+				<%= f.text_field :body, placeholder: translate("Body (Spanish)"), class: "form-control" %>
+			</p>
+			<p>
+				<%= f.text_area :english_version, placeholder: translate("Body (English)"), class: "form-control" %>
+			</p>
+			<p>
+				<%= f.file_field :image, class: "form-control" %>
+			</p>
+			</p>
+			<p>
+				<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
+			</p>
+		</div>
+	<% end %>
+<% end %>
+</br>

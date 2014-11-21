@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120182123) do
+ActiveRecord::Schema.define(version: 20141121030147) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20141120182123) do
     t.string   "hyperlink"
     t.integer  "views"
     t.text     "english_version"
+    t.string   "english_title"
   end
 
   create_table "banners", force: true do |t|
