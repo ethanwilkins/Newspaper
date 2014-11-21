@@ -6,7 +6,7 @@
 	</div></br>
 <% end %>
 
-<% if post.body.present? or post.hashtags.present? %>
+<% if post.body.present? or post.english_version.present? or post.hashtags.present? %>
 	<p align="center" id="post_body_text">
 		<% if current_user and current_user.english and post.english_version %>
 			<% body = post.english_version %>

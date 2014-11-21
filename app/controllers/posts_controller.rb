@@ -21,7 +21,7 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(params[:post].permit(:title, :body, :image,
-      :translation_requested, :expiration_date, :repopulation_interval))
+      :translation_requested, :expiration_date, :repopulation_interval, :english_version))
     @post.subtab_id = params[:subtab_id]
     @post.tab_id = params[:tab_id]
     

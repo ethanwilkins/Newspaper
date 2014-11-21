@@ -13,7 +13,8 @@
 			<%= hidden_field_tag :subtab_id, params[:id] %>
 		<% end %>
 		<p>
-			<%= f.text_area :body, placeholder: translate("Start a thread..."), class: "form-control" %>
+			<% body_version = (request.host.to_s.include? "elhero.com" or current_user.english) ? :english_version : :body %>
+			<%= f.text_area body_version, placeholder: translate("Start a thread..."), class: "form-control" %>
 		</p>
 		<p class="form-control">
 			<%= f.label translate("Request translation") %>
