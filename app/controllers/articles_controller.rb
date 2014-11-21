@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
   
   def update
     @article = Article.find(params[:id])
-    @article.update(params[:article].permit(:title, :body, :image, :zip_code, :english_version))
+    @article.update(params[:article].permit(:title, :body, :image, :zip_code, :english_version, :english_title))
     
     if @article.ad
       flash[:notice] = translate("Advert successfully updated.")
