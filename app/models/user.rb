@@ -7,6 +7,9 @@ class User < ActiveRecord::Base
   has_many :cards
   has_many :posts
   has_many :notes
+  
+  belongs_to :group
+  
   # validations for creation of user
   validates :name, presence: true
   validates :password, presence: true

@@ -1,4 +1,5 @@
 class Zip < ActiveRecord::Base
+  belongs_to :group
   validates_uniqueness_of :zip_code
   
   ZIP_CODE_RANGE = 10
