@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141122213129) do
+ActiveRecord::Schema.define(version: 20141123040729) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20141122213129) do
 
   create_table "codes", force: true do |t|
     t.integer  "code"
-    t.string   "title"
+    t.string   "card_name"
     t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"

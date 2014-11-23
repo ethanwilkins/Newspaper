@@ -11,7 +11,7 @@ class CardsController < ApplicationController
     
     if @card
       @card.update redeemed: true, code_id: @code.id,
-        image: @card.redeemed_img, zip_code: @code.zip_code
+        image: @card.redeemed_img, zip_code: current_user.zip_code
       if @game_board.you_won!
         flash[:notice] = translate "You won!"
       end
