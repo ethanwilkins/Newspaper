@@ -1,6 +1,6 @@
 <article>
 	<h3 align="center">
-		<% if current_user and current_user.english and article.english_version %>
+		<% if current_user and current_user.english and article.english_title %>
 			<%= link_to article.english_title, article_path(article) %>
 		<% else %>
 			<%= link_to article.title, article_path(article) %>
