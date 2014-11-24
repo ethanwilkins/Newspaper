@@ -5,8 +5,18 @@
 </div></br>
 
 <% for event in @events %>
+	<% unless event.translation_requested %>
+		<div id="card">
+			<%= render "events/content", event: event %>
+			<%= render "events/approve_deny", event: event %>
+		</div>
+	<% end %>
+<% end %>
+
+<% if @events.empty? %>
 	<div id="card">
-		<%= render "events/content", event: event %>
-		<%= render "events/approve_deny", event: event %>
+		<div align="center">
+			<%= translate("There aren't any upcoming events right now.") %>
+		</div>
 	</div>
 <% end %>

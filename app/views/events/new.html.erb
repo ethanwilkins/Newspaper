@@ -12,9 +12,13 @@
 	<p>
 		<%= f.text_field :location, placeholder: translate("Location"), class: "form-control" %>
 	</p>
-	<p>
+	<p class="form-control">
 		<%= f.label translate("Date") %>
 		<%= f.date_select :date, use_month_numbers: true, class: "form-control" %>
+	</p>
+	<p class="form-control">
+		<%= f.label translate("Request translation") %>
+		<%= f.check_box :translation_requested %>
 	</p>
 	<p>
 		<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>

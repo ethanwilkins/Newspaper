@@ -29,7 +29,8 @@ class TabsController < ApplicationController
   end
   
   def create
-    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only, :english_name))
+    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored,
+      :sponsored_only, :english_name, :translation_requested))
     @tab.approved = true if current_user.admin
     @tab.zip_code = current_user.zip_code
     @tab.ip = request.remote_ip.to_s
@@ -50,7 +51,8 @@ class TabsController < ApplicationController
   
   def update
     @tab = Tab.find(params[:id])
-    if @tab.update(params[:tab].permit(:icon, :name, :description, :company, :sponsored, :sponsored_only, :english_name))
+    if @tab.update(params[:tab].permit(:icon, :name, :description, :company, :sponsored,
+      :sponsored_only, :english_name, :translation_requested))
       flash[:notice] = translate("Tab updated successfully.")
       redirect_to @tab
     else

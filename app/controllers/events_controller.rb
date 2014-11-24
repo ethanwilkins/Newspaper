@@ -35,7 +35,7 @@ class EventsController < ApplicationController
   end
   
   def create
-    @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image))
+    @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image, :translation_requested))
     @event.approved = true if current_user.admin
     @event.user_id = current_user.id
     

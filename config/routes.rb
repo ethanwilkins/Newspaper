@@ -49,11 +49,11 @@ Rails.application.routes.draw do
 
   get 'subtabs/deny/:id', to: 'subtabs#deny', as: 'deny_subtab'
   
+  get 'translations/requests', as: 'translation_reqs'
+  
   get 'notes/select', as: "notes_select"
   
   get 'notes/new/:id', to: 'notes#new', as: 'new_note'
-  
-  get 'posts/translation_requests', as: 'translation_reqs'
   
   get 'events/pending', as: 'pending_events'
   

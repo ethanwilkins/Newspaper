@@ -1,9 +1,4 @@
 class PostsController < ApplicationController
-  def translation_requests
-    @posts = Post.where translation_requested: true
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_translation_requests")
-  end
-  
   def up_vote
     @post = Post.find(params[:id])
     Vote.up_vote!(@post, current_user)

@@ -10,24 +10,25 @@
 			<%= f.text_field :name, placeholder: translate("Name"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :english_name, placeholder: translate("English name (optional)"), class: "form-control" %>
-		</p>
-		<p>
 			<%= f.text_area :description, placeholder: translate("Description"), class: "form-control" %>
 		</p>
 		<p>
 			<%= f.text_field :company, placeholder: translate("Company"), class: "form-control" %>
 		</p>
+		<p class="form-control">
+			<%= f.label translate("Request translation") %>
+			<%= f.check_box :translation_requested %>
 		<% if current_user.admin or current_user.business %>
-			<p class="form-control">
-				<%= f.label translate("Request verification of business") %>
-				<%= f.check_box :sponsored %>
-			</p>
 			<p class="form-control">
 				<%= f.label translate("Make this tab sponsored only") %>
 				<%= f.check_box :sponsored_only %>
 			</p>
+			<p class="form-control">
+				<%= f.label translate("Request verification of business") %>
+				<%= f.check_box :sponsored %>
+			</p>
 		<% end %>
+		</p>
 		<p>
 			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
