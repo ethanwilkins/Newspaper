@@ -8,7 +8,7 @@
 		<% for code in @codes %>
 			<div align="center">
 				<strong><%= "#{code.code}: " %></strong>
-				<%= "Card: #{code.card_name.capitalize}" unless code.is_a_board %>
+				<%= "Card: #{code.card_name.capitalize}" unless code.is_a_board or code.card_name.nil? %>
 				<%= "Board #{code.board_number}" if code.is_a_board %>
 				<div>
 				<!-- code controls for manipulating codes -->
