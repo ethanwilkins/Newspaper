@@ -11,6 +11,13 @@ class SessionsController < ApplicationController
       cookies.permanent[:auth_token] = user.auth_token
       Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create")
       user.update zip_code: Activity.last.zip_code if user.zip_code.nil? and Activity.last.zip_code.present?
+      
+      if request.host.to_s.include? "elhero.com"
+        user.update english: true
+      elsif request.host.to_s.include? "elheroe.net"
+        user.update english: false
+      end
+      
       if Feature.page_jump(current_user)
         redirect_to tab_path(Feature.page_jump(current_user))
       else

@@ -22,6 +22,13 @@ class UsersController < ApplicationController
       Activity.log_action(current_user, request.remote_ip.to_s, "users_create", @user.id)
       @user.update zip_code: Activity.last.zip_code if @user.zip_code.nil? and Activity.last.zip_code.present?
       Zip.record(@user.zip_code) # logs zip if its unique
+      
+      if request.host.to_s.include? "elhero.com"
+        user.update english: true
+      elsif request.host.to_s.include? "elheroe.net"
+        user.update english: false
+      end
+      
       redirect_to root_url
     else
       if @user.errors.include? :non_numeric_zip
