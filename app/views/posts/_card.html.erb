@@ -2,15 +2,16 @@
 
 <% unless (request.host.to_s.include? "elhero.com" and (post.english_version.nil? or post.english_version.empty?)) or \
 	(request.host.to_s.include? "elheroe.net" and (post.body.nil? or post.body.empty?)) %>
-<div id="card">
-	<%= render "posts/time_ago", post: post %>
-	<%= render "posts/posted_by", post: post %>
-	<%= render "posts/comment_link", post: post %>
-	<%= render "posts/vote", post: post %>
+	<div id="card">
+		<%= render "posts/time_ago", post: post %>
+		<%= render "posts/posted_by", post: post %>
+		<%= render "posts/comment_link", post: post %>
+		<%= render "posts/vote", post: post %>
 	
-	<% if current_user and current_user.admin %>
-		<%= link_to "Edit", edit_post_path(post), id: :bottom_center_center_left_link %>
-	<% end %>
+		<% if current_user and current_user.admin %>
+			<%= link_to "Edit", edit_post_path(post), id: :bottom_center_center_left_link %>
+		<% end %>
 	
-	<%= render "posts/content", post: post %>
-</div>
+		<%= render "posts/content", post: post %>
+	</div>
+<% end %>
