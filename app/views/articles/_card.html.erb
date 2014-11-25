@@ -1,7 +1,7 @@
 <!-- articles -->
 
-<% unless (request.host.to_s.include? "elhero.com" and (article.english_version.nil? or article.english_version.empty?)) or \
-	(request.host.to_s.include? "elheroe.net" and (article.body.nil? or article.body.empty?)) %>
+<% unless (request.host.to_s.include? "elhero.com" and ((article.english_version.nil? or article.english_version.empty?) or (article.english_title.nil? or article.english_title.empty?))) \
+	or (request.host.to_s.include? "elheroe.net" and ((article.body.nil? or article.body.empty?) or (article.title.nil? or article.title.empty?))) %>
 	<div id="card">
 		<%= render "articles/time_ago", article: article %>
 		<%= render "articles/written_by", article: article %>
