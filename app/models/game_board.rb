@@ -39,7 +39,7 @@ class GameBoard < ActiveRecord::Base
     board_loc = 1
     for image in Dir.glob("app/assets/images/cards/board_#{board_number.to_s}/bw/*.png")
       cards.create image: "cards/board_#{board_number.to_s}/bw/#{image.split('/').last}",
-        board_loc: board_loc, name: Card.names(board_number)[board_loc - 1].to_s
+        board_loc: board_loc, name: Card.get_name(image)
       board_loc += 1
     end
   end

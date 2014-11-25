@@ -3,21 +3,29 @@ class Card < ActiveRecord::Base
   belongs_to :code
   belongs_to :game_board
   
-  @@board1 = [:soccerball, :shrimp, :dolphin, :elephant, :runner,
-        :bigfoot, :bear, :umbrella, :submarine, :sailboat, :bottle,
-        :swords, :star, :moon, :thumbs_up, :guitar]
+  @@board1 = [:balon, :camaron, :delfin, :elefante, :hombre, :mono,
+    :oso, :paraguas, :submarino, :barco, :botella, :espada,
+    :estrella, :luna, :mano, :guitarra]
   
-  @@board2 = [:crocodile, :flamingo, :lion, :earth, :bird, :cake,
-        :eagle, :flag, :bicycle, :lady, :lizard, :key,
-        :butterfly, :wave, :frog, :mermaid]
+  @@board2 = [:caiman, :flamenco, :leon, :mundo, :pajaro, :pastel,
+    :aguila, :bandera, :bicicleta, :dama, :lagartija, :llave,
+    :mariposa, :ola, :rana, :sirena]
   
-  @@board3 = [:scorpian, :ring, :camel, :swordfish, :rooster,
-        :cactus, :dog, :deer, :lightbulb, :karate, :phone,
-        :jet, :flag, :moon, :candle, :motorcycle]
+  @@board3 = [:alacran, :anillo, :camello, :espadarte, :gallo,
+    :nopal, :perro, :venado, :foco, :karate, :telephono,
+    :avion, :bandera, :luna, :vela, :moto]
   
-  @@board4 = [:tree, :owl, :crocodile, :lion, :dog, :sax,
-        :eagle, :spider, :lady, :star, :palm_tree, :frog,
-        :mermaid, :boot, :beard, :sunglasses]
+  @@board4 = [:arbol, :buho, :caiman, :leon, :perro, :sax,
+    :aguila, :dama, :estrella, :palmera, :rana, :sirena,
+    :bota, :barba, :lentes]
+  
+  def self.get_name(_image)
+    for _name in Card.unique_names
+      if _image.downcase.include? _name.to_s
+        return _name
+      end
+    end
+  end
         
   def self.unique_names
     boards = [@@board1, @@board2, @@board3, @@board4]
