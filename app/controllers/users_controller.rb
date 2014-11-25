@@ -24,9 +24,9 @@ class UsersController < ApplicationController
       Zip.record(@user.zip_code) # logs zip if its unique
       
       if request.host.to_s.include? "elhero.com"
-        user.update english: true
+        @user.update english: true
       elsif request.host.to_s.include? "elheroe.net"
-        user.update english: false
+        @user.update english: false
       end
       
       redirect_to root_url
