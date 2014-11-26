@@ -1,7 +1,7 @@
 <!-- posts -->
 
 <% unless (request.host.to_s.include? "elhero.com" and (post.english_version.nil? or post.english_version.empty?)) or \
-	(request.host.to_s.include? "elheroe.net" and (post.body.nil? or post.body.empty?)) %>
+	(request.host.to_s.include? "elheroe.net" and (post.body.nil? or post.body.empty?)) and not post.image.present? %>
 	<div id="card">
 		<%= render "posts/time_ago", post: post %>
 		<%= render "posts/posted_by", post: post %>
