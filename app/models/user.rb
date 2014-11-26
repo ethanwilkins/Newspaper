@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   has_many :activities
   has_many :comments
   has_many :articles
+  has_many :features
   has_many :prizes
   has_many :cards
   has_many :posts

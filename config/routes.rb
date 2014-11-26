@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   
   delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
   
+  get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
+  
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
   get "search/search/:query", to: "search#search", as: "tagged"
