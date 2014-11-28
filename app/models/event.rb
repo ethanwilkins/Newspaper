@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
   scope :approved, -> { where approved: true }
 	scope :pending, -> { where approved: nil }
+  
+  has_many :translations, dependent: :destroy
 
   mount_uploader :image, ImageUploader
   

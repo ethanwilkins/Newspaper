@@ -2,6 +2,7 @@ class Tab < ActiveRecord::Base
   has_many :posts
   has_many :subtabs, dependent: :destroy
   has_many :features, dependent: :destroy
+  has_many :translations, dependent: :destroy
   
   mount_uploader :icon, ImageUploader
   

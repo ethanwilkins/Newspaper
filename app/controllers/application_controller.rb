@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
 
   private
   
+  def reset_page
+    # resets back to top
+    unless session[:more]
+      session[:page] = nil
+    end
+    session[:more] = nil
+  end
+  
   def page_size
     @page_size = 5
   end
@@ -26,7 +34,7 @@ class ApplicationController < ActionController::Base
       not (current_user and not current_user.english))
       spanish = nil
     else
-      spanish = Translation.where(english: english)
+      spanish = Translation.where("english = ? AND requested = ?", english, true)
     end
     return spanish.present? ? spanish.last.spanish : english
   end

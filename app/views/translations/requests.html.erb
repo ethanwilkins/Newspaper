@@ -2,63 +2,18 @@
 
 <% for request in @requests %>
 	<div id="card">
-		<% case request.class.to_s %>
-		<% when "Post" %>
-			<%= render "posts/time_ago", post: request %>
-			<%= render "posts/posted_by", post: request %></br>
-			<%= form_for request, url: post_path(request), method: :patch do |f| %>
-				<%= hidden_field_tag translation_requested: false %>
-				<%= hidden_field_tag id: request.id %>
-				<p>
-					<%= f.text_area :body, placeholder: translate("Spanish"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :english_version, placeholder: translate("English"), class: "form-control" %>
-				</p>
-				<div>
-					<%= f.submit translate("Translate"), class: "btn btn-default btn-lg btn-block" %>
-				</div>
-			<% end %>
-		<% when "Tab" %>
-			<%= form_for request, url: tab_path(request), method: :patch do |f| %>
-				<%= hidden_field_tag translation_requested: false %>
-				<%= hidden_field_tag id: request.id %>
-				<p>
-					<%= f.text_area :name, placeholder: translate("Spanish name"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :english_name, placeholder: translate("English name"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :description, placeholder: translate("Spanish description"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :english_description, placeholder: translate("English description"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.submit translate("Translate"), class: "btn btn-default btn-lg btn-block" %>
-				</p>
-			<% end %>
-		<% when "Event" %>
-			<%= form_for request, url: event_path(request), method: :patch do |f| %>
-				<%= hidden_field_tag translation_requested: false %>
-				<%= hidden_field_tag id: request.id %>
-				<p>
-					<%= f.text_area :title, placeholder: translate("Spanish"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :english_title, placeholder: translate("English"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :body, placeholder: translate("Spanish"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.text_area :english_body, placeholder: translate("English"), class: "form-control" %>
-				</p>
-				<p>
-					<%= f.submit translate("Translate"), class: "btn btn-default btn-lg btn-block" %>
-				</p>
-			<% end %>
+		<%= form_for request, url: translation_path(request), method: :put do |f| %>
+			<%= hidden_field_tag requested: false %>
+			<%= hidden_field_tag id: request.id %>
+			<p>
+				<%= f.text_area :english, placeholder: translate("English"), class: "form-control" %>
+			</p>
+			<p>
+				<%= f.text_area :spanish, placeholder: translate("Spanish"), class: "form-control" %>
+			</p>
+			<div>
+				<%= f.submit translate("Translate"), class: "btn btn-default btn-lg btn-block" %>
+			</div>
 		<% end %>
 	</div>
 <% end %>

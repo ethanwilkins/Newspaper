@@ -35,7 +35,8 @@ class EventsController < ApplicationController
   end
   
   def create
-    @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image, :translation_requested))
+    @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image,
+      :english_title, :english_body, :translation_requested))
     @event.approved = true if current_user.admin
     @event.user_id = current_user.id
     
@@ -52,6 +53,17 @@ class EventsController < ApplicationController
       Activity.log_action(current_user, request.remote_ip.to_s, "events_create_fail")
       redirect_to :back
     end
+  end
+  
+  def update
+    @event = Event.find(params[:id])
+    if @event.update(params[:event].permit(:title, :body, :location, :date, :image,
+      :english_title, :english_body, :translation_requested))
+      flash[:notice] = translate("Event updated successfully.")
+    else
+      flash[:error] = translate("Event failed to update.")
+    end
+    redirect_to :back
   end
   
   def show

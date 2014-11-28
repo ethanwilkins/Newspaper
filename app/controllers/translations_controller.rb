@@ -1,19 +1,11 @@
 class TranslationsController < ApplicationController
   def requests
-    @requests = []
-    Post.where(translation_requested: true).each { |post| @requests << post }
-    Tab.where(translation_requested: true).each { |tab| @requests << tab }
-    @requests.sort_by &:created_at
+    @requests = Translation.where(requested: true)
     Activity.log_action(current_user, request.remote_ip.to_s, "posts_translation_requests")
   end
   
   def index
-    # resets back to top
-    unless session[:more]
-      session[:page] = nil
-    end
-    session[:more] = nil
-    
+    reset_page
     @translation = Translation.new
     @translations = Translation.all.reverse.
       # drops first several posts if :feed_page

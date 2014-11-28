@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   
   put 'subtabs/update'
   
+  put 'translations/update'
+  
   post 'features/create', as: 'features'
   
   post 'subtabs/create', as: 'subtabs'

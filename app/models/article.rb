@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
-  has_many :comments
+  has_many :comments, dependent: :destroy
+  has_many :translations, dependent: :destroy
   
   mount_uploader :image, ImageUploader
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141124051538) do
+ActiveRecord::Schema.define(version: 20141128080700) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20141124051538) do
     t.integer  "views"
     t.text     "english_version"
     t.string   "english_title"
+    t.boolean  "english"
   end
 
   create_table "banners", force: true do |t|
@@ -86,6 +87,8 @@ ActiveRecord::Schema.define(version: 20141124051538) do
     t.text     "text"
     t.integer  "comment_id"
     t.integer  "post_id"
+    t.integer  "translation_id"
+    t.integer  "event_id"
   end
 
   create_table "events", force: true do |t|
@@ -102,6 +105,7 @@ ActiveRecord::Schema.define(version: 20141124051538) do
     t.string   "english_title"
     t.string   "english_body"
     t.boolean  "translation_requested"
+    t.boolean  "english"
   end
 
   create_table "features", force: true do |t|
@@ -181,6 +185,7 @@ ActiveRecord::Schema.define(version: 20141124051538) do
     t.date     "expiration_date"
     t.integer  "repopulation_interval"
     t.integer  "reincarnations"
+    t.boolean  "english"
   end
 
   create_table "prizes", force: true do |t|
@@ -228,6 +233,7 @@ ActiveRecord::Schema.define(version: 20141124051538) do
     t.string   "english_name"
     t.boolean  "translation_requested"
     t.string   "english_description"
+    t.boolean  "english"
   end
 
   create_table "tasks", force: true do |t|
@@ -242,6 +248,11 @@ ActiveRecord::Schema.define(version: 20141124051538) do
     t.string   "spanish"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "requested"
+    t.integer  "tab_id"
+    t.integer  "post_id"
+    t.integer  "event_id"
+    t.integer  "article_id"
   end
 
   create_table "users", force: true do |t|
