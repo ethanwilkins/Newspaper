@@ -6,7 +6,7 @@ class Translation < ActiveRecord::Base
   
   has_many :comments
   
-  validates_presence_of :english, :spanish
+  validate :spanish_or_english
   
   def self.translate(english)
     spanish = self.where("english = ? AND requested != ?", english, true)
@@ -16,5 +16,13 @@ class Translation < ActiveRecord::Base
   def self.translate_to_english(spanish)
     english = self.where("spanish = ? AND requested != ?", spanish, true)
     return english.present? ? english.last.english : spanish
+  end
+  
+  private
+  
+  def spanish_or_english
+    if (requested.nil? and (spanish.nil? or english.nil?)) or (requested and spanish.nil? and english.nil?)
+      errors.add(:no_spanish_or_english, "Invalid input.")
+    end
   end
 end

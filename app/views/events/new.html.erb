@@ -1,20 +1,13 @@
+<!-- events -->
+
 <div id="card">
 <%= form_for @event do |f| %>
-	<% unless current_user.english %>
-		<p>
-			<%= f.text_field :title, placeholder: translate("Title"), class: "form-control" %>
-		</p>
-		<p>
-			<%= f.text_area :body, placeholder: translate("Description"), class: "form-control" %>
-		</p>
-	<% else %>
-		<p>
-			<%= f.text_field :english_title, placeholder: translate("Title"), class: "form-control" %>
-		</p>
-		<p>
-			<%= f.text_area :english_body, placeholder: translate("Description"), class: "form-control" %>
-		</p>
-	<% end %>
+	<p>
+		<%= f.text_field :title, placeholder: translate("Title"), class: "form-control" %>
+	</p>
+	<p>
+		<%= f.text_area :body, placeholder: translate("Description"), class: "form-control" %>
+	</p>
 	<p>
 		<%= f.file_field :image, class: "form-control" %>
 	</p>

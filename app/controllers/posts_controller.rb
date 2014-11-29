@@ -31,6 +31,14 @@ class PostsController < ApplicationController
     end
     
     if @post.save
+      if @post.translation_requested
+        if current_user.english
+          @post.translations.create(request: true, english: @post.body)
+        else
+          @post.translations.create(request: true, spanish: @post.body)
+        end
+      end
+      
       Hashtag.extract(@post) if @post.body
       Activity.log_action(current_user, request.remote_ip.to_s, "posts_create", @post.id)
       redirect_to :back

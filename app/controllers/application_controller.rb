@@ -19,24 +19,28 @@ class ApplicationController < ActionController::Base
     @page_size = 5
   end
   
+  # needs to be able to determine which field is the name
+  # perhaps with a field type attribute
   def name_shown(item)
-    if (current_user and current_user.english and item.english_name.present?) or \
-      (request.host.to_s.include? "elhero.com" and not (current_user and not current_user.english))
-      item.english_name
+    if english? and item.translations.present? and item.translations.first.english.present?
+      item.translations.first.english
     else
       item.name
     end
   end
   
   def translate(english)
-    # takes string and searches Translation.all for a match unless user.english
-    if (current_user and current_user.english) or (request.host.to_s.include? "elhero.com" and \
-      not (current_user and not current_user.english))
+    if english?
       spanish = nil
     else
-      spanish = Translation.where("english = ? AND requested = ?", english, true)
+      spanish = Translation.where("english = ? AND request != ?", english, true)
     end
     return spanish.present? ? spanish.last.spanish : english
+  end
+  
+  def english?
+    (current_user and current_user.english) or (request.host.to_s.include? "elhero.com" and \
+      not (current_user and not current_user.english))
   end
 
   def current_user

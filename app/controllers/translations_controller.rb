@@ -7,7 +7,7 @@ class TranslationsController < ApplicationController
   def index
     reset_page
     @translation = Translation.new
-    @translations = Translation.all.reverse.
+    @translations = Translation.where(requested: [nil, false]).reverse.
       # drops first several posts if :feed_page
       drop((session[:page] ? session[:page] : 0) * page_size).
       # only shows first several posts of resulting array
@@ -23,6 +23,7 @@ class TranslationsController < ApplicationController
   def update
     @translation = Translation.find(params[:id])
     if @translation.update(params[:translation].permit(:english, :spanish))
+      @translation.update(requested: false) if @translation.requested
       flash[:notice] = translate("The translation was successfully updated.")
       Activity.log_action(current_user, request.remote_ip.to_s, "translations_update", @translation.id)
       redirect_to translations_path
@@ -35,7 +36,6 @@ class TranslationsController < ApplicationController
   
   def create
     @translation = Translation.new(params[:translation].permit(:english, :spanish))
-    
     if @translation.save
       flash[:notice] = translate("Translation saved successfully.")
       Activity.log_action(current_user, request.remote_ip.to_s, "translations_create", @translation.id)

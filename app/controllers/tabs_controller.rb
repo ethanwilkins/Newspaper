@@ -7,19 +7,25 @@ class TabsController < ApplicationController
   
   def approve
     @tab = Tab.find(params[:id])
-    @tab.update approved: true
-    Note.notify(current_user, User.find(@tab.user_id),
-      :tab_approved, @tab.id)
-    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_approve", @tab.id)
+    if @tab.update approved: true
+      Note.notify(current_user, User.find(@tab.user_id), :tab_approved, @tab.id)
+      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_approve", @tab.id)
+      flash[:notice] = translate("Tab successfully approved.")
+    else
+      flash[:error] = translate("Tab could not be approved.")
+    end
     redirect_to :back
   end
 
   def deny
     @tab = Tab.find(params[:id])
-    @tab.update approved: false
-    Note.notify(current_user, User.find(@tab.user_id),
-      :tab_denied, @tab.id)
-    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_deny", @tab.id)
+    if @tab.update approved: false
+      Note.notify(current_user, User.find(@tab.user_id), :tab_denied, @tab.id)
+      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_deny", @tab.id)
+      flash[:notice] = translate("The tab was successfully denied.")
+    else
+      flash[:error] = translate("The tab could not be denied.")
+    end
     redirect_to :back
   end
   
@@ -29,8 +35,8 @@ class TabsController < ApplicationController
   end
   
   def create
-    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company, :sponsored,
-      :sponsored_only, :english_name, :english_description, :translation_requested))
+    @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company,
+      :sponsored, :sponsored_only, :translation_requested))
     @tab.approved = true if current_user.admin
     @tab.zip_code = current_user.zip_code
     @tab.ip = request.remote_ip.to_s
@@ -39,6 +45,16 @@ class TabsController < ApplicationController
     @tab.longitude = current_user.longitude
     
     if @tab.save
+      if @tab.translation_requested
+        if current_user.english
+          @tab.translations.create(request: true, english: @tab.name)
+          @tab.translations.create(request: true, english: @tab.description)
+        else
+          @tab.translations.create(request: true, spanish: @tab.name)
+          @tab.translations.create(request: true, spanish: @tab.description)
+        end
+      end
+      
       flash[:notice] = translate "Your tab was successfully submitted."
       Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create", @tab.id)
       redirect_to tabs_path

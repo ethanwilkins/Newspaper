@@ -41,6 +41,16 @@ class EventsController < ApplicationController
     @event.user_id = current_user.id
     
     if @event.save
+      if @event.translation_requested
+        if current_user.english
+          @event.translations.create(request: true, english: @event.title)
+          @event.translations.create(request: true, english: @event.body)
+        else
+          @event.translations.create(request: true, spanish: @event.title)
+          @event.translations.create(request: true, spanish: @event.body)
+        end
+      end
+      
       flash[:notice] = translate "Event submitted successfully."
       if current_user.admin
         redirect_to events_path

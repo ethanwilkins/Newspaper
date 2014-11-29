@@ -4,7 +4,7 @@
 <% ad_pos = Random.new.rand @posts.size if @posts.present? %>
 <% for post in @posts %>
 	<% if not current_user or (current_user and current_user.close_enough(post)) %>
-		<%= render "posts/card", post: post unless post.translation_requested %>
+		<%= render "posts/card", post: post %>
 	<% end %>
 	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
 	<% pos_on_page += 1 %>

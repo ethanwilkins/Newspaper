@@ -36,7 +36,7 @@ class ArticlesController < ApplicationController
   
   def update
     @article = Article.find(params[:id])
-    @article.update(params[:article].permit(:title, :body, :image, :zip_code, :english_version, :english_title))
+    @article.update(params[:article].permit(:title, :body, :image, :zip_code, :hyperlink))
     
     if @article.ad
       flash[:notice] = translate("Advert successfully updated.")
@@ -52,7 +52,8 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code, :hyperlink, :english_version))
+    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code,
+      :hyperlink, :translation_requested))
     @article.user_id = current_user.id
     @article.ad = params[:ad]
     
@@ -62,6 +63,15 @@ class ArticlesController < ApplicationController
       redirect_to :back
       
     elsif @article.save
+      if @article.translation_requested
+        if current_user.english
+          @article.translations.create(request: true, english: @article.title)
+          @article.translations.create(request: true, english: @article.body)
+        else
+          @article.translations.create(request: true, spanish: @article.title)
+          @article.translations.create(request: true, spanish: @article.body)
+        end
+      end
       Activity.log_action(current_user, request.remote_ip.to_s, "articles_create", @article.id)
       redirect_to root_url
       

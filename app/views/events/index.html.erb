@@ -5,12 +5,10 @@
 </div></br>
 
 <% for event in @events %>
-	<% unless event.translation_requested %>
-		<div id="card">
-			<%= render "events/content", event: event %>
-			<%= render "events/approve_deny", event: event %>
-		</div>
-	<% end %>
+	<div id="card">
+		<%= render "events/content", event: event %>
+		<%= render "events/approve_deny", event: event %>
+	</div>
 <% end %>
 
 <% if @events.empty? %>

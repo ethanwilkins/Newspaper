@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141128080700) do
+ActiveRecord::Schema.define(version: 20141129064900) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20141128080700) do
     t.text     "english_version"
     t.string   "english_title"
     t.boolean  "english"
+    t.boolean  "translation_requested"
   end
 
   create_table "banners", force: true do |t|
@@ -248,7 +249,7 @@ ActiveRecord::Schema.define(version: 20141128080700) do
     t.string   "spanish"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "requested"
+    t.boolean  "request"
     t.integer  "tab_id"
     t.integer  "post_id"
     t.integer  "event_id"
