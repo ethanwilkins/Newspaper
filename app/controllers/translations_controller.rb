@@ -1,13 +1,17 @@
 class TranslationsController < ApplicationController
+  
+  # need a better way to differentiate between active requests and other translations
+  # could test for missing field to qualify as a active translation request
+  
   def requests
-    @requests = Translation.where(requested: true)
+    @requests = Translation.where(request: true)
     Activity.log_action(current_user, request.remote_ip.to_s, "posts_translation_requests")
   end
   
   def index
     reset_page
     @translation = Translation.new
-    @translations = Translation.where(requested: [nil, false]).reverse.
+    @translations = Translation.where(request: [nil, false]).reverse.
       # drops first several posts if :feed_page
       drop((session[:page] ? session[:page] : 0) * page_size).
       # only shows first several posts of resulting array
