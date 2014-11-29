@@ -21,7 +21,7 @@ class Translation < ActiveRecord::Base
   private
   
   def spanish_or_english
-    if (requested.nil? and (spanish.nil? or english.nil?)) or (requested and spanish.nil? and english.nil?)
+    if (request.nil? and (spanish.nil? or english.nil?)) or (request and spanish.nil? and english.nil?)
       errors.add(:no_spanish_or_english, "Invalid input.")
     end
   end
