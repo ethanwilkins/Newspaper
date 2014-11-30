@@ -1,3 +1,5 @@
+<!-- articles -->
+
 <% if current_user and current_user.admin %>
 	<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<div id="card">
@@ -5,16 +7,10 @@
 				<%= f.text_field :title, placeholder: translate("Title (Spanish)"), class: "form-control" %>
 			</p>
 			<p>
-				<%= f.text_field :english_title, placeholder: translate("Title (English)"), class: "form-control" %>
-			</p>
-			<p>
 				<%= f.file_field :image, class: "form-control" %>
 			</p>
 			<p>
 				<%= f.text_area :body, placeholder: translate("Body (Spanish)"), class: "form-control" %>
-			</p>
-			<p>
-				<%= f.text_area :english_version, placeholder: translate("Body (English)"), class: "form-control" %>
 			</p>
 			<p>
 				<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
