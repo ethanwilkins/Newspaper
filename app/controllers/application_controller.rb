@@ -21,7 +21,8 @@ class ApplicationController < ActionController::Base
   
   def text_shown(item, field)
     field = field.to_s
-    if item.translations.present? and item.translations.find_by_field(field)
+    if item.translations.present? and item.translations.find_by_field(field) and \
+      (item.translations.find_by_field(field).english.present? and item.translations.find_by_field(field).spanish.present?)
       if english?
         return item.translations.find_by_field(field).english
       else
