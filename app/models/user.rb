@@ -31,9 +31,11 @@ class User < ActiveRecord::Base
   
   def close_enough(content)
     _close_enough = false
+    # verifies existence of required attributes
     if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
+      # verifies that content is within the users specified geographical radius
       if GeoDistance.distance(content.latitude, content.longitude, self.latitude, self.longitude).miles.number < self.network_size
-        if content.zip_code == self.zip_code
+        if content.zip_code == self.zip_code # content always close enough when inside current users zip code
           _close_enough = true
         elsif content.is_a? Post
           near_content = Post.where(zip_code: content.zip_code).size

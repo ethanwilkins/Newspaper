@@ -26,13 +26,33 @@ class Translation < ActiveRecord::Base
   end
   
   def self.translate(english)
-    spanish = self.where("english = ? AND request != ?", english, true)
+    spanish = self.site_english(english)
     return spanish.present? ? spanish.last.spanish : english
   end
   
   def self.translate_to_english(spanish)
-    english = self.where("spanish = ? AND request != ?", spanish, true)
+    english = self.site_spanish(spanish)
     return english.present? ? english.last.english : spanish
+  end
+  
+  def self.site_spanish(_spanish)
+    _site_spanish = []
+    for _translation in self.all
+      if _translation.spanish == _spanish and not _translation.request
+        _site_spanish << _translation
+      end
+    end
+    return _site_spanish
+  end
+  
+  def self.site_english(_english)
+    _site_english = []
+    for _translation in self.all
+      if _translation.english == _english and not _translation.request
+        _site_english << _translation
+      end
+    end
+    return _site_english
   end
   
   private

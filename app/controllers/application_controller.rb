@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
     if english?
       spanish = nil
     else
-      spanish = Translation.where("english = ? AND request != ?", english, true)
+      spanish = Translation.site_english(english)
     end
     return spanish.present? ? spanish.last.spanish : english
   end
