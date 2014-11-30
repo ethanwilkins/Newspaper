@@ -1,6 +1,7 @@
 class Subtab < ActiveRecord::Base
   belongs_to :tab
   has_many :posts
+  has_many :translations
   
   mount_uploader :icon, ImageUploader
   

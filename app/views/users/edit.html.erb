@@ -18,12 +18,24 @@
 		<%= f.text_field :zip_code, placeholder: translate("Zip"), class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :network_size, options_for_select([[translate("Network Size"), @user.network_size],
+		<% case @user.network_size %>
+		<% when 10 %>
+			<% network_size = "Small" %>
+		<% when 25 %>
+			<% network_size = "Medium" %>
+		<% when 50 %>
+			<% network_size = "Large" %>
+		<% when 100 %>
+			<% network_size = "Extra large" %>
+		<% else %>
+			<% network_size = "Not set" %>
+		<% end %>
+		<%= f.select :network_size, options_for_select([[translate("Network size: " + network_size), @user.network_size],
 			[translate("Small"), 10], [translate("Medium"), 25], [translate("Large"), 50],
-			[translate("Extra Large"), 100]]), {}, class: "form-control" %>
+			[translate("Extra large"), 100]]), {}, class: "form-control" %>
 	</p>
 	<p>
-		<%= f.select :english, options_for_select([[translate("Language"), @user.english],
+		<%= f.select :english, options_for_select([[translate("Language: " + (@user.english ? "English" : "Spanish")), @user.english],
 			[translate("Spanish"), false], [translate("English"), true]]), {}, class: "form-control" %>
 	</p>
 	<% if current_user.admin %>

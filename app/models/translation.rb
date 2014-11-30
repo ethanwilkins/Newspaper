@@ -1,7 +1,8 @@
 class Translation < ActiveRecord::Base
   belongs_to :post
-  belongs_to :article
   belongs_to :event
+  belongs_to :article
+  belongs_to :subtab
   belongs_to :tab
   
   has_many :comments
