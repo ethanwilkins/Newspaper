@@ -5,7 +5,7 @@
 	<div align="center">
 		</br><%= image_tag @tab.icon, size: "200x200" %>
 		<h3>
-			<%= name_shown(@tab) %>
+			<%= text_shown(@tab, :name) %>
 		</h3>
 	</div>
 	<%= render "tabs/pop_tabs" %>

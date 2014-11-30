@@ -6,14 +6,9 @@
 	</div></br>
 <% end %>
 
-<% if post.body.present? or post.english_version.present? or post.hashtags.present? %>
+<% if post.body.present? or post.hashtags.present? %>
 	<p align="center" id="post_body_text">
-		<% if (current_user and current_user.english and post.english_version) or post.body.nil? or post.body.empty? %>
-			<% body = post.english_version %>
-		<% else %>
-			<% body = post.body %>
-		<% end %>
-		
+		<% body = text_shown(post, :body) %>
 		<% if body %>
 			<% for word in body.split(' ') %>
 				<%= render "posts/embed", word: word %>

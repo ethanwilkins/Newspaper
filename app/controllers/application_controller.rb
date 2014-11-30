@@ -3,9 +3,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size, :name_shown
+  helper_method :current_user, :translate, :page_size, :text_shown
 
   private
+
+  def page_size
+    @page_size = 5
+  end
   
   def reset_page
     # resets back to top
@@ -15,17 +19,16 @@ class ApplicationController < ActionController::Base
     session[:more] = nil
   end
   
-  def page_size
-    @page_size = 5
-  end
-  
-  # needs to be able to determine which field is the name
-  # perhaps with a field type attribute
-  def name_shown(item)
-    if english? and item.translations.present? and item.translations.first.english.present?
-      item.translations.first.english
+  def text_shown(item, field)
+    field = field.to_s
+    if item.translations.present? and item.translations.find_by_field(field)
+      if english?
+        return item.translations.find_by_field(field).english
+      else
+        return item.translations.find_by_field(field).spanish
+      end
     else
-      item.name
+      return item.attributes[field]
     end
   end
   

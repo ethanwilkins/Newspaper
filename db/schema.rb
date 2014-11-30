@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129064900) do
+ActiveRecord::Schema.define(version: 20141130044712) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -40,8 +40,6 @@ ActiveRecord::Schema.define(version: 20141129064900) do
     t.integer  "zip_code"
     t.string   "hyperlink"
     t.integer  "views"
-    t.text     "english_version"
-    t.string   "english_title"
     t.boolean  "english"
     t.boolean  "translation_requested"
   end
@@ -103,8 +101,6 @@ ActiveRecord::Schema.define(version: 20141129064900) do
     t.datetime "updated_at"
     t.string   "image"
     t.string   "location"
-    t.string   "english_title"
-    t.string   "english_body"
     t.boolean  "translation_requested"
     t.boolean  "english"
   end
@@ -178,7 +174,6 @@ ActiveRecord::Schema.define(version: 20141129064900) do
     t.integer  "subtab_id"
     t.integer  "zip_code"
     t.boolean  "translation_requested"
-    t.text     "english_version"
     t.string   "ip"
     t.float    "latitude"
     t.float    "longitude"
@@ -231,9 +226,7 @@ ActiveRecord::Schema.define(version: 20141129064900) do
     t.float    "latitude"
     t.float    "longitude"
     t.string   "address"
-    t.string   "english_name"
     t.boolean  "translation_requested"
-    t.string   "english_description"
     t.boolean  "english"
   end
 
@@ -254,6 +247,7 @@ ActiveRecord::Schema.define(version: 20141129064900) do
     t.integer  "post_id"
     t.integer  "event_id"
     t.integer  "article_id"
+    t.string   "field"
   end
 
   create_table "users", force: true do |t|

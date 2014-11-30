@@ -7,7 +7,7 @@
 		</div>
 		
 		<div>
-			<%= link_to name_shown(tab), tab_path(tab) %>
+			<%= link_to text_shown(tab, :name), tab_path(tab) %>
 		</div>
 		
 		<% if current_user.admin and tab.approved.nil? %>

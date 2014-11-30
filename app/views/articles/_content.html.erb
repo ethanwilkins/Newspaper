@@ -2,11 +2,7 @@
 
 <article>
 	<h3 align="center">
-		<% if (current_user and current_user.english and article.english_title) or article.title.nil? or article.title.empty? %>
-			<%= link_to article.english_title, article_path(article) %>
-		<% else %>
-			<%= link_to article.title, article_path(article) %>
-		<% end %>
+		<%= link_to text_shown(article, :title), article_path(article) %>
 	</h3>
 
 	<% if article.image.url %>
@@ -21,11 +17,6 @@
 		<div align="center">
 	<% end %>
 	
-	<!-- whether or not to show the body -->
-	<% if (current_user and current_user.english and article.english_version) or article.body.nil? or article.body.empty? %>
-		<%= article.english_version %>
-	<% else %>
-		<%= article.body %>
-	<% end %>
+	<%= text_shown(article, :body) %>
 	</div></br>
 </article>

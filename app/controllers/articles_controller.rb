@@ -65,11 +65,11 @@ class ArticlesController < ApplicationController
     elsif @article.save
       if @article.translation_requested
         if current_user.english
-          @article.translations.create(request: true, english: @article.title)
-          @article.translations.create(request: true, english: @article.body)
+          @article.translations.create(request: true, english: @article.title, field: "title")
+          @article.translations.create(request: true, english: @article.body, field: "body")
         else
-          @article.translations.create(request: true, spanish: @article.title)
-          @article.translations.create(request: true, spanish: @article.body)
+          @article.translations.create(request: true, spanish: @article.title, field: "title")
+          @article.translations.create(request: true, spanish: @article.body, field: "body")
         end
       end
       Activity.log_action(current_user, request.remote_ip.to_s, "articles_create", @article.id)
