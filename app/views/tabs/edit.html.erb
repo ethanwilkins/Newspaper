@@ -15,6 +15,9 @@
 		<p>
 			<%= f.text_field :company, placeholder: translate("Company"), class: "form-control" %>
 		</p>
+		<p>
+			<%= f.text_field :zip_code, placeholder: translate("Zip code"), class: "form-control" %>
+		</p>
 		<% if current_user.admin or current_user.business %>
 			<p class="form-control">
 				<%= f.label translate("Request verification of business") %>
