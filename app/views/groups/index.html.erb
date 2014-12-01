@@ -21,3 +21,11 @@
 		</div>
 	</div>
 <% end %>
+
+<% if @groups.empty? %>
+	<div id="card">
+		<div align="center">
+			<%= translate("There aren't any groups yet.") %>
+		</div>
+	</div>
+<% end %>
