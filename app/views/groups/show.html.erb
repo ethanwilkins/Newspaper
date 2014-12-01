@@ -1,0 +1,44 @@
+<!-- groups -->
+
+<div id="card">
+	<div align="center">
+		<p>
+			<strong><%= "Group #{@group.id}" %></strong>
+		</p>
+		<p><%= "Admins: " %>
+			<% for admin in @group.users %>
+				<%= link_to admin.name.capitalize, user_path(admin) %><%= \
+				", " if admin != @group.users.last %>
+			<% end %>
+		</p>
+		<p>
+			<% zip_list = "" %>
+			<% @group.zips.each { |zip| zip_list << zip.zip_code.to_s + (zip != @group.zips.last ? ", " : "") } %>
+			Zip codes: <%= zip_list %>
+		</p>
+	</div>
+	<p>
+		<%= form_tag groups_add_member_path, method: :put do %>
+			<%= hidden_field_tag :group_id, params[:id] %>
+			<div class="input-group">
+				<%= text_field_tag :user_name, nil, placeholder: translate("Add a new admin to the group by name"), class: "form-control" %>
+				<span class="input-group-btn">
+					<button class="btn btn-default" type="submit">
+						<i class="glyphicon glyphicon-plus-sign"></i>
+					</button>
+				</span>
+			</div><!-- /input-group -->
+		<% end %>
+	</p>
+	<%= form_tag groups_add_zip_path, method: :put do %>
+		<%= hidden_field_tag :group_id, params[:id] %>
+		<div class="input-group">
+			<%= text_field_tag :zip_code, nil, placeholder: translate("Add a new zip code to the group"), class: "form-control" %>
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="submit">
+					<i class="glyphicon glyphicon-plus-sign"></i>
+				</button>
+			</span>
+		</div><!-- /input-group -->
+	<% end %>
+</div>

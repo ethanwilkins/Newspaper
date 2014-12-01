@@ -76,6 +76,10 @@ Rails.application.routes.draw do
   get "pages/more", as: "more"
   
   get "pages/back", as: "back"
+  
+  put 'groups/add_member'
+  
+  put 'groups/add_zip'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -110,6 +114,7 @@ Rails.application.routes.draw do
   resources :translations
   resources :activities
   resources :articles
+  resources :groups
   resources :events
   resources :notes
   
