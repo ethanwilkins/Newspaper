@@ -29,6 +29,8 @@ Rails.application.routes.draw do
   
   get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
   
+  get "features/cherry_pick/:tab_id", to: 'features#cherry_pick', as: 'cherry_pick'
+  
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
   get "search/search/:query", to: "search#search", as: "tagged"

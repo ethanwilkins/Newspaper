@@ -1,4 +1,14 @@
 class FeaturesController < ApplicationController
+  def cherry_pick
+    @feature = current_user.features.new(action: :cherry_pick, tab_id: params[:tab_id])
+    if @feature.save
+      flash[:notice] = translate("Cherry pick saved successfully.")
+    else
+      flash[:error] = translate("Cherry pick failed to save.")
+    end
+    redirect_to :back
+  end
+  
   def page_jump
     @feature = current_user.features.new(action: :page_jump, tab_id: params[:tab_id])
     if @feature.save

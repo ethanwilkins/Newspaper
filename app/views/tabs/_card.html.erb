@@ -1,6 +1,11 @@
 <!-- tabs -->
 
 <div id="card">
+	<div id="top_right_link">
+		<%= link_to cherry_pick_path(tab), class: "btn btn-default" do %>
+			<span class="glyphicon glyphicon-star"></span>
+		<% end %>
+	</div>
 	<div align="center">
 		<div>
 			<%= link_to image_tag(tab.icon, size: "50x50", id: :tab_icon), tab_path(tab) %>
