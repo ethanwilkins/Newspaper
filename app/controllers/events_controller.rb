@@ -18,7 +18,13 @@ class EventsController < ApplicationController
   end
   
   def pending
-    @events = Event.pending.reverse
+    if master?
+      @events = Event.pending.reverse
+    elsif admin?
+      zips = []
+      current_user.group.zips.each { |zip| zips << zip.zip_code }
+      @events = Event.where(zip_code: zips).pending.reverse
+    end
     Activity.log_action(current_user, request.remote_ip.to_s, "events_pending")
     render "events/index"
   end
@@ -35,9 +41,9 @@ class EventsController < ApplicationController
   end
   
   def create
-    @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image,
-      :english_title, :english_body, :translation_requested))
-    @event.approved = true if current_user.admin
+    @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image, :translation_requested))
+    @event.approved = true if admin? or master? # automatically approved for the privileged
+    @event.zip_code = current_user.zip_code
     @event.user_id = current_user.id
     
     if @event.save

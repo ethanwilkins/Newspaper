@@ -29,14 +29,20 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    if master?
+      @articles = Article.all
+    elsif admin?
+      zips = []
+      current_user.group.zips.each { |zip| zips << zip.zip_code }
+      @articles = Article.where(zip_code: zips)
+    end
     @article = Article.new
-    @articles = Article.all
     Activity.log_action(current_user, request.remote_ip.to_s, "articles_new")
   end
   
   def update
     @article = Article.find(params[:id])
-    @article.update(params[:article].permit(:title, :body, :image, :zip_code, :hyperlink))
+    @article.update(params[:article].permit(:title, :body, :image, :hyperlink))
     
     if @article.ad
       flash[:notice] = translate("Advert successfully updated.")
@@ -52,9 +58,9 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = Article.new(params[:article].permit(:title, :body, :image, :zip_code,
-      :hyperlink, :translation_requested))
+    @article = Article.new(params[:article].permit(:title, :body, :image, :hyperlink, :translation_requested))
     @article.user_id = current_user.id
+    @article.zip_code = current_user.zip_code
     @article.ad = params[:ad]
     
     if @article.save and @article.ad

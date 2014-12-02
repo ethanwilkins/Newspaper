@@ -1,6 +1,12 @@
 class NotesController < ApplicationController
   def select
-    @users = User.all
+    if master?
+      @users = User.all
+    elsif admin?
+      zips = []
+      current_user.group.zips.each { |zip| zips << zip.zip_code }
+      @users = User.where zip_code: zips
+    end
     bundle = params[:"/notes/select"]
     user_id = bundle[:user_id] if bundle
     if user_id.present?

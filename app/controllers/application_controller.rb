@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
   end
   
   def admin?
-    return true if current_user and current_user.admin
+    return true if current_user and current_user.admin and current_user.group_id.present?
   end
 
   def current_user

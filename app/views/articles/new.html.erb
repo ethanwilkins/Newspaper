@@ -1,6 +1,6 @@
 <!-- articles -->
 
-<% if current_user and current_user.admin %>
+<% if admin? %>
 	<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<div id="card">
 			<p>
