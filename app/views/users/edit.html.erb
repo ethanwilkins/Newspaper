@@ -20,13 +20,13 @@
 	<p>
 		<% case @user.network_size %>
 		<% when 10 %>
-			<% network_size = "Small" %>
+			<% network_size = "Small (10 miles)" %>
 		<% when 25 %>
-			<% network_size = "Medium" %>
+			<% network_size = "Medium (25 miles)" %>
 		<% when 50 %>
-			<% network_size = "Large" %>
+			<% network_size = "Large (50 miles)" %>
 		<% when 100 %>
-			<% network_size = "Extra large" %>
+			<% network_size = "Extra large (100 miles)" %>
 		<% else %>
 			<% network_size = "Not set" %>
 		<% end %>
