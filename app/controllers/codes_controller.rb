@@ -47,7 +47,7 @@ class CodesController < ApplicationController
       if @code.code.nil?
         flash[:error] = translate "A code must be entered." 
       elsif @code.errors.include? :board_needs_number
-        flash[:error] = @code.errors[:board_needs_number].first
+        flash[:error] = translate(@code.errors[:board_needs_number].first)
       else
         flash[:error] = translate "Invalid input"
       end

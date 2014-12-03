@@ -1,0 +1,38 @@
+<!-- notes -->
+
+<div id="card">
+	<div align="center" id="notes_card">
+		<%= render "notes/time_ago", note: note %>
+		<% case note.action.to_sym %>
+			<% when :post_comment %>
+				<p><%= link_to note.message, post_path(note.item_id) %></p>
+				
+			<% when :article_comment %>
+				<p><%= link_to note.message, article_path(note.item_id) %></p>
+				
+			<% when :comment_reply %>
+				<p><%= link_to note.message, comment_path(note.item_id) %></p>
+				
+			<% when :like_post %>
+				<p><%= link_to note.message, post_path(note.item_id) %></p>
+				
+			<% when :event_approved %>
+				<p><%= link_to note.message, event_path(note.item_id) %></p>
+				
+			<% when :event_denied %>
+				<p><%= link_to note.message, event_path(note.item_id) %></p>
+				
+			<% when :tab_approved %>
+				<p><%= link_to note.message, tab_path(note.item_id) %></p>
+				
+			<% when :tab_denied %>
+				<p><%= link_to note.message, tab_path(note.item_id) %></p>
+				
+			<% when :admin_message %>
+				<p><%= link_to note.message, (note.url.present? ? note.url : notes_path) %></p>
+				
+			<% when :you_won %>
+				<p><%= link_to note.message, notes_path %></p>
+		<% end %>
+	</div>
+</div>

@@ -29,7 +29,11 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    if master?
+    if master? and session[:group_id]
+      zips = []
+      Group.find(session[:group_id]).zips.each { |zip| zips << zip.zip_code }
+      @articles = Article.where(zip_code: zips)
+    elsif master?
       @articles = Article.all
     elsif admin?
       zips = []

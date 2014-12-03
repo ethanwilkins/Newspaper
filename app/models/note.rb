@@ -1,6 +1,7 @@
 class Note < ActiveRecord::Base
   belongs_to :user
   validates :message, presence: true
+  validate :valid_url
   
   def self.checked
     where(checked: true)
@@ -39,6 +40,14 @@ class Note < ActiveRecord::Base
       end
       receiver.notes.create!(message: message, sender_id: sender.id,
         action: action.to_s, item_id: item_id)
+    end
+  end
+  
+  private
+  
+  def valid_url
+    if url.present? and not url.include? "http"
+      errors.add(:invalid_url, "Invalid URL. Try prepending http://")
     end
   end
 end

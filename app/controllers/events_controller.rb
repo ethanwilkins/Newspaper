@@ -18,7 +18,11 @@ class EventsController < ApplicationController
   end
   
   def pending
-    if master?
+    if master? and session[:group_id]
+      zips = []
+      Group.find(session[:group_id]).zips.each { |zip| zips << zip.zip_code }
+      @events = Event.where(zip_code: zips).pending.reverse
+    elsif master?
       @events = Event.pending.reverse
     elsif admin?
       zips = []

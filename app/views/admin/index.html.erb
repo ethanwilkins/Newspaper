@@ -1,21 +1,15 @@
 <% if privileged? %>
 	<div id="card">
-		<div align="center"><%= translate("Welcome, " + (master? ? "Master" : "Administrator")) + " " + current_user.name.capitalize %></div>
+		<div align="center">
+			<%= translate("Welcome, " + (master? ? "Master" : "Administrator")) + " " + current_user.name.capitalize %>
+		</div>
 	</div>
 	
 	<div id="card">
 		<% if master? %>
-			<%= link_to translate("Groups"), groups_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-			<%= link_to translate("Translate"), translations_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-			<%= link_to translate("Adverts"), ad_index_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-			<%= link_to translate("Banner"), banners_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-			<%= link_to translate("Codes"), codes_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-			<%= link_to translate("Data"), activities_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-			<%= link_to translate("Tabs"), pending_tabs_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
+			<%= render "admin/master_buttons" %>
 		<% end %>
-		<%= link_to translate("News"), new_article_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-		<%= link_to translate("Notes"), notes_select_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
-		<%= link_to translate("Events"), pending_events_path, class: "btn btn-default btn-lg btn-block", id: "admin_button" %>
+		<%= render "admin/admin_buttons" %>
 	</div></br>
 <% else %>
 	<div id="card">

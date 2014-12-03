@@ -1,6 +1,6 @@
 <!-- articles -->
 
-<% if admin? %>
+<% if privileged? %>
 	<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<div id="card">
 			<p>

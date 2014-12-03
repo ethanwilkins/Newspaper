@@ -13,4 +13,8 @@
 	</div>
 <% end %>
 
+<% for note in @notes %>
+	<%= render "notes/card", note: note %>
+<% end %>
+
 </br>
