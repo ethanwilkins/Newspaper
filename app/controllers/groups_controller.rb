@@ -21,6 +21,16 @@ class GroupsController < ApplicationController
     redirect_to :back
   end
   
+  def remove_zip
+    zip = Zip.find_by_zip_code(params[:zip_code])
+    if zip and zip.group_id.present? and zip.update group_id: 0
+      flash[:notice] = translate("Zip code successfully removed from the group.")
+    else
+      flash[:error] = translate("The zip code could not be removed.")
+    end
+    redirect_to :back
+  end
+  
   def index
     @groups = Group.all
   end

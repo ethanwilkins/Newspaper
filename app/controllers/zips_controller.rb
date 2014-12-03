@@ -1,0 +1,2 @@
+class ZipsController < ApplicationController
+end

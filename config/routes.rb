@@ -81,6 +81,8 @@ Rails.application.routes.draw do
   
   put 'groups/add_member'
   
+  put 'groups/remove_zip'
+  
   put 'groups/add_zip'
 
   # The priority is based upon order of creation: first created -> highest priority.

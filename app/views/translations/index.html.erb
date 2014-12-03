@@ -1,23 +1,25 @@
 <!-- translations -->
 
-<div id="large_button">
-	<%= link_to translate("Translation requests"), translation_reqs_path, class: "btn btn-default btn-lg btn-block" %>
-</div></br>
+<% if privileged? %>
+	<div id="large_button">
+		<%= link_to translate("Translation requests"), translation_reqs_path, class: "btn btn-default btn-lg btn-block" %>
+	</div></br>
 
-<%= render "translations/new" %>
+	<%= render "translations/new" %>
 
-<% for translation in @translations %>
-	<div id="card">
-		<%= link_to "Edit", edit_translation_path(translation), id: :top_right_link %>
-		<div align="center">
-			<p>
-				<strong><%= translate("English:") %></strong> <%= translation.english %>
-			</p>
-			<div>
-				<strong><%= translate("Spanish:") %></strong> <%= translation.spanish %>
+	<% for translation in @translations %>
+		<div id="card">
+			<%= link_to "Edit", edit_translation_path(translation), id: :top_right_link %>
+			<div align="center">
+				<p>
+					<strong><%= translate("English:") %></strong> <%= translation.english %>
+				</p>
+				<div>
+					<strong><%= translate("Spanish:") %></strong> <%= translation.spanish %>
+				</div>
 			</div>
 		</div>
-	</div>
-<% end %>
+	<% end %>
 
-<%= render "pages/more_back", all_items: Translation.all, items: @translations %>
+	<%= render "pages/more_back", all_items: Translation.all, items: @translations %>
+<% end %>

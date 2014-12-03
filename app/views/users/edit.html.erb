@@ -20,19 +20,19 @@
 	<p>
 		<% case @user.network_size %>
 		<% when 10 %>
-			<% network_size = "Small (10 miles)" %>
+			<% network_size = "Small" %>
 		<% when 25 %>
-			<% network_size = "Medium (25 miles)" %>
+			<% network_size = "Medium" %>
 		<% when 50 %>
-			<% network_size = "Large (50 miles)" %>
+			<% network_size = "Large" %>
 		<% when 100 %>
-			<% network_size = "Extra large (100 miles)" %>
+			<% network_size = "Extra large" %>
 		<% else %>
 			<% network_size = "Not set" %>
 		<% end %>
 		<%= f.select :network_size, options_for_select([[translate("Network size: " + network_size), @user.network_size],
-			[translate("Small"), 10], [translate("Medium"), 25], [translate("Large"), 50],
-			[translate("Extra large"), 100]]), {}, class: "form-control" %>
+			[translate("Small (10 miles)"), 10], [translate("Medium (25 miles)"), 25], [translate("Large (50 miles)"), 50],
+			[translate("Extra large (100 miles)"), 100]]), {}, class: "form-control" %>
 	</p>
 	<p>
 		<%= f.select :english, options_for_select([[translate("Language: " + (@user.english ? "English" : "Spanish")), @user.english],

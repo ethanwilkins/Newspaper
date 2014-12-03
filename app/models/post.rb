@@ -54,7 +54,7 @@ class Post < ActiveRecord::Base
   private
   
   def text_or_image?
-    if (body.nil? or body.empty?) and (english_version.nil? or english_version.empty?) and !image.url
+    if (body.nil? or body.empty?) and !image.url
       errors.add(:post, "cannot be empty.")
     end
   end
