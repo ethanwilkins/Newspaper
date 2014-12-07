@@ -38,6 +38,12 @@
 						<%= f.select :repopulation_interval, options_for_select(options), {}, class: "form-control" %>
 					</p>
 				<% end %>
+				<% if @tab.features.exists? action: "sales_dialogue" %>
+					<p class="form-control">
+						<%= f.label translate("Item for sale") %>
+						<%= f.check_box :sale %>
+					</p>
+				<% end %>
 			<% end %>
 		<% end %>
 		

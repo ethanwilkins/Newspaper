@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203043031) do
+ActiveRecord::Schema.define(version: 20141207100323) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -184,6 +184,8 @@ ActiveRecord::Schema.define(version: 20141203043031) do
     t.integer  "repopulation_interval"
     t.integer  "reincarnations"
     t.boolean  "english"
+    t.boolean  "sale"
+    t.integer  "folder_id"
   end
 
   create_table "prizes", force: true do |t|

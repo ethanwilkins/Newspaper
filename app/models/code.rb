@@ -2,12 +2,17 @@ class Code < ActiveRecord::Base
   has_many :cards, dependent: :destroy
   
   validates :code, presence: true
-  validates :code, uniqueness: true, numericality: true
+  validates :code, uniqueness: true
   validate :board_num_if_board
   
   mount_uploader :image, ImageUploader
   
   private
+  
+  def valid_code
+    _code = code.to_s
+    # if _code.include? 
+  end
   
   def unique_boards
     if is_a_board and Code.where("is_a_board = ? and board_number = ?", true, board_number).present?
