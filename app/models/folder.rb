@@ -1,12 +1,12 @@
 class Folder < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :members, dependent: :destroy
-  has_one :post
+  belongs_to :post
   
-  def notify_members(sender)
+  def notify_members(sender, action=:message)
     for member in members
       if member != sender
-        User.find(member.user_id).notify!(:message, sender, id)
+        Note.notify(sender, User.find(member.user_id), action, self.id)
       end
     end
   end
@@ -31,12 +31,12 @@ class Folder < ActiveRecord::Base
     folders.sort_by &:updated_at
   end
   
-  def self.folder_between(sender, receiver)
+  def self.folder_between(sender, receiver, post=nil)
     _folder_between = nil
     Member.where("user_id = ?", sender).each do |_sender|
       Member.where("user_id = ?", receiver).each do |_receiver|
         if _sender.folder and _receiver.folder and _sender.folder == _receiver.folder
-          _folder_between = find(_sender.folder)
+          _folder_between = _sender.folder if post.nil? or _sender.folder.post == post
         end
       end
     end

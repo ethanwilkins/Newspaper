@@ -27,6 +27,12 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("replied to your comment.")
         when :like_post
           message = name + " " + Translation.translate("liked your post.")
+        when :sales_inquiry
+          message = name + " " + Translation.translate("inquired upon your offer.")
+        when :sales_reply
+          message = name + " " + Translation.translate("replied to your inquiry.")
+        when :sale_finalized
+          message = name + " " + Translation.translate("finalized the offer.")
         when :event_approved
           message = Translation.translate("Your event was approved.")
         when :event_denied

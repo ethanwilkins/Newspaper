@@ -4,11 +4,8 @@
 	<%= render "posts/time_ago", post: post %>
 	<%= render "posts/posted_by", post: post %>
 	<%= render "posts/comment_link", post: post %>
+	<%= render "folders/inquire", post: post %>
 	<%= render "posts/vote", post: post %>
-	
-	<% if post.sale %>
-		<%= link_to translate("Inquire"), post_path(post), id: :bottom_center_right_link %>
-	<% end %>
 	
 	<% if current_user and current_user.admin %>
 		<%= link_to "Edit", edit_post_path(post), id: :bottom_center_center_left_link %>

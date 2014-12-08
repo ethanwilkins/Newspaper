@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   
   put 'translations/update'
   
+  post 'messages/create', as: 'messages'
+  
   post 'features/create', as: 'features'
   
   post 'subtabs/create', as: 'subtabs'
@@ -27,9 +29,13 @@ Rails.application.routes.draw do
   
   delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
   
+  delete 'posts/:post_id/finalize_sale/:folder_id', to: 'posts#finalize_sale', as: 'finalize_sale'
+  
   get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
   
   get "features/cherry_pick/:tab_id", to: 'features#cherry_pick', as: 'cherry_pick'
+  
+  get 'folders/new/:post_id/:user_id', to: 'folders#new', as: 'inquire'
   
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
@@ -121,6 +127,10 @@ Rails.application.routes.draw do
   resources :groups
   resources :events
   resources :notes
+  
+  resources :folders do
+    resources :messages
+  end
   
   resources :tabs do
     resources :subtabs

@@ -1,33 +1,14 @@
 class FoldersController < ApplicationController
-  def index
-    unless session[:more]
-      session[:page] = nil
-    end
-    session[:more] = nil
-    
-    @folders = Folder.inbox_of(current_user).reverse.
-        # drops first several posts if :feed_page
-        drop((session[:page] ? session[:page] : 0) * page_size).
-        # only shows first several posts of resulting array
-        first(page_size)
-  end
-  
   def new
-    session[:receiver] = params[:user_id]
+    @receiver = User.find_by_id(params[:user_id])
+    @sales_post = Post.find_by_id(params[:post_id])
     @folder = Folder.new
-  end
-
-  def show
-    @folder = Folder.find(params[:id])
-    @message = Message.new
-    @messages = @folder.messages
-    Message.where("user_id != ?", current_user.id).update_all seen: true
-    @messages = @messages.last(5)
   end
   
   def create
     @folder = Folder.new(params[:folder])
-    @receiver = User.find(session[:receiver])
+    @folder.post_id = params[:post_id]
+    @receiver = User.find(params[:user_id])
     
     if @folder.save
       # adds sender and receiver to folder as members
@@ -36,12 +17,30 @@ class FoldersController < ApplicationController
       # creates the first message sent by sender
       @message = @folder.messages.create(text: params[:text], user_id: current_user.id)
       # notifies the receiver about the message
-      # @receiver.notify!(:message, current_user, @folder.id)
+      Note.notify(current_user, @reveiver, :sales_message, @folder.id)
       # redirects to the new folder
       redirect_to @folder
     else
       flash[:error] = "Invalid input"
       redirect_to :back
     end
+  end
+
+  def show
+    @folder = Folder.find(params[:id])
+    @sales_post = @folder.post
+    @message = Message.new
+    @messages = @folder.messages
+    Message.where("user_id != ?", current_user.id).update_all seen: true
+    @messages = @messages.last(5)
+  end
+  
+  def index
+    reset_page
+    @folders = Folder.inbox_of(current_user).reverse.
+      # drops first several posts if :feed_page
+      drop((session[:page] ? session[:page] : 0) * page_size).
+      # only shows first several posts of resulting array
+      first(page_size)
   end
 end

@@ -33,6 +33,12 @@
 				
 			<% when :you_won %>
 				<p><%= link_to note.message, notes_path %></p>
+				
+			<% when :sales_inquiry, :sales_reply %>
+				<p><%= link_to note.message, folder_path(note.item_id) %></p>
+				
+			<% when :sale_finalized %>
+				<p><%= link_to note.message, user_path(note.sender_id) %></p>
 		<% end %>
 	</div>
 </div>

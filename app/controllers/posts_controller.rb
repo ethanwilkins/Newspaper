@@ -1,4 +1,16 @@
 class PostsController < ApplicationController
+  def finalize_sale
+    @post = Post.find(params[:post_id])
+    @folder = Folder.find(params[:folder_id])
+    if @folder.notify_members(current_user, :sale_finalized) and @post.destroy
+      flash[:notice] = translate("The sale was finalized successfully.")
+      redirect_to root_url
+    else
+      flash[:error] = translate("The sale could not be finalized.")
+      redirect_to :back
+    end
+  end
+  
   def up_vote
     @post = Post.find(params[:id])
     Vote.up_vote!(@post, current_user)
