@@ -7,6 +7,8 @@
 			<%= hidden_field_tag(:message_type, :sales_reply) %>
 		<% elsif @sales_post %>
 			<%= hidden_field_tag(:message_type, :sales_inquiry) %>
+		<% else %>
+			<%= hidden_field_tag(:message_type, :message) %>
 		<% end %>
 		<div class="input-group">
 			<%= f.text_area :text, placeholder: translate((@sales_post ? \

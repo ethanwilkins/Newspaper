@@ -39,6 +39,9 @@
 				
 			<% when :sale_finalized %>
 				<p><%= link_to note.message, user_path(note.sender_id) %></p>
+				
+			<% when :message %>
+				<p><%= link_to note.message, folder_path(note.item_id) %></p>
 		<% end %>
 	</div>
 </div>

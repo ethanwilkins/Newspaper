@@ -1,5 +1,6 @@
-<% if current_user == @user or current_user.admin %>
-	<%= link_to translate("Edit"), edit_user_path(@user), id: :top_right_link %>
+<% if (current_user == @user or privileged?) and not @user.master %>
+	<%= link_to translate("Edit"), edit_user_path(@user), id: :top_left_link %>
 <% end %>
 
 <%= render "notes/notify_button" %>
+<%= render "messages/message_button" %>

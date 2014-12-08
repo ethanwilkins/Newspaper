@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
     @message.user_id = current_user.id
     
     if @message.save
-      @folder.notify_members(current_user, params[:message_type].to_sym) if params[:message_type]
+      @folder.notify_members(current_user, params[:message_type].to_sym)
       @folder.update updated_at: Time.now
       redirect_to @folder
     else

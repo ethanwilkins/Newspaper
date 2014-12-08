@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   
   get 'folders/new/:post_id/:user_id', to: 'folders#new', as: 'inquire'
   
+  get 'folders/new/:user_id', to: 'folders#new', as: 'new_folder'
+  
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
   get "search/search/:query", to: "search#search", as: "tagged"

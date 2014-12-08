@@ -33,6 +33,10 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("replied to your inquiry.")
         when :sale_finalized
           message = name + " " + Translation.translate("finalized the offer.")
+        when :message
+          message = name + " " + Translation.translate("sent you a message.")
+        when :you_won
+          message = Translation.translate("You won! Call 555-5454 now!")
         when :event_approved
           message = Translation.translate("Your event was approved.")
         when :event_denied
@@ -41,8 +45,6 @@ class Note < ActiveRecord::Base
           message = Translation.translate("Your tab was approved.")
         when :tab_denied
           message = Translation.translate("Your tab was denied.")
-        when :you_won
-          message = Translation.translate("You won! Call 555-5454 now!")
       end
       receiver.notes.create!(message: message, sender_id: sender.id,
         action: action.to_s, item_id: item_id)
