@@ -17,7 +17,7 @@ class GameBoard < ActiveRecord::Base
           a_win = false
         end
       end
-      if a_win and Prize.not_won_before(key.to_s, board_number)
+      if a_win and Prize.available?(key.to_s, board_number, group_id)
         user.prizes.create winning_combo: key.to_s, board_number: board_number
         Note.notify(nil, user, :you_won)
         winner = true

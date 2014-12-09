@@ -1,0 +1,16 @@
+<!-- groups -->
+
+<% if master? %>
+	<%= form_for @group do |f| %>
+		<div id="card">
+			<p>
+				<%= f.label translate("Maximum amount of wins available")%>
+				<%= f.text_field :max_prizes, placeholder: translate("Maximum amount of wins available"), class: "form-control" %>
+			</p>
+			<p>
+				<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
+			</p>
+		</div>
+	<% end %>
+<% end %>
+</br>

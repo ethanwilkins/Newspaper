@@ -2,8 +2,10 @@ class Prize < ActiveRecord::Base
   belongs_to :user
   belongs_to :group
   
-  def self.not_won_before(key, board_num)
-    true unless where("winning_combo = ? and board_number = ?", key, board_num).present?
+  def self.available?(key, board_num, group_id)
+    group = Group.find_by_id group_id
+    true unless where("winning_combo = ? and board_number = ? and group_id = ?",
+      key, board_num, group.id).size >= group.max_prizes
   end
   
   def self.wins

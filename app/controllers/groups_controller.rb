@@ -31,6 +31,10 @@ class GroupsController < ApplicationController
     redirect_to :back
   end
   
+  def edit
+    @group = Group.find(params[:id])
+  end
+  
   def index
     @groups = Group.all
     session[:group_id] = nil
@@ -46,13 +50,24 @@ class GroupsController < ApplicationController
   end
   
   def create
-    @group = Group.new(params[:group])
+    @group = Group.new(params[:group].permit(:max_prizes))
     if @group.save
       @group.assemble(params[:zip_list], params[:admin_list])
       flash[:notice] = translate("Group saved successfully.")
       redirect_to groups_path
     else
       flash[:error] = translate("Group failed to save.")
+      redirect_to :back
+    end
+  end
+  
+  def update
+    @group = Group.find(params[:id])
+    if @group.update(params[:group].permit(:max_prizes))
+      flash[:notice] = translate("Group updated successfully.")
+      redirect_to group_path(@group)
+    else
+      flash[:error] = translate("Group failed to update.")
       redirect_to :back
     end
   end

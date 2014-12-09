@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209031333) do
+ActiveRecord::Schema.define(version: 20141209050437) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -128,11 +128,13 @@ ActiveRecord::Schema.define(version: 20141209031333) do
     t.integer  "code_id"
     t.integer  "board_number"
     t.integer  "zip_code"
+    t.integer  "group_id"
   end
 
   create_table "groups", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "max_prizes"
   end
 
   create_table "hashtags", force: true do |t|
@@ -205,6 +207,7 @@ ActiveRecord::Schema.define(version: 20141209031333) do
     t.datetime "updated_at"
     t.integer  "board_number"
     t.integer  "game_board_id"
+    t.integer  "group_id"
   end
 
   create_table "subtabs", force: true do |t|
