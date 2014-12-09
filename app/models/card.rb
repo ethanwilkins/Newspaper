@@ -70,7 +70,7 @@ class Card < ActiveRecord::Base
   def self.redeem(code, user, board_num)
     _code = Code.find_by_code(code)
     _group = Group.find_by_id(_code.group_id) if _code
-    if _group.zips.find_by_zip_code(user.zip_code) and not _code.is_a_board
+    if _group and _group.zips.find_by_zip_code(user.zip_code) and not _code.is_a_board
       _code if self.names(board_num).include? _code.card_name.to_sym
     end
   end
