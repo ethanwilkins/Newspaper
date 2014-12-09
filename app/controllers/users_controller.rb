@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all.reverse
+  end
+  
   def show
     Post.delete_expired
     Post.repopulate
