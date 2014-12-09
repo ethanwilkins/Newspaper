@@ -38,7 +38,7 @@ class CodesController < ApplicationController
   
   def create
     @code = Code.new(params[:code].permit(:code, :is_a_board, :card_name, :image,
-      :advertiser, :board_number, :board_loc))
+      :advertiser, :board_number, :board_loc, :group_id))
     if @code.save
       flash[:notice] = translate "Code saved successfully."
       Activity.log_action(current_user, request.remote_ip.to_s, "codes_create", @code.id)
@@ -48,6 +48,8 @@ class CodesController < ApplicationController
         flash[:error] = translate "A code must be entered." 
       elsif @code.errors.include? :board_needs_number
         flash[:error] = translate(@code.errors[:board_needs_number].first)
+      elsif @code.errors.include? :invalid_format
+        flash[:error] = translate(@code.errors[:invalid_format].first)
       else
         flash[:error] = translate "Invalid input"
       end

@@ -1,7 +1,7 @@
 class GameBoard < ActiveRecord::Base
   belongs_to :user
+  belongs_to :group
   has_many :cards, dependent: :destroy
-  has_many :prizes, dependent: :destroy
   
   def card_names
     return Card.names(self.board_number)
@@ -44,9 +44,10 @@ class GameBoard < ActiveRecord::Base
     end
   end
   
-  def self.redeem(code)
+  def self.redeem(code, user)
     _code = Code.find_by_code(code)
-    if _code and _code.is_a_board
+    _group = Group.find_by_id(_code.group_id) if _code
+    if _group and _group.zips.find_by_zip_code(user.zip_code) and _code.is_a_board
       _code
     else
       nil

@@ -1,4 +1,4 @@
-<% if (current_user == @user or privileged?) and not @user.master %>
+<% if (current_user == @user or privileged?) and not (@user.master and not current_user.master) %>
 	<%= link_to translate("Edit"), edit_user_path(@user), id: :top_left_link %>
 <% end %>
 

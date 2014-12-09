@@ -1,17 +1,30 @@
 class Code < ActiveRecord::Base
   has_many :cards, dependent: :destroy
+  belongs_to :group
   
-  validates :code, presence: true
-  validates :code, uniqueness: true
+  validates_presence_of :code
+  validates_uniqueness_of :code
+  validates_presence_of :group_id
   validate :board_num_if_board
+  validate :valid_format
   
   mount_uploader :image, ImageUploader
   
   private
   
-  def valid_code
-    _code = code.to_s
-    # if _code.include? 
+  def valid_format
+    numbers = 0; letters = 0
+    for char in code.split("")
+      if char =~ /[0-9]/
+        numbers += 1
+      elsif char =~ /[A-Za-z]/
+        letters += 1
+      end
+    end
+    unless code.size == 5 and numbers == 3 and letters == 2
+      errors.add(:invalid_format, "Codes must have a length \
+        of 5 characters with 3 numbers and 2 letters.")
+    end
   end
   
   def unique_boards

@@ -67,10 +67,11 @@ class Card < ActiveRecord::Base
     return new_img
   end
   
-  def self.redeem(code, board_num)
+  def self.redeem(code, user, board_num)
     _code = Code.find_by_code(code)
-    unless _code and _code.is_a_board
-      _code if _code and self.names(board_num).include? _code.card_name.to_sym
+    _group = Group.find_by_id(_code.group_id) if _code
+    if _group.zips.find_by_zip_code(user.zip_code) and not _code.is_a_board
+      _code if self.names(board_num).include? _code.card_name.to_sym
     end
   end
 end

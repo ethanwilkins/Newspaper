@@ -6,7 +6,7 @@ class CardsController < ApplicationController
   
   def create
     @game_board = GameBoard.find(params[:game_board_id])
-    @code = Card.redeem params[:code], @game_board.board_number
+    @code = Card.redeem params[:code], current_user, @game_board.board_number
     @card = @game_board.cards.find_by_name(@code.card_name) if @code
     
     if @card

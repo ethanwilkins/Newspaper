@@ -1,6 +1,8 @@
 class Group < ActiveRecord::Base
   has_many :users
   has_many :zips
+  has_many :codes
+  has_many :prizes
   
   def assemble(zip_list, admin_list)
     if zip_list

@@ -1,6 +1,6 @@
 class Prize < ActiveRecord::Base
   belongs_to :user
-  belongs_to :game_board
+  belongs_to :group
   
   def self.not_won_before(key, board_num)
     true unless where("winning_combo = ? and board_number = ?", key, board_num).present?
