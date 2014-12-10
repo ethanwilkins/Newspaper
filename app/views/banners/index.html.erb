@@ -1,9 +1,13 @@
-<% if @banner %>
-	<div id="card">
-		<div align="center"><%= translate("Current banner") %></div></br>
-		<div align="center"><%= image_tag @banner.image, id: :banner %></div>
-	</div>
-	<%= render "edit" %>
-<% else %>
-	<%= render "new" %>
+<!-- banners -->
+
+<% if master? %>
+	<% if @banner %>
+		<div id="card">
+			<div align="center"><%= translate("Current banner") %></div></br>
+			<div align="center"><%= image_tag @banner.image, id: :banner %></div>
+		</div>
+		<%= render "edit" %>
+	<% else %>
+		<%= render "new" %>
+	<% end %>
 <% end %>
