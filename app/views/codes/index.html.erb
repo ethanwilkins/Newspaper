@@ -7,14 +7,19 @@
 	<div id="card">
 		<% for code in @codes %>
 			<div align="center">
-				<strong><%= "#{code.code}: " %></strong>
-				<%= "Card: #{code.card_name.capitalize}" unless code.is_a_board or code.card_name.nil? %>
-				<%= "Board #{code.board_number}" if code.is_a_board %>
 				<div>
-				<!-- code controls for manipulating codes -->
-				<%= link_to "Edit", edit_code_path(code) %>
-				<%= link_to "Delete", destroy_code_path(code), method: :delete,
-					data: { confirm: 'Are you sure?' } %>
+					<%= "Group #{code.group_id}" %>
+				</div>
+				<div>
+					<strong><%= "#{code.code}: " %></strong>
+					<%= "Card: #{code.card_name.capitalize}" unless code.is_a_board %>
+					<%= "Board #{code.board_number}" if code.is_a_board %>
+				</div>
+				<div>
+					<!-- code controls for manipulating codes -->
+					<%= link_to "Edit", edit_code_path(code) %>
+					<%= link_to "Delete", destroy_code_path(code), method: :delete,
+						data: { confirm: 'Are you sure?' } %>
 				</div>
 			</div>
 			<% if @codes.size > 1 and code != Code.first %>
