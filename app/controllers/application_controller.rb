@@ -3,9 +3,24 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size, :reset_page, :text_shown, :master?, :admin?, :privileged?
+  helper_method :current_user, :translate, :page_size, :reset_page, :text_shown, :master?, :admin?, :privileged?, :time_ago
 
   private
+  
+  def time_ago(_time_ago)
+    _time_ago = _time_ago + " ago"
+    if _time_ago.include? "about"
+    	_time_ago.slice! "about "
+    end
+    if _time_ago[0].to_i > 0 and _time_ago[1].to_i > 0
+      _time_ago = _time_ago[0..2] + translate(_time_ago[3.._time_ago.size])
+    elsif _time_ago[0].to_i > 0
+      _time_ago = _time_ago[0..1] + translate(_time_ago[2.._time_ago.size])
+    else
+      _time_ago = translate _time_ago
+    end
+    return _time_ago
+  end
 
   def page_size
     @page_size = 5

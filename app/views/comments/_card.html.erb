@@ -1,11 +1,9 @@
-<% time_ago = time_ago_in_words(comment.created_at) + translate(" ago") %>
-<!-- takes the word 'about' out of time_ago -->
-<% if time_ago.include? translate("about") %>
-	<% time_ago.slice! translate("about ") %>
-<% end %>
+<!-- comments -->
+
+<% _time_ago = time_ago(time_ago_in_words(comment.created_at)) %>
 
 <div id="card">
-	<%= link_to time_ago, comment_path(comment), id: :top_left_link %>
+	<%= link_to _time_ago, comment_path(comment), id: :top_left_link %>
 	
 	</br><div align="center">
 		<% for word in comment.text.split(" ") %>

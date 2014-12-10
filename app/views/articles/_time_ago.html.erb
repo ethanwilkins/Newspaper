@@ -1,19 +1,5 @@
 <!-- articles -->
 
-<% time_ago = time_ago_in_words(article.created_at) + " ago" %>
-
-<% if time_ago.include? "about" %>
-	<% time_ago.slice! "about " %>
-<% end %>
-
-<% if time_ago[0].to_i > 0 and time_ago[1].to_i > 0 %>
-	<% time_ago = time_ago[0..2] + translate(time_ago[3..time_ago.size]) %>
+<% _time_ago = time_ago(time_ago_in_words(article.created_at)) %>
 	
-<% elsif time_ago[0].to_i > 0 %>
-	<% time_ago = time_ago[0..1] + translate(time_ago[2..time_ago.size]) %>
-	
-<% else %>
-	<% time_ago = translate time_ago %>
-<% end %>
-	
-<%= link_to time_ago, article_path(article), id: :top_left_link %>
+<%= link_to _time_ago, article_path(article), id: :top_left_link %>
