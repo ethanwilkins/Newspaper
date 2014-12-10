@@ -5,7 +5,7 @@ class Activity < ActiveRecord::Base
   
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
-  after_validation :geocode, :reverse_geocode
+  after_validation :geocode, :reverse_geocode, if: :these_actions?
   
   before_save :save_zip
   
@@ -21,13 +21,10 @@ class Activity < ActiveRecord::Base
   end
   
   def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil)
-    case action
-    when "sessions_create", "admin_index", "admin_index_fail", "activities_index", "codes_index"
-      if user
-        user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
-      else
-        Activity.create action: action, ip: ip, item_id: item_id, data_string: data_string
-      end
+    if user
+      user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
+    else
+      Activity.create action: action, ip: ip, item_id: item_id, data_string: data_string
     end
   end
   
@@ -43,6 +40,13 @@ class Activity < ActiveRecord::Base
   end
   
   private
+  
+  def these_actions?
+    case action
+    when "sessions_create", "admin_index", "admin_index_fail", "activities_index", "codes_index"
+      return true
+    end
+  end
   
   def save_zip
     # extracts zip code from full address
