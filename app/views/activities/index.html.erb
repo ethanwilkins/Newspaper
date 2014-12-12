@@ -3,7 +3,7 @@
 	<div align="center">
 		<p><%= translate("Game Boards in play:") + " " + GameBoard.all.size.to_s %></p>
 		<p><%= translate("Unique locations:") + " " + Activity.unique_locations.size.to_s %></p>
-		<p><%= translate("Total actions:") + " " + Activity.where.not(master: true).size.to_s %></p>
+		<p><%= translate("Total actions:") + " " + Activity.all.size.to_s %></p>
 		<p><%= translate("Unique visits:") + " " + Activity.unique_visits.size.to_s %></p>
 		<div><%= translate("Total users:") + " " %><%= link_to User.all.size.to_s, users_path %></div>
 	</div>
