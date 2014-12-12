@@ -3,6 +3,7 @@ class FoldersController < ApplicationController
     @receiver = User.find_by_id(params[:user_id])
     @sales_post = Post.find_by_id(params[:post_id])
     @folder = Folder.new
+    Activity.log_action(current_user, request.remote_ip.to_s, "folders_new")
   end
   
   def create
@@ -18,10 +19,12 @@ class FoldersController < ApplicationController
       @message = @folder.messages.create(text: params[:text], user_id: current_user.id)
       # notifies the receiver about the message
       Note.notify(current_user, @receiver, (params[:post_id] ? :sales_inquiry : :message), @folder.id)
+      Activity.log_action(current_user, request.remote_ip.to_s, "folders_create", @folder.id)
       # redirects to the new folder
       redirect_to @folder
     else
       flash[:error] = "Invalid input"
+      Activity.log_action(current_user, request.remote_ip.to_s, "folders_create_fail")
       redirect_to :back
     end
   end
@@ -34,6 +37,9 @@ class FoldersController < ApplicationController
       @messages = @folder.messages
       Message.where("user_id != ?", current_user.id).update_all seen: true
       @messages = @messages.last(5)
+      Activity.log_action(current_user, request.remote_ip.to_s, "folders_show", @folder.id)
+    else
+      Activity.log_action(current_user, request.remote_ip.to_s, "folders_show_fail")
     end
   end
   
@@ -44,5 +50,6 @@ class FoldersController < ApplicationController
       drop((session[:page] ? session[:page] : 0) * page_size).
       # only shows first several posts of resulting array
       first(page_size)
+    Activity.log_action(current_user, request.remote_ip.to_s, "folders_index")
   end
 end

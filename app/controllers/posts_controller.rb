@@ -4,9 +4,11 @@ class PostsController < ApplicationController
     @folder = Folder.find(params[:folder_id])
     if @folder.notify_members(current_user, :sale_finalized) and @post.destroy
       flash[:notice] = translate("The sale was finalized successfully.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_finalize_sale")
       redirect_to root_url
     else
       flash[:error] = translate("The sale could not be finalized.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "posts_finalize_sale_fail")
       redirect_to :back
     end
   end
@@ -77,6 +79,7 @@ class PostsController < ApplicationController
   
   def edit
     @post = Post.find(params[:id])
+    Activity.log_action(current_user, request.remote_ip.to_s, "posts_edit", @post.id)
   end
   
   def show
