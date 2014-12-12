@@ -27,12 +27,14 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folder = Folder.find(params[:id])
-    @sales_post = @folder.post
-    @message = Message.new
-    @messages = @folder.messages
-    Message.where("user_id != ?", current_user.id).update_all seen: true
-    @messages = @messages.last(5)
+    @folder = Folder.find_by_id(params[:id])
+    if @folder
+      @sales_post = @folder.post
+      @message = Message.new
+      @messages = @folder.messages
+      Message.where("user_id != ?", current_user.id).update_all seen: true
+      @messages = @messages.last(5)
+    end
   end
   
   def index

@@ -1,29 +1,36 @@
 <!-- folders -->
+<% if @folder %>
+	<% if @sales_post %>
+		<%= render "posts/card", post: @sales_post %>
+	<% end %>
 
-<% if @sales_post %>
-	<%= render "posts/card", post: @sales_post %>
-<% end %>
-
-<% if @messages.size > 0 %>
-	<% @messages.each do |message| %>
-		<div id="card">
-			<%= render "messages/time_ago", message: message %>
-			<div align="center" id="message_text_padding">
-				<%= link_to User.find(message.user_id).name, user_path(message.user_id) %>
-				<% for word in message.text.split(' ') %>
-					<%= render "posts/embed", word: word %>
-				<% end %>
+	<% if @messages.size > 0 %>
+		<% @messages.each do |message| %>
+			<div id="card">
+				<%= render "messages/time_ago", message: message %>
+				<div align="center" id="message_text_padding">
+					<%= link_to User.find(message.user_id).name, user_path(message.user_id) %>
+					<% for word in message.text.split(' ') %>
+						<%= render "posts/embed", word: word %>
+					<% end %>
+				</div>
 			</div>
+		<% end %>
+	<% end %>
+
+	<%= render "messages/new" %>
+
+	<% if @sales_post and @sales_post.user_id == current_user.id %>
+		<div id="large_button">
+			<%= link_to translate("Finalize sale"), finalize_sale_path(@sales_post, @folder),
+				method: :delete, class: "btn btn-default btn-lg btn-block" %>
 		</div>
 	<% end %>
-<% end %>
-
-<%= render "messages/new" %>
-
-<% if @sales_post and @sales_post.user_id == current_user.id %>
-	<div id="large_button">
-		<%= link_to translate("Finalize sale"), finalize_sale_path(@sales_post, @folder),
-			method: :delete, class: "btn btn-default btn-lg btn-block" %>
+<% else %>
+	<div id="card">
+		<div align="center">
+			<%= translate("This dialogue no longer exists.") %>
+		</div>
 	</div>
 <% end %>
 
