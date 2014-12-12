@@ -23,7 +23,7 @@ class Activity < ActiveRecord::Base
   def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil)
     if user and not user.master
       user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
-    else
+    elsif not user
       Activity.create action: action, ip: ip, item_id: item_id, data_string: data_string
     end
   end
