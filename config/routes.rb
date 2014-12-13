@@ -87,6 +87,8 @@ Rails.application.routes.draw do
   
   get "pages/back", as: "back"
   
+  put 'groups/remove_member'
+  
   put 'groups/add_member'
   
   put 'groups/remove_zip'

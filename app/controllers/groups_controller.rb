@@ -12,6 +12,18 @@ class GroupsController < ApplicationController
     redirect_to :back
   end
   
+  def remove_member
+    admin = User.find_by_id(params[:user_id])
+    if admin and admin.group_id.present? and admin.update group_id: 0
+      flash[:notice] = translate("Member successfully removed from the group.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "groups_remove_member", admin.id)
+    else
+      flash[:error] = translate("The member could not be removed.")
+      Activity.log_action(current_user, request.remote_ip.to_s, "groups_remove_member_fail", admin.id)
+    end
+    redirect_to :back
+  end
+  
   def add_zip
     if params[:zip_code].present? and Zip.find_by_zip_code(params[:zip_code]) and \
       (Zip.find_by_zip_code(params[:zip_code]).group_id.nil? or Zip.find_by_zip_code(params[:zip_code]).group_id == 0)

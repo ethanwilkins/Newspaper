@@ -9,7 +9,8 @@
 			</p>
 			<p><%= "Admins: " %>
 				<% for admin in @group.users %>
-					<%= link_to admin.name.capitalize, user_path(admin) %><%= \
+					<%= link_to admin.name.capitalize, groups_remove_member_path(user_id: admin.id), method: :put,
+						data: { confirm: translate('Are you sure you want to remove this member from the group?') } %><%= \
 					", " if admin != @group.users.last and @group.users.size > 1 %>
 				<% end %>
 			</p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141209050437) do
+ActiveRecord::Schema.define(version: 20141213041200) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -289,6 +289,8 @@ ActiveRecord::Schema.define(version: 20141209050437) do
     t.string   "auth_token"
     t.boolean  "master"
     t.integer  "group_id"
+    t.boolean  "dev"
+    t.boolean  "test"
   end
 
   create_table "votes", force: true do |t|
