@@ -2,14 +2,15 @@
 
 <div id="card">
 	<%= link_to time_ago(time_ago_in_words(act.created_at)), activity_path(act), id: :top_left_link %>
+	<% if act.ip %>
+		<%= link_to act.ip, activities_path, id: :top_right_link %>
+	<% end %>
+	<% if act.user_id.present? %>
+		<% user = User.find(act.user_id) %>
+		<%= link_to user.name.capitalize, user_path(user), id: :bottom_right_link %>
+	<% end %>
 	<div align="center" id="activity_data">
 		<div><%= "Action: #{act.action}" %></div>
-		<% if act.user_id.present? %>
-			<% user = User.find(act.user_id) %>
-			<div>
-				User: <%= link_to user.name.capitalize, user_path(user) %>
-			</div>
-		<% end %>
 		<% if act.address %>
 			<div>
 				<%= translate("Address:") + " " + act.address %>
@@ -19,11 +20,6 @@
 			<div>
 				<%= translate("Latitude:") + " " + act.latitude.to_s %>
 				<%= translate("Longitude:") + " " + act.longitude.to_s %>
-			</div>
-		<% end %>
-		<% if act.ip %>
-			<div>
-				<%= translate("IP:") + " " + act.ip %>
 			</div>
 		<% end %>
 	</div>
