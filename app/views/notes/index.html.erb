@@ -12,6 +12,4 @@
 	<% end %>
 <% end %>
 
-<%= render "articles/ad_card" %>
-
-</br>
+<%= render "pages/more_back", all_items: Note.all, items: @notes %>

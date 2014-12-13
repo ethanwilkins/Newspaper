@@ -53,7 +53,12 @@ class NotesController < ApplicationController
   
   def index
     if current_user then
-      @notes = current_user.notes.reverse.first 10
+      reset_page
+      @notes = current_user.notes.reverse.
+        # drops first several posts if :feed_page
+        drop((session[:page] ? session[:page] : 0) * page_size).
+        # only shows first several posts of resulting array
+        first(page_size)
       @notes.each do |note|
         note.update checked: true
       end
