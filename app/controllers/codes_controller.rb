@@ -2,14 +2,14 @@ class CodesController < ApplicationController
   def clear
     zip_code = params[:zip_code]
     clear_all = params[:clear_all]
-    codes = Code.all
-    if zip_code.present? and codes.present?
+    any_codes = Code.all.present?
+    if zip_code.present? and any_codes
       Code.where(zip_code: zip_code).destroy_all
       flash[:notice] = "Codes in #{zip_code} deleted successfully."
-    elsif clear_all and codes.present?
+    elsif clear_all and any_codes
       Code.destroy_all
       flash[:notice] = translate("All codes deleted successfully.")
-    elsif codes.empty?
+    elsif not any_codes
       flash[:error] = translate("There aren't any codes to delete.")
     else
       flash[:error] = translate("Invalid input.")
