@@ -2,12 +2,15 @@ class CodesController < ApplicationController
   def clear
     zip_code = params[:zip_code]
     clear_all = params[:clear_all]
-    if zip_code.present?
+    codes = Code.all
+    if zip_code.present? and codes.present?
       Code.where(zip_code: zip_code).destroy_all
       flash[:notice] = "Codes in #{zip_code} deleted successfully."
-    elsif clear_all
+    elsif clear_all and codes.present?
       Code.destroy_all
       flash[:notice] = translate("All codes deleted successfully.")
+    elsif codes.empty?
+      flash[:error] = translate("There aren't any codes to delete.")
     else
       flash[:error] = translate("Invalid input.")
       no_input = true
@@ -48,8 +51,14 @@ class CodesController < ApplicationController
         flash[:error] = translate "A code must be entered." 
       elsif @code.errors.include? :board_needs_number
         flash[:error] = translate(@code.errors[:board_needs_number].first)
+      elsif @code.errors.include? :board_number_only_for_boards
+        flash[:error] = translate(@code.errors[:board_number_only_for_boards].first)
       elsif @code.errors.include? :invalid_format
         flash[:error] = translate(@code.errors[:invalid_format].first)
+      elsif @code.errors.include? :group_id_not_required
+        flash[:error] = translate(@code.errors[:group_id_not_required].first)
+      elsif @code.errors.include? :group_id_required
+        flash[:error] = translate(@code.errors[:group_id_required].first)
       else
         flash[:error] = translate "Invalid input"
       end

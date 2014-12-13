@@ -4,8 +4,8 @@ class Code < ActiveRecord::Base
   
   validates_presence_of :code
   validates_uniqueness_of :code
-  validates_presence_of :group_id
   validate :board_num_if_board
+  validate :group_assignment
   validate :valid_format
   
   mount_uploader :image, ImageUploader
@@ -22,8 +22,15 @@ class Code < ActiveRecord::Base
       end
     end
     unless code.size == 5 and numbers == 3 and letters == 2
-      errors.add(:invalid_format, "Codes must have a length \
-        of 5 characters with 3 numbers and 2 letters.")
+      errors.add(:invalid_format, "Codes must have a length of 5 characters with 3 numbers and 2 letters.")
+    end
+  end
+  
+  def group_assignment
+    if is_a_board and group_id.present?
+      errors.add(:group_id_not_required, "Group assignment is for card codes only.")
+    elsif not is_a_board and group_id.nil?
+      errors.add(:group_id_required, "Card codes must be assigned to a group.")
     end
   end
   
@@ -43,6 +50,8 @@ class Code < ActiveRecord::Base
   def board_num_if_board
     if is_a_board and board_number.nil?
       errors.add(:board_needs_number, "Boards require a number.")
+    elsif not is_a_board and board_number.present?
+      errors.add(:board_number_only_for_boards, "Board numbers are only for board codes.")
     end
   end
 end

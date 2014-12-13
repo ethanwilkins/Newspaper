@@ -75,6 +75,14 @@ class User < ActiveRecord::Base
     self.save
   end
   
+  def last_visit
+    if self.activities.present?
+      return self.activities.last.created_at
+    else
+      return self.created_at
+    end
+  end
+  
   private
   
   def downcase_fields

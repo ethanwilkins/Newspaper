@@ -8,9 +8,10 @@ class GameBoardsController < ApplicationController
   end
   
   def create
-    @code = GameBoard.redeem params[:code], current_user
+    @code = GameBoard.redeem params[:code]
+    @group = Group.find_by_user(current_user)
     @game_board = current_user.game_boards.new(code_id: @code.id, board_number: @code.board_number,
-      zip_code: current_user.zip_code, group_id: @code.group_id) if @code
+      zip_code: current_user.zip_code, group_id: @group.id) if @code
     
     if @game_board and @game_board.save
       @game_board.populate

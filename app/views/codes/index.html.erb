@@ -7,9 +7,11 @@
 	<div id="card">
 		<% for code in @codes %>
 			<div align="center">
-				<div>
-					<%= "Group #{code.group_id}" %>
-				</div>
+				<% if code.group_id %>
+					<div>
+						<%= "Group #{code.group_id}" %>
+					</div>
+				<% end %>
 				<div>
 					<strong><%= "#{code.code}: " %></strong>
 					<%= "Card: #{code.card_name.capitalize}" unless code.is_a_board %>

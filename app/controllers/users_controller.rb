@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all.reverse
+    @users = User.all.sort_by(&:last_visit).reverse
     Activity.log_action(current_user, request.remote_ip.to_s, "users_index")
   end
   

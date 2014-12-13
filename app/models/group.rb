@@ -5,6 +5,16 @@ class Group < ActiveRecord::Base
   has_many :prizes
   has_many :game_boards
   
+  def self.find_by_user(user)
+    if user.zip_code.present?
+      for group in self.all
+        if group.zips.present? and group.zips.find_by_zip_code(user.zip_code)
+          return group
+        end
+      end
+    end
+  end
+  
   def assemble(zip_list, admin_list)
     if zip_list
       zip_list.split(", ").each do |zip|
