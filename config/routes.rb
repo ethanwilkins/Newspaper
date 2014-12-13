@@ -63,6 +63,8 @@ Rails.application.routes.draw do
 
   get 'subtabs/deny/:id', to: 'subtabs#deny', as: 'deny_subtab'
   
+  get 'activities/unique_locations', as: 'unique_locations'
+  
   get 'translations/requests', as: 'translation_reqs'
   
   get 'notes/select', as: "notes_select"

@@ -1,5 +1,3 @@
 <!-- articles -->
-
-<% _time_ago = time_ago(time_ago_in_words(article.created_at)) %>
 	
-<%= link_to _time_ago, article_path(article), id: :top_left_link %>
+<%= link_to time_ago(time_ago_in_words(article.created_at)), article_path(article), id: :top_left_link %>
