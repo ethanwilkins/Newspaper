@@ -2,17 +2,17 @@ class ActivitiesController < ApplicationController
   def index
     reset_page
     if params[:activity_action]
-      @activities = Activity.where(action: params[:activity_action])
+      @all_activities = Activity.where(action: params[:activity_action])
     elsif params[:activity_user_id]
-      @activities = Activity.where(user_id: params[:activity_user_id])
+      @all_activities = Activity.where(user_id: params[:activity_user_id])
     elsif params[:activity_address]
-      @activities = Activity.where(address: params[:activity_address])
+      @all_activities = Activity.where(address: params[:activity_address])
     elsif params[:activity_ip]
-      @activities = Activity.where(ip: params[:activity_ip])
+      @all_activities = Activity.where(ip: params[:activity_ip])
     else
-      @activities = Activity.all
+      @all_activities = Activity.all
     end
-    @activities = @activities.reverse.
+    @activities = @all_activities.reverse.
         # drops first several posts if :feed_page
         drop((session[:page] ? session[:page] : 0) * page_size).
         # only shows first several posts of resulting array
