@@ -12,11 +12,7 @@ class ActivitiesController < ApplicationController
     else
       @all_activities = Activity.all
     end
-    @activities = @all_activities.reverse.
-        # drops first several posts if :feed_page
-        drop((session[:page] ? session[:page] : 0) * page_size).
-        # only shows first several posts of resulting array
-        first(page_size)
+    @activities = paginate(@all_activities)
     @unique_locations = Activity.unique_locations
     Activity.log_action(current_user, request.remote_ip.to_s, "activities_index")
   end

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size, :reset_page, :text_shown, :master?, :admin?, :privileged?, :time_ago
+  helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :text_shown, :master?, :admin?, :privileged?, :time_ago
 
   private
   
@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
       _time_ago = translate _time_ago
     end
     return _time_ago
+  end
+  
+  def paginate(items)
+    return items.reverse.
+        # drops first several posts if :feed_page
+        drop((session[:page] ? session[:page] : 0) * page_size).
+        # only shows first several posts of resulting array
+        first(page_size)
   end
 
   def page_size

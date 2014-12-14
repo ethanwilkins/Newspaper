@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def index
-    @users = User.all.sort_by(&:last_visit).reverse
+    reset_page
+    @users = paginate(User.all.sort_by(&:last_visit))
     Activity.log_action(current_user, request.remote_ip.to_s, "users_index")
   end
   
