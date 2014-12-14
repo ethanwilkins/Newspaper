@@ -16,7 +16,8 @@
 		</div>
 		<% if act.address %>
 			<div>
-				<%= translate("Address:") + " " + act.address %>
+				<%= translate("Address:") + " " %><%= link_to act.address,
+					activities_path(activity_address: act.address) %>
 			</div>
 		<% end %>
 		<% if act.latitude %>

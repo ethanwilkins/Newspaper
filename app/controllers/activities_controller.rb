@@ -3,10 +3,12 @@ class ActivitiesController < ApplicationController
     reset_page
     if params[:activity_action]
       @activities = Activity.where(action: params[:activity_action])
-    elsif params[:activity_ip]
-      @activities = Activity.where(ip: params[:activity_ip])
     elsif params[:activity_user_id]
       @activities = Activity.where(user_id: params[:activity_user_id])
+    elsif params[:activity_address]
+      @activities = Activity.where(address: params[:activity_address])
+    elsif params[:activity_ip]
+      @activities = Activity.where(ip: params[:activity_ip])
     else
       @activities = Activity.all
     end
