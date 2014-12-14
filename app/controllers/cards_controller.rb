@@ -13,6 +13,8 @@ class CardsController < ApplicationController
       @card.update redeemed: true, code_id: @code.id,
         image: @card.redeemed_img, zip_code: current_user.zip_code
       if @game_board.you_won!
+        @game_board.cards.destroy_all
+        @game_board.populate
         flash[:notice] = translate "You won!"
       end
       Activity.log_action(current_user, request.remote_ip.to_s, "cards_create", @card.id)

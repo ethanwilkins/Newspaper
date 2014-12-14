@@ -1,7 +1,16 @@
 class ActivitiesController < ApplicationController
   def index
     reset_page
-    @activities = Activity.all.reverse.
+    if params[:activity_action]
+      @activities = Activity.where(action: params[:activity_action])
+    elsif params[:activity_ip]
+      @activities = Activity.where(ip: params[:activity_ip])
+    elsif params[:activity_user_id]
+      @activities = Activity.where(user_id: params[:activity_user_id])
+    else
+      @activities = Activity.all
+    end
+    @activities = @activities.reverse.
         # drops first several posts if :feed_page
         drop((session[:page] ? session[:page] : 0) * page_size).
         # only shows first several posts of resulting array
