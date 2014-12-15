@@ -1,19 +1,41 @@
 class Prize < ActiveRecord::Base
+  
+  # available prize types will be set by group, when a user whens a prize,
+  # a prize of correct type will be assigned to the user, not created
+  
   belongs_to :user
   belongs_to :group
   
-  def self.available?(key, board_num, group_id)
-    group = Group.find_by_id group_id
-    true unless where("winning_combo = ? and board_number = ? and group_id = ?",
-      key, board_num, group.id).size >= group.max_prizes
+  def self.available?(group_id, winning_combo)
+    group = Group.find_by_id(group_id)
+    if group.prizes.where(combo_type: get_combo_type(key)).present? # and none of this type won by this user yet
+      return true
+    end
+  end
+  
+  def self.get_combo_type(winning_combo)
+    case winning_combo.to_sym
+    when :fc1, :fc2, :fc3, :fc4
+      combo_type = "first_corner"
+    when :s5
+      combo_type = "first_center"
+    when :l1
+      combo_type = "four_corners"
+    when :h1, :h2, :h3, :h4, :v1, :v2, :v3, :v4, :d1, :d2
+      combo_type = "line_of_four"
+    when :f1
+      combo_type = "full_board"
+    end
   end
   
   def self.wins
     # a hash containing all possible winning combinations, the key of your winning combo gets saved
-    { h1: [1, 2, 3, 4],   h2: [5, 6, 7, 8],    h3: [9, 10, 11, 12],  h4: [13, 14, 15, 16], # horizontal lines
-      v1: [1, 5, 9, 13],  v2: [2, 6, 10, 14],  v3: [3, 7, 11, 15],   v4: [4, 8, 12, 16], # vertical lines
-      s1: [1, 2, 5, 6],   s2: [2, 3, 6, 7],    s3: [3, 4, 7, 8],     s4: [5, 6, 9, 10], s5: [6, 7, 10, 11], # small squares
+    { s1: [1, 2, 5, 6],   s2: [2, 3, 6, 7],    s3: [3, 4, 7, 8],     s4: [5, 6, 9, 10], s5: [6, 7, 10, 11], # small squares
       s6: [7, 8, 11, 12], s7: [9, 10, 13, 14], s8: [10, 11, 14, 15], s9: [11, 12, 15, 16], # small squares
+      h1: [1, 2, 3, 4],   h2: [5, 6, 7, 8],    h3: [9, 10, 11, 12],  h4: [13, 14, 15, 16], # horizontal lines
+      v1: [1, 5, 9, 13],  v2: [2, 6, 10, 14],  v3: [3, 7, 11, 15],   v4: [4, 8, 12, 16], # vertical lines
+      f1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16], # full board
+      fc1: [1], fc2: [4], fc3: [13], fc4: [16], # first corners
       d1:[1, 6, 11, 16], d2: [4, 7, 10, 13], # diagonal
       l1: [1, 4, 13, 16] } # large square
   end

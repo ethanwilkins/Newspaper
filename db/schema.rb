@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141213041200) do
+ActiveRecord::Schema.define(version: 20141215192925) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -208,6 +208,8 @@ ActiveRecord::Schema.define(version: 20141213041200) do
     t.integer  "board_number"
     t.integer  "game_board_id"
     t.integer  "group_id"
+    t.integer  "code_id"
+    t.string   "combo_type"
   end
 
   create_table "subtabs", force: true do |t|

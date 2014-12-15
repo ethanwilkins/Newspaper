@@ -19,11 +19,14 @@ class GameBoard < ActiveRecord::Base
           a_win = false
         end
       end
-      if a_win and Prize.available?(key.to_s, board_number, group_id)
-        user.prizes.create(winning_combo: key.to_s, game_board_id: id,
+      if a_win
+        prize = user.prizes.new(winning_combo: key.to_s, game_board_id: id,
           board_number: board_number, group_id: group_id)
-        Note.notify(nil, user, :you_won)
-        winner = true
+        prize.set_combo_type
+        if prize.available? and prize.save
+          Note.notify(nil, user, :you_won)
+          winner = true
+        end
       end
     end
     return winner
