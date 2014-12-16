@@ -1,17 +1,6 @@
 class Prize < ActiveRecord::Base
-  
-  # available prize types will be set by group, when a user wins a prize,
-  # a prize of correct type will be assigned to the user, not created
-
   belongs_to :group
   belongs_to :user
-  
-  def self.available?(group, user, combo_type)
-    if group.prizes.where(combo_type: combo_type).present? and \
-      user.prizes.where(combo_type: combo_type).empty?
-      return true
-    end
-  end
   
   def self.get_combo_type(winning_combo)
     case winning_combo

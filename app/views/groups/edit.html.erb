@@ -5,21 +5,21 @@
 		<div id="card">
 			<div align="center">
 				<p>
-					First corner: <%= @group.prizes.where(combo_type: "first_corner").size %>,
-					First center: <%= @group.prizes.where(combo_type: "first_center").size %>,
-					Four corners: <%= @group.prizes.where(combo_type: "four_corners").size %>
+					First corner: <%= @group.available_prizes("first_corner", nil, :size) %>,
+					First center: <%= @group.available_prizes("first_center", nil, :size) %>,
+					Four corners: <%= @group.available_prizes("four_corners", nil, :size) %>
 				</p>
 				
 				<p>
-					Line of four: <%= @group.prizes.where(combo_type: "line_of_four").size %>,
-					Full board: <%= @group.prizes.where(combo_type: "full_board").size %>
+					Line of four: <%= @group.available_prizes("line_of_four", nil, :size) %>,
+					Full board: <%= @group.available_prizes("full_board", nil, :size) %>
 				</p>
 				
 				<p>
 					<%= select_tag :prize_combo_type, options_for_select([[translate("Add prizes to the group"), nil],
 						[translate("First corner"), "first_corner"], [translate("First center"), "first_center"],
-						[translate("Four corners"), "four_corners"], [translate("Line of four"), "full_board"]]),
-						class: "form-control" %>
+						[translate("Four corners"), "four_corners"], [translate("Line of four"), "line_of_four"],
+						[translate("Full board"), "full_board"]]), class: "form-control" %>
 				</p>
 				
 				<p>

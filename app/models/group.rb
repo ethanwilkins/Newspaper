@@ -5,9 +5,24 @@ class Group < ActiveRecord::Base
   has_many :prizes
   has_many :game_boards
   
+  def available_prizes(combo_type, user=nil, return_size=nil)
+    prizes_by_combo = prizes.where(combo_type: combo_type)
+    won_by_user = prizes_by_combo.where(user_id: user.id) if user
+    available = prizes_by_combo.where(user_id: nil)
+    if return_size
+      return available.present? ? available.size : 0
+    elsif user and won_by_user.empty? and available.present?
+      return available
+    else
+      return nil
+    end
+  end
+  
   def add_prizes(combo_type, amount)
-    for i in amount
-      prizes.create(combo_type: combo_type)
+    if combo_type and amount
+      for i in 1..amount.to_i
+        prizes.create(combo_type: combo_type)
+      end
     end
   end
   

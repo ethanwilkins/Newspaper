@@ -13,12 +13,15 @@ class GameBoard < ActiveRecord::Base
     winner = false
     Prize.wins.each do |key, win|
       a_win = true
-      for num in win # validates combo if a match
+      for num in win # validates win if combo met
         unless cards.find_by_board_loc(num).redeemed
           a_win = false
         end
       end
-      if a_win and Prize.available? group, user, Prize.get_combo_type(key)
+      # finds available prizes in group if a winning combo was met
+      available = group.available_prizes(Prize.get_combo_type(key), user) if a_win
+      # assigns a matching prize of the group to the user if any are available
+      if available and available.last.update user_id: user.id, winning_combo: key.to_s
         Note.notify(nil, user, :you_won)
         winner = true
         break
