@@ -87,7 +87,8 @@ class GroupsController < ApplicationController
   
   def update
     @group = Group.find(params[:id])
-    if @group.update(params[:group].permit(:max_prizes))
+    if @group.update(params[:group])
+      # call group method that adds new prizes
       flash[:notice] = translate("Group updated successfully.")
       Activity.log_action(current_user, request.remote_ip.to_s, "groups_update", @group.id)
       redirect_to group_path(@group)

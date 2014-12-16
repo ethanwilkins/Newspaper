@@ -3,13 +3,33 @@
 <% if master? %>
 	<%= form_for @group do |f| %>
 		<div id="card">
-			<p>
-				<%= f.label translate("Maximum amount of wins available") %>
-				<%= f.text_field :max_prizes, placeholder: translate("Maximum amount of wins available"), class: "form-control" %>
-			</p>
-			<p>
-				<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
-			</p>
+			<div align="center">
+				<p>
+					First corner: <%= @group.prizes.where(combo_type: "first_corner").size %>,
+					First center: <%= @group.prizes.where(combo_type: "first_center").size %>,
+					Four corners: <%= @group.prizes.where(combo_type: "four_corners").size %>
+				</p>
+				
+				<p>
+					Line of four: <%= @group.prizes.where(combo_type: "line_of_four").size %>,
+					Full board: <%= @group.prizes.where(combo_type: "full_board").size %>
+				</p>
+				
+				<p>
+					<%= select_tag :prize_combo_type, options_for_select([[translate("Add prizes to the group"), nil],
+						[translate("First corner"), "first_corner"], [translate("First center"), "first_center"],
+						[translate("Four corners"), "four_corners"], [translate("Line of four"), "full_board"]]),
+						class: "form-control" %>
+				</p>
+				
+				<p>
+					<%= text_field_tag :prize_amount, nil, placeholder: translate("Amount to add"), class: "form-control" %>
+				</p>
+				
+				<p>
+					<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
+				</p>
+			</div>
 		</div>
 	<% end %>
 <% end %>

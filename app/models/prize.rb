@@ -1,20 +1,20 @@
 class Prize < ActiveRecord::Base
   
-  # available prize types will be set by group, when a user whens a prize,
+  # available prize types will be set by group, when a user wins a prize,
   # a prize of correct type will be assigned to the user, not created
-  
-  belongs_to :user
+
   belongs_to :group
+  belongs_to :user
   
-  def self.available?(group_id, winning_combo)
-    group = Group.find_by_id(group_id)
-    if group.prizes.where(combo_type: get_combo_type(key)).present? # and none of this type won by this user yet
+  def self.available?(group, user, combo_type)
+    if group.prizes.where(combo_type: combo_type).present? and \
+      user.prizes.where(combo_type: combo_type).empty?
       return true
     end
   end
   
   def self.get_combo_type(winning_combo)
-    case winning_combo.to_sym
+    case winning_combo
     when :fc1, :fc2, :fc3, :fc4
       combo_type = "first_corner"
     when :s5
@@ -26,6 +26,7 @@ class Prize < ActiveRecord::Base
     when :f1
       combo_type = "full_board"
     end
+    return combo_type
   end
   
   def self.wins

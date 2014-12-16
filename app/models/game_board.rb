@@ -11,7 +11,6 @@ class GameBoard < ActiveRecord::Base
   
   def you_won!
     winner = false
-    user = User.find(user_id)
     Prize.wins.each do |key, win|
       a_win = true
       for num in win # validates combo if a match
@@ -19,14 +18,10 @@ class GameBoard < ActiveRecord::Base
           a_win = false
         end
       end
-      if a_win
-        prize = user.prizes.new(winning_combo: key.to_s, game_board_id: id,
-          board_number: board_number, group_id: group_id)
-        prize.set_combo_type
-        if prize.available? and prize.save
-          Note.notify(nil, user, :you_won)
-          winner = true
-        end
+      if a_win and Prize.available? group, user, Prize.get_combo_type(key)
+        Note.notify(nil, user, :you_won)
+        winner = true
+        break
       end
     end
     return winner

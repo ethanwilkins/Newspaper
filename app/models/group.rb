@@ -5,13 +5,9 @@ class Group < ActiveRecord::Base
   has_many :prizes
   has_many :game_boards
   
-  def self.find_by_user(user)
-    if user.zip_code.present?
-      for group in self.all
-        if group.zips.present? and group.zips.find_by_zip_code(user.zip_code)
-          return group
-        end
-      end
+  def add_prizes(combo_type, amount)
+    for i in amount
+      prizes.create(combo_type: combo_type)
     end
   end
   
@@ -29,6 +25,16 @@ class Group < ActiveRecord::Base
         _admin = User.find_by_name(admin)
         if _admin
           _admin.update group_id: self.id, admin: true
+        end
+      end
+    end
+  end
+  
+  def self.find_by_user(user)
+    if user.zip_code.present?
+      for group in self.all
+        if group.zips.present? and group.zips.find_by_zip_code(user.zip_code)
+          return group
         end
       end
     end
