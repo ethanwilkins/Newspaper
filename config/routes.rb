@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   
   delete 'tabs/destroy/:id', to: "tabs#destroy", as: 'destroy_tab'
   
+  delete 'posts/destroy/:id', to: 'posts#destroy', as: 'destroy_post'
+  
   delete 'codes/destroy/:id', to: 'codes#destroy', as: 'destroy_code'
   
   delete 'game_boards/destroy/:id', to: 'game_boards#destroy', as: 'destroy_board'

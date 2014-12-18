@@ -4,11 +4,11 @@ class PostsController < ApplicationController
     @folder = Folder.find(params[:folder_id])
     if @folder.notify_members(current_user, :sale_finalized) and @post.destroy
       flash[:notice] = translate("The sale was finalized successfully.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_finalize_sale")
+      log_action("posts_finalize_sale")
       redirect_to root_url
     else
       flash[:error] = translate("The sale could not be finalized.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_finalize_sale_fail")
+      log_action("posts_finalize_sale_fail")
       redirect_to :back
     end
   end
@@ -17,14 +17,14 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     Vote.up_vote!(@post, current_user)
     Note.notify(current_user, User.find(@post.user_id), :like_post, @post.id)
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_up_vote", @post.id)
+    log_action("posts_up_vote", @post.id)
     redirect_to :back
   end
   
   def un_vote
     @post = Post.find(params[:id])
     Vote.un_vote!(@post, current_user)
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_down_vote", @post.id)
+    log_action("posts_down_vote", @post.id)
     redirect_to :back
   end
 
@@ -54,11 +54,11 @@ class PostsController < ApplicationController
       end
       
       Hashtag.extract(@post) if @post.body
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_create", @post.id)
+      log_action("posts_create", @post.id)
       redirect_to :back
     else
       flash[:error] = translate "Invalid input"
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_create_fail")
+      log_action("posts_create_fail")
       redirect_to :back
     end
   end
@@ -68,18 +68,39 @@ class PostsController < ApplicationController
     @post.translation_requested = params[:translation_requested]
     
     if @post.update(params[:post].permit(:body, :english_version))
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_update", @post.id)
+      log_action("posts_update", @post.id)
       redirect_to @post
     else
       flash[:error] = translate "The post could not be updated."
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_update_fail")
+      log_action("posts_update_fail")
+      redirect_to :back
+    end
+  end
+  
+  def destroy
+    @post = Post.find(params[:id])
+    subtab_id = @post.subtab_id
+    tab_id = @post.tab_id
+    if @post.destroy
+      flash[:notice] = translate("The post was successfully deleted.")
+      log_action("posts_destroy")
+      if tab_id
+        redirect_to tab_path(tab_id)
+      elsif subtab_id
+        redirect_to subtab_path(subtab_id)
+      else
+        redirect_to tabs_path
+      end
+    else
+      flash[:error] = translate("The post could not be deleted.")
+      log_action("posts_destroy_fail", @post.id)
       redirect_to :back
     end
   end
   
   def edit
     @post = Post.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_edit", @post.id)
+    log_action("posts_edit", @post.id)
   end
   
   def show
@@ -87,9 +108,9 @@ class PostsController < ApplicationController
     if @post
       @new_comment = Comment.new
       @comments = @post.comments.reverse
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_show", @post.id)
+      log_action("posts_show", @post.id)
     else
-      Activity.log_action(current_user, request.remote_ip.to_s, "posts_show_fail")
+      log_action("posts_show_fail")
     end
   end
   
@@ -100,6 +121,6 @@ class PostsController < ApplicationController
     @posts = Post.all.reverse
     @post = Post.new
     @social = true
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_index")
+    log_action("posts_index")
   end
 end
