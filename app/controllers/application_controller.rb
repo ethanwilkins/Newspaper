@@ -3,9 +3,15 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :text_shown, :master?, :admin?, :privileged?, :time_ago
+  helper_method :current_user, :translate, :page_size, :reset_page, :paginate,
+    :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action
 
   private
+  
+  def log_action(action="visit", item_id=nil, data_string=nil)
+    Activity.log_action(current_user, request.remote_ip.to_s,
+      action, item_id, data_string)
+  end
   
   def time_ago(_time_ago)
     _time_ago = _time_ago + " ago"

@@ -2,19 +2,19 @@ class UsersController < ApplicationController
   def index
     reset_page
     @users = paginate(User.all.sort_by(&:last_visit))
-    Activity.log_action(current_user, request.remote_ip.to_s, "users_index")
+    log_action("users_index")
   end
   
   def show
     Post.delete_expired
     Post.repopulate
     @user = User.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "users_show", @user.id)
+    log_action("users_show", @user.id)
   end
   
   def new
     @user = User.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "users_new")
+    log_action("users_new")
   end
   
   def create
@@ -24,8 +24,8 @@ class UsersController < ApplicationController
     
     if @user.save
       @user = User.last
+      log_action("users_create", @user.id)
       cookies.permanent[:auth_token] = @user.auth_token
-      Activity.log_action(current_user, request.remote_ip.to_s, "users_create", @user.id)
       @user.update zip_code: Activity.last.zip_code if @user.zip_code.nil? and Activity.last.zip_code.present?
       Zip.record(@user.zip_code) # logs zip if its unique
       
@@ -42,14 +42,14 @@ class UsersController < ApplicationController
       else
         flash[:error] = translate("Invalid input")
       end
-      Activity.log_action(current_user, request.remote_ip.to_s, "users_create_fail")
+      log_action("users_create_fail")
       redirect_to :back
     end
   end
   
   def edit
     @user = User.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "users_edit", @user.id)
+    log_action("users_edit", @user.id)
   end
   
   def update
@@ -57,11 +57,24 @@ class UsersController < ApplicationController
     if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code, :network_size, :business, :english))
       flash[:notice] = translate("Your account was successfully updated.")
       Zip.record(@user.zip_code) # logs new zip code if its unique
-      Activity.log_action(current_user, request.remote_ip.to_s, "users_update", @user.id)
+      log_action("users_update", @user.id)
       redirect_to @user
     else
       flash[:error] = translate("User profile could not be updated.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "users_update_fail", @user.id)
+      log_action("users_update_fail", @user.id)
+      redirect_to :back
+    end
+  end
+  
+  def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:notice] = translate("The user was successfully deleted.")
+      log_action("users_destroy")
+      redirect_to users_path
+    else
+      flash[:error] = translate("The user could not be deleted.")
+      log_action("users_destroy_fail")
       redirect_to :back
     end
   end
