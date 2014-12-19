@@ -1,13 +1,13 @@
 class ArticlesController < ApplicationController
   def index
     @articles = Article.all.reverse
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_index")
+    log_action("articles_index")
   end
   
   def ad_index
     @advert = Article.new
     @adverts = Article.ads.reverse
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_ad_index")
+    log_action("articles_ad_index")
   end
 
   def show
@@ -15,13 +15,13 @@ class ArticlesController < ApplicationController
     if @article
       @comments = @article.comments.reverse
       @new_comment = Comment.new
-      Activity.log_action(current_user, request.remote_ip.to_s, "articles_show", @article.id)
+      log_action("articles_show", @article.id)
     end
   end
   
   def ad_edit
     @advert = Article.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_ad_edit", @advert.id)
+    log_action("articles_ad_edit", @advert.id)
   end
   
   def edit
@@ -41,7 +41,7 @@ class ArticlesController < ApplicationController
       @articles = Article.where(zip_code: zips)
     end
     @article = Article.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_new")
+    log_action("articles_new")
   end
   
   def update
@@ -58,7 +58,7 @@ class ArticlesController < ApplicationController
       flash[:error] = translate("Invalid input.")
       redirect_to :back
     end
-    Activity.log_action(current_user, request.remote_ip.to_s, "articles_update", @article.id)
+    log_action("articles_update", @article.id)
   end
   
   def create
@@ -69,7 +69,7 @@ class ArticlesController < ApplicationController
     
     if @article.save and @article.ad
       flash[:notice] = translate "Advertisement saved successfully."
-      Activity.log_action(current_user, request.remote_ip.to_s, "articles_create_ad", @article.id)
+      log_action("articles_create_ad", @article.id)
       redirect_to :back
       
     elsif @article.save
@@ -82,12 +82,12 @@ class ArticlesController < ApplicationController
           @article.translations.create(request: true, spanish: @article.body, field: "body")
         end
       end
-      Activity.log_action(current_user, request.remote_ip.to_s, "articles_create", @article.id)
+      log_action("articles_create", @article.id)
       redirect_to root_url
       
     else
       flash[:error] = translate "Invalid input"
-      Activity.log_action(current_user, request.remote_ip.to_s, "articles_create_fail")
+      log_action("articles_create_fail")
       redirect_to :back
     end
   end
@@ -96,7 +96,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     if @article.destroy
       flash[:notice] = translate("Article successfully deleted.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "articles_destroy")
+      log_action("articles_destroy")
     else
       flash[:error] = translate("Article could not be deleted.")
     end

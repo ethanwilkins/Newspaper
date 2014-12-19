@@ -4,7 +4,7 @@ class EventsController < ApplicationController
     @event.update approved: true
     Note.notify(current_user, User.find(@event.user_id),
       :event_approved, @event.id)
-    Activity.log_action(current_user, request.remote_ip.to_s, "events_approve", @event.id)
+    log_action("events_approve", @event.id)
     redirect_to :back
   end
 
@@ -13,7 +13,7 @@ class EventsController < ApplicationController
     @event.update approved: false
     Note.notify(current_user, User.find(@event.user_id),
       :event_denied, @event.id)
-    Activity.log_action(current_user, request.remote_ip.to_s, "events_deny", @event.id)
+    log_action("events_deny", @event.id)
     redirect_to :back
   end
   
@@ -29,19 +29,19 @@ class EventsController < ApplicationController
       current_user.group.zips.each { |zip| zips << zip.zip_code }
       @events = Event.where(zip_code: zips).pending.reverse
     end
-    Activity.log_action(current_user, request.remote_ip.to_s, "events_pending")
+    log_action("events_pending")
     render "events/index"
   end
   
   def index
     @events = Event.approved.reverse
     Event.remove_expired(@events)
-    Activity.log_action(current_user, request.remote_ip.to_s, "events_index")
+    log_action("events_index")
   end
 
   def new
     @event = Event.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "events_new")
+    log_action("events_new")
   end
   
   def create
@@ -65,12 +65,12 @@ class EventsController < ApplicationController
       if current_user.admin
         redirect_to events_path
       else
-        Activity.log_action(current_user, request.remote_ip.to_s, "events_create", @event.id)
+        log_action("events_create", @event.id)
         redirect_to root_url
       end
     else
       flash[:error] = translate "Invalid input"
-      Activity.log_action(current_user, request.remote_ip.to_s, "events_create_fail")
+      log_action("events_create_fail")
       redirect_to :back
     end
   end
@@ -88,6 +88,6 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "events_show", @event.id)
+    log_action("events_show", @event.id)
   end
 end

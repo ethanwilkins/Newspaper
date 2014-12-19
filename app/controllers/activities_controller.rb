@@ -14,12 +14,12 @@ class ActivitiesController < ApplicationController
     end
     @activities = paginate(@all_activities)
     @unique_locations = Activity.unique_locations
-    Activity.log_action(current_user, request.remote_ip.to_s, "activities_index")
+    log_action("activities_index")
   end
   
   def show
     @activity = Activity.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "activities_show", @activity.id)
+    log_action("activities_show", @activity.id)
   end
   
   def unique_locations
@@ -29,6 +29,6 @@ class ActivitiesController < ApplicationController
         drop((session[:page] ? session[:page] : 0) * page_size).
         # only shows first several posts of resulting array
         first(page_size)
-    Activity.log_action(current_user, request.remote_ip.to_s, "activities_unique_locations")
+    log_action("activities_unique_locations")
   end
 end
