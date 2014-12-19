@@ -41,7 +41,7 @@ class FeaturesController < ApplicationController
       redirect_to tab_path(@tab)
     else
       flash[:error] = translate("Invalid input.")
-      log_action("features_create_fai")
+      log_action("features_create_fail")
       redirect_to :back
     end
   end
