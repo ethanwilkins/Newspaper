@@ -10,7 +10,8 @@
 		
 		<%= render "game_boards/grid", cards: board.cards %></br>
 		<%= button_to translate("Show"), user_game_board_path(current_user, board),
-			method: :get, class: "btn btn-default btn-lg btn-block" %>
+			method: :get, title: translate("View this game board"),
+			class: "btn btn-default btn-lg btn-block" %>
 	</div>
 <% end %>
 

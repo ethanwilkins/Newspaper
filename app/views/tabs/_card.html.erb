@@ -2,7 +2,8 @@
 
 <div id="card">
 	<div id="top_right_link">
-		<%= link_to cherry_pick_path(tab), class: "btn btn-default" do %>
+		<%= link_to cherry_pick_path(tab), class: "btn btn-default",
+			title: translate("Always show this tab regardless of locale") do %>
 			<span class="glyphicon glyphicon-star"></span>
 		<% end %>
 	</div>

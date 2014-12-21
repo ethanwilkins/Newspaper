@@ -8,9 +8,13 @@
 	<%= render "posts/vote", post: post %>
 	
 	<% if privileged? %>
-		<%= link_to "Edit", edit_post_path(post), id: :bottom_center_left_link %>
+		<%= link_to "Edit", edit_post_path(post),
+			title: translate("Edit this post"),
+			id: :bottom_center_left_link %>
+			
 		<%= link_to "Delete", destroy_post_path(post), method: :delete, data: {
 			confirm: translate('Are you sure you want to delete this post?') },
+			title: translate("Permanently delete this post"),
 			id: :bottom_center_center_left_link %>
 	<% end %>
 

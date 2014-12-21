@@ -14,20 +14,21 @@
 			<ul class="nav navbar-nav">
 				<% unless current_user %>
 				<li>
-					<%= link_to translate("Log in"), root_url %>
+					<%= link_to translate("Log in"), root_url, title: translate("Log in if you've already signed up") %>
 				</li>
 				<li>
-					<%= link_to translate("Sign up"), new_user_path %>
+					<%= link_to translate("Sign up"), new_user_path, title: translate("Sign up to get more features") %>
 				</li>
 				<% else %>
 				<li>
-					<%= link_to translate("Games"), user_game_boards_path(current_user) %>
+					<%= link_to translate("Games"), user_game_boards_path(current_user), title: translate("Play and win prizes") %>
 				</li>
 				<li>
-					<%= link_to translate("Social"), tabs_path %>
+					<%= link_to translate("Social"), tabs_path,
+						title: translate("Post and share content specific to your interests and locale") %>
 				</li>
 				<li>
-					<%= link_to notes_path do %>
+					<%= link_to notes_path, title: translate("View your notifications") do %>
 						<% if current_user.notes.unchecked.size > 0 %>
 							<div><%= translate("Notes") %> <span class="badge">
 								<%= current_user.notes.unchecked.size %>
@@ -47,9 +48,9 @@
 					</div>
 				</li>
 				<li>
-					<%= link_to current_user.name.capitalize, user_path(current_user) %>
+					<%= link_to current_user.name.capitalize, user_path(current_user), title: translate("View your profile") %>
 				</li>
-				<% if current_user.admin %>
+				<% if privileged? %>
 				<li>
 					<%= link_to translate("Admin"), admin_path %>
 				</li>

@@ -1,3 +1,4 @@
 <% if current_user.admin and current_user != @user %>
-	<%= link_to translate("Notify"), new_note_path(@user), id: :bottom_left_link %>
+	<%= link_to translate("Notify"), new_note_path(@user),
+		title: translate("Notify this user with a message or link"), id: :bottom_left_link %>
 <% end %>

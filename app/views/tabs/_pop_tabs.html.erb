@@ -13,7 +13,8 @@
 					<%= link_to text_shown(subtab, :name), tab_subtab_path(@tab, subtab), class: "btn btn-default" %>
 				<% end %>
 			<% end %>
-			<%= link_to translate("More"), tab_subtabs_path(@tab), class: "btn btn-default" %>
+			<%= link_to translate("More"), tab_subtabs_path(@tab), class: "btn btn-default",
+			title: translate("View all subtabs for this tab") %>
 		<% end %>
 	</div>
 </div>
