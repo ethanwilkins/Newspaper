@@ -5,7 +5,8 @@
 		<p><%= translate("Unique locations:") + " " %><%= link_to Activity.unique_locations.size.to_s, unique_locations_path %></p>
 		<p><%= translate("Total actions:") + " " %><%= link_to Activity.all.size.to_s, activities_path %></p>
 		<p><%= translate("Unique visits:") + " " + Activity.unique_visits.size.to_s %></p>
-		<div><%= translate("Total users:") + " " %><%= link_to User.all.size.to_s, users_path %></div>
+		<p><%= translate("Total users:") + " " %><%= link_to User.all.size.to_s, users_path %></p>
+		<div><%= translate("Codes:") + " " %><%= link_to Code.all.size.to_s, codes_path %></div>
 	</div>
 </div>
 <% end %>
