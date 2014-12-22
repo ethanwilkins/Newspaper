@@ -11,6 +11,43 @@ class Code < ActiveRecord::Base
   
   mount_uploader :image, ImageUploader
   
+  def self.card_codes_redeemed
+    _redeemed = []
+    for _code in self.where.not(is_a_board: true)
+      if _code.cards.present?
+        _redeemed << _code
+      end
+    end
+    return _redeemed
+  end
+  
+  def self.game_board_codes_redeemed
+    _redeemed = []
+    for _code in self.where(is_a_board: true)
+      if _code.game_boards.present?
+        _redeemed << _code
+      end
+    end
+    return _redeemed
+  end
+  
+  def self.redeemed(not_redeemed=nil)
+    _redeemed = []
+    _not_redeemed = []
+    for _code in self.all
+      if _code.cards.present? or _code.game_boards.present?
+        _redeemed << _code
+      else
+        _not_redeemed << _code
+      end
+    end
+    if not_redeemed
+      return _not_redeemed
+    else
+      return _redeemed
+    end
+  end
+  
   private
   
   def valid_format

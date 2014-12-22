@@ -1,4 +1,23 @@
 class CodesController < ApplicationController
+  def code_data
+    reset_page
+    @all_codes = Code.all
+    @redeemed = Code.redeemed
+    @unredeemed = Code.redeemed(:not)
+    if params[:code_advertiser]
+      @all_codes = Code.where advertiser: params[:code_advertiser]
+    elsif params[:code_redeemed]
+      @all_codes = @redeemed
+    elsif params[:code_unredeemed]
+      @all_codes = @unredeemed
+    elsif params[:code_game_boards]
+      @all_codes = Code.game_board_codes_redeemed
+    elsif params[:code_cards]
+      @all_codes = Code.card_codes_redeemed
+    end
+    @codes = paginate @all_codes
+  end
+  
   def clear
     zip_code = params[:zip_code]
     clear_all = params[:clear_all]

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141215192925) do
+ActiveRecord::Schema.define(version: 20141222150631) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -210,6 +210,11 @@ ActiveRecord::Schema.define(version: 20141215192925) do
     t.integer  "group_id"
     t.integer  "code_id"
     t.string   "combo_type"
+  end
+
+  create_table "searches", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "subtabs", force: true do |t|

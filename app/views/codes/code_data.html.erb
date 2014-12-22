@@ -1,0 +1,39 @@
+<% if master? %>
+<div id="card">
+	<div align="center">
+		<p><%= link_to translate("Total codes:") + " " + Code.all.size.to_s, codes_code_data_path %></p>
+			
+		<p><%= link_to translate("Redeemed codes:") + " " + @redeemed.size.to_s,
+			codes_code_data_path(code_redeemed: true) %></p>
+			
+		<p><%= link_to translate("Unredeemed codes:") + " " + @unredeemed.size.to_s,
+			codes_code_data_path(code_unredeemed: true) %></p>
+			
+		<p><%= link_to translate("Boards redeemed:") + " " + GameBoard.all.size.to_s,
+			codes_code_data_path(code_game_boards: true) %></p>
+			
+		<div><%= link_to translate("Cards redeemed:") + " " + Card.where(redeemed: true).size.to_s,
+			codes_code_data_path(code_cards: true) %></div>
+			
+	</div>
+</div>
+<% end %>
+
+<% for code in @codes %>
+	<div id="card">
+		<%= link_to(code.advertiser, codes_code_data_path(code_advertiser: code.advertiser),
+			id: :top_left_link) if code.advertiser.present? %>
+			
+		<% if code.is_a_board %>
+			<%= link_to translate("GameBoards:") + " " + code.game_boards.size.to_s, codes_code_data_path, id: :top_right_link %>
+		<% else %>
+			<%= link_to translate("Cards:") + " " + code.cards.size.to_s, codes_code_data_path, id: :top_right_link %>
+		<% end %>
+		
+		<div align="center">
+			<%= code.code %>
+		</div>
+	</div>
+<% end %>
+
+<%= render "pages/more_back", all_items: @all_codes, items: @codes %>
