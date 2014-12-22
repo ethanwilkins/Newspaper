@@ -4,7 +4,9 @@ class CodesController < ApplicationController
     @all_codes = Code.all
     @redeemed = Code.redeemed
     @unredeemed = Code.redeemed(:not)
-    if params[:code_advertiser]
+    if params[:code_group]
+      @all_codes = Code.where group_id: params[:code_group]
+    elsif params[:code_advertiser]
       @all_codes = Code.where advertiser: params[:code_advertiser]
     elsif params[:code_redeemed]
       @all_codes = @redeemed

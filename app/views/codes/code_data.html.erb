@@ -20,20 +20,7 @@
 <% end %>
 
 <% for code in @codes %>
-	<div id="card">
-		<%= link_to(code.advertiser, codes_code_data_path(code_advertiser: code.advertiser),
-			id: :top_left_link) if code.advertiser.present? %>
-			
-		<% if code.is_a_board %>
-			<%= link_to translate("GameBoards:") + " " + code.game_boards.size.to_s, codes_code_data_path, id: :top_right_link %>
-		<% else %>
-			<%= link_to translate("Cards:") + " " + code.cards.size.to_s, codes_code_data_path, id: :top_right_link %>
-		<% end %>
-		
-		<div align="center">
-			<%= code.code %>
-		</div>
-	</div>
+	<%= render "codes/card", code: code %>
 <% end %>
 
 <%= render "pages/more_back", all_items: @all_codes, items: @codes %>
