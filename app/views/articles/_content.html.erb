@@ -17,7 +17,7 @@
 		<div align="center">
 	<% end %>
 	
-		<%= body = text_shown(article, :body) %>
+		<% body = text_shown(article, :body) %>
 		<% for word in body.split(' ') %>
 			<%= render "posts/embed", word: word %>
 		<% end %>
