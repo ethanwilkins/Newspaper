@@ -3,11 +3,11 @@
 <% if @comment %>
 	<%= render "comments/card", comment: @comment %>
 
-	<%= render "comments/new" %>
-
 	<% @replies.each do |reply| %>
 		<%= render "comments/card", comment: reply %>
 	<% end %>
+
+	<%= render "comments/new" %>
 <% else %>
 	<div id="card">
 		<div align="center">

@@ -23,12 +23,11 @@ class CommentsController < ApplicationController
   end
   
   def create
-    @comment = Comment.new(params[:comment].permit(:text))
+    @comment = Comment.new(params[:comment].permit(:body))
     @comment.user_id = current_user.id
     @comment.post_id = params[:post_id]
     @comment.article_id = params[:article_id]
     @comment.comment_id = params[:comment_id]
-    @comment.sales_dialoge = params[:sales_dialogue] 
     
     @user = if @comment.post_id
               action = :post_comment
@@ -47,6 +46,7 @@ class CommentsController < ApplicationController
             end
     
     if @comment.save
+      Hashtag.extract(@comment)
       Note.notify(current_user, @user, action, item_id)
       log_action("comments_create", @comment.id)
       redirect_to :back

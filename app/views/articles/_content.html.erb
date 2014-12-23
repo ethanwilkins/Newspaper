@@ -17,6 +17,14 @@
 		<div align="center">
 	<% end %>
 	
-	<%= text_shown(article, :body) %>
+		<%= body = text_shown(article, :body) %>
+		<% for word in body.split(' ') %>
+			<%= render "posts/embed", word: word %>
+		<% end %>
+
+		<% article.hashtags.each do |tag| %>
+			<%= link_to tag.tag, tagged_path(tag.tag) %>
+			<%= " " %>
+		<% end %>
 	</div></br>
 </article>

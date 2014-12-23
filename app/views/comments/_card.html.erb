@@ -5,11 +5,27 @@
 <div id="card">
 	<%= link_to _time_ago, comment_path(comment), id: :top_left_link %>
 	
-	</br><div align="center">
-		<% for word in comment.text.split(" ") %>
-			<%= render "posts/embed", word: word %>
+	<div align="center">
+		<% if defined? result and result %>
+			<% if comment.post_id.present? %>
+				<%= link_to translate("Parent post"), post_path(comment.post_id) %>
+			<% elsif comment.article_id.present? %>
+				<%= link_to translate("Parent article"), article_path(comment.article_id) %>
+			<% elsif comment.comment_id.present? %>
+				<%= link_to translate("Parent comment"), comment_path(comment.comment_id) %>
+			<% end %>
 		<% end %>
-	</div></br>
 	
+		<div id="comment_body_text">
+			<% for word in comment.body.split(" ") %>
+				<%= render "posts/embed", word: word %>
+			<% end %>
+
+			<% comment.hashtags.each do |tag| %>
+				<%= link_to tag.tag, tagged_path(tag.tag) %>
+				<%= " " %>
+			<% end %>
+		</div>
+	</div>
 	<%= render "comments/comment_link", comment: comment %>
 </div>

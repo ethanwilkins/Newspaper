@@ -5,7 +5,7 @@
 	<%= render "articles/written_by", article: article %>
 	<%= render "articles/comment_link", article: article %>
 
-	<% if current_user and current_user.admin %>
+	<% if privileged? %>
 		<%= link_to translate("Edit"), edit_article_path(article), id: :bottom_left_link, title: translate("Edit this article") %>
 		<%= link_to translate("Delete"), destroy_article_path(article), title: translate("Permanently delete this article"),
 			method: :delete, data: { confirm: translate('Are you sure you want to delete this article?') },

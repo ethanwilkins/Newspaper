@@ -11,7 +11,11 @@
 		<% when "User" %>
 			<div id="card">
 				<div align="center">
-					<div><%= link_to image_tag(result.icon, size: "50x50"), user_path(result) %></div></br>
+					<% if result.icon.url %>
+						<div>
+							<%= link_to image_tag(result.icon, size: "50x50"), user_path(result) %>
+						</div></br>
+					<% end %>
 					<%= link_to result.name.capitalize, user_path(result) %>
 				</div>
 			</div>
@@ -19,7 +23,9 @@
 			<% if result.post_id %>
 				<%= render "posts/card", post: result.item %>
 			<% elsif result.comment_id %>
-				<%= render "comments/card", comment: result.item %>
+				<%= render "comments/card", comment: result.item, result: true %>
+			<% elsif result.article_id %>
+				<%= render "articles/card", article: result.item %>
 			<% end %>
 	<% end %>
 <% end %>

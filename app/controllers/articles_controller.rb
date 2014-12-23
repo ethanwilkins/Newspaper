@@ -82,6 +82,7 @@ class ArticlesController < ApplicationController
           @article.translations.create(request: true, spanish: @article.body, field: "body")
         end
       end
+      Hashtag.extract(@article)
       log_action("articles_create", @article.id)
       redirect_to root_url
       

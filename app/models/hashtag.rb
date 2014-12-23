@@ -6,7 +6,13 @@ class Hashtag < ActiveRecord::Base
   validates :tag, presence: true
   
   def item
-    Post.find(post_id) if post_id
+    if post_id
+      Post.find(post_id)
+    elsif comment_id
+      Comment.find(comment_id)
+    elsif article_id
+      Article.find(article_id)
+    end
   end
   
   def self.tagged(_tag)
@@ -17,17 +23,19 @@ class Hashtag < ActiveRecord::Base
     end
   end
   
-  def self.extract(post)
-    text = post.body
+  def self.extract(item)
+    text = item.body
     # extracts hashtags from post.text
     text.split(' ').each do |tag|
       if tag.include? "#"
         # removes tag from text
         text.slice! tag
-        # updates body without tag
-        Post.find(post.id).update(body: text)
         # pushes each tag into post
-        post.hashtags.create(tag: tag)
+        item.hashtags.create(tag: tag)
+        # updates body without tag
+        Post.find(item.id).update(body: text) if item.kind_of? Post
+        Article.find(item.id).update(body: text) if item.kind_of? Article
+        Comment.find(item.id).update(body: text) if item.kind_of? Comment
       end
     end
   end

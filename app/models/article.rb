@@ -1,6 +1,9 @@
 class Article < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :translations, dependent: :destroy
+  has_many :hashtags, dependent: :destroy
+  
+  validates_presence_of :body, :title
   
   mount_uploader :image, ImageUploader
   
