@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141223200930) do
+ActiveRecord::Schema.define(version: 20141227042156) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -215,6 +215,10 @@ ActiveRecord::Schema.define(version: 20141223200930) do
   create_table "searches", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "query"
+    t.string   "chosen_result_type"
+    t.integer  "chosen_result_id"
+    t.integer  "user_id"
   end
 
   create_table "subtabs", force: true do |t|

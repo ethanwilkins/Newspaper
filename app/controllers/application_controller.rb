@@ -8,6 +8,15 @@ class ApplicationController < ActionController::Base
 
   private
   
+  def new_search(query)
+    search = Search.new_search(query, current_user)
+    session[:search_id] = search.id
+  end
+  
+  def save_search(chosen_result)
+    Search.save_search(session[:search_id], chosen_result)
+  end
+  
   def log_action(action="visit", item_id=nil, data_string=nil)
     Activity.log_action(current_user, request.remote_ip.to_s,
       action, item_id, data_string)

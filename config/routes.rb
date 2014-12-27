@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   
   get "features/cherry_pick/:tab_id", to: 'features#cherry_pick', as: 'cherry_pick'
   
+  get "features/un_cherry_pick/:tab_id", to: 'features#un_cherry_pick', as: 'un_cherry_pick'
+  
   get 'folders/new/:post_id/:user_id', to: 'folders#new', as: 'inquire'
   
   get 'folders/new/:user_id', to: 'folders#new', as: 'new_folder'

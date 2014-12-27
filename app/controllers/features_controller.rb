@@ -1,4 +1,17 @@
 class FeaturesController < ApplicationController
+  def un_cherry_pick
+    cherry_picks = current_user.features.where(action: :cherry_pick)
+    @feature = cherry_picks.find_by_tab_id(params[:tab_id]) if cherry_picks.present?
+    if @feature and @feature.destroy
+      flash[:notice] = translate("Cherry pick removed successfully.")
+      log_action("features_un_cherry_pick")
+    else
+      flash[:error] = translate("Cherry pick couldn't be removed.")
+      log_action("features_un_cherry_pick_fail", (@feature ? @feature.id : nil))
+    end
+    redirect_to :back
+  end
+  
   def cherry_pick
     @feature = current_user.features.new(action: :cherry_pick, tab_id: params[:tab_id])
     if @feature.save
