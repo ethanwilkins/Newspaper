@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   helper_method :current_user, :translate, :page_size, :reset_page, :paginate,
-    :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action
+    :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action, :new_search, :save_search
 
   private
   
@@ -14,7 +14,10 @@ class ApplicationController < ActionController::Base
   end
   
   def save_search(chosen_result)
-    Search.save_search(session[:search_id], chosen_result)
+    if session[:search_id]
+      Search.save_search(session[:search_id], chosen_result)
+      session[:search_id] = nil
+    end
   end
   
   def log_action(action="visit", item_id=nil, data_string=nil)

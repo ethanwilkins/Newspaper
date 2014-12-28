@@ -109,6 +109,7 @@ class PostsController < ApplicationController
       @new_comment = Comment.new
       @comments = @post.comments.reverse
       log_action("posts_show", @post.id)
+      save_search @post
     else
       log_action("posts_show_fail")
     end

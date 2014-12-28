@@ -8,8 +8,13 @@ class UsersController < ApplicationController
   def show
     Post.delete_expired
     Post.repopulate
-    @user = User.find(params[:id])
-    log_action("users_show", @user.id)
+    @user = User.find_by_id(params[:id])
+    if @user
+      log_action("users_show", @user.id)
+      save_search @user
+    else
+      log_action("users_show_fail")
+    end
   end
   
   def new

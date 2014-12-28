@@ -19,6 +19,9 @@ class CommentsController < ApplicationController
       @new_comment = Comment.new
       @replies = @comment.comments.reverse
       log_action("comments_show", @comment.id)
+      save_search @comment
+    else
+      log_action("comments_show_fail")
     end
   end
   

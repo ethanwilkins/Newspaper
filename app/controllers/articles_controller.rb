@@ -16,6 +16,9 @@ class ArticlesController < ApplicationController
       @comments = @article.comments.reverse
       @new_comment = Comment.new
       log_action("articles_show", @article.id)
+      save_search @article
+    else
+      log_action("articles_show_fail")
     end
   end
   
