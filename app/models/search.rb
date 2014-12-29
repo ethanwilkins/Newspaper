@@ -7,6 +7,7 @@ class Search < ActiveRecord::Base
     for user in User.all; rank = [0]
       scan(user.name, query, rank)
       scan(user.bio, query, rank)
+      scan_searches(user, query, rank)
       if rank[0] > 0
         results << [user, rank[0]]
       end
@@ -19,6 +20,7 @@ class Search < ActiveRecord::Base
     for post in Post.all; rank = [0]
       scan(post.body, query, rank)
       scan_hashtags(post, query, rank)
+      scan_searches(post, query, rank)
       if rank[0] > 0
         results << [post, rank[0]]
       end
@@ -33,6 +35,7 @@ class Search < ActiveRecord::Base
         scan(article.title, query, rank)
         scan(article.body, query, rank)
         scan_hashtags(article, query, rank)
+        scan_searches(article, query, rank)
         if rank[0] > 0
           results << [article, rank[0]]
         end
@@ -46,6 +49,7 @@ class Search < ActiveRecord::Base
     for comment in Comment.all; rank = [0]
       scan(comment.body, query, rank)
       scan_hashtags(comment, query, rank)
+      scan_searches(comment, query, rank)
       if rank[0] > 0
         results << [comment, rank[0]]
       end
@@ -58,6 +62,7 @@ class Search < ActiveRecord::Base
     for event in Event.all; rank = [0]
       scan(event.title, query, rank)
       scan(event.body, query, rank)
+      scan_searches(event, query, rank)
       if rank[0] > 0
         results << [event, rank[0]]
       end
@@ -70,6 +75,7 @@ class Search < ActiveRecord::Base
     for tab in Tab.all; rank = [0]
       scan(tab.name, query, rank)
       scan(tab.description, query, rank)
+      scan_searches(tab, query, rank)
       if rank[0] > 0
         results << [tab, rank[0]]
       end
@@ -86,10 +92,12 @@ class Search < ActiveRecord::Base
   # will add weight to items that have been
   # chosen often in relation to query
   def self.scan_searches(item, query, rank)
-    searches = self.where(query: query)
+    searches = self.where(query: query).
+      where(chosen_result_type: item.class.to_s).
+      where(chosen_result_id: item.id)
     if searches.present?
       for search in searches
-        
+        rank[0] += 1
       end
     end
   end
