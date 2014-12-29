@@ -2,11 +2,14 @@ class Search < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :query
   
+  # scan needs to be able to add weight from tags or other
+  # attributes even when first attribute scan returns true
+  # need to separate true/false from adding weight to rank
+  
   def self.scan_users(query)
     results = []
     for user in User.all; rank = [0]
-      if scan(user.name, query, rank) or \
-        scan(user.bio, query, rank)
+      if scan(user.name, query, rank) or scan(user.bio, query, rank)
         results << [user, rank[0]]
       end
     end
@@ -16,10 +19,9 @@ class Search < ActiveRecord::Base
   def self.scan_posts(query)
     results = []
     for post in Post.all; rank = [0]
-      if scan(post.body, query, rank)
+      if scan(post.body, query, rank) or scan_hashtags(post, query, rank)
         results << [post, rank[0]]
       end
-      scan_hashtags post, query, results
     end
     return results
   end
@@ -28,10 +30,9 @@ class Search < ActiveRecord::Base
     results = []
     for article in Article.all; rank = [0]
       if article.ad.nil? and (scan(article.title, query, rank) or \
-        scan(article.body, query, rank))
+        scan(article.body, query, rank) or scan_hashtags(article, query, rank))
         results << [article, rank[0]]
       end
-      scan_hashtags article, query, results
     end
     return results
   end
@@ -39,7 +40,7 @@ class Search < ActiveRecord::Base
   def self.scan_comments(query)
     results = []
     for comment in Comment.all; rank = [0]
-      if scan(comment.body, query, rank)
+      if scan(comment.body, query, rank) or scan_hashtags(comment, query, rank)
         results << [comment, rank[0]]
       end
     end
@@ -49,8 +50,7 @@ class Search < ActiveRecord::Base
   def self.scan_events(query)
     results = []
     for event in Event.all; rank = [0]
-      if scan(event.title, query, rank) or \
-        scan(event.body, query, rank)
+      if scan(event.title, query, rank) or scan(event.body, query, rank)
         results << [event, rank[0]]
       end
     end
@@ -60,22 +60,21 @@ class Search < ActiveRecord::Base
   def self.scan_tabs(query)
     results = []
     for tab in Tab.all; rank = [0]
-      if scan(tab.name, query, rank) or \
-        scan(tab.description, query, rank)
+      if scan(tab.name, query, rank) or scan(tab.description, query, rank)
         results << [tab, rank[0]]
       end
     end
     return results
   end
   
-  def self.scan_hashtags(item, query, results)
-    for tag in item.hashtags; rank = [0]
+  def self.scan_hashtags(item, query, rank)
+    found = false
+    for tag in item.hashtags
       if scan(tag.tag, query, rank)
-        unless results.select { |result| result[0] == item }.present?
-          results << [item, rank[0]]
-        end
+        found = true
       end
     end
+    return found
   end
   
   def self.scan(text, query, rank)
@@ -83,8 +82,7 @@ class Search < ActiveRecord::Base
     if text.present?
       for word in text.split(" ")
         for key_word in query.split(" ")
-          if word.include? key_word.downcase or \
-            word.include? key_word.capitalize
+          if word.include? key_word.downcase or word.include? key_word.capitalize
             found = true
             rank[0] += 1
           end
@@ -92,6 +90,17 @@ class Search < ActiveRecord::Base
       end
     end
     return found
+  end
+  
+  # will add weight to items that have been
+  # chosen often in relation to query
+  def self.scan_searches(query, item)
+    searches = self.where(query: query)
+    if searches
+      for search in searches
+        
+      end
+    end
   end
   
   # creates new search with query and user
