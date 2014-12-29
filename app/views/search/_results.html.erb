@@ -6,6 +6,7 @@
 	</div>
 <% else %>
 	<% for result in @results %>
+		<% result = result[0] %>
 		<% case result.class.to_s %>
 			<% when "User" %>
 				<%= render "users/card", user: result %>

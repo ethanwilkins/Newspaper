@@ -4,9 +4,10 @@ class Search < ActiveRecord::Base
   
   def self.scan_users(query)
     results = []
-    for user in User.all
-      if scan(user.name, query) or scan(user.bio, query)
-        results << user 
+    for user in User.all; rank = [0]
+      if scan(user.name, query, rank) or \
+        scan(user.bio, query, rank)
+        results << [user, rank[0]]
       end
     end
     return results
@@ -14,9 +15,9 @@ class Search < ActiveRecord::Base
   
   def self.scan_posts(query)
     results = []
-    for post in Post.all
-      if scan(post.body, query)
-        results << post 
+    for post in Post.all; rank = [0]
+      if scan(post.body, query, rank)
+        results << [post, rank[0]]
       end
       scan_hashtags post, query, results
     end
@@ -25,9 +26,10 @@ class Search < ActiveRecord::Base
   
   def self.scan_articles(query)
     results = []
-    for article in Article.all
-      if article.ad.nil? and (scan(article.title, query) or scan(article.body, query))
-        results << article 
+    for article in Article.all; rank = [0]
+      if article.ad.nil? and (scan(article.title, query, rank) or \
+        scan(article.body, query, rank))
+        results << [article, rank[0]]
       end
       scan_hashtags article, query, results
     end
@@ -36,9 +38,9 @@ class Search < ActiveRecord::Base
   
   def self.scan_comments(query)
     results = []
-    for comment in Comment.all
-      if scan(comment.body, query)
-        results << comment 
+    for comment in Comment.all; rank = [0]
+      if scan(comment.body, query, rank)
+        results << [comment, rank[0]]
       end
     end
     return results
@@ -46,9 +48,10 @@ class Search < ActiveRecord::Base
   
   def self.scan_events(query)
     results = []
-    for event in Event.all
-      if scan(event.title, query) or scan(event.body, query)
-        results << event 
+    for event in Event.all; rank = [0]
+      if scan(event.title, query, rank) or \
+        scan(event.body, query, rank)
+        results << [event, rank[0]]
       end
     end
     return results
@@ -56,30 +59,35 @@ class Search < ActiveRecord::Base
   
   def self.scan_tabs(query)
     results = []
-    for tab in Tab.all
-      if scan(tab.name, query) or scan(tab.description, query)
-        results << tab 
+    for tab in Tab.all; rank = [0]
+      if scan(tab.name, query, rank) or \
+        scan(tab.description, query, rank)
+        results << [tab, rank[0]]
       end
     end
     return results
   end
   
   def self.scan_hashtags(item, query, results)
-    for tag in item.hashtags
-      if scan(tag.tag, query)
-        unless results.include? item
-          results << item
+    for tag in item.hashtags; rank = [0]
+      if scan(tag.tag, query, rank)
+        unless results.select { |result| result[0] == item }.present?
+          results << [item, rank[0]]
         end
       end
     end
   end
   
-  def self.scan(text, query)
+  def self.scan(text, query, rank)
     found = false
     if text.present?
       for word in text.split(" ")
-        if word.include? query.downcase or word.include? query.capitalize
-          found = true
+        for key_word in query.split(" ")
+          if word.include? key_word.downcase or \
+            word.include? key_word.capitalize
+            found = true
+            rank[0] += 1
+          end
         end
       end
     end

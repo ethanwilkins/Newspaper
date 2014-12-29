@@ -24,8 +24,13 @@ class SearchController < ApplicationController
       @events.each { |event| @all_results << event }
       @tabs.each { |tab| @all_results << tab }
       
+      # sorts results by rank
+      @all_results.sort_by! &:last
+      
+      # paginates all results as results
       @results = paginate @all_results
       
+      # checks if any results were found
       if @all_results.empty? # notifies user when no results are found
         @no_results = translate("No results were found for") + " '#{@query}'"
       end
