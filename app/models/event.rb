@@ -3,6 +3,8 @@ class Event < ActiveRecord::Base
 	scope :pending, -> { where approved: nil }
   
   has_many :translations, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :hashtags, dependent: :destroy
 
   mount_uploader :image, ImageUploader
   

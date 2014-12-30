@@ -62,6 +62,7 @@ class Search < ActiveRecord::Base
     for event in Event.all; rank = [0]
       scan(event.title, query, rank)
       scan(event.body, query, rank)
+      scan_hashtags(comment, query, rank)
       scan_searches(event, query, rank)
       if rank[0] > 0
         results << [event, rank[0]]
@@ -106,8 +107,8 @@ class Search < ActiveRecord::Base
     if text.present?
       for word in text.split(" ")
         for key_word in query.split(" ")
-          if word.include? key_word.downcase or word.include? key_word.capitalize
-            rank[0] += 1
+          if (word == key_word.downcase or word == key_word.capitalize) and key_word.size > 3
+            rank[0] += (word.size + key_word.size)
           end
         end
       end

@@ -2,6 +2,7 @@ class Hashtag < ActiveRecord::Base
   belongs_to :post
   belongs_to :article
   belongs_to :comment
+  belongs_to :event
   
   validates :tag, presence: true
   
