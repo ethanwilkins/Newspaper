@@ -9,8 +9,12 @@ $info_color: rgb(190, 190, 190);
 }
 
 #post_body_text {
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin: 25px 0px;
+}
+
+#card_link {
+	color: $info_color;
+	font-size: 10px;
 }
 
 #top_right_link {
@@ -83,4 +87,15 @@ $info_color: rgb(190, 190, 190);
 	position: absolute;
 	right: 135px;
 	top: 10px;
+}
+
+#bottom_left_link_table {
+	position: absolute;
+	left: 20px;
+	bottom: 8px;
+	column-gap: 10px;
+}
+
+#link_table_spacing {
+	padding-right: 5px;
 }
