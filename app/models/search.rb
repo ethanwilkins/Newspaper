@@ -91,12 +91,11 @@ class Search < ActiveRecord::Base
   end
   
   def self.searches(item, query, rank)
-    searches = self.where(query: query).
-      where(chosen_result_type: item.class.to_s).
+    searches = self.where(chosen_result_type: item.class.to_s).
       where(chosen_result_id: item.id)
     if searches.present?
       for search in searches
-        rank[0] += 1
+        scan(search.query, query, rank)
       end
     end
   end
@@ -105,9 +104,12 @@ class Search < ActiveRecord::Base
     if text.present?
       for word in text.split(" ")
         for key_word in query.split(" ")
-          if key_word.size > 3 and (word.include? key_word.downcase \
-            or word.include? key_word.capitalize)
-            rank[0] += (word.size + key_word.size)
+          if key_word.size > 3
+            if word == key_word.downcase or word == key_word.capitalize
+              rank[0] += (word.size + key_word.size)
+            elsif word.include? key_word.downcase or word.include? key_word.capitalize
+              rank[0] += key_word.size
+            end
           end
         end
       end
