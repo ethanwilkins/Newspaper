@@ -22,7 +22,7 @@
 					<%= render "posts/embed", word: word %>
 				<% else %>
 					<% tag = comment.hashtags.find_by_tag word %>
-					<% if tag.index == comment.body.index(word) %>
+					<% if tag and tag.index == comment.body.index(word) %>
 						<%= link_to tag.tag, tagged_path(tag.tag) %>
 						<%= " " %>
 					<% end %>

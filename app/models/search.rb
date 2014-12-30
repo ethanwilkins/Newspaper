@@ -105,7 +105,8 @@ class Search < ActiveRecord::Base
     if text.present?
       for word in text.split(" ")
         for key_word in query.split(" ")
-          if (word == key_word.downcase or word == key_word.capitalize) and key_word.size > 3
+          if key_word.size > 3 and (word.include? key_word.downcase \
+            or word.include? key_word.capitalize)
             rank[0] += (word.size + key_word.size)
           end
         end
