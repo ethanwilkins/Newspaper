@@ -1,6 +1,21 @@
 <!-- events -->
 
 <div id="card">
+	<% _time_ago = time_ago(time_ago_in_words(event.created_at)) %>
+	<%= link_to _time_ago, event_path(event), id: :top_left_link %>
+	
+	<% unless event.comments.empty? %>
+		<%= link_to translate("Comment") + " #{event.comments.size}", event_path(event),
+			title: translate("Leave a comment"), id: :bottom_left_link %>
+	<% else %>
+		<%= link_to translate("Comment"), event_path(event),
+			title: translate("Leave a comment"), id: :bottom_left_link %>
+	<% end %>
+	
+	<% user = User.find_by_id(event.user_id) %>
+	<%= link_to( translate("Planned by ") + user.name.capitalize,
+		user_path(user), id: :top_right_link) if user %>
+	
 	<%= render "events/content", event: event %>
 	<%= render "events/approve_deny", event: event %>
 </div>

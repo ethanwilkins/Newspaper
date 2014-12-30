@@ -1,3 +1,9 @@
-<div id="card">
-	<%= render "events/content", event: @event %>
-</div>
+<!-- events -->
+
+<%= render "events/card", event: @event %>
+
+<% @comments.each do |comment| %>
+	<%= render "comments/card", comment: comment %>
+<% end %>
+
+<%= render "comments/new" if current_user %>

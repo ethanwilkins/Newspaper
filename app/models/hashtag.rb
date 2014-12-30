@@ -26,17 +26,9 @@ class Hashtag < ActiveRecord::Base
   
   def self.extract(item)
     text = item.body
-    # extracts hashtags from post.text
-    text.split(' ').each do |tag|
-      if tag.include? "#"
-        # removes tag from text
-        text.slice! tag
-        # pushes each tag into post
-        item.hashtags.create(tag: tag)
-        # updates body without tag
-        Post.find(item.id).update(body: text) if item.kind_of? Post
-        Article.find(item.id).update(body: text) if item.kind_of? Article
-        Comment.find(item.id).update(body: text) if item.kind_of? Comment
+    text.split(' ').each do |word|
+      if word.include? "#" and word.size > 1
+        item.hashtags.create(tag: word, user_id: item.user_id, index: text.index(word))
       end
     end
   end

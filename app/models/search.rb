@@ -2,12 +2,12 @@ class Search < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :query
   
-  def self.scan_users(query)
+  def self.users(query)
     results = []
     for user in User.all; rank = [0]
       scan(user.name, query, rank)
       scan(user.bio, query, rank)
-      scan_searches(user, query, rank)
+      searches(user, query, rank)
       if rank[0] > 0
         results << [user, rank[0]]
       end
@@ -15,12 +15,12 @@ class Search < ActiveRecord::Base
     return results
   end
   
-  def self.scan_posts(query)
+  def self.posts(query)
     results = []
     for post in Post.all; rank = [0]
       scan(post.body, query, rank)
-      scan_hashtags(post, query, rank)
-      scan_searches(post, query, rank)
+      hashtags(post, query, rank)
+      searches(post, query, rank)
       if rank[0] > 0
         results << [post, rank[0]]
       end
@@ -28,14 +28,14 @@ class Search < ActiveRecord::Base
     return results
   end
   
-  def self.scan_articles(query)
+  def self.articles(query)
     results = []
     for article in Article.all; rank = [0]
       if article.ad.nil?
         scan(article.title, query, rank)
         scan(article.body, query, rank)
-        scan_hashtags(article, query, rank)
-        scan_searches(article, query, rank)
+        hashtags(article, query, rank)
+        searches(article, query, rank)
         if rank[0] > 0
           results << [article, rank[0]]
         end
@@ -44,12 +44,12 @@ class Search < ActiveRecord::Base
     return results
   end
   
-  def self.scan_comments(query)
+  def self.comments(query)
     results = []
     for comment in Comment.all; rank = [0]
       scan(comment.body, query, rank)
-      scan_hashtags(comment, query, rank)
-      scan_searches(comment, query, rank)
+      hashtags(comment, query, rank)
+      searches(comment, query, rank)
       if rank[0] > 0
         results << [comment, rank[0]]
       end
@@ -57,13 +57,13 @@ class Search < ActiveRecord::Base
     return results
   end
   
-  def self.scan_events(query)
+  def self.events(query)
     results = []
     for event in Event.all; rank = [0]
       scan(event.title, query, rank)
       scan(event.body, query, rank)
-      scan_hashtags(comment, query, rank)
-      scan_searches(event, query, rank)
+      hashtags(event, query, rank)
+      searches(event, query, rank)
       if rank[0] > 0
         results << [event, rank[0]]
       end
@@ -71,12 +71,12 @@ class Search < ActiveRecord::Base
     return results
   end
   
-  def self.scan_tabs(query)
+  def self.tabs(query)
     results = []
     for tab in Tab.all; rank = [0]
       scan(tab.name, query, rank)
       scan(tab.description, query, rank)
-      scan_searches(tab, query, rank)
+      searches(tab, query, rank)
       if rank[0] > 0
         results << [tab, rank[0]]
       end
@@ -84,15 +84,13 @@ class Search < ActiveRecord::Base
     return results
   end
   
-  def self.scan_hashtags(item, query, rank)
+  def self.hashtags(item, query, rank)
     for tag in item.hashtags
       scan(tag.tag, query, rank)
     end
   end
   
-  # will add weight to items that have been
-  # chosen often in relation to query
-  def self.scan_searches(item, query, rank)
+  def self.searches(item, query, rank)
     searches = self.where(query: query).
       where(chosen_result_type: item.class.to_s).
       where(chosen_result_id: item.id)

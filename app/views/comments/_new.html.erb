@@ -9,8 +9,10 @@
 			<%= hidden_field_tag :post_id, @post.id %>
 		<% elsif @comment %>
 			<%= hidden_field_tag :comment_id, @comment.id %>
+		<% elsif @event %>
+			<%= hidden_field_tag :event_id, @event.id %>
 		<% end %>
-	
+
 		<div id="card">
 			<p>
 				<%= f.text_area :body, placeholder: translate("Leave a comment..."), class: "form-control" %>

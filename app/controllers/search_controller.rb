@@ -8,12 +8,12 @@ class SearchController < ApplicationController
       new_search @query
       
       # scans all item texts for query
-      @users = Search.scan_users @query
-      @posts = Search.scan_posts @query
-      @articles = Search.scan_articles @query
-      @comments = Search.scan_comments @query
-      @events = Search.scan_events @query
-      @tabs = Search.scan_tabs @query
+      @users = Search.users @query
+      @posts = Search.posts @query
+      @articles = Search.articles @query
+      @comments = Search.comments @query
+      @events = Search.events @query
+      @tabs = Search.tabs @query
 
       # one array to rule them all
       @all_results = [] # collects results into one array

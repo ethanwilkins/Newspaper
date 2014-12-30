@@ -1,19 +1,23 @@
 class EventsController < ApplicationController
   def approve
-    @event = Event.find(params[:id])
-    @event.update approved: true
-    Note.notify(current_user, User.find(@event.user_id),
-      :event_approved, @event.id)
-    log_action("events_approve", @event.id)
+    if privileged?
+      @event = Event.find(params[:id])
+      @event.update approved: true
+      Note.notify(current_user, User.find(@event.user_id),
+        :event_approved, @event.id)
+      log_action("events_approve", @event.id)
+    end
     redirect_to :back
   end
 
   def deny
-    @event = Event.find(params[:id])
-    @event.update approved: false
-    Note.notify(current_user, User.find(@event.user_id),
-      :event_denied, @event.id)
-    log_action("events_deny", @event.id)
+    if privileged?
+      @event = Event.find(params[:id])
+      @event.update approved: false
+      Note.notify(current_user, User.find(@event.user_id),
+        :event_denied, @event.id)
+      log_action("events_deny", @event.id)
+    end
     redirect_to :back
   end
   
@@ -46,7 +50,7 @@ class EventsController < ApplicationController
   
   def create
     @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image, :translation_requested))
-    @event.approved = true if admin? or master? # automatically approved for the privileged
+    @event.approved = true if privileged? # automatically approved for the privileged
     @event.zip_code = current_user.zip_code
     @event.user_id = current_user.id
     
@@ -60,9 +64,11 @@ class EventsController < ApplicationController
           @event.translations.create(request: true, spanish: @event.body, field: "body")
         end
       end
+
+      Hashtag.extract(@event) if @event.body
       
       flash[:notice] = translate "Event submitted successfully."
-      if current_user.admin
+      if privileged?
         redirect_to events_path
       else
         log_action("events_create", @event.id)
@@ -88,6 +94,8 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
+    @comments = @event.comments.reverse
+    @new_comment = Comment.new
     log_action("events_show", @event.id)
   end
 end

@@ -31,6 +31,7 @@ class CommentsController < ApplicationController
     @comment.post_id = params[:post_id]
     @comment.article_id = params[:article_id]
     @comment.comment_id = params[:comment_id]
+    @comment.event_id = params[:event_id]
     
     @user = if @comment.post_id
               action = :post_comment
@@ -46,6 +47,11 @@ class CommentsController < ApplicationController
               action = :comment_reply
               item_id = @comment.comment_id
               User.find(Comment.find(@comment.comment_id).user_id)
+            
+            elsif @comment.event_id
+              action = :event_comment
+              item_id = @comment
+              User.find(Event.find(@comment.event_id).user_id)
             end
     
     if @comment.save
@@ -61,5 +67,14 @@ class CommentsController < ApplicationController
   end
   
   def destroy
+    @comment = Comment.find(params[:id])
+    if @comment.destroy
+      flash[:notice] = translate("Comment successfully deleted.")
+      log_action("comments_destroy")
+    else
+      flash[:error] = translate("Comment could not be deleted.")
+      log_action("comments_destroy_fail", @comment.id)
+    end
+    redirect_to :back
   end
 end

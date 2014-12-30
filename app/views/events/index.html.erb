@@ -6,10 +6,7 @@
 </div></br>
 
 <% for event in @events %>
-	<div id="card">
-		<%= render "events/content", event: event %>
-		<%= render "events/approve_deny", event: event %>
-	</div>
+	<%= render "events/card", event: event %>
 <% end %>
 
 <% if @events.empty? %>
