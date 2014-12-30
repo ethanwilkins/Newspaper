@@ -19,12 +19,15 @@
 	
 		<% body = text_shown(article, :body) %>
 		<% for word in body.split(' ') %>
-			<%= render "posts/embed", word: word %>
-		<% end %>
-
-		<% article.hashtags.each do |tag| %>
-			<%= link_to tag.tag, tagged_path(tag.tag) %>
-			<%= " " %>
+			<% unless word.include? "#" and word.size > 1 %>
+				<%= render "posts/embed", word: word %>
+			<% else %>
+				<% tag = article.hashtags.find_by_tag word %>
+				<% if tag.index == body.index(word) %>
+					<%= link_to tag.tag, tagged_path(tag.tag) %>
+					<%= " " %>
+				<% end %>
+			<% end %>
 		<% end %>
 	</div></br>
 </article>
