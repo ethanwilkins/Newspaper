@@ -99,12 +99,13 @@ class TabsController < ApplicationController
   end
   
   def show
+    reset_page
     Post.delete_expired
     Post.repopulate
     @advert = Article.local_advert(current_user)
     @tab = Tab.find(params[:id])
     @subtabs = @tab.popular_subtabs
-    @posts = @tab.posts.reverse
+    @posts = paginate @tab.posts
     @post = Post.new
     Activity.log_action(current_user, request.remote_ip.to_s, "tabs_show", @tab.id)
   end

@@ -6,10 +6,12 @@ class UsersController < ApplicationController
   end
   
   def show
+    reset_page
     Post.delete_expired
     Post.repopulate
     @user = User.find_by_id(params[:id])
     if @user
+      @posts = paginate @user.posts
       log_action("users_show", @user.id)
       save_search @user
     else

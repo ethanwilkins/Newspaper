@@ -1,12 +1,7 @@
 class WelcomeController < ApplicationController
   def index
-    # resets back to top
-    unless session[:more]
-      session[:page] = nil
-    end
-    session[:more] = nil
-    
-    @articles = Article.all.reverse
+    reset_page
+    @articles = paginate Article.all
     @banner = Banner.last
     @user = User.new
     if current_user

@@ -1,9 +1,4 @@
 class ArticlesController < ApplicationController
-  def index
-    @articles = Article.all.reverse
-    log_action("articles_index")
-  end
-  
   def ad_index
     @advert = Article.new
     @adverts = Article.ads.reverse

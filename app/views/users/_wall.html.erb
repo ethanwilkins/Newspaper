@@ -1,3 +1,5 @@
-<% for post in @user.posts.reverse.first(10) %>
+<% for post in @posts %>
 	<%= render "posts/card", post: post %>
 <% end %>
+
+<%= render "pages/more_back", all_items: @user.posts, items: @posts %>
