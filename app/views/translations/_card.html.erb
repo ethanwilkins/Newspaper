@@ -1,23 +1,7 @@
 <!-- translations -->
 
 <div id="card">
-	<% _time_ago = time_ago(time_ago_in_words(translation.created_at)) %>
-	<%= link_to _time_ago, translation_path(translation), id: :top_left_link %>
-	
-	<% if translation.user_id.present? %>
-		<%= link_to translate("Translated by") + " " + translation.user.name.capitalize,
-			user_path(translation.user), id: :top_right_link %>
-	<% end %>
-	
-	<%= link_to translate("Edit"), edit_translation_path(translation), id: :bottom_left_link %>
-	
-	<% unless translation.comments.empty? %>
-		<%= link_to translate("Comment") + " #{translation.comments.size}", translation_path(translation),
-			title: translate("Leave a comment"), id: :bottom_right_link %>
-	<% else %>
-		<%= link_to translate("Comment"), translation_path(translation),
-			title: translate("Leave a comment"), id: :bottom_right_link %>
-	<% end %>
+	<%= render "translations/card_links", translation: translation %>
 	
 	<div align="center" id="translation_content_body">
 		<p>

@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   
   delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
   
+  delete 'translations/destroy/:id', to: 'translations#destroy', as: 'destroy_translation'
+  
   delete 'posts/:post_id/finalize_sale/:folder_id', to: 'posts#finalize_sale', as: 'finalize_sale'
   
   get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'

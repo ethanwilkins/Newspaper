@@ -12,7 +12,7 @@ class Note < ActiveRecord::Base
   end
   
   def self.notify(sender, receiver, action, item_id=1)
-    if sender != receiver
+    if sender.present? and receiver.present? and sender != receiver
       if sender
         name = sender.name.capitalize
       else
