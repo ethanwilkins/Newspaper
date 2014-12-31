@@ -107,7 +107,7 @@ class PostsController < ApplicationController
     @post = Post.find_by_id(params[:id])
     if @post
       @new_comment = Comment.new
-      @comments = @post.comments.reverse
+      @comments = @post.comments
       log_action("posts_show", @post.id)
       save_search @post
     else

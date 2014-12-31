@@ -37,7 +37,7 @@ class ActivitiesController < ApplicationController
   
   def show
     @activity = Activity.find(params[:id])
-    @comments = @activity.comments.reverse
+    @comments = @activity.comments
     @new_comment = Comment.new
     log_action("activities_show", @activity.id)
   end

@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find_by_id(params[:id])
     if @article
-      @comments = @article.comments.reverse
+      @comments = @article.comments
       @new_comment = Comment.new
       log_action("articles_show", @article.id)
       save_search @article

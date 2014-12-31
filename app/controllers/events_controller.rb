@@ -94,7 +94,7 @@ class EventsController < ApplicationController
   
   def show
     @event = Event.find(params[:id])
-    @comments = @event.comments.reverse
+    @comments = @event.comments
     @new_comment = Comment.new
     log_action("events_show", @event.id)
   end
