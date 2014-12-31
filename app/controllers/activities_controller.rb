@@ -1,4 +1,22 @@
-class ActivitiesController < ApplicationController
+class ActivitiesController < ApplicationController 
+  def get_location
+    @activity = Activity.find_by_id(params[:id])
+    if @activity.get_location
+      flash[:notice] = translate("Location successfully saved.")
+      log_action("activities_log_action", @activity.id)
+    else
+      flash[:error] = translate("Location could not be saved.")
+      log_action("activities_log_action_fail", @activity.id)
+    end
+    redirect_to activity_path(@activity)
+  end
+  
+  def unique_locations
+    reset_page
+    @unique_locations = paginate Activity.unique_locations
+    log_action("activities_unique_locations")
+  end
+  
   def index
     reset_page
     if params[:activity_action]
@@ -20,15 +38,5 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find(params[:id])
     log_action("activities_show", @activity.id)
-  end
-  
-  def unique_locations
-    reset_page
-    @unique_locations = Activity.unique_locations.reverse.
-        # drops first several posts if :feed_page
-        drop((session[:page] ? session[:page] : 0) * page_size).
-        # only shows first several posts of resulting array
-        first(page_size)
-    log_action("activities_unique_locations")
   end
 end

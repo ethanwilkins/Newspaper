@@ -9,6 +9,19 @@ class Activity < ActiveRecord::Base
   
   before_save :save_zip
   
+  def get_location
+    result = Geocoder.search(self.ip).first
+    self.address = result.address
+    self.latitude = result.latitude
+    self.longitude = result.longitude
+    if address.present?
+      self.save!
+      return true
+    else
+      return false
+    end
+  end
+  
   def self.unique_locations
     _unique_locations = []
     for act in Activity.all
@@ -50,12 +63,10 @@ class Activity < ActiveRecord::Base
   end
   
   def save_zip
-    # extracts zip code from full address
-    if self.address.present? and self.address.split(", ")[2].present?
-      place = self.address.split(", ")[2]
-      if place.split(" ")[1].present?
-        self.zip_code = place.split(" ")[1].to_i
-      end
+    if self.address.present?
+      place = self.address.split(", ")[2] if self.address.split(", ")[2].present?
+      zip = place.split(" ")[1] if place and place.split(" ")[1].present?
+      self.zip_code = place.split(" ")[1].to_i if zip and zip.size == 5
     end
   end
 end

@@ -5,9 +5,14 @@
 	<% if act.ip %>
 		<%= link_to act.ip, activities_path(activity_ip: act.ip), id: :top_right_link %>
 	<% end %>
+	
 	<% if act.user_id.present? %>
 		<% user = User.find(act.user_id) %>
 		<%= link_to user.name.capitalize, user_path(user), id: :bottom_right_link %>
+	<% end %>
+	
+	<% if act.ip.present? and (act.latitude.nil? or act.address.nil?) %>
+		<%= link_to translate("Get location"), activities_path, id: :bottom_left_link %>
 	<% end %>
 	<div align="center" id="activity_data">
 		<div>
