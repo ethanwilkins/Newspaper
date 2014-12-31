@@ -8,17 +8,7 @@
 	<%= render "translations/new" %>
 
 	<% for translation in @translations %>
-		<div id="card">
-			<%= link_to "Edit", edit_translation_path(translation), id: :top_right_link %>
-			<div align="center">
-				<p>
-					<strong><%= translate("English:") %></strong> <%= translation.english %>
-				</p>
-				<div>
-					<strong><%= translate("Spanish:") %></strong> <%= translation.spanish %>
-				</div>
-			</div>
-		</div>
+		<%= render "translations/card", translation: translation %>
 	<% end %>
 
 	<%= render "pages/more_back", all_items: Translation.all, items: @translations %>

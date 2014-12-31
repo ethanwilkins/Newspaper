@@ -46,7 +46,8 @@ class Search < ActiveRecord::Base
   
   def self.comments(query)
     results = []
-    for comment in Comment.all; rank = [0]
+    for comment in Comment.where(activity_id: nil).
+      where(translation_id: nil); rank = [0]
       scan(comment.body, query, rank)
       hashtags(comment, query, rank)
       searches(comment, query, rank)

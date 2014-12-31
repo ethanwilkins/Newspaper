@@ -28,10 +28,12 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(params[:comment].permit(:body))
     @comment.user_id = current_user.id
-    @comment.post_id = params[:post_id]
+    @comment.translation_id = params[:translation_id]
+    @comment.activity_id = params[:activity_id]
     @comment.article_id = params[:article_id]
     @comment.comment_id = params[:comment_id]
     @comment.event_id = params[:event_id]
+    @comment.post_id = params[:post_id]
     
     @user = if @comment.post_id
               action = :post_comment
@@ -52,11 +54,24 @@ class CommentsController < ApplicationController
               action = :event_comment
               item_id = @comment
               User.find(Event.find(@comment.event_id).user_id)
+              
+            elsif @comment.activity_id and Activity.find(@comment.activity_id).user_id.present?
+              action = :activity_comment
+              item_id = @comment.activity_id
+              User.find(Activity.find(@comment.activity_id).user_id)
+              
+            elsif @comment.translation_id and Translation.find(@comment.translation_id).user_id.present?
+              action = :translation_comment
+              item_id = @comment.translation_id
+              User.find(Translation.find(@comment.translation_id).user_id)
             end
     
     if @comment.save
+      if (@comment.activity_id.nil? or @comment.translation_id.nil?) \
+        or (@user and (@user.admin or @user.master))
+        Note.notify(current_user, @user, action, item_id)
+      end
       Hashtag.extract(@comment)
-      Note.notify(current_user, @user, action, item_id)
       log_action("comments_create", @comment.id)
       redirect_to :back
     else

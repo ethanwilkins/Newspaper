@@ -1,6 +1,6 @@
 <div id="card">
 <%= form_for @translation, url: translation_path(@translation), method: :patch do |f| %>
-	<%= hidden_field_tag id: @translation.id %>
+	<%= hidden_field_tag :id, @translation.id %>
 	<p>
 		<%= f.text_field :english, class: "form-control" %>
 	</p>

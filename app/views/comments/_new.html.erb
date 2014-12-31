@@ -3,14 +3,18 @@
 <% if current_user %>
 	<%= form_for @new_comment, html: {multipart: true, "data-ajax" => false} do |f| %>
 
-		<% if @article %>
-			<%= hidden_field_tag :article_id, @article.id %>
-		<% elsif @post %>
+		<% if @post %>
 			<%= hidden_field_tag :post_id, @post.id %>
-		<% elsif @comment %>
-			<%= hidden_field_tag :comment_id, @comment.id %>
 		<% elsif @event %>
 			<%= hidden_field_tag :event_id, @event.id %>
+		<% elsif @article %>
+			<%= hidden_field_tag :article_id, @article.id %>
+		<% elsif @comment %>
+			<%= hidden_field_tag :comment_id, @comment.id %>
+		<% elsif @activity %>
+			<%= hidden_field_tag :activity_id, @activity.id %>
+		<% elsif @translation %>
+			<%= hidden_field_tag :translation_id, @translation.id %>
 		<% end %>
 
 		<div id="card">

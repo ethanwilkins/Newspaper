@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   belongs_to :translation
+  belongs_to :activity
   belongs_to :article
   belongs_to :comment
   belongs_to :event

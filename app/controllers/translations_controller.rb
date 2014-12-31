@@ -1,51 +1,69 @@
 class TranslationsController < ApplicationController
   def requests
     @requests = Translation.requests
-    Activity.log_action(current_user, request.remote_ip.to_s, "posts_translation_requests")
+    log_action("translations_requests")
+  end
+  
+  def show
+    @translation = Translation.find_by_id(params[:id])
+    if @translation
+      @comments = @translation.comments
+      @new_comment = Comment.new
+      log_action("translations_show")
+    else
+      log_action("translations_show_fail")
+    end
   end
   
   def index
     reset_page
     @translation = Translation.new
-    @translations = Translation.translated.reverse.
-      # drops first several posts if :feed_page
-      drop((session[:page] ? session[:page] : 0) * page_size).
-      # only shows first several posts of resulting array
-      first(page_size)
-    Activity.log_action(current_user, request.remote_ip.to_s, "translations_index")
+    @translations = paginate Translation.translated
+    log_action("translations_index")
   end
   
   def edit
     @translation = Translation.find(params[:id])
-    Activity.log_action(current_user, request.remote_ip.to_s, "translations_edit", @translation.id)
+    log_action("translations_edit", @translation.id)
   end
   
   def update
     @translation = Translation.find(params[:id])
+    @translation.user_id = params[:user_id]
     if @translation.update(params[:translation].permit(:english, :spanish))
       flash[:notice] = translate("The translation was successfully updated.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "translations_update", @translation.id)
+      log_action("translations_update", @translation.id)
       redirect_to translations_path
     else
       flash[:error] = translate("Invalid input.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "translations_update_fail", @translation.id)
+      log_action("translations_update_fail", @translation.id)
       redirect_to :back
     end
   end
   
   def create
     @translation = Translation.new(params[:translation].permit(:english, :spanish))
+    @translation.user_id = params[:user_id]
     if @translation.save
       flash[:notice] = translate("Translation saved successfully.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "translations_create", @translation.id)
+      log_action("translations_create", @translation.id)
     else
       flash[:error] = translate("Translation could not be saved.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "translations_create_fail")
+      log_action("translations_create_fail")
     end
     redirect_to :back
   end
   
   def destroy
-    
+    @translation = Translation.find_by_id(params[:id])
+    if @translation.destroy
+      flash[:notice] = translate("Translation successfully deleted.")
+      log_action("translations_destroy")
+      redirect_to translations_path
+    else
+      flash[:error] = translate("Translation could not be deleted.")
+      log_action("translations_destroy_fail", @translation.id)
+      redirect_to :back
+    end
   end
 end

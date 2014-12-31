@@ -3,8 +3,9 @@
 <% for request in @requests %>
 	<div id="card">
 		<%= form_for request, url: translation_path(request), method: :put do |f| %>
-			<%= hidden_field_tag requested: false %>
-			<%= hidden_field_tag id: request.id %>
+			<%= hidden_field_tag :user_id, current_user.id %>
+			<%= hidden_field_tag :requested, false %>
+			<%= hidden_field_tag :id, request.id %>
 			<p>
 				<%= f.text_area :english, placeholder: translate("English"), class: "form-control" %>
 			</p>

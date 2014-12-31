@@ -1,6 +1,7 @@
 <div id="card">
 	<p><%= translate("Enter translations for the site") %></p>
 	<%= form_for @translation do |f| %>
+		<%= hidden_field_tag :user_id, current_user.id %>
 		<p>
 			<%= f.text_field :english, placeholder: translate("English"), class: "form-control" %>
 		</p>

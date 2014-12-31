@@ -59,8 +59,13 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code, :network_size, :business, :english))
-      flash[:notice] = translate("Your account was successfully updated.")
+    if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code,
+      :network_size, :business, :english, :admin, :password))
+      if @user == current_user
+        flash[:notice] = translate("Your account was successfully updated.")
+      else
+        flash[:notice] = translate("User account successfully updated.")
+      end
       Zip.record(@user.zip_code) # logs new zip code if its unique
       log_action("users_update", @user.id)
       redirect_to @user
