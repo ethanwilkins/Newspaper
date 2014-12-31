@@ -12,7 +12,7 @@
 	<% end %>
 	
 	<% if act.ip.present? and (act.latitude.nil? or act.address.nil?) %>
-		<%= link_to translate("Get location"), activities_path, id: :bottom_left_link %>
+		<%= link_to translate("Get location"), get_location_path(act.id), id: :bottom_left_link %>
 	<% end %>
 	<div align="center" id="activity_data">
 		<div>
