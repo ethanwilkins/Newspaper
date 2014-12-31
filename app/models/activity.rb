@@ -12,12 +12,16 @@ class Activity < ActiveRecord::Base
   
   def get_location
     result = Geocoder.search(self.ip).first
-    self.address = result.address
-    self.latitude = result.latitude
-    self.longitude = result.longitude
-    if address.present?
-      self.save!
-      return true
+    if result
+      self.address = result.address
+      self.latitude = result.latitude
+      self.longitude = result.longitude
+      if address and latitude and longitude
+        self.save!
+        return true
+      else
+        return false
+      end
     else
       return false
     end
