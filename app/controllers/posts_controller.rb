@@ -47,9 +47,11 @@ class PostsController < ApplicationController
     if @post.save
       if @post.translation_requested
         if current_user.english
-          @post.translations.create(request: true, english: @post.body, field: "body")
+          @post.translations.create(request: true, english: @post.body,
+            field: "body", user_id: current_user.id)
         else
-          @post.translations.create(request: true, spanish: @post.body, field: "body")
+          @post.translations.create(request: true, spanish: @post.body,
+            field: "body", user_id: current_user.id)
         end
       end
       

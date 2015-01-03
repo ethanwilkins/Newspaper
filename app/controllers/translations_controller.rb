@@ -1,6 +1,7 @@
 class TranslationsController < ApplicationController
   def requests
-    @requests = Translation.requests
+    reset_page
+    @requests = paginate Translation.requests.reverse
     log_action("translations_requests")
   end
   
@@ -42,8 +43,10 @@ class TranslationsController < ApplicationController
   end
   
   def create
-    @translation = Translation.new(params[:translation].permit(:english, :spanish))
+    @translation = Translation.new(params[:translation].permit(:english, :spanish, :request))
     @translation.user_id = params[:user_id]
+    @translation.request = true \
+      if @translation.english.empty? or @translation.spanish.empty?
     if @translation.save
       flash[:notice] = translate("Translation saved successfully.")
       log_action("translations_create", @translation.id)

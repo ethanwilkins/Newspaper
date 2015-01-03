@@ -47,11 +47,15 @@ class TabsController < ApplicationController
     if @tab.save
       if @tab.translation_requested
         if current_user.english
-          @tab.translations.create(request: true, english: @tab.name, field: "name")
-          @tab.translations.create(request: true, english: @tab.description, field: "description")
+          @tab.translations.create(request: true, english: @tab.name,
+            field: "name", user_id: current_user.id)
+          @tab.translations.create(request: true, english: @tab.description,
+            field: "description", user_id: current_user.id)
         else
-          @tab.translations.create(request: true, spanish: @tab.name, field: "name")
-          @tab.translations.create(request: true, spanish: @tab.description, field: "description")
+          @tab.translations.create(request: true, spanish: @tab.name,
+            field: "name", user_id: current_user.id)
+          @tab.translations.create(request: true, spanish: @tab.description,
+            field: "description", user_id: current_user.id)
         end
       end
       

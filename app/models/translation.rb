@@ -37,10 +37,13 @@ class Translation < ActiveRecord::Base
     return english.present? ? english.last.english : spanish
   end
   
+  # site translations are not tied to any model but
+  # to the site itself through links and buttons or other labels
+  
   def self.site_spanish(_spanish)
     _site_spanish = []
-    for _translation in self.all
-      if _translation.spanish == _spanish and not _translation.request
+    for _translation in self.site
+      if _translation.spanish == _spanish
         _site_spanish << _translation
       end
     end
@@ -49,12 +52,27 @@ class Translation < ActiveRecord::Base
   
   def self.site_english(_english)
     _site_english = []
-    for _translation in self.all
-      if _translation.english == _english and not _translation.request
+    for _translation in self.site
+      if _translation.english == _english
         _site_english << _translation
       end
     end
     return _site_english
+  end
+  
+  def self.site
+    translations = []
+    for translation in self.all
+      if translation.
+        where(tab_id: nil).
+        where(post_id: nil).
+        where(event_id: nil).
+        where(subtab_id: nil).
+        where(article_id: nil)
+        translations << translation
+      end
+    end
+    return translations
   end
   
   private

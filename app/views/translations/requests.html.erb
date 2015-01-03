@@ -1,28 +1,32 @@
 <!-- translations -->
 
-<% for request in @requests %>
-	<div id="card">
-		<%= form_for request, url: translation_path(request), method: :put do |f| %>
-			<%= hidden_field_tag :user_id, current_user.id %>
-			<%= hidden_field_tag :requested, false %>
-			<%= hidden_field_tag :id, request.id %>
-			<p>
-				<%= f.text_area :english, placeholder: translate("English"), class: "form-control" %>
-			</p>
-			<p>
-				<%= f.text_area :spanish, placeholder: translate("Spanish"), class: "form-control" %>
-			</p>
-			<div>
-				<%= f.submit translate("Translate"), class: "btn btn-default btn-lg btn-block" %>
-			</div>
-		<% end %>
-	</div>
-<% end %>
-
 <% if @requests.empty? %>
 	<div id="card">
 		<div align="center">
 			<%= translate("There aren't any translation requests right now.")%>
 		</div>
 	</div>
+<% else %>
+	<% for request in @requests %>
+		<div id="card">
+			<%= form_for request, url: translation_path(request), method: :put do |f| %>
+				<%= hidden_field_tag :user_id, current_user.id %>
+				<%= hidden_field_tag :requested, false %>
+				<%= hidden_field_tag :id, request.id %>
+				<p>
+					<%= f.text_area :english, placeholder: translate("English"), class: "form-control" %>
+				</p>
+				<p>
+					<%= f.text_area :spanish, placeholder: translate("Spanish"), class: "form-control" %>
+				</p>
+				<div>
+					<%= f.submit translate("Translate"), class: "btn btn-default btn-lg btn-block" %>
+				</div>
+			<% end %>
+		</div>
+	<% end %>
+
+	<%= render "pages/more_back", all_items: Translation.requests, items: @requests %>
 <% end %>
+
+</br>

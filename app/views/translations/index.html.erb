@@ -11,5 +11,5 @@
 		<%= render "translations/card", translation: translation %>
 	<% end %>
 
-	<%= render "pages/more_back", all_items: Translation.all, items: @translations %>
+	<%= render "pages/more_back", all_items: Translation.translated, items: @translations %>
 <% end %>

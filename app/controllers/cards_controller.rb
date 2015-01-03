@@ -12,8 +12,9 @@ class CardsController < ApplicationController
     if @card
       @card.update redeemed: true, code_id: @code.id,
         image: @card.redeemed_img, zip_code: current_user.zip_code
-      if @game_board.you_won!
-        flash[:notice] = translate "You won!"
+      prize = @game_board.you_won!
+      if prize[:won]
+        flash[:notice] = translate "You won a #{prize[:combo].gsub("_", " ")} prize!"
       end
       log_action("cards_create", @card.id)
       redirect_to :back

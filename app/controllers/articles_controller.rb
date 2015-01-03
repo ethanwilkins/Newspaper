@@ -73,11 +73,15 @@ class ArticlesController < ApplicationController
     elsif @article.save
       if @article.translation_requested
         if current_user.english
-          @article.translations.create(request: true, english: @article.title, field: "title")
-          @article.translations.create(request: true, english: @article.body, field: "body")
+          @article.translations.create(request: true, english: @article.title,
+            field: "title", user_id: current_user.id)
+          @article.translations.create(request: true, english: @article.body,
+            field: "body", user_id: current_user.id)
         else
-          @article.translations.create(request: true, spanish: @article.title, field: "title")
-          @article.translations.create(request: true, spanish: @article.body, field: "body")
+          @article.translations.create(request: true, spanish: @article.title,
+            field: "title", user_id: current_user.id)
+          @article.translations.create(request: true, spanish: @article.body,
+            field: "body", user_id: current_user.id)
         end
       end
       Hashtag.extract(@article)

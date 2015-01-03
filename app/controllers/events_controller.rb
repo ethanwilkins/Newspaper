@@ -57,11 +57,15 @@ class EventsController < ApplicationController
     if @event.save
       if @event.translation_requested
         if current_user.english
-          @event.translations.create(request: true, english: @event.title, field: "title")
-          @event.translations.create(request: true, english: @event.body, field: "body")
+          @event.translations.create(request: true, english: @event.title,
+            field: "title", user_id: current_user.id)
+          @event.translations.create(request: true, english: @event.body,
+            field: "body", user_id: current_user.id)
         else
-          @event.translations.create(request: true, spanish: @event.title, field: "title")
-          @event.translations.create(request: true, spanish: @event.body, field: "body")
+          @event.translations.create(request: true, spanish: @event.title,
+            field: "title", user_id: current_user.id)
+          @event.translations.create(request: true, spanish: @event.body,
+            field: "body", user_id: current_user.id)
         end
       end
 
