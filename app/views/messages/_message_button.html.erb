@@ -3,6 +3,6 @@
 	<% if folder %>
 		<%= link_to translate("Message"), folder_path(folder), title: translate("Continue your conversation"), id: :top_right_link %>
 	<% else %>
-		<%= link_to translate("Message"), new_folder_path(@user), title: translate("Begin a conversation"), id: :top_right_link %>
+		<%= link_to translate("Message"), new_folder_path(@user.name), title: translate("Begin a conversation"), id: :top_right_link %>
 	<% end %>
 <% end %>

@@ -62,15 +62,13 @@ class Translation < ActiveRecord::Base
   
   def self.site
     translations = []
-    for translation in self.all
-      if translation.
-        where(tab_id: nil).
-        where(post_id: nil).
-        where(event_id: nil).
-        where(subtab_id: nil).
-        where(article_id: nil)
-        translations << translation
-      end
+    for translation in self.
+      where(tab_id: nil).
+      where(post_id: nil).
+      where(event_id: nil).
+      where(subtab_id: nil).
+      where(article_id: nil)
+      translations << translation
     end
     return translations
   end

@@ -1,2 +1,2 @@
 <% user = User.find(article.user_id) %>
-<%= link_to translate("Written by") + " " + user.name.capitalize, user_path(user), id: :top_right_link %>
+<%= link_to translate("Written by") + " " + user.name.capitalize, user_path(user.name), id: :top_right_link %>

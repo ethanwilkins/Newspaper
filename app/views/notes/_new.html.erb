@@ -6,7 +6,7 @@
 	<% end %>
 	
 	<%= form_for @note, :html => {:multipart => true, "data-ajax" => false} do |f| %>
-		<%= hidden_field_tag :user_id, (@user ? @user.id : params[:id]) %>
+		<%= hidden_field_tag :user_name, (@user ? @user.name : params[:id]) %>
 		<%= hidden_field_tag :note_action, :admin_message %>
 		<p>
 			<%= f.text_field :message, placeholder: translate("Message"), class: "form-control" %>

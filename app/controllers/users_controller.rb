@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     reset_page
     Post.delete_expired
     Post.repopulate
-    @user = User.find_by_id(params[:id])
+    @user = User.find_by_name(params[:id])
     if @user
       @posts = paginate @user.posts
       log_action("users_show", @user.id)
@@ -55,7 +55,7 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by_name(params[:id])
     log_action("users_edit", @user.id)
   end
   
@@ -79,7 +79,7 @@ class UsersController < ApplicationController
   end
   
   def destroy
-    @user = User.find(params[:id])
+    @user = User.find_by_name(params[:id])
     if @user.destroy
       flash[:notice] = translate("The user was successfully deleted.")
       log_action("users_destroy")

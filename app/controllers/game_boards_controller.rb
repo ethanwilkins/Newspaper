@@ -29,7 +29,7 @@ class GameBoardsController < ApplicationController
     @game_board.destroy
     flash[:notice] = translate("The board was successfully deleted.")
     log_action("game_boards_destroy")
-    redirect_to user_game_boards_path(current_user)
+    redirect_to game_boards_index_path
   end
   
   def show

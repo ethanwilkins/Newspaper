@@ -106,6 +106,8 @@ Rails.application.routes.draw do
   put 'groups/add_zip'
   
   get 'codes/code_data'
+  
+  get 'game_boards/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -144,6 +146,10 @@ Rails.application.routes.draw do
   resources :events
   resources :notes
   
+  resources :game_boards do
+    resources :cards
+  end
+  
   resources :folders do
     resources :messages
   end
@@ -153,11 +159,7 @@ Rails.application.routes.draw do
     resources :features
   end
 
-  resources :users do
-    resources :game_boards do
-      resources :cards
-    end
-  end
+  resources :users
   
   # Example resource route with sub-resources:
   #   resources :products do

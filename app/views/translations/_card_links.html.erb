@@ -5,7 +5,7 @@
 
 <% if translation.user_id.present? %>
 	<%= link_to translate("Translated by") + " " + translation.user.name.capitalize,
-		user_path(translation.user), id: :top_right_link %>
+		user_path(translation.user.name), id: :top_right_link %>
 <% end %>
 
 <% unless translation.comments.empty? %>

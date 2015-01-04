@@ -12,12 +12,13 @@
 				<p><%= link_to "Group #{group.id}", group_path(group) %></p>
 				<p><%= "Admins: " %>
 					<% for admin in group.users %>
-						<%= link_to admin.name.capitalize, user_path(admin) %><%= \
+						<%= link_to admin.name.capitalize, user_path(admin.name) %><%= \
 						", " if admin != group.users.last %>
 					<% end %>
 				</p>
 				<% zip_list = "" %>
-				<% group.zips.each { |zip| zip_list << zip.zip_code.to_s + ((zip != group.zips.last and group.zips.size > 1) ? ", " : "") } %>
+				<% group.zips.each { |zip| zip_list << zip.zip_code.to_s + \
+					((zip != group.zips.last and group.zips.size > 1) ? ", " : "") } %>
 				Zip codes: <%= zip_list %>
 			</div>
 		</div>

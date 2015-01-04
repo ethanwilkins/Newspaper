@@ -3,15 +3,15 @@
 <% if master? %>
 	<% @users.each do |user| %>
 		<div id="card">
-			<%= link_to translate("Joined ") + time_ago(time_ago_in_words(user.created_at)), user_path(user), id: :top_left_link %>
+			<%= link_to translate("Joined ") + time_ago(time_ago_in_words(user.created_at)), user_path(user.name), id: :top_left_link %>
 			<% if user.activities.present? %>
 				<% last_login = time_ago(time_ago_in_words(user.activities.last.created_at)) %>
-				<%= link_to(translate("Last visit: ") + last_login, user_path(user), id: :top_right_link) %>
+				<%= link_to(translate("Last visit: ") + last_login, user_path(user.name), id: :top_right_link) %>
 				<%= link_to translate("Activities: ") + user.activities.size.to_s,
 					activities_path(activity_user_id: user.id), id: :bottom_right_link %>
 			<% end %>
 			<div align="center" id="user_listing_name">
-				<%= link_to user.name.capitalize, user_path(user) %>
+				<%= link_to user.name.capitalize, user_path(user.name) %>
 			</div>
 		</div>
 	<% end %>

@@ -24,13 +24,13 @@ class NotesController < ApplicationController
   end
   
   def new
-    @user = User.find(params[:id])
+    @user = User.find_by_name(params[:id])
     @note = Note.new
     Activity.log_action(current_user, request.remote_ip.to_s, "notes_new")
   end
   
   def create
-    @user = User.find(params[:user_id])
+    @user = User.find_by_name(params[:user_name])
     @note = @user.notes.new(params[:note].permit(:message, :url))
     @note.sender_id = current_user.id
     @note.action = params[:note_action].to_s
@@ -40,7 +40,7 @@ class NotesController < ApplicationController
     if @note.save
       flash[:notice] = translate("The notification was sent.")
       Activity.log_action(current_user, request.remote_ip.to_s, "notes_create", @note.id)
-      redirect_to User.find(@note.user_id)
+      redirect_to user_path(@user.name)
     elsif @note.errors.include? :invalid_url
       flash[:error] = translate(@note.errors[:invalid_url].first)
       redirect_to :back
@@ -69,6 +69,6 @@ class NotesController < ApplicationController
       note.destroy!
     end
     Activity.log_action(current_user, request.remote_ip.to_s, "notes_clear")
-    redirect_to user_notes_path(current_user)
+    redirect_to user_notes_path(current_user.name)
   end
 end

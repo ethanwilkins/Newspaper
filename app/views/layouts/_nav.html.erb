@@ -21,7 +21,7 @@
 				</li>
 				<% else %>
 				<li>
-					<%= link_to translate("Games"), user_game_boards_path(current_user), title: translate("Play and win prizes") %>
+					<%= link_to translate("Games"), game_boards_index_path, title: translate("Play and win prizes") %>
 				</li>
 				<li>
 					<%= link_to translate("Social"), tabs_path,
@@ -48,7 +48,7 @@
 					</div>
 				</li>
 				<li>
-					<%= link_to current_user.name.capitalize, user_path(current_user), title: translate("View your profile") %>
+					<%= link_to current_user.name.capitalize, user_path(current_user.name), title: translate("View your profile") %>
 				</li>
 				<% if privileged? %>
 				<li>

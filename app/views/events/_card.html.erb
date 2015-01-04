@@ -14,7 +14,7 @@
 	
 	<% user = User.find_by_id(event.user_id) %>
 	<%= link_to( translate("Planned by ") + user.name.capitalize,
-		user_path(user), id: :top_right_link) if user %>
+		user_path(user.name), id: :top_right_link) if user %>
 	
 	<%= render "events/content", event: event %>
 	<%= render "events/approve_deny", event: event %>

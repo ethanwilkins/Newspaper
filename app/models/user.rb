@@ -87,6 +87,10 @@ class User < ActiveRecord::Base
   
   private
   
+  def to_param
+    name
+  end
+  
   def downcase_fields
     email.downcase! if email
     name.downcase!
