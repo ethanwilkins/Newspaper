@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   def new
-    Activity.log_action(current_user, request.remote_ip.to_s, "sessions_new")
+    log_action("sessions_new")
   end
 
   def create
@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       user.update ip: request.remote_ip.to_s
       user.update_token if user.auth_token.nil?
       cookies.permanent[:auth_token] = user.auth_token
-      Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create")
+      log_action("sessions_create")
       user.update zip_code: Activity.where(user_id: user.id).last.zip_code if \
         user.zip_code.nil? and Activity.where(user_id: user.id).last.zip_code.present?
       
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
       end
     else
       flash[:error] = translate "Invalid email or password"
-      Activity.log_action(current_user, request.remote_ip.to_s, "sessions_create_fail")
+      log_action("sessions_create_fail")
       redirect_to :back
     end
   end
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
       cookies.delete(:auth_token)
     end
     flash[:notice] = translate("Log out successful.")
-    Activity.log_action(current_user, request.remote_ip.to_s, "sessions_destroy")
+    log_action("sessions_destroy")
     redirect_to root_url
   end
 end

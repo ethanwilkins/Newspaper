@@ -38,6 +38,6 @@ class SearchController < ApplicationController
       @no_results = translate "Empty search."
     end
     @advert = Article.local_advert(current_user)
-    Activity.log_action(current_user, request.remote_ip.to_s, "hashtags_search", nil, params[:query])
+    log_action("hashtags_search", nil, params[:query])
   end
 end

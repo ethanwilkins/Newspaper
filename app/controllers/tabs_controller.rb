@@ -2,14 +2,14 @@ class TabsController < ApplicationController
   def pending
     @tabs = Tab.pending.reverse
     @subtabs = Subtab.pending.reverse
-    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_pending")
+    log_action("tabs_pending")
   end
   
   def approve
     @tab = Tab.find(params[:id])
     if @tab.update approved: true
       Note.notify(current_user, User.find(@tab.user_id), :tab_approved, @tab.id)
-      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_approve", @tab.id)
+      log_action("tabs_approve", @tab.id)
       flash[:notice] = translate("Tab successfully approved.")
     else
       flash[:error] = translate("Tab could not be approved.")
@@ -21,7 +21,7 @@ class TabsController < ApplicationController
     @tab = Tab.find(params[:id])
     if @tab.update approved: false
       Note.notify(current_user, User.find(@tab.user_id), :tab_denied, @tab.id)
-      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_deny", @tab.id)
+      log_action("tabs_deny", @tab.id)
       flash[:notice] = translate("The tab was successfully denied.")
     else
       flash[:error] = translate("The tab could not be denied.")
@@ -31,7 +31,7 @@ class TabsController < ApplicationController
   
   def new
     @tab = Tab.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_new")
+    log_action("tabs_new")
   end
   
   def create
@@ -60,11 +60,11 @@ class TabsController < ApplicationController
       end
       
       flash[:notice] = translate "Your tab was successfully submitted."
-      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create", @tab.id)
+      log_action("tabs_create", @tab.id)
       redirect_to tabs_path
     else
       flash[:error] = translate "Invalid input"
-      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_create_fail")
+      log_action("tabs_create_fail")
       redirect_to :back
     end
   end
@@ -85,7 +85,7 @@ class TabsController < ApplicationController
     @tab = Tab.find(params[:id])
     if @tab.destroy
       flash[:notice] = translate("Tab deleted successfully.")
-      Activity.log_action(current_user, request.remote_ip.to_s, "tabs_destroy")
+      log_action("tabs_destroy")
       redirect_to tabs_path
     else
       flash[:error] = translate "There was a problem deleting the tab."
@@ -99,7 +99,7 @@ class TabsController < ApplicationController
   
   def index
     @tabs = Tab.approved.reverse
-    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_index")
+    log_action("tabs_index")
   end
   
   def show
@@ -111,6 +111,6 @@ class TabsController < ApplicationController
     @subtabs = @tab.popular_subtabs
     @posts = paginate @tab.posts
     @post = Post.new
-    Activity.log_action(current_user, request.remote_ip.to_s, "tabs_show", @tab.id)
+    log_action("tabs_show", @tab.id)
   end
 end

@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   end
   
   def update
-    @user = User.find(params[:id])
+    @user = User.find_by_name(params[:id])
     if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code,
       :network_size, :business, :english, :admin, :password))
       if @user == current_user
@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       end
       Zip.record(@user.zip_code) # logs new zip code if its unique
       log_action("users_update", @user.id)
-      redirect_to @user
+      redirect_to user_path(@user.name)
     else
       flash[:error] = translate("User profile could not be updated.")
       log_action("users_update_fail", @user.id)
