@@ -69,6 +69,7 @@ class EventsController < ApplicationController
         end
       end
 
+      current_user.notify_mentioned(@event)
       Hashtag.extract(@event) if @event.body
       
       flash[:notice] = translate "Event submitted successfully."

@@ -71,6 +71,7 @@ class CommentsController < ApplicationController
         or (@user and (@user.admin or @user.master))
         Note.notify(current_user, @user, action, item_id)
       end
+      current_user.notify_mentioned(@comment)
       Hashtag.extract(@comment)
       log_action("comments_create", @comment.id)
       redirect_to :back

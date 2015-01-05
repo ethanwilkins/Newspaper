@@ -84,6 +84,7 @@ class ArticlesController < ApplicationController
             field: "body", user_id: current_user.id)
         end
       end
+      current_user.notify_mentioned(@article)
       Hashtag.extract(@article)
       log_action("articles_create", @article.id)
       redirect_to root_url
