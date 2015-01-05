@@ -33,6 +33,8 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("replied to your comment.")
         when :like_post
           message = name + " " + Translation.translate("liked your post.")
+        when :mention
+          message = name + " " + Translation.translate("mentioned you in a post.")
         when :sales_inquiry
           message = name + " " + Translation.translate("inquired upon your offer.")
         when :sales_reply

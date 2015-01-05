@@ -54,7 +54,7 @@ class PostsController < ApplicationController
             field: "body", user_id: current_user.id)
         end
       end
-      
+      current_user.notify_mentioned(@post)
       Hashtag.extract(@post) if @post.body
       log_action("posts_create", @post.id)
       redirect_to :back

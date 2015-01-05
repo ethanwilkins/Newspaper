@@ -55,6 +55,16 @@ class User < ActiveRecord::Base
     end
     return _close_enough
   end
+  
+  def notify_mentioned(item)
+    text = item.body
+    for word in text.split(' ')
+      if word.include? "@" and User.find_by_name(word.slice(word.index("@")+1..word.size))
+        Note.notify(self, User.find_by_name(word.slice(word.index("@")+1..word.size)),
+          :mention, item.id)
+      end
+    end
+  end
 
   def self.authenticate(name, password)
     user = find_by_name(name.downcase)
