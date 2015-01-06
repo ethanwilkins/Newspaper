@@ -14,15 +14,15 @@ class Tab < ActiveRecord::Base
   scope :approved, -> { where approved: true }
   
   def funnel_tagged
+    funneled = []
     if features.exists? action: :tagged
-      funneled = []
       for tag in hashtags
         tag.tagged.each do |_tag|
           funneled << _tag
         end
       end
-      return funneled.sort_by &:created_at
     end
+    return funneled.sort_by &:created_at
   end
   
   def add_hashtags(tags)
