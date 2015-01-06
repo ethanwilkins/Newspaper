@@ -1,4 +1,6 @@
 class Article < ActiveRecord::Base
+	scope :articles, -> { where ad: [nil, false] }
+  
   has_many :comments, dependent: :destroy
   has_many :translations, dependent: :destroy
   has_many :hashtags, dependent: :destroy

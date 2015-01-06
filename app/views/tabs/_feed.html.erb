@@ -2,10 +2,22 @@
 
 <% pos_on_page = 0 %>
 <% ad_pos = Random.new.rand @posts.size if @posts.present? %>
-<% for post in @posts %>
-	<% if not current_user or current_user.close_enough(post) %>
-		<%= render "posts/card", post: post %>
+
+<% for item in @items %>
+	<% case item.class.to_s %>
+		<% when "Post" %>
+			<% if not current_user or current_user.close_enough(item) %>
+				<%= render "posts/card", post: item %>
+			<% end %>
+			<%= render "articles/ad_card" if ad_pos == pos_on_page %>
+			<% pos_on_page += 1 %>
+		<% when "Article" %>
+			<%= render "articles/card", article: item %>
+		<% when "Comment" %>
+			<%= render "comments/card", comment: item %>
+		<% when "Event" %>
+			<%= render "events/card", event: item %>
 	<% end %>
-	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
-	<% pos_on_page += 1 %>
 <% end %>
+
+<%= render "pages/more_back", all_items: @all_items, items: @items %>

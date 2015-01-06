@@ -7,12 +7,29 @@ class Hashtag < ActiveRecord::Base
   
   validates :tag, presence: true
   
-  def tagged(item)
-    for tag in item.hashtags
-      if tag.tag == self.tag
-        
+  def tagged
+    _tagged = []
+    for post in Post.all
+      if post.hashtags.exists? tag: tag
+        _tagged << post
       end
     end
+    for article in Article.articles
+      if article.hashtags.exists? tag: tag
+        _tagged << article
+      end
+    end
+    for comment in Comment.all
+      if comment.hashtags.exists? tag: tag
+        _tagged << comment
+      end
+    end
+    for event in Event.approved
+      if event.hashtags.exists? tag: tag
+        _tagged << event
+      end
+    end
+    return _tagged
   end
   
   def item

@@ -29,6 +29,23 @@ class TabsController < ApplicationController
     redirect_to :back
   end
   
+  def show
+    reset_page
+    Post.delete_expired
+    Post.repopulate
+    @advert = Article.local_advert(current_user)
+    @tab = Tab.find(params[:id])
+    @subtabs = @tab.popular_subtabs
+    @posts = @tab.posts
+    @post = Post.new
+    
+    @all_items = @posts + @tab.funnel_tagged
+    @all_items.sort_by &:created_at
+    @items = paginate @all_items
+    
+    log_action("tabs_show", @tab.id)
+  end
+  
   def new
     @tab = Tab.new
     log_action("tabs_new")
@@ -101,17 +118,5 @@ class TabsController < ApplicationController
   def index
     @tabs = Tab.approved.reverse
     log_action("tabs_index")
-  end
-  
-  def show
-    reset_page
-    Post.delete_expired
-    Post.repopulate
-    @advert = Article.local_advert(current_user)
-    @tab = Tab.find(params[:id])
-    @subtabs = @tab.popular_subtabs
-    @posts = paginate @tab.posts
-    @post = Post.new
-    log_action("tabs_show", @tab.id)
   end
 end
