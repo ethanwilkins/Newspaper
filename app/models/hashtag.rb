@@ -3,8 +3,17 @@ class Hashtag < ActiveRecord::Base
   belongs_to :article
   belongs_to :comment
   belongs_to :event
+  belongs_to :tab
   
   validates :tag, presence: true
+  
+  def tagged(item)
+    for tag in item.hashtags
+      if tag.tag == self.tag
+        
+      end
+    end
+  end
   
   def item
     if post_id
@@ -13,14 +22,6 @@ class Hashtag < ActiveRecord::Base
       Comment.find(comment_id)
     elsif article_id
       Article.find(article_id)
-    end
-  end
-  
-  def self.tagged(_tag)
-    if _tag.include? "#"
-      where "tag = ?", _tag.downcase
-    else
-      where "tag = ?", "#" + _tag.downcase
     end
   end
   

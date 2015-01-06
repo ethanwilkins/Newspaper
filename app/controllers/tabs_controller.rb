@@ -73,6 +73,7 @@ class TabsController < ApplicationController
     @tab = Tab.find(params[:id])
     if @tab.update(params[:tab].permit(:icon, :name, :description, :company, :sponsored,
       :sponsored_only, :english_name, :english_description, :translation_requested))
+      @tab.add_hashtags(params[:hashtags])
       flash[:notice] = translate("Tab updated successfully.")
       redirect_to @tab
     else

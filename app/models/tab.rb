@@ -2,6 +2,7 @@ class Tab < ActiveRecord::Base
   has_many :posts
   has_many :subtabs, dependent: :destroy
   has_many :features, dependent: :destroy
+  has_many :hashtags, dependent: :destroy
   has_many :translations, dependent: :destroy
   
   mount_uploader :icon, ImageUploader
@@ -11,6 +12,26 @@ class Tab < ActiveRecord::Base
   
   scope :pending, -> { where approved: nil }
   scope :approved, -> { where approved: true }
+  
+  def funnel_tagged
+    for tag in hashtags
+      tag.tagged(self)
+    end
+  end
+  
+  def add_hashtags(tags)
+    if tags.present?
+      for tag in tags.split(", ")
+        unless tag.include? " "
+          if tag.include? "#"
+            hashtags.create tag: tag
+          else
+            hashtags.create tag: "#" + tag
+          end
+        end
+      end
+    end
+  end
   
   def cherry_picked?(user)
     cherry_picks = self.features.where(action: :cherry_pick)

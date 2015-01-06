@@ -18,6 +18,12 @@
 		<p>
 			<%= f.text_field :zip_code, placeholder: translate("Zip code"), class: "form-control" %>
 		</p>
+		<% if @tab.features.exists? action: :tagged %>
+			<p>
+				<% placeholder = translate("Enter hashtags to be added (separate by comma ', ')") %>
+				<%= text_field_tag :hashtags, nil, placeholder: placeholder, class: "form-control" %>
+			</p>
+		<% end %>
 		<% if current_user.admin or current_user.business %>
 			<p class="form-control">
 				<%= f.label translate("Request verification of business") %>
