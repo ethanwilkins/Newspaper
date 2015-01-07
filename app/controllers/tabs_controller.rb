@@ -43,6 +43,7 @@ class TabsController < ApplicationController
     @all_items.sort_by &:created_at
     @items = paginate @all_items
     
+    save_search @tab
     log_action("tabs_show", @tab.id)
   end
   

@@ -61,7 +61,8 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find_by_name(params[:id])
-    if @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code,
+    if (@user == current_user or privileged?) and \
+      @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code,
       :network_size, :business, :english, :admin, :password))
       if @user == current_user
         flash[:notice] = translate("Your account was successfully updated.")
@@ -80,7 +81,7 @@ class UsersController < ApplicationController
   
   def destroy
     @user = User.find_by_name(params[:id])
-    if @user.destroy
+    if (@user == current_user or privileged?) and @user.destroy
       flash[:notice] = translate("The user was successfully deleted.")
       log_action("users_destroy")
       redirect_to users_path

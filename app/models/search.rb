@@ -30,7 +30,7 @@ class Search < ActiveRecord::Base
   
   def self.articles(query)
     results = []
-    for article in Article.all; rank = [0]
+    for article in Article.articles; rank = [0]
       if article.ad.nil?
         scan(article.title, query, rank)
         scan(article.body, query, rank)
@@ -46,8 +46,7 @@ class Search < ActiveRecord::Base
   
   def self.comments(query)
     results = []
-    for comment in Comment.where(activity_id: nil).
-      where(translation_id: nil); rank = [0]
+    for comment in Comment.public_comments; rank = [0]
       scan(comment.body, query, rank)
       hashtags(comment, query, rank)
       searches(comment, query, rank)
@@ -60,7 +59,7 @@ class Search < ActiveRecord::Base
   
   def self.events(query)
     results = []
-    for event in Event.all; rank = [0]
+    for event in Event.approved; rank = [0]
       scan(event.title, query, rank)
       scan(event.body, query, rank)
       hashtags(event, query, rank)
@@ -77,6 +76,7 @@ class Search < ActiveRecord::Base
     for tab in Tab.all; rank = [0]
       scan(tab.name, query, rank)
       scan(tab.description, query, rank)
+      hashtags(tab, query, rank)
       searches(tab, query, rank)
       if rank[0] > 0
         results << [tab, rank[0]]

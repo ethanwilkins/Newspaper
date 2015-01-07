@@ -101,6 +101,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @comments = @event.comments
     @new_comment = Comment.new
+    save_search @event
     log_action("events_show", @event.id)
   end
 end
