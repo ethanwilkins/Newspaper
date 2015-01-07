@@ -1,5 +1,9 @@
 <!-- shows all errors and notices in a card -->
 
 <% flash.each do |name, message| %>
-	<div id="card"><div align="center"><%= translate message %></div></div>
+	<div id="<%= name == 'win' ? 'prize_won_notice_card' : 'card' %>">
+		<div align="center" id="<%= 'prize_won_notice' if name == 'win' %>">
+			<%= translate message %>
+		</div>
+	</div>
 <% end %>

@@ -16,7 +16,7 @@ class GameBoardsController < ApplicationController
     if @game_board and @game_board.save
       @game_board.populate
       log_action("game_boards_create", @game_board.id)
-      redirect_to user_game_board_path(current_user, @game_board)
+      redirect_to game_board_path(@game_board)
     else
       flash[:error] = translate("The code was not valid.")
       log_action("game_boards_create_fail")
