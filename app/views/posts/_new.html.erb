@@ -25,12 +25,6 @@
 				<%= f.file_field :image, class: "form-control" %>
 			</p>
 			<% if @tab %>
-				<% if @tab.features.exists? action: "post_expiration" %>
-					<p class="form-control">
-						<%= f.label translate("Expiration date (optional)") %>
-						<%= f.date_select :expiration_date, use_month_numbers: true, class: "form-control" %>
-					</p>
-				<% end %>
 				<% if @tab.features.exists? action: "post_repopulation" %>
 					<% options = [[translate("Repopulation interval (optional)"), nil]] %>
 					<% (7..30).each { |i| options << i } %>

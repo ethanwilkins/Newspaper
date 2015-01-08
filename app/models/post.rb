@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   
   validate :text_or_image?, on: :create
+  after_create :apply_expiration
   
   mount_uploader :image, ImageUploader
   
@@ -38,7 +39,8 @@ class Post < ActiveRecord::Base
   
   def self.delete_expired
     for post in self.all
-      if post.expiration_date and post.expiration_date == Date.current
+      if post.expiration_date and (post.expiration_date == Date.current \
+        or not post.expiration_date.future?)
         post.destroy
       end
     end
@@ -53,6 +55,12 @@ class Post < ActiveRecord::Base
   end
   
   private
+  
+  def apply_expiration
+    if self.tab and self.tab.features.exists? "post_expiration"
+      self.expiration_date = 10.days.since(Date.current).to_date
+    end
+  end
   
   def text_or_image?
     if (body.nil? or body.empty?) and !image.url

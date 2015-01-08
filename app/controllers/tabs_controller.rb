@@ -42,6 +42,7 @@ class TabsController < ApplicationController
     @all_items = @posts + @tab.funnel_tagged
     @all_items.sort_by! &:created_at
     
+    # popularity feature brings liked posts to top
     if @tab.features.exists? action: "popularity_float"
       @all_items.sort_by! { |item| item.score if item.respond_to? :score }
     end
