@@ -37,21 +37,24 @@ class FeaturesController < ApplicationController
   end
   
   def new
-    @tab = Tab.find(params[:tab_id])
+    @tab = Tab.find_by_id(params[:tab_id])
+    @user = User.find_by_name(params[:user_id])
     @feature = Feature.new
     log_action("features_new")
   end
   
   def create
-    @tab = Tab.find(params[:tab_id])
+    @user = User.find_by_id(params[:user_id])
+    @tab = Tab.find_by_id(params[:tab_id])
     @feature = Feature.new(params[:feature].permit(:action))
-    @feature.user_id = current_user.id
-    @feature.tab_id = @tab.id
+    @feature.user_id = @user.id if @user
+    @feature.tab_id = @tab.id if @tab
     
     if @feature.save
       flash[:notice] = translate("Feature added successfully.")
       log_action("features_create", @feature.id)
-      redirect_to tab_path(@tab)
+      redirect_to user_path(@user.name) if @user
+      redirect_to tab_path(@tab) if @tab
     else
       flash[:error] = translate("Invalid input.")
       log_action("features_create_fail")

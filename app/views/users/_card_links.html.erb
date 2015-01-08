@@ -1,6 +1,9 @@
+<!-- users -->
+
 <% if (current_user == @user or privileged?) and not (@user.master and not current_user.master) %>
 	<% tooltip = (@user == current_user ? "Edit your profile and settings" : "Edit this users profile and settings") %>
 	<%= link_to translate("Edit"), edit_user_path(@user.name), title: translate(tooltip),  id: :top_left_link %>
+	<%= link_to translate("Add features"), new_user_feature_path(@user.name), id: :bottom_right_link %>
 <% end %>
 
 <%= render "notes/notify_button" %>

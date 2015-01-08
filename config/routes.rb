@@ -159,7 +159,9 @@ Rails.application.routes.draw do
     resources :features
   end
 
-  resources :users
+  resources :users do
+    resources :features
+  end
   
   # Example resource route with sub-resources:
   #   resources :products do

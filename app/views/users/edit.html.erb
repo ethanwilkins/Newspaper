@@ -61,18 +61,6 @@
 <% end %>
 </div>
 
-<% if current_user == @user or master? %>
-	<div id="card">
-		<%= form_for @user, url: user_path(@user.name), method: :delete do |f| %>
-			<%= hidden_field_tag id: @user.id %>
-			<p align="center">
-				<%= translate "Deleting this account will permanently destroy some of its data." %>
-			</p>
-			<%= f.submit translate("Delete"), data: {
-				confirm: translate('Are you sure you want to delete this account?') },
-				class: "btn btn-default btn-lg btn-block" %>
-		<% end %>
-	</div>
-<% end %>
+<%= render "users/delete_form" %>
 
 </br>

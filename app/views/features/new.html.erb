@@ -2,12 +2,30 @@
 
 <div id="card">
 	<%= form_for @feature, html: {multipart: true, "data-ajax" => false} do |f| %>
-		<%= hidden_field_tag :tab_id, params[:tab_id] %>
-		<p>
-			<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
-			[translate("Post expiration"), "post_expiration"], [translate("Post repopulation"), "post_repopulation"],
-			[translate("Sales dialogue"), "sales_dialogue"], [translate("Tagged"), "tagged"]]), {}, class: "form-control" %>
-		</p>
+		<% if @tab %>
+			<%= hidden_field_tag :tab_id, @tab.id %>
+			<p>
+				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
+					[translate("Invite & Attendance"), "invite_attendance"],
+					[translate("Post repopulation"), "post_repopulation"],
+					[translate("Ranking and Feedback"), "rank_feedback"],
+					[translate("Popularity float"), "popularity_float"],
+					[translate("Post expiration"), "post_expiration"],
+					[translate("Sales dialogue"), "sales_dialogue"],
+					[translate("Question Tree"), "question_tree"],
+					[translate("List format"), "list_format"],
+					[translate("Articles"), "articles"],
+					[translate("Tagged"), "tagged"],
+					[translate("Global"), "global"],
+					]), {}, class: "form-control" %>
+			</p>
+		<% elsif @user %>
+			<%= hidden_field_tag :user_id, @user.id %>
+			<p>
+				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
+				[translate("Photo gallery"), "photo_gallery"]]), {}, class: "form-control" %>
+			</p>
+		<% end %>
 		<p>
 			<%= f.submit translate("Create"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
