@@ -40,7 +40,12 @@ class TabsController < ApplicationController
     @post = Post.new
     
     @all_items = @posts + @tab.funnel_tagged
-    @all_items.sort_by &:created_at
+    @all_items.sort_by! &:created_at
+    
+    if @tab.features.exists? action: "popularity_float"
+      @all_items.sort_by! { |item| item.score if item.respond_to? :score }
+    end
+    
     @items = paginate @all_items
     
     save_search @tab
