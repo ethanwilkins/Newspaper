@@ -44,7 +44,7 @@ class TabsController < ApplicationController
     
     # popularity feature brings liked posts to top
     if @tab.features.exists? action: "popularity_float"
-      @all_items.sort_by! { |item| item.score if item.respond_to? :score }
+      @all_items.sort_by! { |item| item.score }
     end
     
     @items = paginate @all_items

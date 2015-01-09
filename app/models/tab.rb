@@ -56,6 +56,7 @@ class Tab < ActiveRecord::Base
     self.subtabs.sort_by(&:popularity).last 2
   end
   
+  # for sorting tabs
   def popularity
     posts.size
   end

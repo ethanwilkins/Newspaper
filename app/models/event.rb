@@ -8,6 +8,10 @@ class Event < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
   
+  def score
+    comments.size
+  end
+  
   def self.remove_expired(events)
     for event in events
       if event.date < DateTime.now

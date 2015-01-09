@@ -13,9 +13,9 @@
 			<% for word in body.split(' ') %>
 				<% unless word.include? "#" and word.size > 1 %>
 					<%= render "posts/embed", word: word %>
-				<% else %>
+				<% else  %>
 					<% tag = event.hashtags.find_by_tag word %>
-					<% if tag.index == body.index(word) %>
+					<% if tag and tag.index and tag.index == body.index(word) %>
 						<%= link_to tag.tag, tagged_path(tag.tag) %>
 						<%= " " %>
 					<% end %>

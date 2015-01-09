@@ -24,4 +24,8 @@ class Article < ActiveRecord::Base
   def view
     update views: views.to_i + 1
   end
+  
+  def score
+    comments.size
+  end
 end

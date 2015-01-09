@@ -13,6 +13,10 @@ class Comment < ActiveRecord::Base
   
 	scope :public_comments, -> { where(activity_id: nil).
       where(translation_id: nil) }
+      
+  def score
+    comments.size
+  end
   
   private
   
