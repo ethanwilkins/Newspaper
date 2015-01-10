@@ -12,12 +12,12 @@ $info_color: rgb(190, 190, 190);
 	margin: 25px 0px;
 }
 
-#card_link {
+.card_link {
 	color: $info_color;
 	font-size: 10px;
 }
 
-#top_right_link {
+.top_right_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -25,7 +25,7 @@ $info_color: rgb(190, 190, 190);
 	top: 10px;
 }
 
-#top_left_link {
+.top_left_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -33,7 +33,7 @@ $info_color: rgb(190, 190, 190);
 	top: 10px;
 }
 
-#bottom_right_link {
+.bottom_right_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -41,7 +41,7 @@ $info_color: rgb(190, 190, 190);
 	bottom: 10px;
 }
 
-#bottom_left_link {
+.bottom_left_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -49,7 +49,7 @@ $info_color: rgb(190, 190, 190);
 	bottom: 10px;
 }
 
-#bottom_center_right_link {
+.bottom_center_right_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -57,7 +57,7 @@ $info_color: rgb(190, 190, 190);
 	bottom: 10px;
 }
 
-#bottom_center_left_link {
+.bottom_center_left_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -65,7 +65,7 @@ $info_color: rgb(190, 190, 190);
 	bottom: 10px;
 }
 
-#bottom_center_center_left_link {
+.bottom_center_center_left_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -73,7 +73,7 @@ $info_color: rgb(190, 190, 190);
 	bottom: 10px;
 }
 
-#top_center_right_link {
+.top_center_right_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -81,7 +81,7 @@ $info_color: rgb(190, 190, 190);
 	top: 10px;
 }
 
-#top_center_center_right_link {
+.top_center_center_right_link {
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
@@ -89,27 +89,27 @@ $info_color: rgb(190, 190, 190);
 	top: 10px;
 }
 
-#bottom_left_link_table {
+.bottom_left_link_table {
 	position: absolute;
 	left: 20px;
 	bottom: 8px;
 	column-gap: 10px;
 }
 
-#top_right_link_table {
+.top_right_link_table {
 	position: absolute;
 	right: 20px;
 	top: 8px;
 	column-gap: 10px;
 }
 
-#top_left_link_table {
+.top_left_link_table {
 	position: absolute;
 	left: 20px;
 	top: 8px;
 	column-gap: 10px;
 }
 
-#link_table_spacing {
+.link_table_spacing {
 	padding-right: 5px;
 }

@@ -2,4 +2,4 @@
 
 <% _time_ago = time_ago(time_ago_in_words(post.created_at)) %>
 	
-<%= link_to _time_ago, post_path(post), id: :top_left_link %>
+<%= link_to _time_ago, post_path(post), class: :top_left_link %>

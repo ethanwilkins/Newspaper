@@ -1,7 +1,7 @@
 <% unless post.comments.empty? %>
 	<%= link_to translate("Comment") + " #{post.comments.size}", post_path(post),
-		title: translate("Leave a comment"), id: :card_link %>
+		title: translate("Leave a comment"), class: :card_link %>
 <% else %>
 	<%= link_to translate("Comment"), post_path(post),
-		title: translate("Leave a comment"), id: :card_link %>
+		title: translate("Leave a comment"), class: :card_link %>
 <% end %>

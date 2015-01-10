@@ -18,14 +18,12 @@ class PostsController < ApplicationController
     Vote.up_vote!(@post, current_user)
     Note.notify(current_user, User.find(@post.user_id), :like_post, @post.id)
     log_action("posts_up_vote", @post.id)
-    redirect_to :back
   end
   
   def un_vote
     @post = Post.find(params[:id])
     Vote.un_vote!(@post, current_user)
     log_action("posts_down_vote", @post.id)
-    redirect_to :back
   end
 
   def create
