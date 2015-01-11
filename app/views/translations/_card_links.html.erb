@@ -1,30 +1,30 @@
 <!-- translations -->
 
 <% _time_ago = time_ago(time_ago_in_words(translation.created_at)) %>
-<%= link_to _time_ago, translation_path(translation), id: :top_left_link %>
+<%= link_to _time_ago, translation_path(translation), class: :top_left_link %>
 
 <% if translation.user_id.present? %>
 	<%= link_to translate("Translated by") + " " + translation.user.name.capitalize,
-		user_path(translation.user.name), id: :top_right_link %>
+		user_path(translation.user.name), class: :top_right_link %>
 <% end %>
 
 <% unless translation.comments.empty? %>
 	<%= link_to translate("Comment") + " #{translation.comments.size}", translation_path(translation),
-		title: translate("Leave a comment"), id: :bottom_right_link %>
+		title: translate("Leave a comment"), class: :bottom_right_link %>
 <% else %>
 	<%= link_to translate("Comment"), translation_path(translation),
-		title: translate("Leave a comment"), id: :bottom_right_link %>
+		title: translate("Leave a comment"), class: :bottom_right_link %>
 <% end %>
 
-<table id="bottom_left_link_table">
+<table class="bottom_left_link_table">
 	<tr>
-		<td id="link_table_spacing">
-			<%= link_to translate("Edit"), edit_translation_path(translation), id: :card_link %>
+		<td class="link_table_spacing">
+			<%= link_to translate("Edit"), edit_translation_path(translation), class: :card_link %>
 		</td>
 		<td>
 			<%= link_to translate("Delete"), destroy_translation_path(translation), method: :delete, data: {
 				confirm: translate('Are you sure you want to delete this translation?') },
-				title: translate("Permanently delete this translation"), id: :card_link %>
+				title: translate("Permanently delete this translation"), class: :card_link %>
 		</td>
 	</tr>
 </table>

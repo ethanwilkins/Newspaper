@@ -1,17 +1,17 @@
 <!-- activities -->
 
 <div id="card">
-	<%= link_to time_ago(time_ago_in_words(act.created_at)), activity_path(act), id: :top_left_link %>
+	<%= link_to time_ago(time_ago_in_words(act.created_at)), activity_path(act), class: :top_left_link %>
 	<% if act.ip %>
-		<%= link_to act.ip, activities_path(activity_ip: act.ip), id: :top_right_link %>
+		<%= link_to act.ip, activities_path(activity_ip: act.ip), class: :top_right_link %>
 	<% end %>
 	
 	<% if act.user %>
-		<%= link_to act.user.name.capitalize, user_path(act.user.name), id: :bottom_right_link %>
+		<%= link_to act.user.name.capitalize, user_path(act.user.name), class: :bottom_right_link %>
 	<% end %>
 	
 	<% if act.ip.present? and (act.latitude.nil? or act.address.nil?) %>
-		<%= link_to translate("Get location"), get_location_path(act.id), id: :bottom_left_link %>
+		<%= link_to translate("Get location"), get_location_path(act.id), class: :bottom_left_link %>
 	<% end %>
 	<div align="center" id="activity_data">
 		<div>

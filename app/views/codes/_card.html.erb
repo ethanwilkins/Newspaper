@@ -5,17 +5,17 @@
 <div id="card">
 	
 	<%= link_to translate("Group") + " " + code.group_id.to_s,
-		codes_code_data_path(code_group: code.group_id), id: :top_left_link %>
+		codes_code_data_path(code_group: code.group_id), class: :top_left_link %>
 		
 	<%= link_to(code.advertiser, codes_code_data_path(code_advertiser: code.advertiser),
-		id: :bottom_right_link) if code.advertiser.present? %>
+		class: :bottom_right_link) if code.advertiser.present? %>
 		
-	<%= link_to _time_ago, codes_code_data_path, id: :bottom_left_link %>
+	<%= link_to _time_ago, codes_code_data_path, class: :bottom_left_link %>
 		
 	<% if code.is_a_board %>
-		<%= link_to translate("GameBoards:") + " " + code.game_boards.size.to_s, codes_code_data_path, id: :top_right_link %>
+		<%= link_to translate("GameBoards:") + " " + code.game_boards.size.to_s, codes_code_data_path, class: :top_right_link %>
 	<% else %>
-		<%= link_to translate("Cards:") + " " + code.cards.size.to_s, codes_code_data_path, id: :top_right_link %>
+		<%= link_to translate("Cards:") + " " + code.cards.size.to_s, codes_code_data_path, class: :top_right_link %>
 	<% end %>
 	
 	<div align="center" id="code_data_content">
