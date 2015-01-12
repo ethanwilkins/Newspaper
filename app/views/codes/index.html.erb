@@ -5,7 +5,9 @@
 	
 	<% unless @codes.empty? %>
 	<div id="card">
+		<% interval_count = 0 %>
 		<% for code in @codes %>
+			<% interval_count += 1 %>
 			<div align="center">
 				<% if code.group_id %>
 					<div>
@@ -24,10 +26,12 @@
 						data: { confirm: 'Are you sure?' } %>
 				</div>
 			</div>
-			<% if @codes.size > 1 and code != Code.first %>
+			<% if @codes.size > 1 and code != Code.first and interval_count != @codes.size %>
 				<hr id="gray_horizon">
 			<% end %>
 		<% end %>
-	</div></br>
+	</div>
+	<%= render "pages/more_back", all_items: Code.all, items: @codes %>
 	<% end %>
+	</br>
 <% end %>

@@ -1,0 +1,38 @@
+<!-- users -->
+
+<h3 align="center">
+	<%= link_to image_tag(@user.icon, size: "25x25", id: :user_header_icon), user_path(@user.name) %>
+	<%= @user.name.capitalize + "'s " + translate("Gallery") %>
+</h3></br>
+
+<div align="center">
+	<div class="container-fluid">
+		<% interval = 0 %>
+		<% columns = 4 %>
+		<% for image in @images %>
+			<% if interval == 0 %>
+			<div class="row">
+				<div class="col-xs-3">
+					<%= gallery_image(image) %>
+				</div>
+			<% elsif interval < columns %>
+				<div class="col-xs-3">
+					<%= gallery_image(image) %>
+				</div>
+			<% elsif interval % columns == 0 %>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<%= gallery_image(image) %>
+				</div>
+			<% elsif interval > columns %>
+				<div class="col-xs-3">
+					<%= gallery_image(image) %>
+				</div>
+			<% end %>
+			<% interval += 1 %>
+		<% end %>
+	</div>
+</div>
+
+<%= render "pages/more_back", all_items: @user.images, items: @images %>

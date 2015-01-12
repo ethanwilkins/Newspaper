@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   
   get 'folders/new/:user_id', to: 'folders#new', as: 'new_folder'
   
+  get 'users/:user_id/gallery', to: 'users#gallery', as: 'gallery'
+  
   get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
   
   get "search/search/:query", to: "search#search", as: "tagged"
@@ -74,6 +76,8 @@ Rails.application.routes.draw do
   get 'activities/unique_locations', as: 'unique_locations'
   
   get 'translations/requests', as: 'translation_reqs'
+  
+  get 'game_boards', to: 'game_boards#index', as: 'boards'
   
   get 'notes/select', as: "notes_select"
   
@@ -106,8 +110,6 @@ Rails.application.routes.draw do
   put 'groups/add_zip'
   
   get 'codes/code_data'
-  
-  get 'game_boards/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

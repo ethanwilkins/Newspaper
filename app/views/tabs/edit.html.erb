@@ -20,7 +20,7 @@
 		</p>
 		<% if @tab.features.exists? action: :tagged %>
 			<p>
-				<% placeholder = translate("Enter hashtags to be added (separate by comma ', ')") %>
+				<% placeholder = translate("Add hashtags (separate by comma ', ')") %>
 				<%= text_field_tag :hashtags, nil, placeholder: placeholder, class: "form-control" %>
 			</p>
 		<% end %>

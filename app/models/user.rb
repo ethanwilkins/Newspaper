@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
       end
     end
   end
+  
+  def images
+    posts.where.not image: [nil, ""]
+  end
 
   def self.authenticate(name, password)
     user = find_by_name(name.downcase)

@@ -40,12 +40,12 @@ class ApplicationController < ActionController::Base
     return _time_ago
   end
   
-  def paginate(items)
+  def paginate(items, _page_size=page_size)
     return items.reverse.
       # drops first several posts if :feed_page
-      drop((session[:page] ? session[:page] : 0) * page_size).
+      drop((session[:page] ? session[:page] : 0) * _page_size).
       # only shows first several posts of resulting array
-      first(page_size)
+      first(_page_size)
   end
 
   def page_size

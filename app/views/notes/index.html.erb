@@ -12,4 +12,4 @@
 	<% end %>
 <% end %>
 
-<%= render "pages/more_back", all_items: Note.all, items: @notes %>
+<%= render "pages/more_back", all_items: current_user.notes, items: @notes %>

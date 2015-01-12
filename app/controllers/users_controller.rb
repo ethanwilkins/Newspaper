@@ -1,4 +1,11 @@
 class UsersController < ApplicationController
+  def gallery
+    reset_page
+    @user = User.find_by_name(params[:user_id])
+    @images = paginate @user.images, 20
+    log_action("users_gallery")
+  end
+  
   def index
     reset_page
     @users = paginate(User.all.sort_by(&:last_visit))
@@ -12,6 +19,9 @@ class UsersController < ApplicationController
     @user = User.find_by_name(params[:id])
     if @user
       @posts = paginate @user.posts
+      
+      @images = @user.images.last 6
+      
       log_action("users_show", @user.id)
       save_search @user
     else

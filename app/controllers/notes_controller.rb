@@ -54,10 +54,11 @@ class NotesController < ApplicationController
   def index
     if current_user then
       reset_page
-      @notes = paginate current_user.notes
+      @notes = current_user.notes
       @notes.each do |note|
         note.update checked: true
       end
+      @notes = paginate @notes
     end
     @advert = Article.local_advert(current_user)
     log_action("notes_index")

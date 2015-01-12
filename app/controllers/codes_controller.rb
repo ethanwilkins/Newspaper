@@ -42,8 +42,9 @@ class CodesController < ApplicationController
   end
   
   def index
+    reset_page
     @code = Code.new
-    @codes = Code.all.reverse
+    @codes = paginate Code.all
     log_action("codes_index")
   end
   
