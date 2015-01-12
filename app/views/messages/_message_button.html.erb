@@ -1,8 +1,10 @@
 <% if current_user and @user != current_user %>
 	<% folder = Folder.folder_between(current_user, @user) %>
 	<% if folder %>
-		<%= link_to translate("Message"), folder_path(folder), title: translate("Continue your conversation"), id: :top_right_link %>
+		<%= link_to translate("Message"), folder_path(folder),
+			title: translate("Continue your conversation"), class: :top_right_link %>
 	<% else %>
-		<%= link_to translate("Message"), new_folder_path(@user.name), title: translate("Begin a conversation"), id: :top_right_link %>
+		<%= link_to translate("Message"), new_folder_path(@user.name),
+			title: translate("Begin a conversation"), class: :top_right_link %>
 	<% end %>
 <% end %>
