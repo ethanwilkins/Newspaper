@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :articles
   has_many :features
   has_many :prizes
+  has_many :events
   has_many :cards
   has_many :posts
   has_many :notes
@@ -17,16 +18,13 @@ class User < ActiveRecord::Base
   validates :password, presence: true
   validates_confirmation_of :password
   validates_uniqueness_of :name
-  
   validate :numeric_zip_if_present
+  before_create :generate_token
+  before_save :downcase_fields
   
   geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
   after_validation :geocode, :reverse_geocode
-  
-  before_create :generate_token
-
-  before_save :downcase_fields
   
   mount_uploader :icon, ImageUploader
   
