@@ -19,9 +19,8 @@ class UsersController < ApplicationController
     @user = User.find_by_name(params[:id])
     if @user
       @posts = paginate @user.posts
-      
+      # images for photo gallery
       @images = @user.images.last 6
-      
       log_action("users_show", @user.id)
       save_search @user
     else
