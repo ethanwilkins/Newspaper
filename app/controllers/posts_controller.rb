@@ -87,7 +87,7 @@ class PostsController < ApplicationController
       if tab_id
         redirect_to tab_path(tab_id)
       elsif subtab_id
-        redirect_to subtab_path(subtab_id)
+        redirect_to tab_subtab_path(subtab_id)
       else
         redirect_to tabs_path
       end
