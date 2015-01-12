@@ -5,8 +5,7 @@
 	<%= @user.name.capitalize + "'s " + translate("Gallery") %>
 </h3></br>
 
-
-<div class="container-fluid" id="photo_gallery" align="center">
+<div class="container-fluid" align="center">
 	<% interval = 0 %>
 	<% columns = 4 %>
 	<% for image in @images %>
@@ -33,6 +32,5 @@
 		<% interval += 1 %>
 	<% end %>
 </div></div>
-
 
 <%= render "pages/more_back", all_items: @user.images, items: @images %>
