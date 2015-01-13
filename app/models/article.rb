@@ -1,4 +1,6 @@
-class Article < ActiveRecord::Base  
+class Article < ActiveRecord::Base
+  belongs_to :tab
+  belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :translations, dependent: :destroy
   has_many :hashtags, dependent: :destroy
@@ -7,7 +9,7 @@ class Article < ActiveRecord::Base
   
   mount_uploader :image, ImageUploader
   
-	scope :articles, -> { where ad: [nil, false] }
+	scope :articles, -> { where(ad: [nil, false]).where tab_id: nil }
   
   def self.local_advert(user)
     zip_code = (user ? user.zip_code : 27577)

@@ -39,6 +39,7 @@ class ArticlesController < ApplicationController
       @articles = Article.where(zip_code: zips)
     end
     @article = Article.new
+    @tab = Tab.find_by_id(params[:tab_id])
     log_action("articles_new")
   end
   
@@ -60,10 +61,16 @@ class ArticlesController < ApplicationController
   end
   
   def create
-    @article = Article.new(params[:article].permit(:title, :body, :image, :hyperlink, :translation_requested))
-    @article.user_id = current_user.id
+    @article = Article.new(params[:article].permit(:title, :body, :image,
+      :hyperlink, :translation_requested))
     @article.zip_code = current_user.zip_code
+    @article.user_id = current_user.id
+    @article.tab_id = params[:tab_id]
     @article.ad = params[:ad]
+    
+    if @article.tab_id and not privileged?
+      @article.requires_approval = true
+    end
     
     if @article.save and @article.ad
       flash[:notice] = translate "Advertisement saved successfully."
@@ -84,10 +91,18 @@ class ArticlesController < ApplicationController
             field: "body", user_id: current_user.id)
         end
       end
-      current_user.notify_mentioned(@article)
+
       Hashtag.extract(@article)
+      current_user.notify_mentioned(@article)
       log_action("articles_create", @article.id)
-      redirect_to root_url
+      
+      if @article.tab_id
+        flash[:notice] = translate "Tab article successfully published."
+        redirect_to tab_path(@article.tab_id)
+      else
+        flash[:notice] = translate "Article successfully published."
+        redirect_to root_url
+      end
       
     else
       flash[:error] = translate "Invalid input"

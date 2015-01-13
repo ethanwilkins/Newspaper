@@ -50,16 +50,20 @@ class Tab < ActiveRecord::Base
     end
   end
   
-  def self.most_popular
-    self.all.sort_by(&:popularity).last 2
+  def approved_articles
+    articles.where requires_approval: false
+  end
+  
+  # for sorting tabs
+  def popularity
+    posts.size
   end
   
   def popular_subtabs
     self.subtabs.sort_by(&:popularity).last 2
   end
   
-  # for sorting tabs
-  def popularity
-    posts.size
+  def self.most_popular
+    self.all.sort_by(&:popularity).last 2
   end
 end

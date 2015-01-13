@@ -45,14 +45,17 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @tab = Tab.find_by_id(params[:tab_id])
     log_action("events_new")
   end
   
   def create
     @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image, :translation_requested))
-    @event.approved = true if privileged? # automatically approved for the privileged
     @event.zip_code = current_user.zip_code
     @event.user_id = current_user.id
+    @event.tab_id = params[:tab_id]
+    # auto-approved for the privileged or for tab events
+    @event.approved = true if privileged? or @event.tab_id
     
     if @event.save
       if @event.translation_requested
@@ -73,7 +76,9 @@ class EventsController < ApplicationController
       Hashtag.extract(@event) if @event.body
       
       flash[:notice] = translate "Event submitted successfully."
-      if privileged?
+      if @event.tab_id
+        redirect_to tab_path(@event.tab_id)
+      elsif privileged?
         redirect_to events_path
       else
         log_action("events_create", @event.id)

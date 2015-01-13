@@ -1,8 +1,12 @@
 <!-- articles -->
 
-<% if privileged? %>
+<%= render "tabs/name_header", tab: @tab if @tab %>
+
+<% if @tab or privileged? %>
 	<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
+		<%= hidden_field_tag :tab_id, @tab.id if @tab %>
 		<div id="card">
+			<%= f.label translate("Write an article"), class: :form_label_text %>
 			<p>
 				<%= f.text_field :title, placeholder: translate("Title"), class: "form-control" %>
 			</p>
@@ -21,9 +25,12 @@
 			</p>
 		</div>
 	<% end %>
-
+<% end %>
+	
+<% if privileged? and not @tab %>
 	<% for article in @articles.reverse %>
 		<%= render("articles/card", article: article) unless article.ad %>
 	<% end %>
 <% end %>
+
 </br>

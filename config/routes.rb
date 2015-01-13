@@ -62,6 +62,10 @@ Rails.application.routes.draw do
   get 'articles/ad_edit/:id', to: 'articles#ad_edit', as: 'ad_edit'
 
   get 'events/approve/:id', to: 'events#approve', as: 'approve_event'
+  
+  get 'articles/new/:tab_id', to: 'articles#new', as: 'new_tab_article'
+  
+  get 'events/new/:tab_id', to: 'events#new', as: 'new_tab_event'
 
   get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
 

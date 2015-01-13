@@ -6,7 +6,7 @@ class Event < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :hashtags, dependent: :destroy
   
-  scope :approved, -> { where approved: true }
+  scope :approved, -> { where(approved: true).where tab_id: nil }
 	scope :pending, -> { where approved: nil }
 
   mount_uploader :image, ImageUploader

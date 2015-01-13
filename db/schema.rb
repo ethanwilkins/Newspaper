@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150112063516) do
+ActiveRecord::Schema.define(version: 20150113051240) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20150112063516) do
     t.boolean  "english"
     t.boolean  "translation_requested"
     t.integer  "tab_id"
+    t.boolean  "requires_approval"
   end
 
   create_table "banners", force: true do |t|

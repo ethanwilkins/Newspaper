@@ -1,9 +1,17 @@
 <!-- posts -->
 
 <div id="card">
-	<% if @social %>
-		<%= render "tabs/pop_tabs" %>
-		</br>
+	<% if @tab %>
+		<% if @tab.features.exists? action: :articles %>
+			<%= link_to translate("Write an article"),
+				new_tab_article_path(@tab), class: :top_right_link %>
+		<% end %>
+		<% if @tab.features.exists? action: :invite_attendance %>
+			<%= link_to translate("Plan an event"),
+				new_tab_event_path(@tab), class: :top_left_link %>
+		<% end %>
+		<%=raw "</br>" if @tab.features.
+			where(action: [:articles, :invite_attendance]).present? %>
 	<% end %>
 	
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
