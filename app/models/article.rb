@@ -10,6 +10,7 @@ class Article < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   
 	scope :articles, -> { where(ad: [nil, false]).where tab_id: nil }
+	scope :pending, -> { where.not(tab_id: nil).where requires_approval: true }
   
   def self.local_advert(user)
     zip_code = (user ? user.zip_code : 27577)

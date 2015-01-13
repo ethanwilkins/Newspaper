@@ -69,6 +69,10 @@ Rails.application.routes.draw do
 
   get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
 
+  get 'articles/approve/:id', to: 'articles#approve', as: 'approve_article'
+
+  get 'articles/deny/:id', to: 'articles#deny', as: 'deny_article'
+
   get 'tabs/approve/:id', to: 'tabs#approve', as: 'approve_tab'
 
   get 'tabs/deny/:id', to: 'tabs#deny', as: 'deny_tab'
@@ -90,6 +94,8 @@ Rails.application.routes.draw do
   get 'events/pending', as: 'pending_events'
   
   get "search/search", as: "search"
+  
+  get 'articles/pending', as: 'pending_articles'
   
   post 'game_boards/create', as: 'game_boards'
   

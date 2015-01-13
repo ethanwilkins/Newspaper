@@ -1,5 +1,15 @@
 <!-- articles -->
 
+<% if privileged? and not @tab %>
+	<div align="center">
+		<%= link_to pending_articles_path, class: "btn btn-default btn-lg",
+			 title: translate("Approve articles written by users") do %>
+			<span class="glyphicon glyphicon-ok-sign"></span>
+			<%= translate("Approve tab articles") %>
+		<% end %>
+	</div></br>
+<% end %>
+
 <%= render "tabs/name_header", tab: @tab if @tab %>
 
 <% if @tab or privileged? %>

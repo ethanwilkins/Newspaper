@@ -1,10 +1,38 @@
 class ArticlesController < ApplicationController
-  def ad_index
-    @advert = Article.new
-    @adverts = Article.ads.reverse
-    log_action("articles_ad_index")
+  def approve
+    if privileged?
+      @article = Article.find(params[:id])
+      if @article.update requires_approval: false
+        flash[:notice] = translate("Article successfully approved for publication.")
+        log_action("articles_approve", @article.id)
+      else
+        flash[:error] = translate("Article could not be approved for publication.")
+        log_action("articles_approve_fail")
+      end
+    end
+    redirect_to :back
   end
 
+  def deny
+    if privileged?
+      @article = Article.find(params[:id])
+      if @article.destroy
+        flash[:notice] = translate("Article denied.")
+        log_action("articles_deny")
+      else
+        flash[:error] = translate("Article could not be denied.")
+        log_action("articles_deny_fail")
+      end
+    end
+    redirect_to :back
+  end
+  
+  def pending
+    @pending = true
+    @articles = Article.pending
+    log_action("articles_pending")
+  end
+  
   def show
     @article = Article.find_by_id(params[:id])
     if @article
@@ -17,11 +45,6 @@ class ArticlesController < ApplicationController
     end
   end
   
-  def ad_edit
-    @advert = Article.find(params[:id])
-    log_action("articles_ad_edit", @advert.id)
-  end
-  
   def edit
     @article = Article.find(params[:id])
   end
@@ -32,7 +55,7 @@ class ArticlesController < ApplicationController
       Group.find(session[:group_id]).zips.each { |zip| zips << zip.zip_code }
       @articles = Article.where(zip_code: zips)
     elsif master?
-      @articles = Article.all
+      @articles = Article.articles
     elsif admin?
       zips = []
       current_user.group.zips.each { |zip| zips << zip.zip_code }
@@ -97,7 +120,7 @@ class ArticlesController < ApplicationController
       log_action("articles_create", @article.id)
       
       if @article.tab_id
-        flash[:notice] = translate "Tab article successfully published."
+        flash[:notice] = translate "Tab article successfully submitted."
         redirect_to tab_path(@article.tab_id)
       else
         flash[:notice] = translate "Article successfully published."
@@ -120,5 +143,16 @@ class ArticlesController < ApplicationController
       flash[:error] = translate("Article could not be deleted.")
     end
     redirect_to :back
+  end
+  
+  def ad_index
+    @advert = Article.new
+    @adverts = Article.ads.reverse
+    log_action("articles_ad_index")
+  end
+  
+  def ad_edit
+    @advert = Article.find(params[:id])
+    log_action("articles_ad_edit", @advert.id)
   end
 end
