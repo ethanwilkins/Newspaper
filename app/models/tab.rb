@@ -51,7 +51,7 @@ class Tab < ActiveRecord::Base
   end
   
   def approved_articles
-    articles.where requires_approval: false
+    articles.where requires_approval: [nil, false]
   end
   
   # for sorting tabs
