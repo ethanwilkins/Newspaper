@@ -1,10 +1,13 @@
 <!-- events -->
 
 <div align="center">
-	<h3><%= text_shown(event, :title) %></h3>
+	<h3><%= link_to text_shown(event, :title), event_path(event) %></h3>
 
 	<% if event.image.url %>
-		<div><%= image_tag event.image %></div></br>
+		<div>
+			<%= link_to image_tag(event.image,
+				id: :event_content_image), event_path(event) %>
+		</div></br>
 	<% end %>
 
 	<p>
@@ -24,7 +27,7 @@
 		<% end %>
 	</p>
 	
-	<div><strong>When: </strong><%= event.date %></div></br>
+	<div><strong>When: </strong><%= event.date %></div>
 	<% if event.location.present? %>
 		<div><strong>Where: </strong><%= event.location %></div></br>
 	<% end %>
