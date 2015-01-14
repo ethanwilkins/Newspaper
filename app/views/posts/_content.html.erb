@@ -1,8 +1,14 @@
 <!-- posts -->
 
-<% if post.image.url %>
+<% if post.pictures.present? or post.image.url %>
 	</br><div align="center">
-		<%= link_to image_tag(post.image, id: :standard_post_image), post_path(post) %>
+		<% if post.pictures.present? %>
+			<% for picture in post.pictures %>
+				<%= link_to image_tag(picture.image, id: :standard_post_image), post_path(post) %>
+			<% end %>
+		<% else %>
+			<%= link_to image_tag(post.image, id: :standard_post_image), post_path(post) %>
+		<% end %>
 	</div>
 <% end %>
 

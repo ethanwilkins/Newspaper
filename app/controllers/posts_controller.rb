@@ -27,8 +27,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.new(params[:post].permit(:title, :body, :image,
-      :translation_requested, :repopulation_interval, :sale))
+    @post = current_user.posts.new(post_params)
     @post.subtab_id = params[:subtab_id]
     @post.tab_id = params[:tab_id]
     
@@ -38,11 +37,24 @@ class PostsController < ApplicationController
     @post.latitude = current_user.latitude
     @post.longitude = current_user.longitude
     
+    # ignores expiration if unchanged
     if @post.expiration_date == Date.current
       @post.expiration_date = nil
     end
     
+    # flag as photoset for validation
+    if @post.tab_id and Tab.find(@post.tab_id).features.
+      exists? action: :photosets and params[:pictures]
+      @post.photoset = true
+    end
+    
     if @post.save
+      if @post.tab and @post.tab.features.exists? action: :photosets
+        # builds photoset for post
+        params[:pictures][:image].each do |image|
+          @picture = @post.pictures.create image: image
+        end
+      end
       if @post.translation_requested
         if current_user.english
           @post.translations.create(request: true, english: @post.body,
@@ -123,5 +135,13 @@ class PostsController < ApplicationController
     @post = Post.new
     @social = true
     log_action("posts_index")
+  end
+  
+  private
+  
+  def post_params
+    params[:post].permit(:title, :body, :image,
+      :translation_requested, :repopulation_interval,
+      :sale, pictures_attributes: [:id, :post_id, :image])
   end
 end

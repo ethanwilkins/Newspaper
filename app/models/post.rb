@@ -5,9 +5,12 @@ class Post < ActiveRecord::Base
 
   has_many :translations, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :pictures, dependent: :destroy
   has_many :hashtags, dependent: :destroy
   has_many :folders, dependent: :destroy
   has_many :votes, dependent: :destroy
+  
+  accepts_nested_attributes_for :pictures
   
   validate :text_or_image?, on: :create
   after_create :apply_expiration
@@ -63,7 +66,7 @@ class Post < ActiveRecord::Base
   end
   
   def text_or_image?
-    if (body.nil? or body.empty?) and !image.url
+    if (body.nil? or body.empty?) and (!image.url and photoset.nil?)
       errors.add(:post, "cannot be empty.")
     end
   end

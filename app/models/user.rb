@@ -69,7 +69,17 @@ class User < ActiveRecord::Base
   end
   
   def images
-    posts.where.not image: [nil, ""]
+    imgs = []
+    for post in posts
+      if post.image.url.present?
+        imgs << post
+      elsif post.pictures.present?
+        for picture in post.pictures
+          imgs << picture
+        end
+      end
+    end
+    return imgs
   end
 
   def self.authenticate(name, password)

@@ -30,7 +30,14 @@
 		
 		<% if @tab or @subtab %>
 			<p>
-				<%= f.file_field :image, class: "form-control" %>
+				<% if @tab and @tab.features.exists? action: :photosets %>
+					<%= f.fields_for :pictures do |p| %>
+						<%= f.file_field :image, multiple: true,
+							name: "pictures[image][]", class: "form-control" %>
+					<% end %>
+				<% else %>
+					<%= f.file_field :image, class: "form-control" %>
+				<% end %>
 			</p>
 			<% if @tab %>
 				<% if @tab.features.exists? action: "post_repopulation" %>
