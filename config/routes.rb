@@ -43,6 +43,12 @@ Rails.application.routes.draw do
   
   get 'activities/:id/get_location', to: 'activities#get_location', as: 'get_location'
   
+  get 'events/:event_id/going', to: 'events#going', as: 'going'
+  
+  get 'events/:event_id/not_going', to: 'events#not_going', as: 'not_going'
+  
+  get 'events/:event_id/attendance', to: 'events#attendance', as: 'attendance'
+  
   get 'folders/new/:post_id/:user_id', to: 'folders#new', as: 'inquire'
   
   get 'folders/new/:user_id', to: 'folders#new', as: 'new_folder'

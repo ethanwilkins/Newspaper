@@ -31,8 +31,12 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("commented on your event.")
         when :comment_reply
           message = name + " " + Translation.translate("replied to your comment.")
+        when :event_invitation
+          message = name + " " + Translation.translate("invited you to their event.")
         when :like_post
           message = name + " " + Translation.translate("liked your post.")
+        when :going
+          message = name + " " + Translation.translate("RSVPed for your event.")
         when :mention
           message = name + " " + Translation.translate("mentioned you in a post.")
         when :sales_inquiry

@@ -18,6 +18,13 @@
 		<p>
 			<%= f.text_field :location, placeholder: translate("Location"), class: "form-control" %>
 		</p>
+		<% if @tab and @tab.features.exists? action: :invite_attendance %>
+			<p>
+				<%= text_field_tag :invited_users, nil,
+					placeholder: translate("List users to invite, separate by comma"),
+					class: "form-control" %>
+			</p>
+		<% end %>
 		<p class="form-control">
 			<%= f.label translate("Date") %>
 			<%= f.date_select :date, use_month_numbers: true, class: "form-control" %>

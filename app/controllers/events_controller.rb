@@ -1,4 +1,27 @@
 class EventsController < ApplicationController
+  def attendance
+    @event = Event.find(params[:event_id])
+  end
+  
+  def going
+    @event = Event.find(params[:event_id])
+    invited_user = @event.members.find_by_user_id(current_user.id) if @event
+    if invited_user and invited_user.update(status: :going)
+      @event.user.notify current_user, :going, @event.id
+      flash[:notice] = translate("RSVP saved successfully.")
+    else
+      flash[:error] = translate("RSVP failed.")
+    end
+    redirect_to :back
+  end
+  
+  def not_going
+    @event = Event.find(params[:event_id])
+    invited_user = @event.members.find_by_user_id(current_user.id) if @event
+    invited_user.update(status: :not_going) if invited_user
+    redirect_to :back
+  end
+  
   def approve
     if privileged?
       @event = Event.find(params[:id])
@@ -71,9 +94,10 @@ class EventsController < ApplicationController
             field: "body", user_id: current_user.id)
         end
       end
-
+      
       current_user.notify_mentioned(@event)
       Hashtag.extract(@event) if @event.body
+      @event.invite_users(params[:invited_users])
       
       flash[:notice] = translate "Event submitted successfully."
       if @event.tab_id

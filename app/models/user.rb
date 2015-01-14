@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
     return _close_enough
   end
   
+  def notify(sender, action, item_id=1)
+    Note.notify sender, self, action, item_id
+  end
+  
   def notify_mentioned(item)
     text = item.body
     for word in text.split(' ')

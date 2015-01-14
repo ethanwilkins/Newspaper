@@ -2,6 +2,8 @@
 
 <%= render "events/card", event: @event %>
 
+<%= render "events/invitation", event: @event %>
+
 <% @comments.each do |comment| %>
 	<%= render "comments/card", comment: comment %>
 <% end %>

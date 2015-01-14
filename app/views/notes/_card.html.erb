@@ -54,6 +54,12 @@
 				
 			<% when :mention %>
 				<p><%= link_to note.message, post_path(note.item_id) %></p>
+				
+			<% when :event_invitation %>
+				<p><%= link_to note.message, event_path(note.item_id) %></p>
+				
+			<% when :going %>
+				<p><%= link_to note.message, event_path(note.item_id) %></p>
 		<% end %>
 	</div>
 </div>

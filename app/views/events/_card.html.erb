@@ -15,6 +15,13 @@
 	<% user = User.find_by_id(event.user_id) %>
 	<%= link_to( translate("Planned by ") + user.name.capitalize,
 		user_path(user.name), class: :top_right_link) if user %>
+		
+	<% if event.going.empty? %>
+		<% going = translate("Going") %>
+	<% else %>
+		<% going = event.going.size.to_s + " " + translate("going") %>
+	<% end %>
+	<%= link_to going, attendance_path(event), class: :bottom_right_link %>
 	
 	<%= render "events/content", event: event %>
 	<%= render "events/approve_deny", event: event %>

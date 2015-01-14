@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150113051240) do
+ActiveRecord::Schema.define(version: 20150114065354) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 20150113051240) do
     t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_id"
+    t.string   "status"
   end
 
   create_table "messages", force: true do |t|
