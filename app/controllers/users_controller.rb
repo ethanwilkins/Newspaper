@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     Post.repopulate
     @user = User.find_by_name(params[:id])
     if @user
+      @post = Post.new
       @posts = paginate @user.posts
       # images for photo gallery
       @images = @user.images.last 6
