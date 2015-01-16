@@ -61,4 +61,14 @@ class FeaturesController < ApplicationController
       redirect_to :back
     end
   end
+  
+  def destroy
+    @feature = Feature.find(params[:id])
+    if @feature.destroy
+      flash[:notice] = translate("Feature removed successfully.")
+    else
+      flash[:error] = translate("Feature could not removed.")
+    end
+    redirect_to :back
+  end
 end

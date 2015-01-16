@@ -1,0 +1,16 @@
+<!-- search -->
+
+<% case result.class.to_s %>
+	<% when "User" %>
+		<%= render "users/card", user: result %>
+	<% when "Post" %>
+		<%= render "posts/card", post: result %>
+	<% when "Article" %>
+		<%= render "articles/card", article: result %>
+	<% when "Comment" %>
+		<%= render "comments/card", comment: result, result: true %>
+	<% when "Event" %>
+		<%= render "events/card", event: result %>
+	<% when "Tab" %>
+		<%= render "tabs/card", tab: result %>
+<% end %>

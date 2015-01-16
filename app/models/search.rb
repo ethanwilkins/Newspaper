@@ -2,6 +2,14 @@ class Search < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :query
   
+  def self.recent(user)
+    user_searches = where(user_id: user.id)
+    if user_searches.present?
+      recent_searches = user_searches.where.not(chosen_result_type: nil)
+      return recent_searches if recent_searches.present?
+    end
+  end
+  
   def self.users(query)
     results = []
     for user in User.all; rank = [0]

@@ -1,0 +1,12 @@
+<!-- features -->
+
+<div id="card">
+	<%= link_to translate("Remove"),
+		destroy_feature_path(feature),
+		data: { confirm: translate('Are you sure?') },
+		method: :delete, class: :top_right_link %>
+	
+	<div align="center">
+		<%= feature.action %>
+	</div>
+</div>

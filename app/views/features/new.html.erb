@@ -32,4 +32,11 @@
 		</p>
 	<% end %>
 </div>
+
+<% if @tab and @tab.features.present? %>
+	<% for feature in @tab.features.reverse %>
+		<%= render "features/card", feature: feature %>
+	<% end %>
+<% end %>
+
 </br>

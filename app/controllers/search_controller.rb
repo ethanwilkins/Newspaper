@@ -35,7 +35,7 @@ class SearchController < ApplicationController
         @no_results = translate("No results were found for") + " '#{@query}'"
       end
     else
-      @no_results = translate "Empty search."
+      @recent_searches = Search.recent(current_user)
     end
     @advert = Article.local_advert(current_user)
     log_action("hashtags_search", nil, params[:query])
