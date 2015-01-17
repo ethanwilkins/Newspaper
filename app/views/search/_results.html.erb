@@ -1,17 +1,12 @@
 <!-- search -->
 
-<% if @recent_searches %>
-	<% for search in @recent_searches %>
-		<% result = get_result search %>
-		<%= render "search/result", result: result %>
-	<% end %>
-<% elsif @no_results %>
+<% if @no_results %>
 	<div id="card">
 		<div align="center"><%= @no_results %></div>
 	</div>
 <% else %>
 	<% for result in @results %>
-		<% result = result[0] %>
+		<% result = result[0] unless @recent %>
 		<%= render "search/result", result: result %>
 	<% end %>
 <% end %>

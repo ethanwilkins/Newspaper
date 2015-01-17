@@ -1,18 +1,18 @@
 module SearchHelper
   def get_result(search)
-    case search.class.to_s
+    case search.chosen_result_type.to_s
       when "User"
-        return User.find search.id
+        return User.find_by_id search.chosen_result_id
       when "Post"
-        return Post.find search.id
+        return Post.find_by_id search.chosen_result_id
       when "Article"
-        return Article.find search.id
+        return Article.find_by_id search.chosen_result_id
       when "Comment"
-        return Comment.find search.id
+        return Comment.find_by_id search.chosen_result_id
       when "Event"
-        return Event.find search.id
+        return Event.find_by_id search.chosen_result_id
       when "Tab"
-        return Tab.find search.id
+        return Tab.find_by_id search.chosen_result_id
     end
   end
 end

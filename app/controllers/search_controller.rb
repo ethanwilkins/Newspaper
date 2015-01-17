@@ -27,16 +27,18 @@ class SearchController < ApplicationController
       # sorts results by rank
       @all_results.sort_by! &:last
       
-      # paginates all results as results
-      @results = paginate @all_results
-      
       # checks if any results were found
       if @all_results.empty? # notifies user when no results are found
         @no_results = translate("No results were found for") + " '#{@query}'"
       end
     else
-      @recent_searches = Search.recent(current_user)
+      @all_results = Search.recent(current_user).reverse
+      @recent = true
     end
+    
+    # paginates all results as results
+    @results = paginate @all_results
+    
     @advert = Article.local_advert(current_user)
     log_action("hashtags_search", nil, params[:query])
   end

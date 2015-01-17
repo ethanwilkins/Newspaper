@@ -3,11 +3,17 @@ class Search < ActiveRecord::Base
   validates_presence_of :query
   
   def self.recent(user)
-    user_searches = where(user_id: user.id)
-    if user_searches.present?
-      recent_searches = user_searches.where.not(chosen_result_type: nil)
-      return recent_searches if recent_searches.present?
+    results = []
+    recent_searches = where(user_id: user.id).
+      where.not(chosen_result_type: [nil, ""]).
+      sort_by(&:created_at).reverse
+    for search in recent_searches
+      result = get_result search
+      unless results.include? result or result.nil?
+        results << result
+      end
     end
+    return results
   end
   
   def self.users(query)
@@ -99,6 +105,7 @@ class Search < ActiveRecord::Base
     end
   end
   
+  # adds rank for previously searched
   def self.searches(item, query, rank)
     searches = self.where(chosen_result_type: item.class.to_s).
       where(chosen_result_id: item.id)
@@ -109,6 +116,7 @@ class Search < ActiveRecord::Base
     end
   end
   
+  # core of search engine
   def self.scan(text, query, rank)
     if text.present?
       for word in text.split(" ")
@@ -136,5 +144,23 @@ class Search < ActiveRecord::Base
     search = self.find_by_id(search_id)
     search.update(chosen_result_type: chosen_result.class.to_s,
       chosen_result_id: chosen_result.id)
+  end
+  
+  # gets result from search
+  def self.get_result(search)
+    case search.chosen_result_type.to_s
+      when "User"
+        return User.find_by_id search.chosen_result_id
+      when "Post"
+        return Post.find_by_id search.chosen_result_id
+      when "Article"
+        return Article.find_by_id search.chosen_result_id
+      when "Comment"
+        return Comment.find_by_id search.chosen_result_id
+      when "Event"
+        return Event.find_by_id search.chosen_result_id
+      when "Tab"
+        return Tab.find_by_id search.chosen_result_id
+    end
   end
 end
