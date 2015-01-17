@@ -2,11 +2,18 @@ class Search < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :query
   
+  def prevalence(user)
+    return Search.where(user_id: user.id).
+      where(chosen_result_type: chosen_result_type).
+      where(chosen_result_id: chosen_result_id).size
+  end
+  
   def self.recent(user)
     results = []
     recent_searches = where(user_id: user.id).
       where.not(chosen_result_type: [nil, ""]).
-      sort_by(&:created_at).reverse
+      sort_by(&:created_at).sort_by { |search|
+        search.prevalence(user) }.reverse
     for search in recent_searches
       result = get_result search
       unless results.include? result or result.nil?
