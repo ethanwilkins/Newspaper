@@ -1,16 +1,29 @@
 <!-- posts -->
 
-<% if post.pictures.present? or post.image.url %>
-	</br><div align="center">
-		<% if post.pictures.present? %>
+
+</br><div align="center">
+	<% if post.pictures.present? %>
+		<% if @showing_post %>
 			<% for picture in post.pictures %>
 				<%= link_to image_tag(picture.image, id: :standard_post_image), post_path(post) %>
 			<% end %>
 		<% else %>
-			<%= link_to image_tag(post.image, id: :standard_post_image), post_path(post) %>
+			<table>
+				<tr>
+				<% num = 0 and for picture in post.pictures %>
+					<td>
+						<%= link_to image_tag(picture.image, id: :standard_post_image),
+							post_path(post) if num < 3 %>
+						<% num += 1 %>
+					</td>
+				<% end %>
+				</tr>
+			</table>
 		<% end %>
-	</div>
-<% end %>
+	<% elsif post.image.url %>
+		<%= link_to image_tag(post.image, id: :standard_post_image), post_path(post) %>
+	<% end %>
+</div>
 
 <% if post.body.present? or post.hashtags.present? %>
 	<p align="center" id="post_body_text">

@@ -118,6 +118,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find_by_id(params[:id])
     if @post
+      @showing_post = true
       @new_comment = Comment.new
       @comments = @post.comments
       log_action("posts_show", @post.id)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150114221043) do
+ActiveRecord::Schema.define(version: 20150118211632) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -115,6 +115,19 @@ ActiveRecord::Schema.define(version: 20150114221043) do
     t.integer  "user_id"
     t.integer  "tab_id"
     t.string   "action"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "feedbacks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.integer  "article_id"
+    t.integer  "comment_id"
+    t.integer  "event_id"
+    t.integer  "tab_id"
+    t.integer  "stars"
+    t.text     "review"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
