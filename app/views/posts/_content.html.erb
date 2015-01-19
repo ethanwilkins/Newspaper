@@ -3,7 +3,7 @@
 
 </br><div align="center">
 	<% if post.pictures.present? %>
-		<% if @showing_post %>
+		<% if @showing_post or post.pictures.size < 2 %>
 			<% for picture in post.pictures %>
 				<%= link_to image_tag(picture.image, id: :standard_post_image), post_path(post) %>
 			<% end %>
