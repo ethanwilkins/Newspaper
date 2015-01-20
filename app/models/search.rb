@@ -170,4 +170,21 @@ class Search < ActiveRecord::Base
         return Tab.find_by_id search.chosen_result_id
     end
   end
+  
+  def get_item(item_class, item_id)
+    case item_class.to_s
+      when "User"
+        return User.find_by_id item_id
+      when "Post"
+        return Post.find_by_id item_id
+      when "Article"
+        return Article.find_by_id item_id
+      when "Comment"
+        return Comment.find_by_id item_id
+      when "Event"
+        return Event.find_by_id item_id
+      when "Tab"
+        return Tab.find_by_id item_id
+    end
+  end
 end

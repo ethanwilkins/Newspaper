@@ -3,12 +3,12 @@
 <% if current_user and current_user.id != post.user_id %>
 	<% unless Vote.up_voted?(post, current_user) %>
 		<%= link_to translate("Like"), up_vote_post_path(post), title: translate("Like this post"),
-			remote: true, class: :bottom_right_link, id: "post_item_#{post.id}" %>
+			remote: true, class: :card_link, id: "post_item_#{post.id}" %>
 	<% else %>
 		<%= link_to translate("Unlike"), un_vote_post_path(post), remote: true,
-			title: translate("Unlike this post"), class: :bottom_right_link, id: "post_item_#{post.id}" %>
+			title: translate("Unlike this post"), class: :card_link, id: "post_item_#{post.id}" %>
 	<% end %>
 <% else %>
 	<%= link_to translate("Likes") + " #{post.up_votes.size}", post_path(post),
-		title: translate("View your post"), class: :bottom_right_link %>
+		title: translate("View your post"), class: :card_link %>
 <% end %>

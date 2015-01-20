@@ -4,7 +4,6 @@
 	<%= render "posts/time_ago", post: post %>
 	<%= render "posts/posted_by", post: post %>
 	<%= render "folders/inquire", post: post %>
-	<%= render "posts/vote", post: post %>
 
 	<table class="bottom_left_link_table">
 		<tr>
@@ -22,6 +21,20 @@
 					title: translate("Permanently delete this post"), class: :card_link %>
 			</td>
 			<% end %>
+		</tr>
+	</table>
+	
+	<table class="bottom_right_link_table">
+		<tr>
+			<% if @tab and @tab.features.exists? action: :rank_feedback %>
+			<td class="link_table_spacing">
+				<%= link_to translate("Review"), new_post_feedback_path(post), class: :card_link,
+					title: translate("Provide feedback for this item.") %>
+			</td>
+			<% end %>
+			<td>
+				<%= render "posts/vote", post: post %>
+			</td>
 		</tr>
 	</table>
 

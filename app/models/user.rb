@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :translations
   has_many :game_boards
   has_many :activities
+  has_many :feedbacks
   has_many :comments
   has_many :articles
   has_many :features

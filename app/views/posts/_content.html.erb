@@ -1,6 +1,6 @@
 <!-- posts -->
 
-
+<% if post.pictures.present? or post.image.url %>
 </br><div align="center">
 	<% if post.pictures.present? %>
 		<% if @showing_post or post.pictures.size < 2 %>
@@ -24,6 +24,7 @@
 		<%= link_to image_tag(post.image, id: :standard_post_image), post_path(post) %>
 	<% end %>
 </div>
+<% end %>
 
 <% if post.body.present? or post.hashtags.present? %>
 	<p align="center" id="post_body_text">

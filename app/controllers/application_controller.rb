@@ -3,10 +3,33 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size, :reset_page, :paginate,
+  helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item,
     :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action, :new_search, :save_search
 
   private
+  
+  def get_item(item_class, item_id)
+    case item_class
+      when "User"
+        session[:user_id] = item_id
+        return User.find_by_id item_id
+      when "Post"
+        session[:post_id] = item_id
+        return Post.find_by_id item_id
+      when "Article"
+        session[:article_id] = item_id
+        return Article.find_by_id item_id
+      when "Comment"
+        session[:comment_id] = item_id
+        return Comment.find_by_id item_id
+      when "Event"
+        session[:event_id] = item_id
+        return Event.find_by_id item_id
+      when "Tab"
+        session[:tab_id] = item_id
+        return Tab.find_by_id item_id
+    end
+  end
   
   def new_search(query)
     search = Search.new_search(query, current_user)

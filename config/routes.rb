@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   
   put 'translations/update'
   
+  put 'feedbacks/update'
+  
+  post 'feedbacks/create', as: 'feedback'
+  
   post 'messages/create', as: 'messages'
   
   post 'features/create', as: 'features'
@@ -99,6 +103,16 @@ Rails.application.routes.draw do
   
   get 'notes/new/:id', to: 'notes#new', as: 'new_note'
   
+  get 'feedbacks/new/:post_id', to: 'feedbacks#new', as: 'new_post_feedback'
+  
+  get 'feedbacks/new/:event_id', to: 'feedbacks#new', as: 'new_event_feedback'
+  
+  get 'feedbacks/new/:article_id', to: 'feedbacks#new', as: 'new_article_feedback'
+  
+  get 'feedbacks/new/:comment_id', to: 'feedbacks#new', as: 'new_comment_feedback'
+  
+  get 'feedbacks/new/:tab_id', to: 'feedbacks#new', as: 'new_tab_feedback'
+  
   get 'events/pending', as: 'pending_events'
   
   get "search/search", as: "search"
@@ -161,6 +175,7 @@ Rails.application.routes.draw do
   resources :banners
   resources :translations
   resources :activities
+  resources :feedbacks
   resources :articles
   resources :groups
   resources :events
