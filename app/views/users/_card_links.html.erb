@@ -2,21 +2,49 @@
 
 <% if (current_user == @user or privileged?) and not (@user.master and not current_user.master) %>
 	<% tooltip = (@user == current_user ? "Edit your profile and settings" : "Edit this users profile and settings") %>
-	<%= link_to translate("Edit"), edit_user_path(@user.name), title: translate(tooltip),  class: :top_left_link %>
-	<%= link_to translate("Add features"), new_user_feature_path(@user.name), class: :bottom_right_link %>
+	
+	<table class="bottom_right_link_table">
+		<tr>
+			<td class="link_table_spacing">
+				<%= link_to translate("Add features"),
+					new_user_feature_path(@user.name), class: :card_link %>
+			</td>
+			<td>
+				<%= link_to translate("Edit"), edit_user_path(@user.name),
+					title: translate(tooltip),  class: :card_link %>
+			</td>
+		</tr>
+	</table>
 <% end %>
 
-<%= render "notes/notify_button" %>
+<% if @user.features.exists? action: :user_feedback %>
+<table class="top_right_link" title="<%= translate("This users rating.") %>">
+	<tr>
+	<% 5.times do |stars| %>
+		<td class=
+			<% if Feedback.avg_rating(@user) > stars %>
+				"glyphicon glyphicon-star"
+			<% else %>
+				"glyphicon glyphicon-star-empty"
+			<% end %>
+		</td>
+	<% end %>
+	</tr>
+</table>
+<% end %>
 
-<table class="top_right_link_table">
+<table class="top_left_link_table">
 	<tr>
 		<% if @user != current_user and @user.features.exists? action: :user_feedback %>
 			<td class="link_table_spacing">
 				<%= link_to translate("Review"), new_user_feedback_path(user_id: @user.name), class: :card_link %>
 			</td>
 		<% end %>
-		<td>
+		<td class="link_table_spacing">
 			<%= render "messages/message_button" %>
+		</td>
+		<td>
+			<%= render "notes/notify_button" %>
 		</td>
 	</tr>
 </table>
