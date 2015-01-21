@@ -3,8 +3,10 @@ class Comment < ActiveRecord::Base
   belongs_to :activity
   belongs_to :article
   belongs_to :comment
+  belongs_to :banner
   belongs_to :event
   belongs_to :post
+  
   has_many :comments
   has_many :hashtags
   

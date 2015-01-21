@@ -5,8 +5,15 @@ class BannersController < ApplicationController
     log_action("banners_index")
   end
   
+  def show
+    @banner = Banner.find(params[:id])
+    @comments = @banner.comments.reverse
+    @new_comment = Comment.new
+  end
+  
   def create
     @banner = Banner.new(params[:banner].permit(:image))
+    @banner.user_id = current_user.id
     
     if @banner.save
       log_action("banners_create", @banner.id)

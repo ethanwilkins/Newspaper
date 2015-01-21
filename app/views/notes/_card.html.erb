@@ -13,6 +13,9 @@
 			<% when :event_comment %>
 				<p><%= link_to note.message, event_path(note.item_id) %></p>
 				
+			<% when :banner_comment %>
+				<p><%= link_to note.message, banner_path(note.item_id) %></p>
+				
 			<% when :translation_comment %>
 				<p><%= link_to note.message, translation_path(note.item_id) %></p>
 				

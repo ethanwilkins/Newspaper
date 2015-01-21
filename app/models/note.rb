@@ -23,6 +23,8 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("commented on your post.")
         when :article_comment
           message = name + " " + Translation.translate("commented on your article.")
+        when :banner_comment
+          message = name + " " + Translation.translate("commented on your banner.")
         when :translation_comment
           message = name + " " + Translation.translate("commented on your translation.")
         when :activity_comment

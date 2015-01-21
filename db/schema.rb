@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121042758) do
+ActiveRecord::Schema.define(version: 20150121145213) do
 
   create_table "activities", force: true do |t|
     t.datetime "created_at"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20150121042758) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "cards", force: true do |t|
@@ -92,6 +93,7 @@ ActiveRecord::Schema.define(version: 20150121042758) do
     t.integer  "translation_id"
     t.integer  "event_id"
     t.integer  "activity_id"
+    t.integer  "banner_id"
   end
 
   create_table "events", force: true do |t|

@@ -7,6 +7,8 @@
 			<%= hidden_field_tag :post_id, @post.id %>
 		<% elsif @event %>
 			<%= hidden_field_tag :event_id, @event.id %>
+		<% elsif @banner %>
+			<%= hidden_field_tag :banner_id, @banner.id %>
 		<% elsif @article %>
 			<%= hidden_field_tag :article_id, @article.id %>
 		<% elsif @comment %>

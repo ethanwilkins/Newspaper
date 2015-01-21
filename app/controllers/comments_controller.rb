@@ -32,6 +32,7 @@ class CommentsController < ApplicationController
     @comment.activity_id = params[:activity_id]
     @comment.article_id = params[:article_id]
     @comment.comment_id = params[:comment_id]
+    @comment.banner_id = params[:banner_id]
     @comment.event_id = params[:event_id]
     @comment.post_id = params[:post_id]
     
@@ -52,8 +53,13 @@ class CommentsController < ApplicationController
             
             elsif @comment.event_id
               action = :event_comment
-              item_id = @comment
+              item_id = @comment.event_id
               User.find(Event.find(@comment.event_id).user_id)
+              
+            elsif @comment.banner_id and Banner.find(@comment.banner_id).user_id.present?
+              action = :banner_comment
+              item_id = @comment.banner_id
+              User.find(Banner.find(@comment.banner_id).user_id)
               
             elsif @comment.activity_id and Activity.find(@comment.activity_id).user_id.present?
               action = :activity_comment
