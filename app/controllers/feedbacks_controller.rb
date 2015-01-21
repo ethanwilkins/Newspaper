@@ -1,4 +1,12 @@
 class FeedbacksController < ApplicationController
+  def index
+    @feedback = current_user.
+      feedbacks.
+      where.
+      not(review: nil).
+      reverse
+  end
+  
   def new
     @post = get_item("Post", params[:post_id])
     @article = get_item("Article", params[:article_id])

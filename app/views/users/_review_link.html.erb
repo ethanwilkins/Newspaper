@@ -1,0 +1,7 @@
+<!-- users -->
+
+<% if user != current_user and user.features.exists? action: :user_feedback %>
+	<%= link_to translate("Review"), new_user_feedback_path(user_id: user.name), class: :card_link %>
+<% elsif user.features.exists? action: :user_feedback %>
+	<%= link_to translate("Reviews"), feedbacks_path, class: :card_link %>
+<% end %>

@@ -41,7 +41,7 @@
 				<p><%= link_to note.message, tab_path(note.item_id) %></p>
 			
 			<% when :user_feedback %>
-				<p><%= link_to note.message, user_path(User.find_by_id(note.item_id).name) %></p>
+				<p><%= link_to note.message, feedbacks_path %></p>
 				
 			<% when :admin_message %>
 				<p><%= link_to note.message, (note.url.present? ? note.url : notes_path) %></p>
