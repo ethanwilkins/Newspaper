@@ -4,7 +4,6 @@ class FeedbacksController < ApplicationController
       feedbacks.
       where.
       not(review: nil).
-      reverse
   end
   
   def new
