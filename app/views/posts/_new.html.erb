@@ -18,6 +18,12 @@
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if @tab %>
 			<%= hidden_field_tag :tab_id, params[:id] %>
+			<% if @tab.features.exists? action: :photosets %>
+				<p>
+					<%= f.text_field :title, placeholder: translate("Add a title for photosets"),
+						class: "form-control" %>
+				</p>
+			<% end %>
 		<% elsif @subtab %>
 			<%= hidden_field_tag :subtab_id, params[:id] %>
 		<% end %>
