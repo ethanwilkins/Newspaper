@@ -32,7 +32,7 @@ class FeedbacksController < ApplicationController
   
   def update
     @feedback = Feedback.find_by_id params[:feedback_id]
-    if @feedback and @feedback.update(stars: params[:stars], review: params[:review])
+    if @feedback and @feedback.update(update_feedback_params)
       flash[:notice] = translate("Feedback updated successfully.")
     else
       flash[:error] = translate("Feedback could not be updated.")
@@ -40,9 +40,10 @@ class FeedbacksController < ApplicationController
     redirect_to :back
   end
   
-  def show
-  end
+  private
   
-  def update
+  def update_feedback_params
+    return params.require(:feedback).permit(:review) if params[:feedback]
+    { stars: params[:stars] } if params[:stars]
   end
 end

@@ -4,20 +4,15 @@
 	<div align="center">
 		<div role="group" class="btn-group">
 			<% 5.times do |stars| %>
-				<%= link_to(feedback_path(stars: stars+1), method: :post, class: "btn btn-default btn-lg") do %>
+				<%= link_to(feedback_path(stars: stars+1, feedback_id: @feedback.id),
+					method: (@feedback.id ? :patch : :post), class: "btn btn-default btn-lg") do %>
 					<span class="glyphicon glyphicon-star-empty"</span>
 				<% end %>
 			<% end %>
 		</div>
 	</div></br>
-	<% if @feedback.id.nil? %>
-		<%= form_for @feedback, method: :post do |f| %>
-			<%= render "feedbacks/review_field", f: f %>
-		<% end %>
-	<% else %>
-		<%= form_for @feedback, url: feedbacks_update_path, method: :patch do |f| %>
-			<%= hidden_field_tag feedback_id: @feedback.id if @feedback.id %>
-			<%= render "feedbacks/review_field", f: f %>
-		<% end %>
+	<%= form_for @feedback, method: (@feedback.id ? :patch : :post) do |f| %>
+		<%= hidden_field_tag :feedback_id, @feedback.id if @feedback.id %>
+		<%= render "feedbacks/review_field", f: f %>
 	<% end %>
 </div>
