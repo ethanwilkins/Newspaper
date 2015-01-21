@@ -1,18 +1,46 @@
-<!-- to show average, as well as other users reviews and stars for new feedback -->
+<!-- feedback -->
 
 <div id="card">
+	<table class="top_right_link" title="<%= translate("The average rating for this item.") %>">
+		<tr>
+		<% 5.times do |stars| %>
+			<td class=
+				<% if Feedback.avg_rating(@item) > stars %>
+					"glyphicon glyphicon-star"
+				<% else %>
+					"glyphicon glyphicon-star-empty"
+				<% end %>
+			</td>
+		<% end %>
+		</tr>
+	</table></br>
+	
 	<div align="center">
 		<div role="group" class="btn-group">
 			<% 5.times do |stars| %>
 				<%= link_to(feedback_path(stars: stars+1, feedback_id: @feedback.id),
 					method: (@feedback.id ? :patch : :post), class: "btn btn-default btn-lg") do %>
-					<span class="glyphicon glyphicon-star-empty"</span>
+					<span class=
+						<% if @feedback.id and @feedback.stars and @feedback.stars > stars %>
+							"glyphicon glyphicon-star"
+						<% else %>
+							"glyphicon glyphicon-star-empty"
+						<% end %>
+					</span>
 				<% end %>
 			<% end %>
 		</div>
 	</div></br>
+	
 	<%= form_for @feedback, method: (@feedback.id ? :patch : :post) do |f| %>
 		<%= hidden_field_tag :feedback_id, @feedback.id if @feedback.id %>
-		<%= render "feedbacks/review_field", f: f %>
+		<p>
+			<%= f.text_area :review, placeholder: translate("Add a review..."), class: "form-control" %>
+		</p>
+		<%= f.submit translate("Review"), class: "btn btn-default btn-lg btn-block" %>
 	<% end %>
 </div>
+
+<% for feedback in @item.feedbacks.where.not(review: nil) %>
+	<%= render "feedbacks/card", feedback: feedback %>
+<% end %>

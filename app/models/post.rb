@@ -4,6 +4,7 @@ class Post < ActiveRecord::Base
   belongs_to :tab
 
   has_many :translations, dependent: :destroy
+  has_many :feedbacks, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :pictures, dependent: :destroy
   has_many :hashtags, dependent: :destroy

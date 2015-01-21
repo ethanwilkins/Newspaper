@@ -1,0 +1,24 @@
+<!-- feedbacks -->
+
+<div id="card">
+	<%= link_to translate("Reviewed by") + " " + feedback.user.name.capitalize,
+		user_path(feedback.user.name), class: :top_right_link %>
+	
+	<table class="top_left_link" title="<%= translate("The users rating of this item.") %>">
+		<tr>
+		<% 5.times do |stars| %>
+			<td class=
+				<% if feedback.id and feedback.stars and feedback.stars > stars %>
+					"glyphicon glyphicon-star"
+				<% else %>
+					"glyphicon glyphicon-star-empty"
+				<% end %>
+			</td>
+		<% end %>
+		</tr>
+	</table>
+	
+	<div align="center" id="comment_body_text">
+		<%= feedback.review %>
+	</div>
+</div>

@@ -3,10 +3,17 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   
-  helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item,
+  helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item, :chosen_one,
     :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action, :new_search, :save_search
 
   private
+  
+  # returns a non-nil item from an array
+  def chosen_one(items)
+    for item in items
+      return item if item
+    end
+  end
   
   def get_item(item_class, item_id)
     case item_class

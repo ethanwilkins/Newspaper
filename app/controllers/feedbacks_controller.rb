@@ -6,12 +6,16 @@ class FeedbacksController < ApplicationController
     @event = get_item("Event", params[:event_id])
     @tab = get_item("Tab", params[:tab_id])
     
-    @feedback = Feedback.already_starred([@post, @article,
-      @comment, @event, @tab], current_user)
-    @feedback = Feedback.new if @feedback.nil?
+    # all items into array and gets the non-nil one
+    @items = [@post, @article, @comment, @event, @tab]
+    @item = chosen_one @items
     
-    # fix for redirect_to :back not working
-    session[:return_to] ||= request.referer
+    # determines whether user already has feedbacks
+    if @item.feedbacks.exists? user_id: current_user.id
+      @feedback = @item.feedbacks.find_by_user_id current_user.id
+    else
+      @feedback = Feedback.new
+    end
   end
   
   def create
