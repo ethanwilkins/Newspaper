@@ -4,22 +4,24 @@ class FeedbacksController < ApplicationController
     @article = get_item("Article", params[:article_id])
     @comment = get_item("Comment", params[:comment_id])
     @event = get_item("Event", params[:event_id])
+    @user = get_item("User", params[:user_id])
     @tab = get_item("Tab", params[:tab_id])
     
     # all items into array and gets the non-nil one
-    @items = [@post, @article, @comment, @event, @tab]
+    @items = [@post, @article, @comment, @event, @tab, @user]
     @item = chosen_one @items
     
     # determines whether user already has feedbacks
-    if @item.feedbacks.exists? user_id: current_user.id
-      @feedback = @item.feedbacks.find_by_user_id current_user.id
+    if @item.feedbacks.exists? reviewer_id: current_user.id
+      @feedback = @item.feedbacks.find_by_reviewer_id current_user.id
     else
       @feedback = Feedback.new
     end
   end
   
   def create
-    @feedback = Feedback.new(stars: params[:stars], user_id: current_user.id)
+    @feedback = Feedback.new(stars: params[:stars], reviewer_id: current_user.id)
+    @feedback.user_id = User.find_by_name(session[:user_id]).id if session[:user_id]
     @feedback.review = params[:feedback][:review] if params[:feedback]
     @feedback.article_id = session[:article_id]
     @feedback.comment_id = session[:comment_id]
@@ -40,6 +42,16 @@ class FeedbacksController < ApplicationController
       flash[:notice] = translate("Feedback updated successfully.")
     else
       flash[:error] = translate("Feedback could not be updated.")
+    end
+    redirect_to :back
+  end
+  
+  def destroy
+    @feedback = Feedback.find_by_id params[:id]
+    if @feedback and @feedback.destroy
+      flash[:notice] = translate("The review was removed successfully.")
+    else
+      flash[:error] = translate("The review could not be removed.")
     end
     redirect_to :back
   end

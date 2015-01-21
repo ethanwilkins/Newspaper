@@ -6,6 +6,10 @@ class Feedback < ActiveRecord::Base
   belongs_to :post
   belongs_to :tab
   
+  def reviewer
+    return User.find_by_id reviewer_id
+  end
+  
   def self.avg_rating item
     if item.feedbacks.present?; amount_rated = 0
       total = 0 and for rating in item.feedbacks
@@ -14,7 +18,11 @@ class Feedback < ActiveRecord::Base
           amount_rated += 1
         end
       end
-      return total / amount_rated
+      if amount_rated > 0
+        return total / amount_rated
+      else
+        return 0
+      end
     else
       return 0
     end

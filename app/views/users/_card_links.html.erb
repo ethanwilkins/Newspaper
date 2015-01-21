@@ -7,4 +7,16 @@
 <% end %>
 
 <%= render "notes/notify_button" %>
-<%= render "messages/message_button" %>
+
+<table class="top_right_link_table">
+	<tr>
+		<% if @user != current_user and @user.features.exists? action: :user_feedback %>
+			<td class="link_table_spacing">
+				<%= link_to translate("Review"), new_user_feedback_path(user_id: @user.name), class: :card_link %>
+			</td>
+		<% end %>
+		<td>
+			<%= render "messages/message_button" %>
+		</td>
+	</tr>
+</table>

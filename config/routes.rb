@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   
   delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
   
+  delete 'feedbacks/destroy/:id', to: "feedbacks#destroy", as: 'destroy_feedback'
+  
   delete 'translations/destroy/:id', to: 'translations#destroy', as: 'destroy_translation'
   
   delete 'posts/:post_id/finalize_sale/:folder_id', to: 'posts#finalize_sale', as: 'finalize_sale'
@@ -103,15 +105,17 @@ Rails.application.routes.draw do
   
   get 'notes/new/:id', to: 'notes#new', as: 'new_note'
   
-  get 'feedbacks/new/:post_id', to: 'feedbacks#new', as: 'new_post_feedback'
+  get 'users/:user_id/feedbacks/new', to: 'feedbacks#new', as: 'new_user_feedback'
   
-  get 'feedbacks/new/:event_id', to: 'feedbacks#new', as: 'new_event_feedback'
+  get 'posts/:post_id/feedbacks/new', to: 'feedbacks#new', as: 'new_post_feedback'
   
-  get 'feedbacks/new/:article_id', to: 'feedbacks#new', as: 'new_article_feedback'
+  get 'events/:event_id/feedbacks/new', to: 'feedbacks#new', as: 'new_event_feedback'
   
-  get 'feedbacks/new/:comment_id', to: 'feedbacks#new', as: 'new_comment_feedback'
+  get 'articles/:article_id/feedbacks/new', to: 'feedbacks#new', as: 'new_article_feedback'
   
-  get 'feedbacks/new/:tab_id', to: 'feedbacks#new', as: 'new_tab_feedback'
+  get 'comments/:comment_id/feedbacks/new', to: 'feedbacks#new', as: 'new_comment_feedback'
+  
+  get 'tabs/:tab_id/feedbacks/new', to: 'feedbacks#new', as: 'new_tab_feedback'
   
   get 'events/pending', as: 'pending_events'
   

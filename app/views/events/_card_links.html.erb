@@ -1,0 +1,35 @@
+<!-- events -->
+
+<% _time_ago = time_ago(time_ago_in_words(event.created_at)) %>
+<%= link_to _time_ago, event_path(event), class: :top_left_link %>
+
+<table class="bottom_right_link_table">
+	<tr>
+		<td class="link_table_spacing">
+			<% if event.going.empty? %>
+				<% going = translate("Going") %>
+			<% else %>
+				<% going = event.going.size.to_s + " " + translate("going") %>
+			<% end %>
+			<%= link_to going, attendance_path(event), class: :card_link %>
+		</td>
+		<% if event.user != current_user and @tab and @tab.features.exists? action: :rank_feedback %>
+			<td class="link_table_spacing">
+				<%= link_to translate("Review"), new_event_feedback_path(event), class: :card_link %>
+			</td>
+		<% end %>
+		<td>
+			<% unless event.comments.empty? %>
+				<%= link_to translate("Comment") + " #{event.comments.size}", event_path(event),
+					title: translate("Leave a comment"), class: :card_link %>
+			<% else %>
+				<%= link_to translate("Comment"), event_path(event),
+					title: translate("Leave a comment"), class: :card_link %>
+			<% end %>
+		</td>
+	</tr>
+</table>
+
+<% user = User.find_by_id(event.user_id) %>
+<%= link_to( translate("Planned by ") + user.name.capitalize,
+	user_path(user.name), class: :top_right_link) if user %>

@@ -23,8 +23,11 @@
 		<% elsif @user %>
 			<%= hidden_field_tag :user_id, @user.id %>
 			<p>
-				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
-				[translate("Photo gallery"), "photo_gallery"]]), {}, class: "form-control" %>
+				<%= f.select :action, options_for_select([
+					[translate("Choose a feature to add"), nil],
+					[translate("Photo gallery"), "photo_gallery"],
+					[translate("Ratings and Feedback"), "user_feedback"]
+					]), {}, class: "form-control" %>
 			</p>
 		<% end %>
 		<p>
@@ -35,6 +38,12 @@
 
 <% if @tab and @tab.features.present? %>
 	<% for feature in @tab.features.reverse %>
+		<%= render "features/card", feature: feature %>
+	<% end %>
+<% end %>
+
+<% if @user and @user.features.present? %>
+	<% for feature in @user.features.reverse %>
 		<%= render "features/card", feature: feature %>
 	<% end %>
 <% end %>

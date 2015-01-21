@@ -26,7 +26,7 @@
 	
 	<table class="bottom_right_link_table">
 		<tr>
-			<% if @tab and @tab.features.exists? action: :rank_feedback %>
+			<% if post.user != current_user and @tab and @tab.features.exists? action: :rank_feedback %>
 			<td class="link_table_spacing">
 				<%= link_to translate("Review"), new_post_feedback_path(post), class: :card_link,
 					title: translate("Provide feedback for this item.") %>

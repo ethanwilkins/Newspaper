@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     case item_class
       when "User"
         session[:user_id] = item_id
-        return User.find_by_id item_id
+        return User.find_by_name item_id
       when "Post"
         session[:post_id] = item_id
         return Post.find_by_id item_id
