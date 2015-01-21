@@ -21,11 +21,11 @@
 				</li>
 				<% else %>
 				<li>
-					<%= link_to translate("Games"), boards_path, title: translate("Play and win prizes") %>
-				</li>
-				<li>
 					<%= link_to translate("Social"), tabs_path,
 						title: translate("Post and share content specific to your interests and locale") %>
+				</li>
+				<li>
+					<%= link_to translate("Games"), boards_path, title: translate("Play and win prizes") %>
 				</li>
 				<li>
 					<%= link_to notes_path, title: translate("View your notifications") do %>

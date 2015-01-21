@@ -29,6 +29,10 @@ class FeedbacksController < ApplicationController
     @feedback.post_id = session[:post_id]
     
     if @feedback.save
+      if @feedback.user_id.present?
+        @user = User.find @feedback.user_id
+        @user.notify current_user, :user_feedback, @user.id
+      end
       flash[:notice] = translate("Feedback saved successfully.")
     else
       flash[:error] = translate("Feedback could not be saved.")

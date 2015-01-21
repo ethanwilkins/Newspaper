@@ -39,6 +39,8 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("liked your post.")
         when :going
           message = name + " " + Translation.translate("RSVPed for your event.")
+        when :user_feedback
+          message = name + " " + Translation.translate("reviewed your profile.")
         when :mention
           message = name + " " + Translation.translate("mentioned you in a post.")
         when :sales_inquiry

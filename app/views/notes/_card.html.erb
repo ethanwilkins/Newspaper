@@ -39,6 +39,9 @@
 				
 			<% when :tab_denied %>
 				<p><%= link_to note.message, tab_path(note.item_id) %></p>
+			
+			<% when :user_feedbak %>
+				<p><%= link_to note.message, user_path(note.item_id) %></p>
 				
 			<% when :admin_message %>
 				<p><%= link_to note.message, (note.url.present? ? note.url : notes_path) %></p>
