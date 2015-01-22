@@ -21,6 +21,9 @@ class Activity < ActiveRecord::Base
       if latitude and longitude
         self.save!
         return true
+      else
+        return false
+      end
     else
       return false
     end
