@@ -40,10 +40,15 @@ class User < ActiveRecord::Base
       # verifies that content is within the users specified network size
       elsif GeoDistance.distance(content.latitude, content.longitude,
         self.latitude, self.longitude).miles.number < self.network_size
+        return true
+      else
         case content.class
         when Post
           near_content = Post.where(zip_code: content.zip_code).size
           _close_enough = true if near_content < Random.rand(0..Post.all.size)
+          # gets number of posts with the same zip code and is close
+          # enough when a random value between 0 and the size of all
+          # content is less than the number with the same zip code
         when Tab
           near_content = Tab.where(zip_code: content.zip_code).size
           _close_enough = true if near_content < Random.rand(0..Tab.all.size)
