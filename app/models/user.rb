@@ -31,28 +31,26 @@ class User < ActiveRecord::Base
   
   def close_enough(content)
     _close_enough = false
-    # verifies existence of required attributes
-    if content.latitude and self.latitude and self.network_size
-      # content always close enough when inside current users zip code or cherry picked tab
-      if content.zip_code and self.zip_code and content.zip_code == self.zip_code or (content.is_a? Tab and \
-        content.features.where(user_id: self.id).where(action: :cherry_pick).present?)
-        _close_enough = true
-      # verifies that content is within the users specified network size
-      elsif GeoDistance.distance(content.latitude, content.longitude,
-        self.latitude, self.longitude).miles.number < self.network_size
-        return true
-      else
-        case content.class
-        when Post
-          near_content = Post.where(zip_code: content.zip_code).size
-          _close_enough = true if near_content < Random.rand(0..Post.all.size)
-          # gets number of posts with the same zip code and is close
-          # enough when a random value between 0 and the size of all
-          # content is less than the number with the same zip code
-        when Tab
-          near_content = Tab.where(zip_code: content.zip_code).size
-          _close_enough = true if near_content < Random.rand(0..Tab.all.size)
-        end
+    # content always close enough when inside current users zip code or cherry picked tab
+    if content.zip_code and self.zip_code and content.zip_code == self.zip_code or (content.is_a? Tab and \
+      content.features.where(user_id: self.id).where(action: :cherry_pick).present?)
+      _close_enough = true
+    # verifies that content is within the users specified network size
+    elsif content.latitude and self.latitude and self.network_size and \
+      GeoDistance.distance(content.latitude, content.longitude, self.latitude,
+      self.longitude).miles.number < self.network_size
+      return true
+    elsif content.zip_code.present?
+      case content.class
+      when Post
+        near_content = Post.where(zip_code: content.zip_code).size
+        _close_enough = true if near_content < Random.rand(0..Post.all.size)
+        # gets number of posts with the same zip code and is close
+        # enough when a random value between 0 and the size of all
+        # content is less than the number with the same zip code
+      when Tab
+        near_content = Tab.where(zip_code: content.zip_code).size
+        _close_enough = true if near_content < Random.rand(0..Tab.all.size)
       end
     else
       _close_enough = true
