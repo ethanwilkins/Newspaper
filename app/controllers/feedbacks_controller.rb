@@ -3,7 +3,7 @@ class FeedbacksController < ApplicationController
     @feedback = current_user.
       feedbacks.
       where.
-      not(review: nil).
+      not(review: nil)
   end
   
   def new
