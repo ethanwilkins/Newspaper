@@ -55,6 +55,7 @@ GEM
       sugar-high (>= 0.6.0)
       sweetloader
     geocoder (1.2.6)
+    geoip (1.4.0)
     hike (1.2.3)
     i18n (0.6.11)
     jbuilder (2.2.5)
@@ -138,6 +139,7 @@ DEPENDENCIES
   geo-distance
   geo_units (~> 0.3.1.1)
   geocoder
+  geoip
   jbuilder
   jquery-rails
   mysql2

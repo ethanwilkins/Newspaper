@@ -9,23 +9,7 @@ class Activity < ActiveRecord::Base
   after_validation :geocode, :reverse_geocode, if: :these_actions?
   
   before_save :save_zip
-  
-  def get_location
-    result = Geocoder.search(self.ip).first
-    if result
-      self.address = result.address
-      self.latitude = result.latitude
-      self.longitude = result.longitude
-      if address and latitude and longitude
-        self.save!
-        return true
-      else
-        return false
-      end
-    else
-      return false
-    end
-  end
+  after_save :get_location
   
   def self.unique_locations
     _unique_locations = []
@@ -58,6 +42,29 @@ class Activity < ActiveRecord::Base
   end
   
   private
+  
+  def get_location
+    geocoder = Geocoder.search(self.ip).first
+    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
+    if geoip
+      result = geoip
+    elsif geocoder
+      result = geocoder
+    end
+    if defined? result
+      self.address = geocoder.address
+      self.latitude = geocoder.latitude
+      self.longitude = geocoder.longitude
+      if address and latitude and longitude
+        self.save!
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
   
   def these_actions?
     case action

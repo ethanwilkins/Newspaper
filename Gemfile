@@ -47,6 +47,7 @@ gem 'carrierwave'
 gem 'geocoder'
 gem 'geo_units', '~> 0.3.1.1'
 gem 'geo-distance'
+gem 'geoip'
 gem 'area'
 
 # bootstrap
