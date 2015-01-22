@@ -32,9 +32,9 @@ class User < ActiveRecord::Base
   def close_enough(content)
     _close_enough = false
     # verifies existence of required attributes
-    if content.latitude and self.latitude and content.zip_code and self.zip_code and self.network_size
+    if content.latitude and self.latitude and self.network_size
       # content always close enough when inside current users zip code or cherry picked tab
-      if content.zip_code == self.zip_code or (content.is_a? Tab and \
+      if content.zip_code and self.zip_code and content.zip_code == self.zip_code or (content.is_a? Tab and \
         content.features.where(user_id: self.id).where(action: :cherry_pick).present?)
         _close_enough = true
       # verifies that content is within the users specified network size

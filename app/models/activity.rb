@@ -4,31 +4,23 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   
-  geocoded_by :ip, :latitude => :latitude, :longitude => :longitude
   reverse_geocoded_by :latitude, :longitude, :address => :address
-  after_validation :geocode, :reverse_geocode, if: :these_actions?
-  
-  before_save :save_zip
-  after_save :get_location
+
+  after_save :get_location, if: :these_actions?
+  after_save :geocode, :reverse_geocode, if: :these_actions?
   
   def get_location
-    geocoder = Geocoder.search(self.ip).first
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
-    if geoip
-      result = geoip
-    elsif geocoder
-      result = geocoder
-    end
-    if defined? result
-      self.address = result.address
-      self.latitude = result.latitude
-      self.longitude = result.longitude
-      if address and latitude and longitude
+    if defined? geoip
+      self.city = geoip.city_name
+      # need country name, need to get
+      # longitudes or minimum to get state
+      # and city names from geocode
+      self.latitude = geoip.latitude
+      self.longitude = geoip.longitude
+      if latitude and longitude
         self.save!
         return true
-      else
-        return false
-      end
     else
       return false
     end
@@ -45,11 +37,12 @@ class Activity < ActiveRecord::Base
     return _unique_locations
   end
   
-  def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil)
+  def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil, item_type=nil)
+    params = { action: action, ip: ip, item_id: item_id, data_string: data_string, item_type: item_type }
     if user and not user.master
-      user.activities.create action: action, ip: ip, item_id: item_id, data_string: data_string
+      user.activities.create params
     elsif not user
-      Activity.create action: action, ip: ip, item_id: item_id, data_string: data_string
+      Activity.create params
     end
   end
   
@@ -67,11 +60,12 @@ class Activity < ActiveRecord::Base
   private
   
   def these_actions?
-    case action
-    when "sessions_create", "admin_index", "admin_index_fail",
-      "activities_index", "codes_index", "groups_index"
-      return true
-    end
+    # case action
+    # when "sessions_create", "admin_index", "admin_index_fail",
+    #   "activities_index", "codes_index", "groups_index"
+    #   return true
+    # end
+    return false # temporary stopgap
   end
   
   def save_zip

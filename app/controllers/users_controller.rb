@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       @posts = paginate @user.posts
       # images for photo gallery
       @images = @user.images.last 6
-      log_action("users_show", @user.id)
+      log_action("users_show", @user.id, nil, @user.class.to_s)
       save_search @user
     else
       log_action("users_show_fail")
@@ -44,7 +44,8 @@ class UsersController < ApplicationController
       @user = User.last
       log_action("users_create", @user.id)
       cookies.permanent[:auth_token] = @user.auth_token
-      @user.update zip_code: Activity.last.zip_code if @user.zip_code.nil? and Activity.last.zip_code.present?
+      @user.update zip_code: Activity.last.zip_code if @user.zip_code.nil? \
+        and Activity.last.zip_code.present?
       Zip.record(@user.zip_code) # logs zip if its unique
       
       if request.host.to_s.include? "elhero.com"

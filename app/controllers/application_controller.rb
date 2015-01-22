@@ -50,9 +50,9 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def log_action(action="visit", item_id=nil, data_string=nil)
+  def log_action(action="visit", item_id=nil, data_string=nil, item_type=nil)
     Activity.log_action(current_user, request.remote_ip.to_s,
-      action, item_id, data_string)
+      action, item_id, data_string, item_type)
   end
   
   def time_ago(_time_ago)
