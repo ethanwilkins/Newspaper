@@ -31,7 +31,8 @@
 			<%= f.text_area :body, placeholder: translate("Start a thread..."), class: "form-control" %>
 		</p>
 		<p>
-			<% if @tab and @tab.features.exists? action: :photosets %>
+			<% if (@tab and @tab.features.exists? action: :photosets) \
+				or (@user and @user.features.exists? action: :photo_gallery) %>
 				<%= f.fields_for :pictures do |p| %>
 					<%= f.file_field :image, multiple: true,
 						name: "pictures[image][]", class: "form-control" %>

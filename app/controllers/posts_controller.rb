@@ -43,13 +43,12 @@ class PostsController < ApplicationController
     end
     
     # flag as photoset for validation
-    if @post.tab_id and Tab.find(@post.tab_id).features.
-      exists? action: :photosets and params[:pictures]
+    if photoset? @post, params[:pictures]
       @post.photoset = true
     end
     
     if @post.save
-      if @post.tab and @post.tab.features.exists? action: :photosets and params[:pictures]
+      if photoset? @post, params[:pictures]
         # builds photoset for post
         params[:pictures][:image].each do |image|
           @picture = @post.pictures.create image: image
@@ -144,5 +143,14 @@ class PostsController < ApplicationController
     params[:post].permit(:title, :body, :image,
       :translation_requested, :repopulation_interval,
       :sale, pictures_attributes: [:id, :post_id, :image])
+  end
+  
+  def photoset? post, pictures
+    if pictures and ((post.tab and post.tab.features.exists? action: :photosets) \
+      or (post.tab_id.nil? and current_user.features.exists? action: :photo_gallery))
+      return true
+    else
+      return false
+    end
   end
 end

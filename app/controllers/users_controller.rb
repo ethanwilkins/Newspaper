@@ -19,6 +19,7 @@ class UsersController < ApplicationController
     @user = User.find_by_name(params[:id])
     if @user
       @post = Post.new
+      @pictures = @post.pictures.build
       @posts = paginate @user.posts
       # images for photo gallery
       @images = @user.images.last 6
