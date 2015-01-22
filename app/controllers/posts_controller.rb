@@ -49,7 +49,7 @@ class PostsController < ApplicationController
     end
     
     if @post.save
-      if @post.tab and @post.tab.features.exists? action: :photosets
+      if @post.tab and @post.tab.features.exists? action: :photosets and params[:pictures]
         # builds photoset for post
         params[:pictures][:image].each do |image|
           @picture = @post.pictures.create image: image
