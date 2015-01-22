@@ -11,6 +11,29 @@ class Activity < ActiveRecord::Base
   before_save :save_zip
   after_save :get_location
   
+  def get_location
+    geocoder = Geocoder.search(self.ip).first
+    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
+    if geoip
+      result = geoip
+    elsif geocoder
+      result = geocoder
+    end
+    if defined? result
+      self.address = geocoder.address
+      self.latitude = geocoder.latitude
+      self.longitude = geocoder.longitude
+      if address and latitude and longitude
+        self.save!
+        return true
+      else
+        return false
+      end
+    else
+      return false
+    end
+  end
+  
   def self.unique_locations
     _unique_locations = []
     for act in Activity.all
@@ -42,29 +65,6 @@ class Activity < ActiveRecord::Base
   end
   
   private
-  
-  def get_location
-    geocoder = Geocoder.search(self.ip).first
-    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
-    if geoip
-      result = geoip
-    elsif geocoder
-      result = geocoder
-    end
-    if defined? result
-      self.address = geocoder.address
-      self.latitude = geocoder.latitude
-      self.longitude = geocoder.longitude
-      if address and latitude and longitude
-        self.save!
-        return true
-      else
-        return false
-      end
-    else
-      return false
-    end
-  end
   
   def these_actions?
     case action
