@@ -20,9 +20,9 @@ class Activity < ActiveRecord::Base
       result = geocoder
     end
     if defined? result
-      self.address = geocoder.address
-      self.latitude = geocoder.latitude
-      self.longitude = geocoder.longitude
+      self.address = result.address
+      self.latitude = result.latitude
+      self.longitude = result.longitude
       if address and latitude and longitude
         self.save!
         return true
