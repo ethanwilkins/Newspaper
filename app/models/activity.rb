@@ -12,7 +12,7 @@ class Activity < ActiveRecord::Base
   def get_location
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
     if defined? geoip
-      self.city = geoip.city_name
+      self.address = geoip.city_name
       # need country name, need to get
       # longitudes or minimum to get state
       # and city names from geocode
