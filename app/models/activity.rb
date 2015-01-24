@@ -60,7 +60,7 @@ class Activity < ActiveRecord::Base
   def these_actions?
     case action
     when "sessions_create", "admin_index", "admin_index_fail",
-      "activities_index", "codes_index", "groups_index"
+      "activities_index", "codes_index", "groups_index", "activities_get_location"
       return true
     end
   end

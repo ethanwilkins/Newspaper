@@ -3,10 +3,10 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find_by_id(params[:id])
     if @activity.get_location and @activity.save
       flash[:notice] = translate("Location successfully saved.")
-      log_action("activities_log_action", @activity.id)
+      log_action("activities_get_location", @activity.id)
     else
       flash[:error] = translate("Location could not be saved.")
-      log_action("activities_log_action_fail", @activity.id)
+      log_action("activities_get_location_fail", @activity.id)
     end
     redirect_to activity_path(@activity)
   end
