@@ -20,9 +20,10 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_uniqueness_of :name
   validate :numeric_zip_if_present
+  
   before_create :generate_token
+  before_save :current_location
   before_save :downcase_fields
-  before_save :set_current_location
   
   mount_uploader :icon, ImageUploader
   
@@ -117,15 +118,26 @@ class User < ActiveRecord::Base
   
   private
   
-  def set_current_location
-    if activities.present?
-      last = activities.last
-      address = last.address
-      latitude = last.latitude
-      longitude = last.longitude
-      if zip_code.nil? and last.zip_code.present?
-        zip_code = last.zip_code
+  def current_location
+    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
+    if defined? geoip
+      self.latitude = geoip.latitude
+      self.longitude = geoip.longitude
+      if latitude and longitude
+        geocoder = Geocoder.search("#{latitude}, #{longitude}").first
+        if geocoder and geocoder.formatted_address
+          self.address = geocoder.formatted_address
+        end
       end
+    end
+    get_zip
+  end
+
+  def get_zip
+    if self.address.present?
+      place = self.address.split(", ")[2] if self.address.split(", ")[2].present?
+      zip = place.split(" ")[1] if place and place.split(" ")[1].present?
+      self.zip_code = place.split(" ")[1].to_i if zip and zip.size == 5
     end
   end
   

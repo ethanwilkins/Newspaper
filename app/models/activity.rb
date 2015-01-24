@@ -4,7 +4,6 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   before_save :get_location, if: :these_actions?
-  before_save :get_zip
   
   def get_location
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
@@ -63,14 +62,6 @@ class Activity < ActiveRecord::Base
     when "sessions_create", "admin_index", "admin_index_fail",
       "activities_index", "codes_index", "groups_index", "activities_get_location"
       return true
-    end
-  end
-  
-  def get_zip
-    if self.address.present?
-      place = self.address.split(", ")[2] if self.address.split(", ")[2].present?
-      zip = place.split(" ")[1] if place and place.split(" ")[1].present?
-      self.zip_code = place.split(" ")[1].to_i if zip and zip.size == 5
     end
   end
 end
