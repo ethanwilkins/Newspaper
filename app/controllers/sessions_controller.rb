@@ -10,8 +10,6 @@ class SessionsController < ApplicationController
       user.update_token if user.auth_token.nil?
       cookies.permanent[:auth_token] = user.auth_token
       log_action("sessions_create")
-      user.update zip_code: Activity.where(user_id: user.id).last.zip_code if \
-        user.zip_code.nil? and Activity.where(user_id: user.id).last.zip_code.present?
       
       if request.host.to_s.include? "elhero.com"
         user.update english: true

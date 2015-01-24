@@ -123,7 +123,9 @@ class User < ActiveRecord::Base
       address = last.address
       latitude = last.latitude
       longitude = last.longitude
-      zip_code = last.zip_code
+      if zip_code.nil? and last.zip_code.present?
+        zip_code = last.zip_code
+      end
     end
   end
   
