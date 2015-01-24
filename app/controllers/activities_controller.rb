@@ -17,6 +17,12 @@ class ActivitiesController < ApplicationController
     log_action("activities_unique_locations")
   end
   
+  def unique_visits
+    reset_page
+    @unique_visits = paginate Activity.unique_visits
+    log_action("activities_unique_visits")
+  end
+  
   def index
     reset_page
     if params[:activity_action]

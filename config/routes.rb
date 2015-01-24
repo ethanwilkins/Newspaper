@@ -97,6 +97,8 @@ Rails.application.routes.draw do
   
   get 'activities/unique_locations', as: 'unique_locations'
   
+  get 'activities/unique_visits', as: 'unique_visits'
+  
   get 'translations/requests', as: 'translation_reqs'
   
   get 'game_boards', to: 'game_boards#index', as: 'boards'

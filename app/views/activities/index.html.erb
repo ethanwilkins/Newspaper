@@ -3,7 +3,7 @@
 	<div align="center">
 		<p><%= link_to translate("Unique locations:") + " " + Activity.unique_locations.size.to_s, unique_locations_path %></p>
 		<p><%= link_to translate("Total actions:") + " " + Activity.all.size.to_s, activities_path %></p>
-		<p><%= link_to translate("Unique visits:") + " " + Activity.unique_visits.size.to_s, activities_path %></p>
+		<p><%= link_to translate("Unique visits:") + " " + Activity.unique_visits.size.to_s, unique_visits_path %></p>
 		<p><%= link_to translate("Total users:") + " " + User.all.size.to_s, users_path %></p>
 		<div><%= link_to translate("Codes:") + " " + Code.all.size.to_s, codes_code_data_path %></div>
 	</div>
