@@ -22,10 +22,7 @@ class User < ActiveRecord::Base
   validate :numeric_zip_if_present
   before_create :generate_token
   before_save :downcase_fields
-  before_save :set_current_geo
-  
-  reverse_geocoded_by :latitude, :longitude, :address => :address
-  after_validation :geocode, :reverse_geocode
+  before_save :set_current_location
   
   mount_uploader :icon, ImageUploader
   
@@ -120,11 +117,13 @@ class User < ActiveRecord::Base
   
   private
   
-  def set_current_geo
-    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
-    if defined? geoip and geoip
-      self.latitude = geoip.latitude
-      self.longitude = geoip.longitude
+  def set_current_location
+    if activities.present?
+      last = activities.last
+      address = last.address
+      latitude = last.latitude
+      longitude = last.longitude
+      zip_code = last.zip_code
     end
   end
   

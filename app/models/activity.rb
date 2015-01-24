@@ -3,11 +3,8 @@ class Activity < ActiveRecord::Base
   has_many :comments
   
   validates_presence_of :action
-  
-  # reverse_geocoded_by :latitude, :longitude, :formatted_address => :address
-
   before_save :get_location, if: :these_actions?
-  # after_save :geocode, :reverse_geocode, if: :these_actions?
+  before_save :get_zip
   
   def get_location
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
@@ -69,7 +66,7 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def save_zip
+  def get_zip
     if self.address.present?
       place = self.address.split(", ")[2] if self.address.split(", ")[2].present?
       zip = place.split(" ")[1] if place and place.split(" ")[1].present?
