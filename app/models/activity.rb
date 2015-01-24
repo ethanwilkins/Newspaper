@@ -4,10 +4,10 @@ class Activity < ActiveRecord::Base
   
   validates_presence_of :action
   
-  reverse_geocoded_by :latitude, :longitude, :formatted_address => :address
+  # reverse_geocoded_by :latitude, :longitude, :formatted_address => :address
 
   before_save :get_location, if: :these_actions?
-  after_save :geocode, :reverse_geocode, if: :these_actions?
+  # after_save :geocode, :reverse_geocode, if: :these_actions?
   
   def get_location
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
