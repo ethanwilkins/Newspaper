@@ -12,10 +12,6 @@ class Activity < ActiveRecord::Base
   def get_location
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
     if defined? geoip
-      self.address = geoip.city_name
-      # need country name, need to get
-      # longitudes or minimum to get state
-      # and city names from geocode
       self.latitude = geoip.latitude
       self.longitude = geoip.longitude
       if latitude and longitude
@@ -63,12 +59,11 @@ class Activity < ActiveRecord::Base
   private
   
   def these_actions?
-    # case action
-    # when "sessions_create", "admin_index", "admin_index_fail",
-    #   "activities_index", "codes_index", "groups_index"
-    #   return true
-    # end
-    return false # temporary stopgap
+    case action
+    when "sessions_create", "admin_index", "admin_index_fail",
+      "activities_index", "codes_index", "groups_index"
+      return true
+    end
   end
   
   def save_zip
