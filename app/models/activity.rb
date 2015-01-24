@@ -15,6 +15,10 @@ class Activity < ActiveRecord::Base
       self.latitude = geoip.latitude
       self.longitude = geoip.longitude
       if latitude and longitude
+        geocoder = Geocoder.search("#{latitude}, #{longitude}").first
+        if geocoder and geocoder.formatted_address
+          self.address = geocoder.formatted_address
+        end
         return true
       else
         return false
