@@ -1,6 +1,6 @@
 class FoldersController < ApplicationController
   def new
-    @receiver = User.find_by_id(params[:user_id])
+    @receiver = User.find_by_name(params[:user_id])
     @sales_post = Post.find_by_id(params[:post_id])
     @folder = Folder.new
     log_action("folders_new")

@@ -14,6 +14,7 @@ class FeaturesController < ApplicationController
   
   def cherry_pick
     @feature = current_user.features.new(action: :cherry_pick, tab_id: params[:tab_id])
+    @feature.personal = true
     if @feature.save
       flash[:notice] = translate("Cherry pick saved successfully.")
       log_action("features_cherry_pick", @feature.id)
@@ -26,6 +27,7 @@ class FeaturesController < ApplicationController
   
   def page_jump
     @feature = current_user.features.new(action: :page_jump, tab_id: params[:tab_id])
+    @feature.personal = true
     if @feature.save
       flash[:notice] = translate("Page jump saved successfully.")
       log_action("features_page_jump", @feature.id)

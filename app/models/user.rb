@@ -35,11 +35,14 @@ class User < ActiveRecord::Base
     if content.zip_code and self.zip_code and content.zip_code == self.zip_code or (content.is_a? Tab and \
       content.features.where(user_id: self.id).where(action: :cherry_pick).present?)
       _close_enough = true
-    # verifies that content is within the users specified network size
+    # close enough when within the users specified network size
     elsif content.latitude and self.latitude and self.network_size and \
       GeoDistance.distance(content.latitude, content.longitude, self.latitude,
       self.longitude).miles.number < self.network_size
       return true
+    # if previous checks fail, allows
+    # content access to branch out proportionately
+    # as the local or global communities expand
     elsif content.zip_code.present?
       case content.class
       when Post

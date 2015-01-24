@@ -12,7 +12,7 @@ class Feature < ActiveRecord::Base
   private
   
   def unique_in_tab
-    if tab_id and Tab.find(tab_id).features.exists? action: action
+    if tab_id and not personal and Tab.find(tab_id).features.exists? action: action
       errors.add(:already_in_tab, "This feature has already been added.")
     end
   end
