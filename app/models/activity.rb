@@ -6,7 +6,7 @@ class Activity < ActiveRecord::Base
   
   reverse_geocoded_by :latitude, :longitude, :address => :address
 
-  after_save :get_location, if: :these_actions?
+  before_save :get_location, if: :these_actions?
   after_save :geocode, :reverse_geocode, if: :these_actions?
   
   def get_location
@@ -15,7 +15,6 @@ class Activity < ActiveRecord::Base
       self.latitude = geoip.latitude
       self.longitude = geoip.longitude
       if latitude and longitude
-        self.save!
         return true
       else
         return false

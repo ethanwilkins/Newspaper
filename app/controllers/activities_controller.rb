@@ -1,7 +1,7 @@
 class ActivitiesController < ApplicationController 
   def get_location
     @activity = Activity.find_by_id(params[:id])
-    if @activity.get_location
+    if @activity.get_location and @activity.save
       flash[:notice] = translate("Location successfully saved.")
       log_action("activities_log_action", @activity.id)
     else
