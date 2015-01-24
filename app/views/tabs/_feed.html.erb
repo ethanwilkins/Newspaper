@@ -7,16 +7,16 @@
 	<% case item.class.to_s %>
 		<% when "Post" %>
 			<% if not current_user or current_user.close_enough(item) or @tab.features.exists? "global" %>
-				<%= render "posts/card", post: item %>
+				<%= render "posts/card", post: item, list_format: @tab.list_format? %>
 			<% end %>
 			<%= render "articles/ad_card" if ad_pos == pos_on_page %>
 			<% pos_on_page += 1 %>
 		<% when "Article" %>
-			<%= render "articles/card", article: item %>
+			<%= render "articles/card", article: item, list_format: @tab.list_format? %>
 		<% when "Comment" %>
-			<%= render "comments/card", comment: item %>
+			<%= render "comments/card", comment: item, list_format: @tab.list_format? %>
 		<% when "Event" %>
-			<%= render "events/card", event: item %>
+			<%= render "events/card", event: item, list_format: @tab.list_format? %>
 	<% end %>
 <% end %>
 

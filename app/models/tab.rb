@@ -41,6 +41,10 @@ class Tab < ActiveRecord::Base
     end
   end
   
+  def list_format?
+    features.exists? action: "list_format"
+  end
+  
   def cherry_picked?(user)
     cherry_picks = self.features.where(action: :cherry_pick)
     if cherry_picks.find_by_user_id(user.id)
