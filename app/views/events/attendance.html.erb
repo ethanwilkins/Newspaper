@@ -4,3 +4,11 @@
 	<% user = User.find_by_id(user.user_id) %>
 	<%= render "users/card", user: user %>
 <% end %>
+
+<% if @event.going.empty? %>
+	<div id="card">
+		<div align="center">
+			<%= translate("No one has RSVPed yet.") %>
+		</div>
+	</div>
+<% end %>

@@ -13,6 +13,7 @@ class Post < ActiveRecord::Base
   
   accepts_nested_attributes_for :pictures
   
+  validate :title_required?, on: :create
   validate :text_or_image?, on: :create
   after_create :apply_expiration
   
@@ -59,6 +60,12 @@ class Post < ActiveRecord::Base
   end
   
   private
+  
+  def title_required?
+    if self.tab_id and Tab.find(tab_id).features.exists? action: :list_format and self.title.empty?
+      errors.add(:title_required, "A title is required for list format.")
+    end
+  end
   
   def apply_expiration
     if self.tab and self.tab.features.exists? "post_expiration"

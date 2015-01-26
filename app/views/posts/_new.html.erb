@@ -18,9 +18,9 @@
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if @tab %>
 			<%= hidden_field_tag :tab_id, params[:id] %>
-			<% if @tab.features.exists? action: :photosets %>
+			<% if @tab.features.exists? action: [:photosets, :list_format] %>
 				<p>
-					<%= f.text_field :title, placeholder: translate("Add a title for photosets"),
+					<%= f.text_field :title, placeholder: translate("Add a title..."),
 						class: "form-control" %>
 				</p>
 			<% end %>

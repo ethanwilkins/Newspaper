@@ -44,11 +44,13 @@ class User < ActiveRecord::Base
     elsif content.zip_code.present?
       case content.class
       when Post
+        # the more content in a given area, the less likely it is
+        # for any particular item from that area to show
         near_content = Post.where(zip_code: content.zip_code).size
-        _close_enough = true if near_content < Random.rand(0..Post.all.size)
         # gets number of posts with the same zip code and is close
         # enough when a random value between 0 and the size of all
         # content is less than the number with the same zip code
+        _close_enough = true if near_content < Random.rand(0..Post.all.size)
       when Tab
         near_content = Tab.where(zip_code: content.zip_code).size
         _close_enough = true if near_content < Random.rand(0..Tab.all.size)

@@ -66,12 +66,14 @@ class PostsController < ApplicationController
       current_user.notify_mentioned(@post)
       Hashtag.extract(@post) if @post.body
       log_action("posts_create", @post.id)
-      redirect_to :back
+    elsif @post.errors.include? :title_required
+      flash[:error] = translate("Titles are required for list format.")
+      log_action("posts_create_fail")
     else
       flash[:error] = translate "Invalid input"
       log_action("posts_create_fail")
-      redirect_to :back
     end
+    redirect_to :back
   end
   
   def update
