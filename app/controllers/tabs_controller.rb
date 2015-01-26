@@ -45,17 +45,17 @@ class TabsController < ApplicationController
     @all_items += @tab.events if @tab.events.present?
     @all_items.sort_by! &:created_at
     
+    # popularity feature brings liked posts to top
+    if @tab.features.exists? action: "popularity_float"
+      @all_items.sort_by! { |item| item.score }
+    end
+    
     # alphabetize for list format feature
     if @tab.features.exists? action: "list_format"
       @all_items.delete_if { |item| not defined? item.title \
         or item.title.nil? or item.title.empty? }.
         sort_by! { |item| item.title }
       @all_items.reverse!
-    end
-    
-    # popularity feature brings liked posts to top
-    if @tab.features.exists? action: "popularity_float"
-      @all_items.sort_by! { |item| item.score }
     end
     
     @items = paginate @all_items
