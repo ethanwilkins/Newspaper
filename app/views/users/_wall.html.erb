@@ -15,8 +15,8 @@
 	</div>
 <% end %>
 
-<% for post in @posts %>
-	<%= render "posts/card", post: post %>
-<% end %>
+<%= render "users/feed" %>
 
-<%= render "pages/more_back", all_items: @user.posts, items: @posts %>
+<div id="more_content_anchor"></div>
+
+<%= render "pages/more_back", all_items: @all_items, items: @items %>

@@ -1,0 +1,4 @@
+
+$("#more_content_anchor").after("<%= escape_javascript(render 'pages/more_content') %>")
+
+$("#more_back_button").replaceWith("<%= escape_javascript(render 'pages/more_back', all_items: @all_items, items: @items) %>")

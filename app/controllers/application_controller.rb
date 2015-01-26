@@ -4,9 +4,33 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item, :chosen_one,
-    :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action, :new_search, :save_search
+    :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action, :new_search, :save_search, :build_tab_feed_data
 
   private
+  
+  # builds data for tab inside the page
+  # controller to be rendered through javascript
+  def build_tab_feed_data(tab)
+    @tab = tab
+    @advert = Article.local_advert(current_user)
+    @posts = @tab.posts
+    @all_items = @posts + @tab.funnel_tagged
+    @all_items += @tab.approved_articles if @tab.approved_articles.present?
+    @all_items += @tab.events if @tab.events.present?
+    @all_items.sort_by! &:created_at
+    # popularity feature brings liked posts to top
+    if @tab.features.exists? action: "popularity_float"
+      @all_items.sort_by! { |item| item.score }
+    end
+    # alphabetize for list format feature
+    if @tab.features.exists? action: "list_format"
+      @all_items.delete_if { |item| not defined? item.title \
+        or item.title.nil? or item.title.empty? }.
+        sort_by! { |item| item.title }
+      @all_items.reverse!
+    end
+    @items = paginate @all_items
+  end
   
   # returns a non-nil item from an array
   def chosen_one(items)
@@ -87,7 +111,6 @@ class ApplicationController < ActionController::Base
     unless session[:more]
       session[:page] = nil
     end
-    session[:more] = nil
   end
   
   def text_shown(item, field)

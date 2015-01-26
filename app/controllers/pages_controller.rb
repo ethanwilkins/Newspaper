@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   # :page is the page number for each feed
+  
   def more
     if session[:page].nil? or session[:page] * page_size <= Activity.all.size
       if session[:page]
@@ -7,14 +8,28 @@ class PagesController < ApplicationController
       else
         session[:page] = 1
       end
-      session[:more] = :more
     end
-    Activity.log_action(current_user, request.remote_ip.to_s, "pages_more")
-    redirect_to :back
+    build_feed_data
+    log_action("pages_more")
   end
   
   def back
-    Activity.log_action(current_user, request.remote_ip.to_s, "pages_back")
+    log_action("pages_back")
     redirect_to :back
+  end
+  
+  private
+  
+  def build_feed_data
+    if params[:tab_id]
+      @tab_shown = true
+      tab = Tab.find_by_id(params[:tab_id])
+      build_tab_feed_data(tab)
+    elsif params[:user_id]
+      @user_shown = true
+      @user = User.find_by_id(params[:user_id])
+      @all_items = @user.posts
+      @items = paginate @user.posts
+    end
   end
 end

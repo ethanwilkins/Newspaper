@@ -1,6 +1,17 @@
+<!-- pages -->
+
+<% if @tab_shown %>
+	<% params_hash = { tab_id: @tab.id } %>
+<% elsif @user_shown %>
+	<% params_hash = { user_id: @user.id } %>
+<% else %>
+	<% params_hash = nil %>
+<% end %>
+
 <div align="center" id="more_button">
 	<div id="large_button">
-		<%= link_to(more_path, class: "btn btn-default btn-lg btn-block", title: translate("Show older content")) do %>
+		<%= link_to(more_path(params_hash), class: "btn btn-default btn-lg btn-block",
+		title: translate("Show older content"), remote: :true) do %>
 			<%= translate "More" %>
 		<% end %>
 	</div>

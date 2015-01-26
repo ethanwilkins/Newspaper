@@ -1,0 +1,7 @@
+<!-- pages -->
+
+<% if @tab_shown %>
+	<%= render "tabs/feed" %>
+<% elsif @user_shown %>
+	<%= render "users/feed" %>
+<% end %>

@@ -2,12 +2,12 @@
 
 <!-- shows more until the end of the list -->
 
+<div id="more_back_button">
 <% if all_items.present? and all_items.size > page_size %>
 	<div id="more_back">
 		<% if items.size >= page_size %>
 			<%= render "pages/more" %>
-		<% else %>
-			<%= render "pages/back" %>
 		<% end %>
 	</div>
 <% end %>
+</div>

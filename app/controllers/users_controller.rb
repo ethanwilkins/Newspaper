@@ -20,13 +20,17 @@ class UsersController < ApplicationController
     if @user
       @post = Post.new
       @pictures = @post.pictures.build
-      @posts = paginate @user.posts
+      @all_items = @user.posts
+      @items = paginate @user.posts
       # images for photo gallery
       @images = @user.images.last 6
       log_action("users_show", @user.id, nil, @user.class.to_s)
+      @user_shown = true
       save_search @user
     else
+      flash[:error] = translate("User could not be found.")
       log_action("users_show_fail")
+      redirect_to :back
     end
   end
   

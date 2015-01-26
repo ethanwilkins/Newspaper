@@ -33,35 +33,19 @@ class TabsController < ApplicationController
     reset_page
     Post.delete_expired
     Post.repopulate
-    @advert = Article.local_advert(current_user)
-    @tab = Tab.find(params[:id])
-    @subtabs = @tab.popular_subtabs
-    @posts = @tab.posts
-    @post = Post.new
-    @pictures = @post.pictures.build
-    
-    @all_items = @posts + @tab.funnel_tagged
-    @all_items += @tab.approved_articles if @tab.approved_articles.present?
-    @all_items += @tab.events if @tab.events.present?
-    @all_items.sort_by! &:created_at
-    
-    # popularity feature brings liked posts to top
-    if @tab.features.exists? action: "popularity_float"
-      @all_items.sort_by! { |item| item.score }
+    @tab = Tab.find_by_id(params[:id])
+    if @tab
+      @tab_shown = true
+      @subtabs = @tab.popular_subtabs
+      @post = Post.new
+      @pictures = @post.pictures.build
+      build_tab_feed_data(@tab)
+      save_search @tab
+      log_action("tabs_show", @tab.id)
+    else
+      flash[:error] = translate("Tab could not be found.")
+      redirect_to :back
     end
-    
-    # alphabetize for list format feature
-    if @tab.features.exists? action: "list_format"
-      @all_items.delete_if { |item| not defined? item.title \
-        or item.title.nil? or item.title.empty? }.
-        sort_by! { |item| item.title }
-      @all_items.reverse!
-    end
-    
-    @items = paginate @all_items
-    
-    save_search @tab
-    log_action("tabs_show", @tab.id)
   end
   
   def new
