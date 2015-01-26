@@ -19,11 +19,6 @@ class Hashtag < ActiveRecord::Base
         _tagged << article
       end
     end
-    for comment in Comment.all
-      if comment.hashtags.exists? tag: tag
-        _tagged << comment
-      end
-    end
     for event in Event.approved
       if event.hashtags.exists? tag: tag
         _tagged << event
