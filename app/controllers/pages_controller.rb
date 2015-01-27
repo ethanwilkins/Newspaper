@@ -2,6 +2,7 @@ class PagesController < ApplicationController
   # :page is the page number for each feed
   
   def more
+    # should replace activity size with the relevant items size
     if session[:page].nil? or session[:page] * page_size <= Activity.all.size
       if session[:page]
         session[:page] += 1

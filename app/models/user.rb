@@ -132,7 +132,7 @@ class User < ActiveRecord::Base
         end
       end
     end
-    get_zip
+    get_zip if self.zip_code.nil?
   end
 
   def get_zip
