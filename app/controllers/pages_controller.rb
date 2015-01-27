@@ -30,6 +30,14 @@ class PagesController < ApplicationController
       @user = User.find_by_id(params[:user_id])
       @all_items = @user.posts
       @items = paginate @user.posts
+    elsif params[:notes]
+      @notes_shown = true
+      @all_items = current_user.notes
+      @all_items.each do |note|
+        note.update checked: true
+      end
+      @items = paginate @all_items
+      @advert = Article.local_advert(current_user)
     end
   end
 end

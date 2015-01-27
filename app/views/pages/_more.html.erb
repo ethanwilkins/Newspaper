@@ -4,6 +4,8 @@
 	<% params_hash = { tab_id: @tab.id } %>
 <% elsif @user_shown %>
 	<% params_hash = { user_id: @user.id } %>
+<% elsif @notes_shown %>
+	<% params_hash = { notes: true } %>
 <% else %>
 	<% params_hash = nil %>
 <% end %>

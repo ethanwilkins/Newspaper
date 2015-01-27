@@ -7,9 +7,7 @@
 		</div></div>
 	<% end %>
 
-	<% @notes.each do |note| %>
-		<%= render "notes/card", note: note %>
-	<% end %>
-<% end %>
+	<%= render "notes/feed" %>
 
-<%= render "pages/more_back", all_items: current_user.notes, items: @notes %>
+	<%= render "pages/more_back", all_items: @all_items, items: @items %>
+<% end %>
