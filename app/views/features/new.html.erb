@@ -4,7 +4,7 @@
 	<%= form_for @feature, html: {multipart: true, "data-ajax" => false} do |f| %>
 		<% if @tab or @subtab %>
 			<%= hidden_field_tag :tab_id, @tab.id %>
-			<%= hidden_field_tag :subtab_id, @subtab.id %>
+			<%= hidden_field_tag :subtab_id, @subtab.id if @subtab %>
 			<p>
 				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
 					[translate("Invite & Attendance"), "invite_attendance"],
