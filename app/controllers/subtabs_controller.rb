@@ -34,8 +34,8 @@ class SubtabsController < ApplicationController
     @subtab.ip = request.remote_ip.to_s
     @subtab.user_id = current_user.id
     @subtab.tab_id = params[:tab_id]
-    @post.latitude = current_user.latitude
-    @post.longitude = current_user.longitude
+    @subtab.latitude = current_user.latitude
+    @subtab.longitude = current_user.longitude
     
     if @subtab.save
       flash[:notice] = translate "Your subtab was successfully submitted."

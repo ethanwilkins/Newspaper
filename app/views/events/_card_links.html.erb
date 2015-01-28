@@ -9,7 +9,7 @@
 			<% if event.going.empty? %>
 				<% going = translate("Going") %>
 			<% else %>
-				<% going = event.going.size.to_s + " " + translate("going") %>
+				<% going = translate("Going") + " " + event.going.size.to_s %>
 			<% end %>
 			<%= link_to going, attendance_path(event), class: :card_link %>
 		</td>
