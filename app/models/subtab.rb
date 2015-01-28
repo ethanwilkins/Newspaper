@@ -1,7 +1,12 @@
 class Subtab < ActiveRecord::Base
   belongs_to :tab
+  
   has_many :posts
-  has_many :translations
+  has_many :events, dependent: :destroy
+  has_many :features, dependent: :destroy
+  has_many :hashtags, dependent: :destroy
+  has_many :articles, dependent: :destroy
+  has_many :translations, dependent: :destroy
   
   mount_uploader :icon, ImageUploader
   

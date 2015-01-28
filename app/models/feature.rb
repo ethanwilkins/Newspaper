@@ -1,5 +1,6 @@
 class Feature < ActiveRecord::Base
   belongs_to :tab
+  belongs_to :subtab
   validates_presence_of :action
   validate :unique_in_tab
   
@@ -12,7 +13,8 @@ class Feature < ActiveRecord::Base
   private
   
   def unique_in_tab
-    if tab_id and not personal and Tab.find(tab_id).features.exists? action: action
+    if not personal and ((tab_id and Tab.find(tab_id).features.exists? action: action) \
+      or (subtab_id and Subtab.find(subtab_id).features.exists? action: action))
       errors.add(:already_in_tab, "This feature has already been added.")
     end
   end

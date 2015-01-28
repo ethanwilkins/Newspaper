@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   
   delete 'tabs/destroy/:id', to: "tabs#destroy", as: 'destroy_tab'
   
+  delete 'subtabs/destroy/:id', to: "subtabs#destroy", as: 'destroy_subtab'
+  
   delete 'posts/destroy/:id', to: 'posts#destroy', as: 'destroy_post'
   
   delete 'codes/destroy/:id', to: 'codes#destroy', as: 'destroy_code'
@@ -196,8 +198,10 @@ Rails.application.routes.draw do
   end
   
   resources :tabs do
-    resources :subtabs
     resources :features
+    resources :subtabs do
+      resources :features
+    end
   end
 
   resources :users do

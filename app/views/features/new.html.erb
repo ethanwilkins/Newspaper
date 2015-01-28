@@ -2,8 +2,9 @@
 
 <div id="card">
 	<%= form_for @feature, html: {multipart: true, "data-ajax" => false} do |f| %>
-		<% if @tab %>
+		<% if @tab or @subtab %>
 			<%= hidden_field_tag :tab_id, @tab.id %>
+			<%= hidden_field_tag :subtab_id, @subtab.id %>
 			<p>
 				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
 					[translate("Invite & Attendance"), "invite_attendance"],
@@ -36,13 +37,15 @@
 	<% end %>
 </div>
 
-<% if @tab and @tab.features.present? %>
+<% if @subtab %>
+	<% for feature in @subtab.features.reverse %>
+		<%= render "features/card", feature: feature %>
+	<% end %>
+<% elsif @tab %>
 	<% for feature in @tab.features.reverse %>
 		<%= render "features/card", feature: feature %>
 	<% end %>
-<% end %>
-
-<% if @user and @user.features.present? %>
+<% elsif @user %>
 	<% for feature in @user.features.reverse %>
 		<%= render "features/card", feature: feature %>
 	<% end %>

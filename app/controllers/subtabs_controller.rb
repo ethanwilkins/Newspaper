@@ -48,6 +48,22 @@ class SubtabsController < ApplicationController
     end
   end
   
+  def update
+    @subtab = Subtab.find(params[:id])
+    if @subtab.update(params[:subtab].permit(:icon, :name, :description, :company, :sponsored,
+      :sponsored_only, :translation_requested, :zip_code))
+      flash[:notice] = translate("Subtab updated successfully.")
+      redirect_to @subtab
+    else
+      flash[:error] = translate("Invalid input.")
+      redirect_to :back
+    end
+  end
+  
+  def edit
+    @subtab = Subtab.find(params[:id])
+  end
+  
   def index
     @tab = Tab.find(params[:tab_id])
     @subtabs = @tab.subtabs.approved.reverse

@@ -1,0 +1,24 @@
+<!-- subtabs -->
+
+<div class="top_right_link">
+	<div class="btn-group">
+		<% if current_user %>
+			<% if current_user.admin %>
+				<%= link_to destroy_subtab_path(@subtab), method: :delete, class: "btn btn-default",
+					data: { confirm: 'Are you sure you want to delete this subtab?' },
+					title: translate("Permanently delete this subtab") do %>
+					<span class="glyphicon glyphicon-trash"></span>
+				<% end %>
+				<%= link_to edit_tab_subtab_path(@subtab.tab, @subtab), class: "btn btn-default",
+					 title: translate("Edit this subtab") do %>
+					<span class="glyphicon glyphicon-edit"></span>
+				<% end %>
+				<%= link_to new_tab_subtab_feature_path(@subtab.tab, @subtab), class: "btn btn-default",
+					 title: translate("Add a new feature to this subtab") do %>
+					<span class="glyphicon glyphicon-plus-sign"></span>
+				<% end %>
+			<% end %>
+		<% end %>
+	</div>
+</div>
+</br>
