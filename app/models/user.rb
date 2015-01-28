@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
   
   def current_location
     geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
-    if defined? geoip
+    if defined? geoip and geoip
       self.latitude = geoip.latitude
       self.longitude = geoip.longitude
       if latitude and longitude

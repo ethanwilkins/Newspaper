@@ -15,3 +15,12 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
+
+// need to test for existance of tab feed or user feed etc and only run this then
+// also needs to send correct parameters expected by pages more action
+	
+// $(window).scroll(function() {
+// 	if($(window).scrollTop() + $(window).height() > $(document).height() - 50) {
+// 		$.ajax( { url: "pages/more", type: "GET" } );
+// 	}
+// });
