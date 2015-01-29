@@ -68,7 +68,11 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @tab = Tab.find_by_id(params[:tab_id])
+    if params[:subtab_id]
+      @subtab = Subtab.find_by_id(params[:subtab_id])
+    elsif params[:tab_id]
+      @tab = Tab.find_by_id(params[:tab_id])
+    end
     log_action("events_new")
   end
   

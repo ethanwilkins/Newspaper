@@ -1,93 +1,99 @@
 Rails.application.routes.draw do
+  
+  # user routes
+  
   get 'sessions/new'
 
   post 'sessions/create'
 
   get 'sessions/destroy'
   
-  put 'tabs/update'
+  get 'admin', to: 'admin#index'
   
-  put 'subtabs/update'
+  get 'users/:user_id/gallery', to: 'users#gallery', as: 'gallery'
   
-  put 'translations/update'
   
-  put 'feedbacks/update'
+  # post routes
   
-  post 'feedbacks/create', as: 'feedback'
+  get "posts/up_vote/:id", to: "posts#up_vote", as: "up_vote_post"
   
-  post 'messages/create', as: 'messages'
-  
-  post 'features/create', as: 'features'
-  
-  post 'subtabs/create', as: 'subtabs'
-  
-  post 'cards/create', as: 'cards'
-  
-  delete 'codes/clear', as: 'clear'
-  
-  delete 'tabs/destroy/:id', to: "tabs#destroy", as: 'destroy_tab'
-  
-  delete 'subtabs/destroy/:id', to: "subtabs#destroy", as: 'destroy_subtab'
-  
-  delete 'posts/destroy/:id', to: 'posts#destroy', as: 'destroy_post'
-  
-  delete 'codes/destroy/:id', to: 'codes#destroy', as: 'destroy_code'
-  
-  delete 'game_boards/destroy/:id', to: 'game_boards#destroy', as: 'destroy_board'
-  
-  delete 'features/destroy/:id', to: 'features#destroy', as: 'destroy_feature'
-  
-  delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
-  
-  delete 'feedbacks/destroy/:id', to: "feedbacks#destroy", as: 'destroy_feedback'
-  
-  delete 'translations/destroy/:id', to: 'translations#destroy', as: 'destroy_translation'
+  get "posts/un_vote/:id", to: "posts#un_vote", as: "un_vote_post"
   
   delete 'posts/:post_id/finalize_sale/:folder_id', to: 'posts#finalize_sale', as: 'finalize_sale'
   
-  get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
+  delete 'posts/destroy/:id', to: 'posts#destroy', as: 'destroy_post'
   
-  get "features/cherry_pick/:tab_id", to: 'features#cherry_pick', as: 'cherry_pick'
   
-  get "features/un_cherry_pick/:tab_id", to: 'features#un_cherry_pick', as: 'un_cherry_pick'
+  # articles routes
   
-  get 'activities/:id/get_location', to: 'activities#get_location', as: 'get_location'
+  delete 'articles/destroy/:id', to: 'articles#destroy', as: 'destroy_article'
+  
+  get 'tabs/:tab_id/articles/new', to: 'articles#new', as: 'new_tab_article'
+  
+  get 'subtabs/:subtab_id/articles/new', to: 'articles#new', as: 'new_subtab_article'
+  
+  get 'articles/ad_edit/:id', to: 'articles#ad_edit', as: 'ad_edit'
+
+  get 'articles/approve/:id', to: 'articles#approve', as: 'approve_article'
+
+  get 'articles/deny/:id', to: 'articles#deny', as: 'deny_article'
+  
+  get 'articles/pending', as: 'pending_articles'
+  
+  get 'articles/ad_index', as: 'ad_index'
+  
+  
+  # events
   
   get 'events/:event_id/going', to: 'events#going', as: 'going'
   
   get 'events/:event_id/not_going', to: 'events#not_going', as: 'not_going'
   
   get 'events/:event_id/attendance', to: 'events#attendance', as: 'attendance'
+
+  get 'events/approve/:id', to: 'events#approve', as: 'approve_event'
+  
+  get 'subtabs/:subtab_id/events/new', to: 'events#new', as: 'new_subtab_event'
+  
+  get 'tabs/:tab_id/events/new', to: 'events#new', as: 'new_tab_event'
+
+  get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
+  
+  get 'events/pending', as: 'pending_events'
+  
+  
+  # message routes
+  
+  post 'messages/create', as: 'messages'
   
   get 'folders/new/:post_id/:user_id', to: 'folders#new', as: 'inquire'
   
   get 'folders/new/:user_id', to: 'folders#new', as: 'new_folder'
   
-  get 'users/:user_id/gallery', to: 'users#gallery', as: 'gallery'
   
-  get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
+  # comment routes
   
-  get "search/search/:query", to: "search#search", as: "tagged"
-  
-  get "posts/up_vote/:id", to: "posts#up_vote", as: "up_vote_post"
-  
-  get "posts/un_vote/:id", to: "posts#un_vote", as: "un_vote_post"
+  post 'comments/create', as: 'comments'
   
   get 'comments/show/:id', to: 'comments#show', as: 'comment'
   
-  get 'articles/ad_edit/:id', to: 'articles#ad_edit', as: 'ad_edit'
-
-  get 'events/approve/:id', to: 'events#approve', as: 'approve_event'
   
-  get 'articles/new/:tab_id', to: 'articles#new', as: 'new_tab_article'
+  # notes routes
   
-  get 'events/new/:tab_id', to: 'events#new', as: 'new_tab_event'
-
-  get 'events/deny/:id', to: 'events#deny', as: 'deny_event'
-
-  get 'articles/approve/:id', to: 'articles#approve', as: 'approve_article'
-
-  get 'articles/deny/:id', to: 'articles#deny', as: 'deny_article'
+  get 'notes/select', as: "notes_select"
+  
+  get 'notes/new/:id', to: 'notes#new', as: 'new_note'
+  
+  
+  # tab routes
+  
+  put 'tabs/update'
+  
+  put 'subtabs/update'
+  
+  post 'subtabs/create', as: 'subtabs'
+  
+  delete 'tabs/destroy/:id', to: "tabs#destroy", as: 'destroy_tab'
 
   get 'tabs/approve/:id', to: 'tabs#approve', as: 'approve_tab'
 
@@ -97,17 +103,18 @@ Rails.application.routes.draw do
 
   get 'subtabs/deny/:id', to: 'subtabs#deny', as: 'deny_subtab'
   
-  get 'activities/unique_locations', as: 'unique_locations'
+  delete 'subtabs/destroy/:id', to: "subtabs#destroy", as: 'destroy_subtab'
   
-  get 'activities/unique_visits', as: 'unique_visits'
+  get 'tabs/pending', as: 'pending_tabs'
   
-  get 'translations/requests', as: 'translation_reqs'
   
-  get 'game_boards', to: 'game_boards#index', as: 'boards'
+  # feedback routes
   
-  get 'notes/select', as: "notes_select"
+  put 'feedbacks/update'
   
-  get 'notes/new/:id', to: 'notes#new', as: 'new_note'
+  post 'feedbacks/create', as: 'feedback'
+  
+  delete 'feedbacks/destroy/:id', to: "feedbacks#destroy", as: 'destroy_feedback'
   
   get 'users/:user_id/feedbacks/new', to: 'feedbacks#new', as: 'new_user_feedback'
   
@@ -121,25 +128,21 @@ Rails.application.routes.draw do
   
   get 'tabs/:tab_id/feedbacks/new', to: 'feedbacks#new', as: 'new_tab_feedback'
   
-  get 'events/pending', as: 'pending_events'
   
-  get "search/search", as: "search"
+  # feature routes
   
-  get 'articles/pending', as: 'pending_articles'
+  get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
   
-  post 'game_boards/create', as: 'game_boards'
+  get "features/cherry_pick/:tab_id", to: 'features#cherry_pick', as: 'cherry_pick'
   
-  post 'comments/create', as: 'comments'
+  get "features/un_cherry_pick/:tab_id", to: 'features#un_cherry_pick', as: 'un_cherry_pick'
   
-  get 'admin', to: 'admin#index'
+  delete 'features/destroy/:id', to: 'features#destroy', as: 'destroy_feature'
   
-  get 'articles/ad_index', as: 'ad_index'
+  post 'features/create', as: 'features'
   
-  get 'tabs/pending', as: 'pending_tabs'
   
-  get "pages/more", as: "more"
-  
-  get "pages/back", as: "back"
+  # groups
   
   put 'groups/remove_member'
   
@@ -149,7 +152,57 @@ Rails.application.routes.draw do
   
   put 'groups/add_zip'
   
+  
+  # game_board routes
+  
+  delete 'codes/destroy/:id', to: 'codes#destroy', as: 'destroy_code'
+  
+  delete 'game_boards/destroy/:id', to: 'game_boards#destroy', as: 'destroy_board'
+  
+  get 'game_boards/reset/:id', to: 'game_boards#reset', as: 'reset'
+  
+  get 'game_boards', to: 'game_boards#index', as: 'boards'
+  
+  post 'game_boards/create', as: 'game_boards'
+  
+  post 'cards/create', as: 'cards'
+  
+  delete 'codes/clear', as: 'clear'
+  
   get 'codes/code_data'
+  
+  
+  # activity routes
+  
+  get 'activities/:id/get_location', to: 'activities#get_location', as: 'get_location'
+  
+  get 'activities/unique_locations', as: 'unique_locations'
+  
+  get 'activities/unique_visits', as: 'unique_visits'
+  
+  
+  # translation routes 
+  
+  put 'translations/update'
+  
+  delete 'translations/destroy/:id', to: 'translations#destroy', as: 'destroy_translation'
+  
+  get 'translations/requests', as: 'translation_reqs'
+  
+  
+  # search routes
+  
+  get "search/search/:query", to: "search#search", as: "tagged"
+  
+  get "search/search", as: "search"
+  
+  
+  # page routes
+  
+  get "pages/more", as: "more"
+  
+  get "pages/back", as: "back"
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

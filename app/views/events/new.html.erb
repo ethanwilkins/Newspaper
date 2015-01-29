@@ -1,9 +1,14 @@
 <!-- events -->
 
-<%= render "tabs/name_header", tab: @tab if @tab %>
-
 <%= form_for @event do |f| %>
-	<%= hidden_field_tag :tab_id, @tab.id if @tab %>
+	<% if @subtab %>
+		<%= hidden_field_tag :subtab_id, @subtab.id %>
+		<%= render "subtabs/name_header", subtab: @subtab, item: "Event" %>
+	<% elsif @tab %>
+		<%= hidden_field_tag :tab_id, @tab.id %>
+		<%= render "tabs/name_header", tab: @tab, item: "Event" %>
+	<% end %>
+	
 	<div id="card">
 		<%= f.label translate("Plan an event"), class: :form_label_text %>
 		<p>
@@ -18,7 +23,7 @@
 		<p>
 			<%= f.text_field :location, placeholder: translate("Location"), class: "form-control" %>
 		</p>
-		<% if @tab and @tab.features.exists? action: :invite_attendance %>
+		<% if has_feature? :invite_attendance %>
 			<p>
 				<%= text_field_tag :invited_users, nil,
 					placeholder: translate("List users to invite, separate by comma"),

@@ -10,7 +10,7 @@
 	</div></br>
 <% end %>
 
-<%= render "tabs/name_header", tab: @tab if @tab %>
+<%= render "tabs/name_header", tab: @tab, item: "Article" if @tab %>
 
 <% if @tab or privileged? %>
 	<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>

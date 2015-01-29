@@ -39,8 +39,11 @@ class FeaturesController < ApplicationController
   end
   
   def new
-    @tab = Tab.find_by_id(params[:tab_id])
-    @subtab = Subtab.find_by_id(params[:subtab_id])
+    if params[:subtab_id]
+      @subtab = Subtab.find_by_id(params[:subtab_id])
+    elsif params[:tab_id]
+      @tab = Tab.find_by_id(params[:tab_id])
+    end
     @user = User.find_by_name(params[:user_id])
     @feature = Feature.new
     log_action("features_new")
