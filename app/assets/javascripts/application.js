@@ -25,6 +25,8 @@ $(window).bindWithDelay("scroll", function() {
 				param = $.param({ user_id: document.URL.split("/")[4] });
 			} else if (document.URL.search("tabs") != -1) {
 				param = $.param({ tab_id: document.URL.split("/")[4] });
+			} else if (document.URL.search("notes") != -1) {
+				param = $.param({ notes: true });
 			}
 			if (param) {
 				$.ajax({
@@ -35,4 +37,4 @@ $(window).bindWithDelay("scroll", function() {
 			}
 		}
 	}
-}, 500);
+}, 250);
