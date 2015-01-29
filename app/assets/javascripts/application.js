@@ -15,12 +15,24 @@
 //= require turbolinks
 //= require_tree .
 //= require bootstrap-sprockets
-
-// need to test for existance of tab feed or user feed etc and only run this then
-// also needs to send correct parameters expected by pages more action
+//= require bindWithDelay
 	
-// $(window).scroll(function() {
-// 	if($(window).scrollTop() + $(window).height() > $(document).height() - 50) {
-// 		$.ajax( { url: "pages/more", type: "GET" } );
-// 	}
-// });
+$(window).bindWithDelay("scroll", function() {
+	if($(window).scrollTop() + $(window).height() > $(document).height() - 50) {
+		if ($("#more_content_anchor")) {
+			var param = null;
+			if (document.URL.search("users") != -1) {
+				param = $.param({ user_id: document.URL.split("/")[4] });
+			} else if (document.URL.search("tabs") != -1) {
+				param = $.param({ tab_id: document.URL.split("/")[4] });
+			}
+			if (param) {
+				$.ajax({
+					type: "GET",
+					url: "/pages/more",
+					data: param
+				});
+			}
+		}
+	}
+}, 500);

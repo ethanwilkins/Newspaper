@@ -9,9 +9,11 @@ class PagesController < ApplicationController
       else
         session[:page] = 1
       end
+      build_feed_data
+      log_action("pages_more")
+    else
+      log_action("pages_more_fail")
     end
-    build_feed_data
-    log_action("pages_more")
   end
   
   def back
@@ -28,7 +30,7 @@ class PagesController < ApplicationController
       build_tab_feed_data(tab)
     elsif params[:user_id]
       @user_shown = true
-      @user = User.find_by_id(params[:user_id])
+      @user = User.find_by_name(params[:user_id])
       @all_items = @user.posts
       @items = paginate @user.posts
     elsif params[:notes]
