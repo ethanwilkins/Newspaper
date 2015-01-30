@@ -36,6 +36,7 @@ class SubtabsController < ApplicationController
     @subtab.tab_id = params[:tab_id]
     @subtab.latitude = current_user.latitude
     @subtab.longitude = current_user.longitude
+    @subtab.zip_code = current_user.zip_code
     
     if @subtab.save
       flash[:notice] = translate "Your subtab was successfully submitted."
@@ -56,6 +57,19 @@ class SubtabsController < ApplicationController
       redirect_to @subtab
     else
       flash[:error] = translate("Invalid input.")
+      redirect_to :back
+    end
+  end
+  
+  def destroy
+    @subtab = Subtab.find(params[:id])
+    @tab = @subtab.tab
+    if @subtab.destroy
+      flash[:notice] = translate("Tab deleted successfully.")
+      log_action("tabs_destroy")
+      redirect_to tab_path(@tab)
+    else
+      flash[:error] = translate "There was a problem deleting the tab."
       redirect_to :back
     end
   end
