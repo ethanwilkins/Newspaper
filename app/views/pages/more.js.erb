@@ -1,4 +1,8 @@
 // pages
 
-$("#more_content_anchor").after("<%= escape_javascript(render 'pages/more_content') %>")
+$("#more_content_anchor").after("<%=j render 'pages/more_content' %>")
 $("#more_content_anchor").remove() // removes the first anchor so the latest will be targeted
+
+<% if @items.present? and @items.size < page_size %>
+	$("#loading_footer").remove()
+<% end %>

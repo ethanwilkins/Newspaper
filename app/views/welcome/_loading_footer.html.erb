@@ -1,3 +1,9 @@
 <!-- welcome -->
 
-<h2 id="footer_spacing" align="center"><%= translate("Loading...") %></h2>
+<% if all_items.present? and all_items.size > page_size %>
+	<div align="center">
+		<%= image_tag "loading34.gif", id: :loading_footer %>
+	</div>
+<% end %>
+
+<div id="footer_spacing"></div>

@@ -18,7 +18,7 @@
 //= require bindWithDelay
 	
 $(window).bindWithDelay("scroll", function() {
-	if($(window).scrollTop() + $(window).height() > $(document).height() - 150) {
+	if($(window).scrollTop() + $(window).height() > $(document).height() - 300) {
 		if ($("#more_content_anchor")) {
 			var param = null;
 			if (document.URL.search("users") != -1) {
