@@ -8,8 +8,8 @@ class Event < ActiveRecord::Base
   has_many :hashtags, dependent: :destroy
   has_many :members, dependent: :destroy
   
-  scope :approved, -> { where(approved: true).where tab_id: nil }
-	scope :pending, -> { where(approved: nil).where tab_id: nil }
+  scope :approved, -> { where(approved: true).where(tab_id: nil).where(subtab_id: nil) }
+	scope :pending, -> { where(approved: nil).where(tab_id: nil).where(subtab_id: nil) }
 
   mount_uploader :image, ImageUploader
   

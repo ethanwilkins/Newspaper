@@ -4,4 +4,6 @@
 	<%= render "notes/card", note: note %>
 <% end %>
 
-<div id="more_content_anchor"></div>
+<% unless @items.size < page_size %>
+	<div id="more_content_anchor"></div>
+<% end %>

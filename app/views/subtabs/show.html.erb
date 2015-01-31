@@ -10,14 +10,10 @@
 	</div>
 </div>
 
-<%= render "posts/new" %>
-
-<% pos_on_page = 0 %>
-<% ad_pos = Random.new.rand @posts.size if @posts.present? %>
-<% for post in @posts %>
-	<%= render "posts/card", post: post unless post.translation_requested %>
-	<%= render "articles/ad_card" if ad_pos == pos_on_page %>
-	<% pos_on_page += 1 %>
+<% if @subtab.approved and ((@subtab.sponsored_only and current_user.business) or !@subtab.sponsored_only) %>
+	<%= render "posts/new" %>
 <% end %>
 
-</br>
+<%= render "tabs/feed" %>
+	
+<%= render "pages/loading_footer", items: @items, all_items: @all_items %>

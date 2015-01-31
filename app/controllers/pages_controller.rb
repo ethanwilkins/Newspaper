@@ -41,6 +41,9 @@ class PagesController < ApplicationController
       end
       @items = paginate @all_items
       @advert = Article.local_advert(current_user)
+    elsif params[:search]
+      @search_shown = true
+      build_search_results
     end
   end
 end

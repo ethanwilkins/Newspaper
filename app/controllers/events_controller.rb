@@ -80,9 +80,15 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event].permit(:title, :body, :location, :date, :image, :translation_requested))
     @event.zip_code = current_user.zip_code
     @event.user_id = current_user.id
-    @event.tab_id = params[:tab_id]
+    
+    if params[:subtab_id]
+      @event.subtab_id = params[:subtab_id]
+    elsif params[:tab_id]
+      @event.tab_id = params[:tab_id]
+    end
+    
     # auto-approved for the privileged or for tab events
-    @event.approved = true if privileged? or @event.tab_id
+    @event.approved = true if privileged? or @event.tab_id or @event.subtab_id
     
     if @event.save
       if @event.translation_requested

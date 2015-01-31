@@ -19,14 +19,18 @@
 	
 $(window).bindWithDelay("scroll", function() {
 	if($(window).scrollTop() + $(window).height() > $(document).height() - 300) {
-		if ($("#more_content_anchor")) {
+		if ($("#more_content_anchor").length) {
 			var param = null;
 			if (document.URL.search("users") != -1) {
 				param = $.param({ user_id: document.URL.split("/")[4] });
+			} else if (document.URL.search("subtabs") != -1) {
+				param = $.param({ subtab_id: document.URL.split("/")[6] });
 			} else if (document.URL.search("tabs") != -1) {
 				param = $.param({ tab_id: document.URL.split("/")[4] });
 			} else if (document.URL.search("notes") != -1) {
 				param = $.param({ notes: true });
+			} else if (document.URL.search("search") != -1) {
+				param = $.param({ search: true });
 			}
 			if (param) {
 				$.ajax({

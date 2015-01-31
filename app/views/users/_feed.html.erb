@@ -4,4 +4,6 @@
 	<%= render "posts/card", post: post %>
 <% end %>
 
-<div id="more_content_anchor"></div>
+<% unless @items.size < page_size %>
+	<div id="more_content_anchor"></div>
+<% end %>

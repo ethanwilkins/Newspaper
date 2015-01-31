@@ -16,6 +16,26 @@ class Subtab < ActiveRecord::Base
   scope :pending, -> { where approved: nil }
   scope :approved, -> { where approved: true }
   
+  def list_format?
+    features.exists? action: "list_format"
+  end
+  
+  def approved_articles
+    articles.where requires_approval: [nil, false]
+  end
+  
+  def funnel_tagged
+    funneled = []
+    if features.exists? action: :tagged
+      for tag in hashtags
+        tag.tagged.each do |_tag|
+          funneled << _tag
+        end
+      end
+    end
+    return funneled.sort_by &:created_at
+  end
+  
   def popularity
     posts.size
   end

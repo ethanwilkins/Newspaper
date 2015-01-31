@@ -62,7 +62,8 @@ class Post < ActiveRecord::Base
   private
   
   def title_required?
-    if self.tab_id and Tab.find(tab_id).features.exists? action: :list_format and self.title.empty?
+    if ((self.subtab_id and Subtab.find_by_id(subtab_id).features.exists? action: :list_format) \
+      or (self.tab_id and Tab.find_by_id(tab_id).features.exists? action: :list_format)) and self.title.empty?
       errors.add(:title_required, "A title is required for list format.")
     end
   end

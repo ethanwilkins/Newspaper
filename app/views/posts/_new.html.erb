@@ -17,10 +17,10 @@
 	
 	<!-- the actual form for new posts, adapts to tab/subtab and its features -->
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
-		<% if @tab %>
-			<%= hidden_field_tag :tab_id, params[:id] %>
-		<% elsif @subtab %>
+		<% if @subtab %>
 			<%= hidden_field_tag :subtab_id, params[:id] %>
+		<% elsif @tab %>
+			<%= hidden_field_tag :tab_id, params[:id] %>
 		<% end %>
 		<% if has_feature? [:photosets, :list_format] %>
 			<p>

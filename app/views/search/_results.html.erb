@@ -11,6 +11,6 @@
 	<% end %>
 <% end %>
 
-<%= render "articles/ad_card" %>
-
-<%= render "pages/more_back", all_items: @all_results, items: @results %>
+<% unless @items.size < page_size %>
+	<div id="more_content_anchor"></div>
+<% end %>

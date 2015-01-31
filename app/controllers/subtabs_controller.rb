@@ -85,12 +85,21 @@ class SubtabsController < ApplicationController
   end
   
   def show
+    reset_page
     Post.delete_expired
     Post.repopulate
     @advert = Article.local_advert(current_user)
-    @subtab = Subtab.find(params[:id])
-    @posts = @subtab.posts.reverse
-    @post = Post.new
-    log_action("subtabs_show", @subtab.id)
+    @subtab = Subtab.find_by_id(params[:id])
+    if @subtab
+      @subtab_shown = true
+      @posts = @subtab.posts.reverse
+      @post = Post.new
+      @pictures = @post.pictures.build
+      build_tab_feed_data(@subtab)
+      save_search @subtab
+      log_action("subtabs_show", @subtab.id)
+    else
+      log_action("subtabs_show_fail")
+    end
   end
 end
