@@ -1,5 +1,6 @@
 class Article < ActiveRecord::Base
   belongs_to :tab
+  belongs_to :subtab
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :translations, dependent: :destroy

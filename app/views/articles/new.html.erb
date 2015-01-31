@@ -1,6 +1,6 @@
 <!-- articles -->
 
-<% if privileged? and not @tab %>
+<% if privileged? and not @tab and not @subtab %>
 	<div align="center">
 		<%= link_to pending_articles_path, class: "btn btn-default btn-lg",
 			 title: translate("Approve articles written by users") do %>
@@ -10,11 +10,19 @@
 	</div></br>
 <% end %>
 
-<%= render "tabs/name_header", tab: @tab, item: "Article" if @tab %>
+<% if @subtab %>
+	<%= render "subtabs/name_header", subtab: @subtab, item: "Article" %>
+<% elsif @tab %>
+	<%= render "tabs/name_header", tab: @tab, item: "Article" %>
+<% end %>
 
-<% if @tab or privileged? %>
+<% if @tab or @subtab or privileged? %>
 	<%= form_for @article, html: {multipart: true, "data-ajax" => false} do |f| %>
-		<%= hidden_field_tag :tab_id, @tab.id if @tab %>
+		<% if @subtab %>
+			<%= hidden_field_tag :subtab_id, @subtab.id %>
+		<% elsif @tab %>
+			<%= hidden_field_tag :tab_id, @tab.id %>
+		<% end %>
 		<div id="card">
 			<%= f.label translate("Write an article"), class: :form_label_text %>
 			<p>
@@ -37,7 +45,7 @@
 	<% end %>
 <% end %>
 	
-<% if privileged? and not @tab %>
+<% if privileged? and not @tab and not @subtab %>
 	<% for article in @articles.reverse %>
 		<%= render("articles/card", article: article) unless article.ad %>
 	<% end %>

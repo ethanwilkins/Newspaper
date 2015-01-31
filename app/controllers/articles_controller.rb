@@ -64,6 +64,7 @@ class ArticlesController < ApplicationController
     end
     @article = Article.new
     @tab = Tab.find_by_id(params[:tab_id])
+    @subtab = Subtab.find_by_id(params[:subtab_id])
     log_action("articles_new")
   end
   
@@ -90,6 +91,7 @@ class ArticlesController < ApplicationController
     @article.zip_code = current_user.zip_code
     @article.user_id = current_user.id
     @article.tab_id = params[:tab_id]
+    @article.subtab_id = params[:subtab_id]
     @article.ad = params[:ad]
     
     if @article.tab_id and not privileged?
@@ -120,7 +122,10 @@ class ArticlesController < ApplicationController
       current_user.notify_mentioned(@article)
       log_action("articles_create", @article.id)
       
-      if @article.tab_id
+      if @article.subtab_id
+        flash[:notice] = translate "Subtab article successfully submitted."
+        redirect_to tab_subtab_path(@article.subtab.tab, @article.subtab_id)
+      elsif @article.tab_id
         flash[:notice] = translate "Tab article successfully submitted."
         redirect_to tab_path(@article.tab_id)
       else
