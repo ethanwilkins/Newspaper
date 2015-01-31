@@ -1,6 +1,8 @@
 <!-- articles -->
 
 <article>
+	<% preview_length = 200 %>
+	
 	<h3 align="center">
 		<%= link_to text_shown(article, :title), article_path(article) %>
 	</h3>
@@ -16,8 +18,15 @@
 	<% else %>
 		<div align="center">
 	<% end %>
-	
+		<!-- translates if necessary -->
 		<% body = text_shown(article, :body) %>
+		
+		<!-- cuts to a preview if too long -->
+		<% if body.size > preview_length and not @article_shown %>
+			<% body = body.slice(0..preview_length) + "... " %>
+		<% end %>
+		
+		
 		<% for word in body.split(' ') %>
 			<% unless word.include? "#" and word.size > 1 %>
 				<%= render "posts/embed", word: word %>
@@ -28,6 +37,10 @@
 					<%= " " %>
 				<% end %>
 			<% end %>
+		<% end %>
+		
+		<% if body.size > preview_length and not @article_shown %>
+			<%= link_to translate("Read more"), article_path(article) %>
 		<% end %>
 	</div></br>
 </article>

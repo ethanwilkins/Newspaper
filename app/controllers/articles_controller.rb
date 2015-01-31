@@ -36,6 +36,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find_by_id(params[:id])
     if @article
+      @article_shown = true
       @comments = @article.comments
       @new_comment = Comment.new
       log_action("articles_show", @article.id)
