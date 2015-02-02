@@ -67,12 +67,18 @@ class GroupsController < ApplicationController
   
   def show
     @group = Group.find(params[:id])
+    @zips = unless @group.default
+              @group.zips
+            else
+              Zip.orphans
+            end
     session[:group_id] = @group.id
     log_action("groups_show")
   end
   
   def create
-    @group = Group.new(params[:group].permit(:max_prizes))
+    @group = Group.new(params[:group].permit(:max_prizes, :default))
+    admin_list = params[:admin_list]; admin_list << ", #{current_user.name}"
     if @group.save
       @group.assemble(params[:zip_list], params[:admin_list])
       flash[:notice] = translate("Group saved successfully.")
@@ -94,6 +100,19 @@ class GroupsController < ApplicationController
     else
       flash[:error] = translate("Group failed to update.")
       log_action("groups_update_fail")
+      redirect_to :back
+    end
+  end
+  
+  def destroy
+    @group = Group.find_by_id(params[:id])
+    if @group and @group.destroy
+      flash[:notice] = translate("Group deleted successfully.")
+      log_action("groups_destroy")
+      redirect_to groups_path
+    else
+      flash[:error] = translate "There was a problem deleting the group."
+      log_action("groups_destroy_fail")
       redirect_to :back
     end
   end

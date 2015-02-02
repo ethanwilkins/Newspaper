@@ -144,6 +144,8 @@ Rails.application.routes.draw do
   
   # groups
   
+  delete 'groups/destroy/:id', to: 'groups#destroy', as: 'destroy_group'
+  
   put 'groups/remove_member'
   
   put 'groups/add_member'

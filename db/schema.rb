@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131194808) do
+ActiveRecord::Schema.define(version: 20150202193959) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(version: 20150131194808) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "max_prizes"
+    t.boolean  "default"
   end
 
   create_table "hashtags", force: :cascade do |t|
@@ -347,6 +348,7 @@ ActiveRecord::Schema.define(version: 20150131194808) do
     t.integer  "group_id"
     t.boolean  "dev"
     t.boolean  "test"
+    t.boolean  "global"
   end
 
   create_table "votes", force: :cascade do |t|

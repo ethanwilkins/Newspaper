@@ -7,7 +7,7 @@ class Article < ActiveRecord::Base
   has_many :feedbacks, dependent: :destroy
   has_many :hashtags, dependent: :destroy
   
-  validates_presence_of :body, :title
+  validate :required_fields
   
   mount_uploader :image, ImageUploader
   
@@ -32,5 +32,14 @@ class Article < ActiveRecord::Base
   
   def score
     comments.size
+  end
+  
+  private
+  
+  def required_fields
+    if (ad and image.nil?) or (ad.nil? and (title.nil? \
+      or title.empty? or body.nil? or body.empty?))
+      errors.add(:missing_fields, "Invalid input")
+    end
   end
 end

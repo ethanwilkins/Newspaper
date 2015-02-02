@@ -3,6 +3,9 @@
 <% if master? %>
 	<div id="card">
 		<%= link_to translate("Edit prizes"), edit_group_path(@group), class: :top_right_link %>
+		<%= link_to translate("Delete"), destroy_group_path(@group), class: :top_left_link, method: :delete,
+			data: { confirm: translate('Are you sure you want to delete this group?') } %>
+			
 		<div align="center">
 			<p>
 				<strong><%= "Group #{@group.id}" %></strong>
@@ -15,37 +18,14 @@
 				<% end %>
 			</p>
 			<p><%= "Zip codes: " %>
-				<% for zip in @group.zips %>
+				<% for zip in @zips %>
 					<%= link_to zip.zip_code.to_s, groups_remove_zip_path(zip_code: zip.zip_code), method: :put,
 						data: { confirm: translate('Are you sure you want to remove this zip code from the group?') } %><%= \
 						", " if zip != @group.zips.last and @group.zips.size > 1 %>
 				<% end %>
 			</p>
 		</div>
-		<p>
-			<%= form_tag groups_add_member_path, method: :put do %>
-				<%= hidden_field_tag :group_id, params[:id] %>
-				<div class="input-group">
-					<%= text_field_tag :user_name, nil, placeholder: translate("Add a new admin to the group by name"), class: "form-control" %>
-					<span class="input-group-btn">
-						<button class="btn btn-default" type="submit">
-							<i class="glyphicon glyphicon-plus-sign"></i>
-						</button>
-					</span>
-				</div><!-- /input-group -->
-			<% end %>
-		</p>
-		<%= form_tag groups_add_zip_path, method: :put do %>
-			<%= hidden_field_tag :group_id, params[:id] %>
-			<div class="input-group">
-				<%= text_field_tag :zip_code, nil, placeholder: translate("Add a new zip code to the group"), class: "form-control" %>
-				<span class="input-group-btn">
-					<button class="btn btn-default" type="submit">
-						<i class="glyphicon glyphicon-plus-sign"></i>
-					</button>
-				</span>
-			</div><!-- /input-group -->
-		<% end %>
+		<%= render "groups/forms" %>
 	</div>
 	
 	<div id="card">

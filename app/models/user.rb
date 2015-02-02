@@ -141,6 +141,9 @@ class User < ActiveRecord::Base
       zip = place.split(" ")[1] if place and place.split(" ")[1].present?
       self.zip_code = place.split(" ")[1].to_i if zip and zip.size == 5
     end
+    if self.zip_code
+      Zip.record(self.zip_code)
+    end
   end
   
   def to_param
@@ -153,7 +156,7 @@ class User < ActiveRecord::Base
   end
   
   def numeric_zip_if_present
-    if self.zip_code.present? and self.zip_code == 0
+    if zip_code.present? and (not zip_code.is_a? Integer or zip_code.to_s.size != 5)
       errors.add(:non_numeric_zip, "The zip code must be valid.")
     end
   end

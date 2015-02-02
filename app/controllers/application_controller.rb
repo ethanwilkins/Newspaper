@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item, :chosen_one,
-    :text_shown, :master?, :admin?, :privileged?, :time_ago, :log_action, :new_search, :save_search,
+    :master?, :admin?, :privileged?, :log_action, :new_search, :save_search, :english?,
     :build_tab_feed_data, :build_search_results
 
   private
@@ -62,7 +62,8 @@ class ApplicationController < ActionController::Base
     @all_items += @tab.events if @tab.events.present?
     @all_items.sort_by! &:created_at
     # popularity feature brings liked posts to top
-    if @tab.features.exists? action: "popularity_float"
+    if @tab.features.exists? action: "popularity_float" \
+      and not @tab.features.exists? action: "list_format"
       @all_items.sort_by! { |item| item.score }
     end
     # alphabetize for list format feature
@@ -122,21 +123,6 @@ class ApplicationController < ActionController::Base
       action, item_id, data_string, item_type)
   end
   
-  def time_ago(_time_ago)
-    _time_ago = _time_ago + " ago"
-    if _time_ago.include? "about"
-    	_time_ago.slice! "about "
-    end
-    if _time_ago[0].to_i > 0 and _time_ago[1].to_i > 0
-      _time_ago = _time_ago[0..2] + translate(_time_ago[3.._time_ago.size])
-    elsif _time_ago[0].to_i > 0
-      _time_ago = _time_ago[0..1] + translate(_time_ago[2.._time_ago.size])
-    else
-      _time_ago = translate _time_ago
-    end
-    return _time_ago
-  end
-  
   def paginate(items, _page_size=page_size)
     return items.reverse.
       # drops first several posts if :feed_page
@@ -153,20 +139,6 @@ class ApplicationController < ActionController::Base
     # resets back to top
     unless session[:more]
       session[:page] = nil
-    end
-  end
-  
-  def text_shown(item, field)
-    field = field.to_s
-    if item.translations.present? and item.translations.find_by_field(field) and \
-      (item.translations.find_by_field(field).english.present? and item.translations.find_by_field(field).spanish.present?)
-      if english?
-        return item.translations.find_by_field(field).english
-      else
-        return item.translations.find_by_field(field).spanish
-      end
-    else
-      return item.attributes[field]
     end
   end
   
