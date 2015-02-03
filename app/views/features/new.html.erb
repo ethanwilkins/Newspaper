@@ -11,6 +11,7 @@
 					[translate("Post repopulation"), "post_repopulation"],
 					[translate("Ranking and Feedback"), "rank_feedback"],
 					[translate("Popularity float"), "popularity_float"],
+					[translate("Custom load wheel"), "custom_loading"],
 					[translate("Post expiration"), "post_expiration"],
 					[translate("Sales dialogue"), "sales_dialogue"],
 					[translate("Question tree"), "question_tree"],
@@ -18,7 +19,7 @@
 					[translate("Photosets"), "photosets"],
 					[translate("Articles"), "articles"],
 					[translate("Tagged"), "tagged"],
-					[translate("Global"), "global"],
+					[translate("Global"), "global"]
 					]), {}, class: "form-control" %>
 			</p>
 		<% elsif @user %>
@@ -27,6 +28,7 @@
 				<%= f.select :action, options_for_select([
 					[translate("Choose a feature to add"), nil],
 					[translate("Photo gallery"), "photo_gallery"],
+					[translate("Custom load wheel"), "custom_loading"],
 					[translate("Ratings and Feedback"), "user_feedback"]
 					]), {}, class: "form-control" %>
 			</p>

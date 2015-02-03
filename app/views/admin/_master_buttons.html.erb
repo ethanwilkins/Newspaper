@@ -5,6 +5,9 @@
 
 <%= link_to translate("Translate"), translations_path, class: "btn btn-default btn-lg btn-block",
 	id: "admin_button", title: translate("Manage translation requests or site translations") %>
+	
+<%= link_to translate("Loading"), loading_gifs_path, class: "btn btn-default btn-lg btn-block",
+	id: "admin_button", title: translate("Upload loading gifs to display in feeds") %>
 
 <%= link_to translate("Adverts"), ad_index_path, class: "btn btn-default btn-lg btn-block",
 	id: "admin_button", title: translate("Upload advertisements and check view counts") %>

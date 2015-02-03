@@ -29,5 +29,10 @@
 			<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
-	</br>
 <% end %>
+
+<% if has_feature? :custom_loading %>
+	<%= render "loading_gifs/new" %>
+<% end %>
+
+<div id="footer_spacing"></div>

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :loading_gifs
   has_many :translations
   has_many :game_boards
   has_many :activities

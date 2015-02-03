@@ -205,6 +205,11 @@ Rails.application.routes.draw do
   
   get "pages/back", as: "back"
   
+  
+  # loading_gif routes
+  
+  
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -236,6 +241,7 @@ Rails.application.routes.draw do
   resources :codes
   resources :posts
   resources :banners
+  resources :loading_gifs
   resources :translations
   resources :activities
   resources :feedbacks

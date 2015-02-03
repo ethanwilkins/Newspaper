@@ -6,6 +6,7 @@ class Subtab < ActiveRecord::Base
   has_many :features, dependent: :destroy
   has_many :hashtags, dependent: :destroy
   has_many :articles, dependent: :destroy
+  has_many :loading_gifs, dependent: :destroy
   has_many :translations, dependent: :destroy
   
   mount_uploader :icon, ImageUploader

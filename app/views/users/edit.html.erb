@@ -5,6 +5,7 @@
 	:html => {:multipart => true, "data-ajax" => false} do |f| %>
 	<%= hidden_field_tag id: @user.id %>
 	<p>
+		<%= f.label translate("Upload a profile picture") %>
 		<%= f.file_field :icon, class: "form-control" %>
 	</p>
 	<p>
@@ -61,6 +62,10 @@
 <% end %>
 </div>
 
+<% if @user.features.exists? action: :custom_loading %>
+	<%= render "loading_gifs/new" %>
+<% end %>
+
 <%= render "users/delete_form" %>
 
-</br>
+<div id="footer_spacing"></div>

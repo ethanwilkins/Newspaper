@@ -71,7 +71,10 @@ class UsersController < ApplicationController
   end
   
   def edit
+    @user_edit = true
     @user = User.find_by_name(params[:id])
+    # for uploading a custom loading_gif
+    @loading_gif = LoadingGif.new
     log_action("users_edit", @user.id)
   end
   

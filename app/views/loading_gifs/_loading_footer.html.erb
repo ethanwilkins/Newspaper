@@ -1,8 +1,8 @@
-<!-- pages -->
+<!-- loading_gifs -->
 
 <% if all_items.present? and all_items.size > page_size %>
 	<div align="center">
-		<%= image_tag "loading.gif", id: :loading_footer %>
+		<%= image_tag current_loading_gif, id: :loading_footer %>
 	</div>
 <% end %>
 

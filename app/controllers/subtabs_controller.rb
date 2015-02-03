@@ -76,6 +76,9 @@ class SubtabsController < ApplicationController
   
   def edit
     @subtab = Subtab.find(params[:id])
+    # for uploading a custom loading_gif
+    @loading_gif = LoadingGif.new
+    @subtab_edit = true
   end
   
   def index

@@ -1,0 +1,21 @@
+<!-- loading_gifs -->
+
+<%= form_for @loading_gif, html: {multipart: true, "data-ajax" => false} do |f| %>
+	<% if @user_edit %>
+		<%= hidden_field_tag :user_id, @user.id %>
+	<% elsif @tab_edit %>
+		<%= hidden_field_tag :tab_id, @tab.id %>
+	<% elsif @subtab_edit %>
+		<%= hidden_field_tag :subtab_id, @subtab.id %>
+	<% end %>
+	
+	<div id="card">
+		<%= f.label translate("Upload a custom loading gif") %>
+		<p>
+			<%= f.file_field :image, class: "form-control" %>
+		</p>
+		<p>
+			<%= f.submit translate("Upload"), class: "btn btn-default btn-lg btn-block" %>
+		</p>
+	</div>
+<% end %>
