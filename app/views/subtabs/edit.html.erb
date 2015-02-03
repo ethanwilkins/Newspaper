@@ -1,6 +1,7 @@
 <!-- subtabs -->
 
-<%= form_for @subtab, html: {multipart: true, "data-ajax" => false} do |f| %>
+<%= form_for @subtab, url: subtab_path(@subtab.id), method: :patch,
+	html: {multipart: true, "data-ajax" => false} do |f| %>
 	<div id="card">
 		<p>
 			<%= f.label translate("Choose an icon for the tab") %>

@@ -89,7 +89,7 @@ Rails.application.routes.draw do
   
   put 'tabs/update'
   
-  put 'subtabs/update'
+  patch 'subtabs/update/:id', to: 'subtabs#update', as: 'subtab'
   
   post 'subtabs/create', as: 'subtabs'
   

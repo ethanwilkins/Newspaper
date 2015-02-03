@@ -54,7 +54,7 @@ class SubtabsController < ApplicationController
     if @subtab.update(params[:subtab].permit(:icon, :name, :description, :company, :sponsored,
       :sponsored_only, :translation_requested, :zip_code))
       flash[:notice] = translate("Subtab updated successfully.")
-      redirect_to @subtab
+      redirect_to tab_subtab_path(@subtab.tab, @subtab)
     else
       flash[:error] = translate("Invalid input.")
       redirect_to :back
