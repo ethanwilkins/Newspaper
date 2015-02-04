@@ -20,4 +20,4 @@ git push
 
 echo -e "\nLogging on...\n"
 
-ssh root@elheroe.net fresh
+ssh root@elheroe.net
