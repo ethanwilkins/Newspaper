@@ -19,3 +19,7 @@ git commit -m "$1"
 git push
 
 echo -e "\n"
+
+elheroe
+
+fresh
