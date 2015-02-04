@@ -1,9 +1,9 @@
 <!-- feedback -->
 
 <div id="card">
-	<table class="<%= current_user != @item.user ? "top_right_link" : "rating_stars" %>"
+	<table class="<%= (current_user != @item or current_user != @item.user) ? "top_right_link" : "rating_stars" %>"
 		title="<%= translate("The average rating for this item.") %>"
-		<% if current_user == @item.user %>
+		<% if current_user != @item or current_user == @item.user %>
 			align="center"
 		<% end %>>
 		<tr>
@@ -19,7 +19,7 @@
 		</tr>
 	</table>
 	
-	<% if current_user != @item.user %>
+	<% if current_user != @item or current_user != @item.user %>
 		</br>
 	<% else %>
 		<div align="center">
@@ -34,7 +34,7 @@
 		</div>
 	<% end %>
 	
-	<% if current_user != @item.user %>
+	<% if current_user != @item or current_user != @item.user %>
 		<%= render "feedbacks/form" %>
 	<% end %>
 </div> 
