@@ -20,6 +20,10 @@ git push
 
 echo -e "\n"
 
+source /Users/ethanwilkins/.bash_profile
+
+echo -e "Logging on...\n"
+
 elheroe
 
 fresh
