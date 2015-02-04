@@ -24,6 +24,4 @@ source /Users/ethanwilkins/.bash_profile
 
 echo -e "Logging on...\n"
 
-elheroe
-
-fresh
+ssh root@elheroe.net
