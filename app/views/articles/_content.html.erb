@@ -1,0 +1,46 @@
+<!-- articles -->
+
+<article>
+	<% preview_length = 200 %>
+	
+	<h3 align="center">
+		<%= link_to text_shown(article, :title), article_path(article) %>
+	</h3>
+
+	<% if article.image.url %>
+		<div align="center"><%= link_to image_tag(article.image,
+			id: :standard_post_image), article_path(article) %></div></br>
+	<% end %>
+	
+	<!-- tests size of article before applying justified style -->
+	<% if article.body.size > 100 %>
+		<div id="body_of_article">
+	<% else %>
+		<div align="center">
+	<% end %>
+		<!-- translates if necessary -->
+		<% body = text_shown(article, :body) %>
+		
+		<!-- cuts to a preview if too long -->
+		<% if body.size > preview_length and not @article_shown %>
+			<% body = body.slice(0..preview_length) + "... " %>
+		<% end %>
+		
+		
+		<% for word in body.split(' ') %>
+			<% unless word.include? "#" and word.size > 1 %>
+				<%= render "posts/embed", word: word %>
+			<% else %>
+				<% tag = article.hashtags.find_by_tag word %>
+				<% if tag.index == body.index(word) %>
+					<%= link_to tag.tag, tagged_path(tag.tag) %>
+					<%= " " %>
+				<% end %>
+			<% end %>
+		<% end %>
+		
+		<% if body.size > preview_length and not @article_shown %>
+			<%= link_to translate("Read more"), article_path(article) %>
+		<% end %>
+	</div></br>
+</article>

@@ -1,0 +1,34 @@
+<!-- groups -->
+
+<% if master? %>
+	<div id="large_button">
+		<%= link_to "Create a group", new_group_path,
+			class: "btn btn-default btn-lg btn-block" %>
+	</div></br>
+	
+	<% for group in @groups %>
+		<div id="card">
+			<div align="center">
+				<%= render "groups/name_header", group: group %>
+				<p><%= "Admins: " %>
+					<% for admin in group.users %>
+						<%= link_to admin.name.capitalize, user_path(admin.name) %><%= \
+						", " if admin != group.users.last %>
+					<% end %>
+				</p>
+				<% zip_list = "" %>
+				<% group.zips.each { |zip| zip_list << zip.zip_code.to_s + \
+					((zip != group.zips.last and group.zips.size > 1) ? ", " : "") } %>
+				Zip codes: <%= zip_list %>
+			</div>
+		</div>
+	<% end %>
+
+	<% if @groups.empty? %>
+		<div id="card">
+			<div align="center">
+				<%= translate("There aren't any groups yet.") %>
+			</div>
+		</div>
+	<% end %>
+<% end %>

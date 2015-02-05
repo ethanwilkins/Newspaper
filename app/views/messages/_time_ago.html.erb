@@ -1,0 +1,17 @@
+<!-- messages -->
+
+<!-- time variables gets set -->
+<% time_ago = time_ago_in_words(message.created_at) + " ago" %>
+<% if time_ago.include? "about" %>
+	<% time_ago.slice! "about " %>
+<% end %>
+
+<% if time_ago[0].to_i > 0 and time_ago[1].to_i > 0 %>
+	<% time_ago = time_ago[0..2] + translate(time_ago[3..time_ago.size]) %>	
+<% elsif time_ago[0].to_i > 0 %>
+	<% time_ago = time_ago[0..1] + translate(time_ago[2..time_ago.size]) %>
+<% else %>
+	<% time_ago = translate time_ago %>
+<% end %>
+
+<%= link_to time_ago, folder_path(message.folder_id), class: :top_right_link %>

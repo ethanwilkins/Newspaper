@@ -1,0 +1,14 @@
+<!-- banners -->
+
+<% if master? %>
+	<% if @banner %>
+		<div id="card">
+			<div align="center"><%= translate("Current banner") %></div></br>
+			<div align="center"><%= image_tag @banner.image, id: :banner %></div></br>
+			<%= link_to translate("Comment"), banner_path(@banner), class: :bottom_right_link %>
+		</div>
+		<%= render "edit" %>
+	<% else %>
+		<%= render "new" %>
+	<% end %>
+<% end %>

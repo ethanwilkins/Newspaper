@@ -1,0 +1,23 @@
+<!-- game_boards grid -->
+
+<div align="center">
+	<% interval = 0 %>
+	<table>
+	<% cards.each do |card| %>
+		<% if interval == 0 %>
+		<tr>
+			<td class=<%= card_shadow(card) %>><%= card_image(card.image) %></td>
+		<% elsif interval < 4 %>
+			<td class=<%= card_shadow(card) %>><%= card_image(card.image) %></td>
+		<% elsif interval % 4 == 0 %>
+		</tr>
+		<tr>
+			<td class=<%= card_shadow(card) %>><%= card_image(card.image) %></td>
+		<% elsif interval > 4 %>
+			<td class=<%= card_shadow(card) %>><%= card_image(card.image) %></td>
+		<% end %>
+		<% interval += 1 %>
+	<% end %>
+		</tr>
+	</table>
+</div>

@@ -1,0 +1,6 @@
+<!-- posts -->
+
+<% user = User.find_by_id(post.user_id) %>
+
+<%= link_to( translate("Posted by ") + user.name.capitalize,
+	user_path(user.name), class: :top_right_link) if user %>

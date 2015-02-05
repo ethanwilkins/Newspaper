@@ -1,0 +1,165 @@
+class User < ActiveRecord::Base
+  has_many :loading_gifs
+  has_many :translations
+  has_many :game_boards
+  has_many :activities
+  has_many :feedbacks
+  has_many :comments
+  has_many :articles
+  has_many :features
+  has_many :prizes
+  has_many :events
+  has_many :cards
+  has_many :posts
+  has_many :notes
+  
+  belongs_to :group
+  
+  # validations for creation of user
+  validates :name, presence: true
+  validates :password, presence: true
+  validates_confirmation_of :password
+  validates_uniqueness_of :name
+  validate :numeric_zip_if_present
+  
+  before_create :generate_token
+  before_save :current_location
+  before_save :downcase_fields
+  
+  mount_uploader :icon, ImageUploader
+  
+  def close_enough(content)
+    _close_enough = false
+    # content always close enough when inside current users zip code or cherry picked tab
+    if content.zip_code and self.zip_code and content.zip_code == self.zip_code or (content.is_a? Tab and \
+      content.features.where(user_id: self.id).where(action: :cherry_pick).present?)
+      _close_enough = true
+    # close enough when within the users specified network size
+    elsif content.latitude and self.latitude and self.network_size and \
+      GeoDistance.distance(content.latitude, content.longitude, self.latitude,
+      self.longitude).miles.number < self.network_size
+      return true
+    # if previous checks fail, allows
+    # content access to branch out proportionately
+    # as the local or global communities expand.
+    # this last check is only run if both failed
+    elsif content.zip_code.present?
+      case content.class
+      when Post
+        # the more content in a given area, the less likely it is
+        # for any particular item from that area to show
+        near_content = Post.where(zip_code: content.zip_code).size
+        # gets number of posts with the same zip code and is close
+        # enough when a random value between 0 and the size of all
+        # content is less than the number with the same zip code
+        _close_enough = true if near_content < Random.rand(0..Post.all.size)
+      when Tab
+        near_content = Tab.where(zip_code: content.zip_code).size
+        _close_enough = true if near_content < Random.rand(0..Tab.all.size)
+      end
+    else
+      _close_enough = true
+    end
+    return _close_enough
+  end
+  
+  def notify(sender, action, item_id=1)
+    Note.notify sender, self, action, item_id
+  end
+  
+  def notify_mentioned(item)
+    text = item.body
+    for word in text.split(' ')
+      if word.include? "@" and User.find_by_name(word.slice(word.index("@")+1..word.size))
+        Note.notify(self, User.find_by_name(word.slice(word.index("@")+1..word.size)),
+          :mention, item.id)
+      end
+    end
+  end
+  
+  def images
+    imgs = []
+    for post in posts
+      if post.image.url.present?
+        imgs << post
+      elsif post.pictures.present?
+        for picture in post.pictures
+          imgs << picture
+        end
+      end
+    end
+    return imgs
+  end
+
+  def self.authenticate(name, password)
+    user = find_by_name(name.downcase)
+    user = find_by_email(name.downcase) unless user
+    if user && password == user.password
+      user
+    else
+      nil
+    end
+  end
+  
+  def generate_token
+    begin
+      self.auth_token = SecureRandom.urlsafe_base64
+    end while User.exists? auth_token: self.auth_token
+  end
+  
+  def update_token
+    self.generate_token
+    self.save
+  end
+  
+  def last_visit
+    if self.activities.present?
+      return self.activities.last.created_at
+    else
+      return self.created_at
+    end
+  end
+  
+  private
+  
+  def current_location
+    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
+    if defined? geoip and geoip
+      self.latitude = geoip.latitude
+      self.longitude = geoip.longitude
+      if latitude and longitude
+        geocoder = Geocoder.search("#{latitude}, #{longitude}").first
+        if geocoder and geocoder.formatted_address
+          self.address = geocoder.formatted_address
+        end
+      end
+    end
+    get_zip if self.zip_code.nil?
+  end
+
+  def get_zip
+    if self.address.present?
+      place = self.address.split(", ")[2] if self.address.split(", ")[2].present?
+      zip = place.split(" ")[1] if place and place.split(" ")[1].present?
+      self.zip_code = place.split(" ")[1].to_i if zip and zip.size == 5
+    end
+    if self.zip_code
+      Zip.record(self.zip_code)
+    end
+  end
+  
+  def to_param
+    name
+  end
+  
+  def downcase_fields
+    email.downcase! if email
+    name.downcase!
+  end
+  
+  def numeric_zip_if_present
+    if zip_code.present? and (not zip_code.is_a? Integer or zip_code.to_s.size != 5)
+      errors.add(:non_numeric_zip, "The zip code must be valid.")
+    end
+  end
+end

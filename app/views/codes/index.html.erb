@@ -1,0 +1,37 @@
+<% if master? %>
+	<%= render "codes/new" %>
+	
+	<%= render "codes/deletion" %>
+	
+	<% unless @codes.empty? %>
+	<div id="card">
+		<% interval_count = 0 %>
+		<% for code in @codes %>
+			<% interval_count += 1 %>
+			<div align="center">
+				<% if code.group_id %>
+					<div>
+						<%= "Group #{code.group_id}" %>
+					</div>
+				<% end %>
+				<div>
+					<strong><%= "#{code.code}: " %></strong>
+					<%= "Card: #{code.card_name.capitalize}" unless code.is_a_board %>
+					<%= "Board #{code.board_number}" if code.is_a_board %>
+				</div>
+				<div>
+					<!-- code controls for manipulating codes -->
+					<%= link_to "Edit", edit_code_path(code) %>
+					<%= link_to "Delete", destroy_code_path(code), method: :delete,
+						data: { confirm: 'Are you sure?' } %>
+				</div>
+			</div>
+			<% if @codes.size > 1 and code != Code.first and interval_count != @codes.size %>
+				<hr id="gray_horizon">
+			<% end %>
+		<% end %>
+	</div>
+	<%= render "pages/more_back", all_items: Code.all, items: @codes %>
+	<% end %>
+	</br>
+<% end %>

@@ -1,0 +1,11 @@
+<!-- events -->
+
+<div id="card">
+	<% unless defined? list_format and list_format %>
+		<%= render "events/card_links", event: event %>
+		<%= render "events/content", event: event %>
+		<%= render "events/approve_deny", event: event %>
+	<% else %>
+		<%= render "tabs/list_item", item: event %>
+	<% end %>
+</div>

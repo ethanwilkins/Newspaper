@@ -1,0 +1,20 @@
+<!-- events -->
+
+<% if @event.invited? current_user %>
+	<div id="card">
+		<div align="center">
+			<p>
+				<%= translate("Would you like to attend this event?") %>
+			</p>
+			<div class="btn-group">
+				<%= link_to going_path(event), class: "btn btn-default" do %>
+					<span class="glyphicon glyphicon-ok"></span> <%= translate("Yes") %>
+				<% end %>
+			
+				<%= link_to not_going_path(event), class: "btn btn-default" do %>
+					<span class="glyphicon glyphicon-remove"></span> <%= translate("No") %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+<% end %>

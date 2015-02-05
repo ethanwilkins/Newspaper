@@ -1,0 +1,6 @@
+<% unless article.comments.empty? %>
+	<%= link_to pluralize(article.comments.size, translate("comment")),
+		article_path(article), id: :comment_link, title: translate("Leave a comment") %>
+<% else %>
+	<%= link_to translate("Comment"), article_path(article), id: :comment_link, title: translate("Leave a comment") %>
+<% end %>

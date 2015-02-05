@@ -1,0 +1,11 @@
+<!-- groups -->
+
+<% if group.default %>
+	<p><%= link_to translate("Default Group"), group_path(group) %></p>
+<% elsif @group_shown %>
+	<p>
+		<strong><%= "Group #{group.id}" %></strong>
+	</p>
+<% else %>
+	<p><%= link_to "Group #{group.id}", group_path(group) %></p>
+<% end %>

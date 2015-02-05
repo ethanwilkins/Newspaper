@@ -1,0 +1,56 @@
+<!-- features -->
+
+<div id="card">
+	<%= form_for @feature, html: {multipart: true, "data-ajax" => false} do |f| %>
+		<% if @tab or @subtab %>
+			<%= hidden_field_tag :tab_id, @tab.id if @tab %>
+			<%= hidden_field_tag :subtab_id, @subtab.id if @subtab %>
+			<p>
+				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
+					[translate("Invite & Attendance"), "invite_attendance"],
+					[translate("Post repopulation"), "post_repopulation"],
+					[translate("Ranking and Feedback"), "rank_feedback"],
+					[translate("Popularity float"), "popularity_float"],
+					[translate("Custom load wheel"), "custom_loading"],
+					[translate("Post expiration"), "post_expiration"],
+					[translate("Sales dialogue"), "sales_dialogue"],
+					[translate("Question tree"), "question_tree"],
+					[translate("List format"), "list_format"],
+					[translate("Photosets"), "photosets"],
+					[translate("Articles"), "articles"],
+					[translate("Tagged"), "tagged"],
+					[translate("Global"), "global"]
+					]), {}, class: "form-control" %>
+			</p>
+		<% elsif @user %>
+			<%= hidden_field_tag :user_id, @user.id %>
+			<p>
+				<%= f.select :action, options_for_select([
+					[translate("Choose a feature to add"), nil],
+					[translate("Photo gallery"), "photo_gallery"],
+					[translate("Custom load wheel"), "custom_loading"],
+					[translate("Ratings and Feedback"), "user_feedback"]
+					]), {}, class: "form-control" %>
+			</p>
+		<% end %>
+		<p>
+			<%= f.submit translate("Create"), class: "btn btn-default btn-lg btn-block" %>
+		</p>
+	<% end %>
+</div>
+
+<% if @subtab %>
+	<% for feature in @subtab.features.reverse %>
+		<%= render "features/card", feature: feature %>
+	<% end %>
+<% elsif @tab %>
+	<% for feature in @tab.features.reverse %>
+		<%= render "features/card", feature: feature %>
+	<% end %>
+<% elsif @user %>
+	<% for feature in @user.features.reverse %>
+		<%= render "features/card", feature: feature %>
+	<% end %>
+<% end %>
+
+</br>

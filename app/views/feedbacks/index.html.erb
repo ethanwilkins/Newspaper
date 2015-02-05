@@ -1,0 +1,33 @@
+<!-- feedbacks -->
+
+<%= render "users/name_header", user: current_user, item: "Feedback" %>
+
+<div id="card">
+	<div align="center">
+		<table class="rating_stars" title="<%= translate("Your average rating.") %>">
+			<tr>
+			<% 5.times do |stars| %>
+				<td class=
+					<% if Feedback.avg_rating(current_user) > stars %>
+						"glyphicon glyphicon-star"
+					<% else %>
+						"glyphicon glyphicon-star-empty"
+					<% end %>
+				</td>
+			<% end %>
+			</tr>
+		</table>
+		<p>
+			<%= translate("Ratings:") + " " %>
+			<%= current_user.feedbacks.where.not(stars: nil).size %>
+		</p>
+		<p>
+			<%= translate("Reviews:") + " " %>
+			<%= current_user.feedbacks.where.not(review: nil).size %>
+		</p>
+	</div>
+</div>
+
+<% for feedback in @feedback %>
+	<%= render "feedbacks/card", feedback: feedback %>
+<% end %>

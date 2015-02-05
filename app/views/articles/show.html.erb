@@ -1,0 +1,17 @@
+<% if @article %>
+	<%= render "card", article: @article %>
+
+	<% @comments.each do |comment| %>
+		<%= render "comments/card", comment: comment %>
+	<% end %>
+
+	<%= render "comments/new" if current_user %>
+<% else %>
+	<div id="card">
+		<div align="center">
+			This article no longer exists.
+		</div>
+	</div>
+<% end %>
+
+</br>

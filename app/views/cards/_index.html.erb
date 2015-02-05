@@ -1,0 +1,11 @@
+<%= render "cards/new" %>
+
+<% @cards.reverse.each do |card| %>
+	<div id="card">
+		<div align="center">
+			<h2><%= card.code_title %></h2>
+			<%= image_tag card.code_image %>
+		</div>
+	</div>
+	</br>
+<% end %>

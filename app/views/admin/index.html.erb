@@ -1,0 +1,18 @@
+<% if privileged? %>
+	<div id="card">
+		<div align="center">
+			<%= translate("Welcome, " + (master? ? "Master" : "Administrator")) + " " + current_user.name.capitalize %>
+		</div>
+	</div>
+	
+	<div id="card">
+		<% if master? %>
+			<%= render "admin/master_buttons" %>
+		<% end %>
+		<%= render "admin/admin_buttons" %>
+	</div></br>
+<% else %>
+	<div id="card">
+		<div align="center"><%= translate "Check your privilege." %></div>
+	</div>
+<% end %>

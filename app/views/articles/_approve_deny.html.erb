@@ -1,0 +1,15 @@
+<% if privileged? and @pending %>
+	<div align="center">
+		<div class="btn-group">
+			<%= link_to approve_article_path(article), class: "btn btn-default",
+				data: { confirm: translate("Are you sure you want to approve this article for publication?") } do %>
+				Approve
+			<% end %>
+			
+			<%= link_to deny_article_path(article), class: "btn btn-default",
+				data: { confirm: translate("Are you sure you want to deny this article for publication?") } do %>
+				Deny
+			<% end %>
+		</div>
+	</div>
+<% end %>

@@ -1,0 +1,32 @@
+<!-- groups -->
+
+<% if master? %>
+	<div id="card">
+		<%= link_to translate("Edit prizes"), edit_group_path(@group), class: :top_right_link %>
+		<%= link_to translate("Delete"), destroy_group_path(@group), class: :top_left_link, method: :delete,
+			data: { confirm: translate('Are you sure you want to delete this group?') } %>
+			
+		<div align="center">
+			<%= render "groups/name_header", group: @group %>
+			<p><%= "Admins: " %>
+				<% for admin in @group.users %>
+					<%= link_to admin.name.capitalize, groups_remove_member_path(user_id: admin.id), method: :put,
+						data: { confirm: translate('Are you sure you want to remove this member from the group?') } %><%= \
+					", " if admin != @group.users.last and @group.users.size > 1 %>
+				<% end %>
+			</p>
+			<p><%= "Zip codes: " %>
+				<% for zip in @zips %>
+					<%= link_to zip.zip_code.to_s, groups_remove_zip_path(zip_code: zip.zip_code), method: :put,
+						data: { confirm: translate('Are you sure you want to remove this zip code from the group?') } %><%= \
+						", " if zip != @group.zips.last and @group.zips.size > 1 %>
+				<% end %>
+			</p>
+		</div>
+		<%= render "groups/forms" %>
+	</div>
+	
+	<div id="card">
+		<%= render "admin/admin_buttons" %>
+	</div>
+<% end %>

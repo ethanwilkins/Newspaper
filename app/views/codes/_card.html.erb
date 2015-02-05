@@ -1,0 +1,24 @@
+<!-- codes -->
+
+<% _time_ago = time_ago(time_ago_in_words(code.created_at)) %>
+
+<div id="card">
+	
+	<%= link_to translate("Group") + " " + code.group_id.to_s,
+		codes_code_data_path(code_group: code.group_id), class: :top_left_link %>
+		
+	<%= link_to(code.advertiser, codes_code_data_path(code_advertiser: code.advertiser),
+		class: :bottom_right_link) if code.advertiser.present? %>
+		
+	<%= link_to _time_ago, codes_code_data_path, class: :bottom_left_link %>
+		
+	<% if code.is_a_board %>
+		<%= link_to translate("GameBoards:") + " " + code.game_boards.size.to_s, codes_code_data_path, class: :top_right_link %>
+	<% else %>
+		<%= link_to translate("Cards:") + " " + code.cards.size.to_s, codes_code_data_path, class: :top_right_link %>
+	<% end %>
+	
+	<div align="center" id="code_data_content">
+		<%= code.code %>
+	</div>
+</div>

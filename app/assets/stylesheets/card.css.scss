@@ -1,0 +1,19 @@
+// Place all the styles related to the card controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.card_image {
+	width: 30%;
+	height: 30%;
+	min-width: 55px;
+	display: block;
+	margin: 0 auto;
+}
+
+.bw_game_card {
+	box-shadow: 1px 1px 5px rgb(190, 190, 190);
+}
+
+.color_game_card {
+	box-shadow: 2px 2px 5px green;
+}

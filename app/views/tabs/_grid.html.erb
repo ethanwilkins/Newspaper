@@ -1,0 +1,33 @@
+<!-- tabs -->
+
+<% card_type = @subtabs ? "subtabs/card" : "tabs/card" %>
+<% tab_type = @subtabs ? :subtab : :tab %>
+
+<div class="container-fluid">
+	<% interval = 0 %>
+	<% for tab in tabs %>
+		<% if not current_user or current_user.close_enough(tab) or params[:scope] == "global" %>
+			<% if interval == 0 %>
+			<div class="row">
+				<div class="col-md-4">
+					<%= render card_type, tab_type => tab %>
+				</div>
+			<% elsif interval < 3 %>
+				<div class="col-md-4">
+					<%= render card_type, tab_type => tab %>
+				</div>
+			<% elsif interval % 3 == 0 %>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					<%= render card_type, tab_type => tab %>
+				</div>
+			<% elsif interval > 3 %>
+				<div class="col-md-4">
+					<%= render card_type, tab_type => tab %>
+				</div>
+			<% end %>
+			<% interval += 1 %>
+		<% end %>
+	<% end %>
+</div>

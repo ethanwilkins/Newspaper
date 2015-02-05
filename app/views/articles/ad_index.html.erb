@@ -1,0 +1,34 @@
+<!-- articles -->
+
+<% if master? %>
+	<%= render "new_ad" %>
+
+	<% for advert in @adverts %>
+		<div id="card">
+			<table class="top_right_link_table">
+				<tr>
+					<td class="link_table_spacing">
+						<%= link_to "Edit", ad_edit_path(advert), class: :card_link %>
+					</td>
+					<td>
+						<%= link_to "Delete", destroy_article_path(advert), method: :delete,
+							data: { confirm: "Are you sure you want to delete this ad?" }, class: :card_link %>
+					</td>
+				</tr>
+			</table>
+			
+			</br>
+			<div align="center">
+				<div><%= image_tag advert.image, id: :standard_post_image %></div></br>
+			
+				<% if advert.body.present? %>
+					<div><strong>Text: </strong><%= advert.body %></div>
+				<% end %>
+			
+				<div><strong>Company: </strong><%= advert.title %></div>
+				<div><strong>Zip: </strong><%= advert.zip_code %></div>
+				<div><strong>Views: </strong><%= advert.views ? advert.views : 0 %></div>
+			</div>
+		</div>
+	<% end %>
+<% end %>

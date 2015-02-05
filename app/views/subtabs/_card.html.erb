@@ -1,0 +1,17 @@
+<!-- subtabs -->
+
+<div id="card">
+	<div align="center">
+		<div>
+			<%= link_to image_tag(subtab.icon, size: "50x50", id: :tab_icon), tab_subtab_path(subtab.tab_id, subtab) %>
+		</div>
+		
+		<div>
+			<%= link_to text_shown(subtab, :name), tab_subtab_path(subtab.tab_id, subtab) %>
+		</div>
+		
+		<% if current_user.admin and subtab.approved.nil? %>
+			</br><%= render "subtabs/approve_deny", subtab: subtab %>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,44 @@
+<!-- feedback -->
+
+<div id="card">
+	<table class="<%= (current_user != @item or current_user != @item.user) ? "top_right_link" : "rating_stars" %>"
+		title="<%= translate("The average rating for this item.") %>"
+		<% if current_user != @item or current_user == @item.user %>
+			align="center"
+		<% end %>>
+		<tr>
+		<% 5.times do |stars| %>
+			<td class=
+				<% if Feedback.avg_rating(@item) > stars %>
+					"glyphicon glyphicon-star"
+				<% else %>
+					"glyphicon glyphicon-star-empty"
+				<% end %>
+			</td>
+		<% end %>
+		</tr>
+	</table>
+	
+	<% if current_user != @item or current_user != @item.user %>
+		</br>
+	<% else %>
+		<div align="center">
+			<p>
+				<%= translate("Ratings:") + " " %>
+				<%= @item.feedbacks.where.not(stars: nil).size %>
+			</p>
+			<p>
+				<%= translate("Reviews:") + " " %>
+				<%= @item.feedbacks.where.not(review: nil).size %>
+			</p>
+		</div>
+	<% end %>
+	
+	<% if current_user != @item or current_user != @item.user %>
+		<%= render "feedbacks/form" %>
+	<% end %>
+</div> 
+
+<% for feedback in @item.feedbacks.where.not(review: nil) %>
+	<%= render "feedbacks/card", feedback: feedback %>
+<% end %>

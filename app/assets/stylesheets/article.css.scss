@@ -1,0 +1,17 @@
+// Place all the styles related to the article controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#body_of_article {
+	text-align: justify;
+	margin: 0 auto;
+	max-width: 95%;
+}
+
+#ad_text {
+	margin-bottom: 5px;
+}
+
+#ad_image {
+	margin: 5px 0px;
+}

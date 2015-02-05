@@ -1,0 +1,41 @@
+<!-- posts -->
+
+<div id="card">
+	<% unless defined? list_format and list_format %>
+		<%= render "posts/time_ago", post: post %>
+		<%= render "posts/posted_by", post: post %>
+		<%= render "folders/inquire", post: post %>
+
+		<table class="bottom_left_link_table">
+			<tr>
+				<td class="link_table_spacing">
+					<%= render "posts/comment_link", post: post %>
+				</td>
+				<% if privileged? %>
+				<td class="link_table_spacing">
+					<%= link_to "Edit", edit_post_path(post), class: :card_link,
+						title: translate("Edit this post") %>
+				</td>
+				<td>
+					<%= link_to "Delete", destroy_post_path(post), method: :delete, data: {
+						confirm: translate('Are you sure you want to delete this post?') },
+						title: translate("Permanently delete this post"), class: :card_link %>
+				</td>
+				<% end %>
+			</tr>
+		</table>
+	
+		<table class="bottom_right_link_table">
+			<tr>
+				<%= render "posts/review_link", post: post %>
+				<td>
+					<%= render "posts/vote", post: post %>
+				</td>
+			</tr>
+		</table>
+
+		<%= render "posts/content", post: post %>
+	<% else %>
+		<%= render "tabs/list_item", item: post %>
+	<% end %>
+</div>

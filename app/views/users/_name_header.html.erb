@@ -1,0 +1,9 @@
+<!-- users -->
+
+<h2 align="center">
+	<% if user.icon.url %>
+		<%= link_to image_tag(user.icon, size: "35x35",
+			id: :user_header_icon), user_path(user.name) %>
+	<% end %>
+	<%= user.name.capitalize + "'s " + translate(item) %>
+</h2></br>

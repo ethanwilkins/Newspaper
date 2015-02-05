@@ -1,0 +1,27 @@
+<!-- tabs -->
+
+<div class="top_right_link">
+	<div class="btn-group">
+		<% if current_user %>
+			<% if current_user.admin %>
+				<%= link_to destroy_tab_path(@tab), method: :delete, class: "btn btn-default",
+					data: { confirm: 'Are you sure you want to delete this tab?' },
+					title: translate("Permanently delete this tab") do %>
+					<span class="glyphicon glyphicon-trash"></span>
+				<% end %>
+				<%= link_to edit_tab_path(@tab), class: "btn btn-default",
+					 title: translate("Edit this tab") do %>
+					<span class="glyphicon glyphicon-edit"></span>
+				<% end %>
+				<%= link_to new_tab_feature_path(@tab), class: "btn btn-default",
+					 title: translate("Add a new feature to this tab") do %>
+					<span class="glyphicon glyphicon-plus-sign"></span>
+				<% end %>
+			<% end %>
+			<%= link_to page_jump_path(@tab), class: "btn btn-default",
+				 title: translate("Page jump: automatically jump to this page at login") do %>
+				<span class="glyphicon glyphicon-star"></span>
+			<% end %>
+		<% end %>
+	</div>
+</div>

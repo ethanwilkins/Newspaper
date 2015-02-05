@@ -1,0 +1,75 @@
+<!-- users -->
+
+<div id="card">
+<%= form_for @user, url: user_path(@user.name), method: :patch,
+	:html => {:multipart => true, "data-ajax" => false} do |f| %>
+	<%= hidden_field_tag id: @user.id %>
+	<p>
+		<%= f.label translate("Upload a profile picture") %>
+		<%= f.file_field :icon, class: "form-control" %>
+	</p>
+	<p>
+		<%= f.text_field :name, placeholder: translate("Name"), class: "form-control" %>
+	</p>
+	<p>
+		<%= f.text_field :email, placeholder: translate("Email"), class: "form-control" %>
+	</p>
+	<p>
+		<%= f.text_area :bio, placeholder: translate("Bio"), class: "form-control" %>
+	</p>
+	<p>
+		<%= f.text_field :zip_code, placeholder: translate("Zip"), class: "form-control" %>
+	</p>
+	<p>
+		<% case @user.network_size %>
+		<% when 10 %>
+			<% network_size = "Small" %>
+		<% when 25 %>
+			<% network_size = "Medium" %>
+		<% when 50 %>
+			<% network_size = "Large" %>
+		<% when 100 %>
+			<% network_size = "Extra large" %>
+		<% else %>
+			<% network_size = "Not set" %>
+		<% end %>
+		<%= f.select :network_size, options_for_select([[translate("Network size: " + network_size), @user.network_size],
+			[translate("Small (10 miles)"), 10], [translate("Medium (25 miles)"), 25], [translate("Large (50 miles)"), 50],
+			[translate("Extra large (100 miles)"), 100]]), {}, class: "form-control" %>
+	</p>
+	<p>
+		<%= f.select :english, options_for_select([[translate("Language: " + (@user.english ? "English" : "Spanish")), @user.english],
+			[translate("Spanish"), false], [translate("English"), true]]), {}, class: "form-control" %>
+	</p>
+	<% if privileged? %>
+		<% if master? %>
+			</p>
+				<%= f.select :admin, options_for_select([[translate("Privilege: " + (@user.admin ? "Admin" : "User")), @user.admin],
+					[translate("User"), false], [translate("Admin"), true]]), {}, class: "form-control" %>
+			</p>
+			<p>
+				<%= f.text_field :password, placeholder: translate("Password"), class: "form-control" %>
+			</p>
+			<p class="form-control">
+				<%= f.label translate("Writer privileges") %>
+				<%= f.check_box :writer %>
+			</p>
+		<% end %>
+		<p class="form-control">
+			<%= f.label translate("Business account") %>
+			<%= f.check_box :business %>
+		</p>
+	<% end %>
+	<p>
+		<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
+	</p>
+<% end %>
+</div>
+
+<% if @user.features.exists? action: :custom_loading %>
+	<%= render "loading_gifs/new" %>
+<% end %>
+
+<%= render "users/delete_form" %>
+
+<div id="footer_spacing"></div>

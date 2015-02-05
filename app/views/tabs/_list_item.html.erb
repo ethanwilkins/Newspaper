@@ -1,0 +1,42 @@
+<!-- tabs -->
+
+<% if @tab and @tab.features.exists? action: :rank_feedback %>
+	<% column_size = "col-xs-4"; ranked = true %>
+<% else %>
+	<% column_size = "col-xs-6" %>
+<% end %>
+
+<div class="container-fluid" align="center">
+	<div class="row">
+		<div class="<%= column_size %>">
+			<% case item.class.to_s %>
+			<% when "Post" %>
+				<%= link_to item.title, post_path(item) %>
+			<% when "Article" %>
+				<%= link_to item.title, article_path(item) %>
+			<% when "Event" %>
+				<%= link_to item.title, event_path(item) %>
+			<% end %>
+		</div>
+		<div class="<%= column_size %>">
+			<%= link_to item.user.name.capitalize, user_path(item.user.name) %>
+		</div>
+		<% if ranked %>
+			<div class="col-xs-3">
+				<table id="stars_in_table" title="<%= translate("This posts average rating.") %>">
+					<tr>
+					<% 5.times do |stars| %>
+						<td class=
+							<% if Feedback.avg_rating(item) > stars %>
+								"glyphicon glyphicon-star"
+							<% else %>
+								"glyphicon glyphicon-star-empty"
+							<% end %>
+						</td>
+					<% end %>
+					</tr>
+				</table>
+			</div>
+		<% end %>
+	</div>
+</div>
