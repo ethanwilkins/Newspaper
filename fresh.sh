@@ -1,10 +1,12 @@
 #!/bin/bash
 
-cd /home/rails/
-
 service unicorn stop
 
+cd /home/rails/
+
 git pull
+
+cd /home/rails/
 
 rake db:migrate RAILS_ENV=production
 
