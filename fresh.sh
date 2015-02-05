@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .bash_profile
+# source .bash_profile
 
 service unicorn stop
 
@@ -8,13 +8,11 @@ cd /home/rails/
 
 git pull
 
-pwd
-
-rake db:migrate RAILS_ENV=production
-
-rake assets:precompile RAILS_ENV=production
-
-bundle install
+# rake db:migrate RAILS_ENV=production
+#
+# rake assets:precompile RAILS_ENV=production
+#
+# bundle install
 
 service unicorn start
 

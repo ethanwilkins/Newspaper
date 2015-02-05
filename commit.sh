@@ -20,6 +20,6 @@ git push
 
 echo -e "\nLogging on...\n"
 
-ssh root@elheroe.net sh /home/rails/fresh.sh
+ssh root@elheroe.net fresh
 
 echo -e "\nDone...\n"
