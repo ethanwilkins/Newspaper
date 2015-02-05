@@ -21,3 +21,5 @@ git push
 echo -e "\nLogging on...\n"
 
 ssh root@elheroe.net ./fresh.sh
+
+echo -e "\nDone...\n"
