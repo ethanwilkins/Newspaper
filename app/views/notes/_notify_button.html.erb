@@ -1,4 +1,0 @@
-<% if privileged? and current_user != @user %>
-	<%= link_to translate("Notify"), new_note_path(@user.name),
-		title: translate("Notify this user with a message or link"), class: :card_link %>
-<% end %>

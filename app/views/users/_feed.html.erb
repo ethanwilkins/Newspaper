@@ -1,9 +1,0 @@
-<!-- users -->
-
-<% for post in @items %>
-	<%= render "posts/card", post: post %>
-<% end %>
-
-<% unless @items.size < page_size %>
-	<div id="more_content_anchor"></div>
-<% end %>

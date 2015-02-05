@@ -1,8 +1,0 @@
-<!-- notes -->
-
-<% time_ago = time_ago_in_words(note.created_at) + " ago" %>
-<% if time_ago.include? "about" %>
-	<% time_ago.slice! "about " %>
-<% end %>
-
-<%= link_to time_ago, notes_path, class: :top_left_link %>

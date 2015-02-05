@@ -1,4 +1,0 @@
-post_id = <%= @post.id %>
-link = $("#post_item_" + post_id)
-link.attr("href", "/posts/un_vote/" + post_id)
-link.text("<%= translate('Unlike') + ' ' + @post.up_votes.size.to_s %>")

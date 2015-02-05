@@ -1,9 +1,0 @@
-<!-- activities -->
-
-<%= render "activities/card", act: @activity %>
-
-<% @comments.each do |comment| %>
-	<%= render "comments/card", comment: comment %>
-<% end %>
-
-<%= render "comments/new" if current_user %>

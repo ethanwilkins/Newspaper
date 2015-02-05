@@ -1,9 +1,0 @@
-<% pos_on_page = 0 %>
-<% ad_pos = Random.new.rand @articles.size if @articles.present? %>
-<% @articles.each do |article| %>
-	<%= render("articles/card", article: article) unless article.ad %>
-	<%= render "articles/ad_card" if defined? ad_pos and ad_pos == pos_on_page %>
-	<% pos_on_page += 1 %>
-<% end %>
-
-<%= render "articles/ad_card" if @articles.empty? %>

@@ -1,7 +1,0 @@
-<!-- activities -->
-
-<% for location in @unique_visits %>
-	<%= render "activities/card", act: location %>
-<% end %>
-
-<%= render "pages/more_back", all_items: Activity.unique_visits, items: @unique_visits %>
