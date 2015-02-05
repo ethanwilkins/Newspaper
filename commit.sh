@@ -18,6 +18,6 @@ git commit -m "$1"
 
 git push
 
-echo -e "\nLogging on...\n"
+# echo -e "\nLogging on...\n"
 
-ssh root@elheroe.net ./fresh.sh
+# ssh root@elheroe.net ./fresh.sh
