@@ -18,10 +18,8 @@ git commit -m "$1"
 
 git push
 
-echo -e "\n\n"
+echo -e "\nLogging on...\n"
 
-# echo -e "\nLogging on...\n"
-#
-# ssh root@elheroe.net sh /home/rails/fresh.sh
-#
-# echo -e "\nDone...\n"
+ssh root@elheroe.net sh /home/rails/fresh.sh
+
+echo -e "\nDone...\n"
