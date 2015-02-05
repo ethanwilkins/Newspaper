@@ -1,4 +1,4 @@
-# fresh
+#!/bin/bash
 
 service unicorn stop
 
