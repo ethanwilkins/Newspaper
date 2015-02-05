@@ -16,13 +16,17 @@
 //= require_tree .
 //= require bootstrap-sprockets
 //= require bindWithDelay
-
-// setInterval(function() {
-// 	$.ajax({
-// 		type: "GET",
-// 		url: "/notes/new_notes"
-// 	})
-// }, 6000);
+//= require scrollView
+	
+setInterval(function() {
+	if ($("#instant_messaging_anchor").length) {
+		$.ajax({
+			type: "GET",
+			url: "/messages/new_messages",
+			data: $.param({folder_id: document.URL.split("/")[4]})
+		})
+	}
+}, 5000);
 	
 $(window).bindWithDelay("scroll", function() {
 	if($(window).scrollTop() + $(window).height() > $(document).height() - 300) {
@@ -49,3 +53,11 @@ $(window).bindWithDelay("scroll", function() {
 		}
 	}
 }, 200);
+
+// ajax new notes not rendering, probably because of bootstrap
+// setInterval(function() {
+// 	$.ajax({
+// 		type: "GET",
+// 		url: "/notes/new_notes"
+// 	})
+// }, 6000);

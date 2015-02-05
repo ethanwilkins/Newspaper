@@ -70,6 +70,8 @@ Rails.application.routes.draw do
   
   get 'folders/new/:user_id', to: 'folders#new', as: 'new_folder'
   
+  get 'messages/new_messages'
+  
   
   # comment routes
   
@@ -206,11 +208,6 @@ Rails.application.routes.draw do
   get "pages/more", as: "more"
   
   get "pages/back", as: "back"
-  
-  
-  # loading_gif routes
-  
-  
   
 
   # The priority is based upon order of creation: first created -> highest priority.

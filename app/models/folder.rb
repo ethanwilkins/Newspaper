@@ -3,6 +3,10 @@ class Folder < ActiveRecord::Base
   has_many :members, dependent: :destroy
   belongs_to :post
   
+  def unread_messages
+    self.messages.unread
+  end
+  
   def notify_members(sender, action=:message)
     for member in members
       if member != sender

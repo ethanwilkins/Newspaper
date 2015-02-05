@@ -1,4 +1,12 @@
 class MessagesController < ApplicationController
+  def new_messages
+    if current_user and params[:folder_id]
+      @folder = Folder.find_by_id(params[:folder_id])
+      @instant_messages = @folder.unread_messages.where.
+        not(user_id: current_user.id) if @folder
+    end
+  end
+  
   def create
     @folder = Folder.find(params[:folder_id])
     @message = @folder.messages.new(params[:message].permit(:text))

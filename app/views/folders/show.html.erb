@@ -6,17 +6,11 @@
 
 	<% if @messages.size > 0 %>
 		<% @messages.each do |message| %>
-			<div id="card">
-				<%= render "messages/time_ago", message: message %>
-				<div align="center" id="message_text_padding">
-					<%= link_to User.find(message.user_id).name, user_path(message.user_id) %>
-					<% for word in message.text.split(' ') %>
-						<%= render "posts/embed", word: word %>
-					<% end %>
-				</div>
-			</div>
+			<%= render "messages/card", message: message %>
 		<% end %>
 	<% end %>
+	
+	<div id="instant_messaging_anchor"></div>
 
 	<%= render "messages/new" %>
 
