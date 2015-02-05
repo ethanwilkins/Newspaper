@@ -2,11 +2,13 @@
 
 service unicorn stop
 
-( cd /home/rails/
+(
+	cd /home/rails/
 	git pull
 	rake db:migrate RAILS_ENV=production
 	rake assets:precompile RAILS_ENV=production
-	bundle install )
+	bundle install
+)
 
 service unicorn start
 
