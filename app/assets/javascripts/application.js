@@ -16,6 +16,15 @@
 //= require_tree .
 //= require bootstrap-sprockets
 //= require bindWithDelay
+
+var check;
+function check_for_notes() {
+	$.ajax({
+		type: "GET",
+		url: "/notes/new_notes"
+	})
+}
+check = setInterval(check_for_notes(), 5000);
 	
 $(window).bindWithDelay("scroll", function() {
 	if($(window).scrollTop() + $(window).height() > $(document).height() - 300) {

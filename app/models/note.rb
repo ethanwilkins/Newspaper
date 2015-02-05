@@ -3,13 +3,8 @@ class Note < ActiveRecord::Base
   validates :message, presence: true
   validate :valid_url
   
-  def self.checked
-    where(checked: true)
-  end
-  
-  def self.unchecked
-    where(checked: false)
-  end
+  scope :checked, -> { where checked: true }
+  scope :unchecked, -> { where checked: false }
   
   def self.notify(sender, receiver, action, item_id=1)
     if sender.present? and receiver.present? and sender != receiver

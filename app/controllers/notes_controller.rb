@@ -1,4 +1,8 @@
 class NotesController < ApplicationController
+  def new_notes
+    @new_notes = current_user.notes.unchecked.size
+  end
+  
   def select
     if master? and session[:group_id]
       zips = []

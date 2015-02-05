@@ -1,0 +1,13 @@
+<!-- notes -->
+
+<li id="notes_nav_li">
+	<%= link_to notes_path, title: translate("View your notifications") do %>
+		<% if current_user.notes.unchecked.size > 0 %>
+			<div><%= translate("Notes") %> <span class="badge">
+				<%= current_user.notes.unchecked.size %>
+			</span></div>
+		<% else %>
+			<div><%= translate("Notes") %></div>
+		<% end %>
+	<% end %>
+</li>

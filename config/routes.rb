@@ -84,6 +84,8 @@ Rails.application.routes.draw do
   
   get 'notes/new/:id', to: 'notes#new', as: 'new_note'
   
+  get 'notes/new_notes'
+  
   
   # tab routes
   
