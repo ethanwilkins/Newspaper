@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
   def new_notes
-    @new_notes = current_user.notes.unchecked.size
+    @new_notes = current_user.notes.unchecked.size if current_user
   end
   
   def select

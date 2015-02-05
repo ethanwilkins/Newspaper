@@ -27,7 +27,17 @@
 				<li>
 					<%= link_to translate("Games"), boards_path, title: translate("Play and win prizes") %>
 				</li>
-				<%= render "notes/nav_li" %>
+				<li id="notes_nav_li">
+					<%= link_to notes_path, title: translate("View your notifications") do %>
+						<% if current_user.notes.unchecked.size > 0 %>
+							<div><%= translate("Notes") %> <span class="badge">
+								<%= current_user.notes.unchecked.size %>
+							</span></div>
+						<% else %>
+							<div><%= translate("Notes") %></div>
+						<% end %>
+					<% end %>
+				</li>
 				<% end %>
 			</ul>
 			<% if current_user %>
