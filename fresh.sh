@@ -8,6 +8,8 @@ cd /home/rails/
 
 git pull
 
+pwd
+
 rake db:migrate RAILS_ENV=production
 
 rake assets:precompile RAILS_ENV=production
