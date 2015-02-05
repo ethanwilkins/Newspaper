@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd /home/rails/
+
 service unicorn stop
 
 git pull
