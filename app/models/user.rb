@@ -28,6 +28,9 @@ class User < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
+  geocoded_by :zip_code, :latitude => :latitude, :longitude => :longitude
+  after_validation :geocode, if: :zip_present?
+  
   def close_enough(content)
     _close_enough = false
     # content always close enough when inside current users zip code or cherry picked tab
@@ -39,24 +42,6 @@ class User < ActiveRecord::Base
       GeoDistance.distance(content.latitude, content.longitude, self.latitude,
       self.longitude).miles.number < self.network_size
       return true
-    # if previous checks fail, allows
-    # content access to branch out proportionately
-    # as the local or global communities expand.
-    # this last check is only run if both failed
-    # elsif content.zip_code.present?
-    #   case content.class
-    #   when Post
-    #     # the more content in a given area, the less likely it is
-    #     # for any particular item from that area to show
-    #     near_content = Post.where(zip_code: content.zip_code).size
-    #     # gets number of posts with the same zip code and is close
-    #     # enough when a random value between 0 and the size of all
-    #     # content is less than the number with the same zip code
-    #     _close_enough = true if near_content < Random.rand(0..Post.all.size)
-    #   when Tab
-    #     near_content = Tab.where(zip_code: content.zip_code).size
-    #     _close_enough = true if near_content < Random.rand(0..Tab.all.size)
-    #   end
     else
       _close_enough = true
     end
@@ -146,6 +131,10 @@ class User < ActiveRecord::Base
     if self.zip_code
       Zip.record(self.zip_code)
     end
+  end
+  
+  def zip_present?
+		self.zip_code.present?
   end
   
   def to_param
