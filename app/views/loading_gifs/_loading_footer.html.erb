@@ -2,10 +2,8 @@
 
 <% if all_items.present? and all_items.size > page_size %>
 	<div align="center">
-		<% if current_loading_gif != "loading.gif" %>
+		<% if current_loading_gif %>
 			<%= image_tag current_loading_gif, id: :loading_footer %>
-		<% else %>
-			<i class="fa fa-spinner fa-spin fa-5x" id="loading_footer"></i>
 		<% end %>
 	</div>
 <% end %>
