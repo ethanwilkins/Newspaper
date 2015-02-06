@@ -81,11 +81,23 @@ class FeaturesController < ApplicationController
   
   def destroy
     @feature = Feature.find(params[:id])
+    if @feature.user and @feature.personal
+      @user = @feature.user
+    elsif @feature.tab
+      @tab = @feature.tab
+    end
+    
     if @feature.destroy
       flash[:notice] = translate("Feature removed successfully.")
+      log_action("")
     else
       flash[:error] = translate("Feature could not removed.")
     end
-    redirect_to :back
+    
+    if @user
+      redirect_to user_path(@user.name)
+    else
+      redirect_to tab_path(@tab)
+    end
   end
 end

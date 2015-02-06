@@ -1,5 +1,6 @@
 class Feature < ActiveRecord::Base
   belongs_to :tab
+  belongs_to :user
   belongs_to :subtab
   validates_presence_of :action
   validate :unique_in_tab

@@ -52,3 +52,4 @@ gem 'area'
 
 # bootstrap
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
