@@ -137,9 +137,9 @@ Rails.application.routes.draw do
   
   get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
   
-  get "features/cherry_pick/:tab_id", to: 'features#cherry_pick', as: 'cherry_pick'
+  get "features/cherry_pick", to: 'features#cherry_pick', as: 'cherry_pick'
   
-  get "features/un_cherry_pick/:tab_id", to: 'features#un_cherry_pick', as: 'un_cherry_pick'
+  get "features/un_cherry_pick", to: 'features#un_cherry_pick', as: 'un_cherry_pick'
   
   delete 'features/destroy/:id', to: 'features#destroy', as: 'destroy_feature'
   

@@ -17,6 +17,15 @@ class Subtab < ActiveRecord::Base
   scope :pending, -> { where approved: nil }
   scope :approved, -> { where approved: true }
   
+  def cherry_picked?(user)
+    cherry_picks = self.features.where(action: :cherry_pick)
+    if cherry_picks.find_by_user_id(user.id)
+      return true
+    else
+      return false
+    end
+  end
+  
   def list_format?
     features.exists? action: "list_format"
   end
