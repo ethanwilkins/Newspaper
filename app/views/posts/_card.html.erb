@@ -27,6 +27,15 @@
 	
 		<table class="bottom_right_link_table">
 			<tr>
+				<% if post.days_left.present? %>
+					<td class="link_table_spacing">
+						<%= link_to post_path(post),
+							title: translate("Days left until the post expires"),
+							class: :card_link do %>
+							<i class="fa fa-clock-o fa-lg"></i> <%= post.days_left %>	
+						<% end %>
+					</td>
+				<% end %>
 				<%= render "posts/review_link", post: post %>
 				<td>
 					<%= render "posts/vote", post: post %>

@@ -7,11 +7,14 @@
 	<tr>
 		<td class="link_table_spacing">
 			<% if event.going.empty? %>
-				<% going = translate("Going") %>
+				<%= link_to attendance_path(event), class: :card_link do %>
+					<i class="fa fa-user"></i>
+				<% end %>
 			<% else %>
-				<% going = translate("Going") + " " + event.going.size.to_s %>
+				<%= link_to attendance_path(event), class: :card_link do %>
+					<i class="fa fa-user"></i> <%= event.going.size.to_s %>
+				<% end %>
 			<% end %>
-			<%= link_to going, attendance_path(event), class: :card_link %>
 		</td>
 		<% if event.user != current_user and @tab and @tab.features.exists? action: :rank_feedback %>
 			<td class="link_table_spacing">
@@ -20,11 +23,13 @@
 		<% end %>
 		<td>
 			<% unless event.comments.empty? %>
-				<%= link_to translate("Comment") + " #{event.comments.size}", event_path(event),
-					title: translate("Leave a comment"), class: :card_link %>
+				<%= link_to event_path(event), title: translate("Leave a comment"), class: :card_link  do %>
+					<i class="fa fa-comment"></i> <%= "#{event.comments.size}" %>	
+				<% end %>
 			<% else %>
-				<%= link_to translate("Comment"), event_path(event),
-					title: translate("Leave a comment"), class: :card_link %>
+				<%= link_to event_path(event), title: translate("Leave a comment"), class: :card_link do %>
+					<i class="fa fa-comment"></i>
+				<% end %>
 			<% end %>
 		</td>
 	</tr>

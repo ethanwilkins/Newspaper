@@ -10,9 +10,6 @@ class Tab < ActiveRecord::Base
   
   mount_uploader :icon, ImageUploader
   
-  reverse_geocoded_by :latitude, :longitude, :address => :address
-  after_validation :geocode, :reverse_geocode
-  
   scope :pending, -> { where approved: nil }
   scope :approved, -> { where approved: true }
   

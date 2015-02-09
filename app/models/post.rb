@@ -13,14 +13,11 @@ class Post < ActiveRecord::Base
   
   accepts_nested_attributes_for :pictures
   
+  before_create :apply_expiration
   validate :title_required?, on: :create
   validate :text_or_image?, on: :create
-  after_create :apply_expiration
   
   mount_uploader :image, ImageUploader
-  
-  reverse_geocoded_by :latitude, :longitude, :address => :address
-  after_validation :geocode, :reverse_geocode
   
   def self.repopulate
     for post in self.all
@@ -39,6 +36,14 @@ class Post < ActiveRecord::Base
           post.destroy
         end
       end
+    end
+  end
+  
+  def days_left
+    if self.expiration_date.present?
+      return (self.expiration_date - Date.current).to_i
+    else
+      return nil
     end
   end
   
@@ -69,8 +74,8 @@ class Post < ActiveRecord::Base
   end
   
   def apply_expiration
-    if self.tab and self.tab.features.exists? "post_expiration"
-      self.expiration_date = 10.days.since(Date.current).to_date
+    if self.tab_id and Tab.find(self.tab_id).features.exists? action: "post_expiration"
+      self.expiration_date = 10.days.since(Date.current).to_formatted_s(:db)
     end
   end
   

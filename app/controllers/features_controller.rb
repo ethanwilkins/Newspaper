@@ -1,4 +1,21 @@
 class FeaturesController < ApplicationController
+  def switch_global
+    if params[:subtab_id]
+      @item = Subtab.find_by_id(params[:subtab_id])
+    elsif params[:tab_id]
+      @item = Tab.find_by_id(params[:tab_id])
+    end
+    if @item and @item.features.exists? action: :global
+      global = @item.features.find_by_action :global
+      if global and global.turned_on and global.update turned_on: false
+        flash[:notice] = translate("Global feature turned off.")
+      elsif global and not global.turned_on and global.update turned_on: true
+        flash[:notice] = translate("Global feature turned on.")
+      end
+    end
+    redirect_to :back
+  end
+  
   def un_cherry_pick
     cherry_picks = current_user.features.where(action: :cherry_pick)
     if cherry_picks.present?

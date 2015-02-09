@@ -25,3 +25,18 @@
 		<% end %>
 	</div>
 </div>
+
+<div class="bottom_right_link">
+	<% if @tab.features.exists? action: :global %>
+		<% global = @tab.features.find_by_action :global %>
+		<% if global and global.turned_on %>
+			<%= link_to switch_global_path(tab_id: @tab.id), title: translate("Turn off the global feature.") do %>
+				<i class="fa fa-globe fa-2x" id="feature_turned_on"></i>
+			<% end %>
+		<% elsif global %>
+			<%= link_to switch_global_path(tab_id: @tab.id), title: translate("Turn on the global feature.") do %>
+				<i class="fa fa-globe fa-2x" id="feature_turned_off"></i>
+			<% end %>
+		<% end %>
+	<% end %>
+</div>

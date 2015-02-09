@@ -40,17 +40,15 @@
 </div>
 
 <% if @subtab %>
-	<% for feature in @subtab.features.reverse %>
-		<%= render "features/card", feature: feature %>
-	<% end %>
+	<% item = @subtab %>
 <% elsif @tab %>
-	<% for feature in @tab.features.reverse %>
-		<%= render "features/card", feature: feature %>
-	<% end %>
+	<% item = @tab %>
 <% elsif @user %>
-	<% for feature in @user.features.reverse %>
-		<%= render "features/card", feature: feature %>
-	<% end %>
+	<% item = @user %>
+<% end %>
+
+<% for feature in item.features.reverse %>
+	<%= render "features/card", feature: feature %>
 <% end %>
 
 </br>

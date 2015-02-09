@@ -6,7 +6,8 @@
 <% for item in @items %>
 	<% case item.class.to_s %>
 		<% when "Post" %>
-			<% if not current_user or current_user.close_enough(item) or @tab.features.exists? "global" %>
+			<% if not current_user or current_user.close_enough(item) \
+				or (@tab.features.exists? "global" and @tab.features.find_by_action(:global).turned_on) %>
 				<%= render "posts/card", post: item, list_format: @tab.list_format? %>
 			<% end %>
 			<%= render "articles/ad_card" if ad_pos == pos_on_page %>

@@ -2,8 +2,8 @@ class Feature < ActiveRecord::Base
   belongs_to :tab
   belongs_to :user
   belongs_to :subtab
-  validates_presence_of :action
-  validate :unique_in_tab
+  validates_presence_of :action, on: :create
+  validate :unique_in_tab, on: :create
   
   def self.page_jump(user)
     last_jump = where(user_id: user.id, action: "page_jump").last

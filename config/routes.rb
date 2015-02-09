@@ -135,6 +135,8 @@ Rails.application.routes.draw do
   
   # feature routes
   
+  get 'features/switch_global', as: 'switch_global'
+  
   get "features/page_jump/:tab_id", to: 'features#page_jump', as: 'page_jump'
   
   get "features/cherry_pick", to: 'features#cherry_pick', as: 'cherry_pick'
