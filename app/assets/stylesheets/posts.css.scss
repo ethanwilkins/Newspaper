@@ -5,7 +5,7 @@
 $info_color: rgb(190, 190, 190);
 
 #standard_post_image {
-	width: 95%;
+	width: 90%;
 }
 
 #post_body_text {
@@ -47,46 +47,6 @@ $info_color: rgb(190, 190, 190);
 	position: absolute;
 	left: 20px;
 	bottom: 10px;
-}
-
-.bottom_center_right_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
-	right: 60px;
-	bottom: 10px;
-}
-
-.bottom_center_left_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
-	left: 75px;
-	bottom: 10px;
-}
-
-.bottom_center_center_left_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
-	left: 105px;
-	bottom: 10px;
-}
-
-.top_center_right_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
-	right: 100px;
-	top: 10px;
-}
-
-.top_center_center_right_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
-	right: 135px;
-	top: 10px;
 }
 
 .bottom_left_link_table {

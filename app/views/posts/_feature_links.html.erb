@@ -1,0 +1,9 @@
+<!-- posts -->
+
+<% if post.days_left.present? %>
+	<%= link_to post_path(post), title: translate("Days left until the post expires"), id: :days_left_clock do %>
+		<i class="fa fa-clock-o fa-lg"></i> <%= post.days_left %>	
+	<% end %>
+<% end %>
+
+<%= render "posts/review_link", post: post %>

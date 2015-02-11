@@ -5,10 +5,28 @@
 $turned_on: black;
 $turned_off: rgb(190, 190, 190);
 
+@mixin feature_link {
+	color: $turned_off;
+	font-size: 10px;
+	position: absolute;
+}
+
 #feature_turned_on {
 	color: $turned_on;
 }
 
 #feature_turned_off {
 	color: $turned_off;
+}
+
+#days_left_clock {
+	@include feature_link;
+	right: 6px;
+	top: 35px;
+}
+
+#review_stars_link {
+	@include feature_link;
+	right: 10px;
+	top: 75px;
 }

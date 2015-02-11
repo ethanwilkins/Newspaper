@@ -12,9 +12,9 @@
 		<% 5.times do |stars| %>
 			<td class=
 				<% if Feedback.avg_rating(@user) > stars %>
-					"glyphicon glyphicon-star"
+					"fa fa-star"
 				<% else %>
-					"glyphicon glyphicon-star-empty"
+					"fa fa-star-o"
 				<% end %>
 			</td>
 		<% end %>

@@ -1,0 +1,33 @@
+<!-- feedbacks -->
+
+<!-- required values: link_position, item -->
+
+<% unless defined? vertical %>
+	<table class="<%= defined? link_position ? link_position : nil %>"
+		title="<%= translate("Average rating for this item.") %>">
+		<tr>
+		<% 5.times do |stars| %>
+			<td class=
+				<% if Feedback.avg_rating(item) > stars %>
+					"fa fa-star"
+				<% else %>
+					"fa fa-star-o"
+				<% end %>
+			</td>
+		<% end %>
+		</tr>
+	</table>
+<% else %>
+	<span class="<%= defined? link_position ? link_position : nil %>"
+		title="<%= translate("Average rating for this item.") %>">
+		<% 5.times do |stars| %>
+			<span class=
+				<% if Feedback.avg_rating(item) > stars %>
+					"fa fa-star"
+				<% else %>
+					"fa fa-star-o"
+				<% end %>
+			</span></br>
+		<% end %>
+	</span>
+<% end %>

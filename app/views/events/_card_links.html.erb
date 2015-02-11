@@ -8,11 +8,11 @@
 		<td class="link_table_spacing">
 			<% if event.going.empty? %>
 				<%= link_to attendance_path(event), class: :card_link do %>
-					<i class="fa fa-user"></i>
+					<i class="fa fa-user fa-lg"></i>
 				<% end %>
 			<% else %>
 				<%= link_to attendance_path(event), class: :card_link do %>
-					<i class="fa fa-user"></i> <%= event.going.size.to_s %>
+					<i class="fa fa-user fa-lg"></i> <%= event.going.size.to_s %>
 				<% end %>
 			<% end %>
 		</td>
@@ -23,13 +23,9 @@
 		<% end %>
 		<td>
 			<% unless event.comments.empty? %>
-				<%= link_to event_path(event), title: translate("Leave a comment"), class: :card_link  do %>
-					<i class="fa fa-comment"></i> <%= "#{event.comments.size}" %>	
-				<% end %>
+				<%= link_to translate("Comment"), event_path(event), title: translate("Leave a comment"), class: :card_link %>
 			<% else %>
-				<%= link_to event_path(event), title: translate("Leave a comment"), class: :card_link do %>
-					<i class="fa fa-comment"></i>
-				<% end %>
+				<%= link_to translate("Comment"), event_path(event), title: translate("Leave a comment"), class: :card_link %>
 			<% end %>
 		</td>
 	</tr>

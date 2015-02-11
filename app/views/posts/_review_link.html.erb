@@ -1,13 +1,12 @@
 <!-- posts -->
 
 <% if has_feature? :rank_feedback %>
-	<td class="link_table_spacing">
-		<% if post.user != current_user %>
-			<%= link_to translate("Review"), new_post_feedback_path(post), class: :card_link,
-				title: translate("Provide feedback for this post.") %>
-		<% else %>
-			<%= link_to translate("Reviews"), new_post_feedback_path(post), class: :card_link,
-				title: translate("View feedback for your post.") %>
-		<% end %>
-	</td>
+	<% if post.user != current_user %>
+		<% title = translate("Provide feedback for this post.") %>
+	<% else %>
+		<% title = translate("View feedback for your post.") %>
+	<% end %>
+	<%= link_to new_post_feedback_path(post), id: :review_stars_link, title: title do %>
+		<%= render "feedbacks/stars", item: post, vertical: true %>
+	<% end %>
 <% end %>
