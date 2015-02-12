@@ -1,10 +1,14 @@
 # aliases - for awesomely maximized laziness
 
+alias no_worries='afplay /Users/ethanwilkins/Music/Legend/Bob\ Marley\ -\ Legend\ -\ 04\ -\ Three\ Little\ Birds.mp3'
+
+alias immigrant_song='afplay /Users/ethanwilkins/Music/Led\ Zeppelin\ Discography\ \(iTunes-Rip\)\ \[theLEAK\]/Led\ Zeppelin/Led\ Zeppelin\ III\ \(Remastered\)/01\ Immigrant\ Song.mp3'
+
 alias fucking='sudo'
 
 alias commit='./commit.sh'
 
-alias cdrails='cd /Users/ethanwilkins/Documents/ruby/rails'
+alias cdrails='cd /Users/ethanwilkins/Code/rails'
 
 alias rakes='rake db:migrate'
 

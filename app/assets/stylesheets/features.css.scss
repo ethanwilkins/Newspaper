@@ -30,3 +30,9 @@ $turned_off: rgb(190, 190, 190);
 	right: 10px;
 	top: 75px;
 }
+
+#feature_links {
+	@include feature_link;
+	right: 10px;
+	top: 75px;
+}

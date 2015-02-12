@@ -2,13 +2,13 @@
 
 echo -e "\nCopying...\n"
 
-cd /Users/ethanwilkins/Documents/GitHub/
+cd ~/Code/GitHub/
 
 rm -rf elheroe/*
 
-cp -r /Users/ethanwilkins/Documents/rails/elheroe/ /Users/ethanwilkins/Documents/GitHub/elheroe/
+cp -r ~/Code/rails/elheroe/ ~/Code/GitHub/elheroe/
 
-cd /Users/ethanwilkins/Documents/GitHub/elheroe
+cd ~/Code/GitHub/elheroe
 
 echo -e "Committing...\n"
 
@@ -19,7 +19,3 @@ git commit -m "$1"
 git push
 
 echo -e "\n"
-
-# echo -e "\nLogging on...\n"
-#
-# ssh root@elheroe.net /home/rails/fresh.sh
