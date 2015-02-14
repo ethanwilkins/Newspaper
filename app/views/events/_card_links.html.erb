@@ -2,20 +2,11 @@
 
 <% _time_ago = time_ago(time_ago_in_words(event.created_at)) %>
 <%= link_to _time_ago, event_path(event), class: :top_left_link %>
+	
+<%= render "events/feature_links", event: event %>
 
 <table class="bottom_right_link_table">
 	<tr>
-		<td class="link_table_spacing">
-			<% if event.going.empty? %>
-				<%= link_to attendance_path(event), class: :card_link do %>
-					<i class="fa fa-user fa-lg"></i>
-				<% end %>
-			<% else %>
-				<%= link_to attendance_path(event), class: :card_link do %>
-					<i class="fa fa-user fa-lg"></i> <%= event.going.size.to_s %>
-				<% end %>
-			<% end %>
-		</td>
 		<% if event.user != current_user and @tab and @tab.features.exists? action: :rank_feedback %>
 			<td class="link_table_spacing">
 				<%= link_to translate("Review"), new_event_feedback_path(event), class: :card_link %>

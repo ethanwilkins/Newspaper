@@ -2,37 +2,32 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$turned_on: black;
-$turned_off: rgb(190, 190, 190);
+$info_color: rgb(190, 190, 190);
 
-@mixin feature_link {
-	color: $turned_off;
+@mixin feature_link($top, $right) {
+	color: $info_color;
 	font-size: 10px;
 	position: absolute;
+	right: $right;
+	top: $top;
 }
 
 #feature_turned_on {
-	color: $turned_on;
+	color: black;
 }
 
 #feature_turned_off {
-	color: $turned_off;
+	color: $info_color;
 }
 
 #days_left_clock {
-	@include feature_link;
-	right: 6px;
-	top: 35px;
+	@include feature_link(50px, 6px);
 }
 
 #review_stars_link {
-	@include feature_link;
-	right: 10px;
-	top: 75px;
+	@include feature_link(75px, 10px);
 }
 
-#feature_links {
-	@include feature_link;
-	right: 10px;
-	top: 75px;
+#event_going_link {
+	@include feature_link(50px, 10px);
 }

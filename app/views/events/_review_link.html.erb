@@ -1,0 +1,12 @@
+<!-- events -->
+
+<% if has_feature? :rank_feedback %>
+	<% if event.user != current_user %>
+		<% title = translate("Provide feedback for this event.") %>
+	<% else %>
+		<% title = translate("View feedback for your event.") %>
+	<% end %>
+	<%= link_to new_event_feedback_path(event), id: :review_stars_link, title: title do %>
+		<%= render "feedbacks/stars", item: event, vertical: true %>
+	<% end %>
+<% end %>
