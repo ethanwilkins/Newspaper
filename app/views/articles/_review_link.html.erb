@@ -1,0 +1,12 @@
+<!-- articles -->
+
+<% if has_feature? :rank_feedback %>
+	<% if article.user != current_user %>
+		<% title = translate("Provide feedback for this article.") %>
+	<% else %>
+		<% title = translate("View feedback for your article.") %>
+	<% end %>
+	<%= link_to new_article_feedback_path(article), id: :review_stars_link, title: title do %>
+		<%= render "feedbacks/stars", item: article, vertical: true %>
+	<% end %>
+<% end %>
