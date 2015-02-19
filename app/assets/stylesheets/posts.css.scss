@@ -4,9 +4,10 @@
 
 $info_color: rgb(190, 190, 190);
 $x_right_gap: 30px;
+$x_left_gap: 30px;
 
 #standard_post_image {
-	width: 90%;
+	width: 85%;
 }
 
 #post_body_text {
@@ -35,7 +36,7 @@ $x_right_gap: 30px;
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
-	left: 20px;
+	left: $x_left_gap;
 	top: 10px;
 }
 
@@ -51,13 +52,13 @@ $x_right_gap: 30px;
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
-	left: 20px;
+	left: $x_left_gap;
 	bottom: 10px;
 }
 
 .bottom_left_link_table {
 	position: absolute;
-	left: 20px;
+	left: $x_left_gap;
 	bottom: 8px;
 	column-gap: 10px;
 }
@@ -78,7 +79,7 @@ $x_right_gap: 30px;
 
 .top_left_link_table {
 	position: absolute;
-	left: 20px;
+	left: $x_left_gap;
 	top: 8px;
 	column-gap: 10px;
 }

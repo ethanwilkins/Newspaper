@@ -1,14 +1,14 @@
 <!-- articles -->
 
-<article id="article_content_container">
+<article id="article_content_container" align="center">
 	<% preview_length = 200 %>
 	
-	<h3 align="center">
+	<h3>
 		<%= link_to text_shown(article, :title), article_path(article) %>
 	</h3>
 
 	<% if article.image.url %>
-		<div align="center"><%= link_to image_tag(article.image,
+		<div id="article_image"><%= link_to image_tag(article.image,
 			id: :standard_post_image), article_path(article) %></div></br>
 	<% end %>
 	
@@ -16,7 +16,7 @@
 	<% if article.body.size > 100 %>
 		<div id="body_of_article">
 	<% else %>
-		<div align="center">
+		<div>
 	<% end %>
 		<!-- translates if necessary -->
 		<% body = text_shown(article, :body) %>
