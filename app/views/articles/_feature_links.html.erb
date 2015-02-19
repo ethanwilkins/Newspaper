@@ -1,0 +1,7 @@
+<!-- articles -->
+
+<% if has_feature? [:rank_feedback] %>
+	<div id="card_feature_side_border"></div>
+
+	<%= render "articles/review_link", article: article %>
+<% end %>

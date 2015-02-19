@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $info_color: rgb(190, 190, 190);
+$x_right_gap: 30px;
 
 #standard_post_image {
 	width: 90%;
@@ -26,7 +27,7 @@ $info_color: rgb(190, 190, 190);
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
-	right: 20px;
+	right: $x_right_gap;
 	top: 10px;
 }
 
@@ -42,7 +43,7 @@ $info_color: rgb(190, 190, 190);
 	color: $info_color;
 	font-size: 10px;
 	position: absolute;
-	right: 20px;
+	right: $x_right_gap;
 	bottom: 10px;
 }
 
@@ -63,14 +64,14 @@ $info_color: rgb(190, 190, 190);
 
 .bottom_right_link_table {
 	position: absolute;
-	right: 20px;
+	right: $x_right_gap;
 	bottom: 8px;
 	column-gap: 10px;
 }
 
 .top_right_link_table {
 	position: absolute;
-	right: 20px;
+	right: $x_right_gap;
 	top: 8px;
 	column-gap: 10px;
 }

@@ -2,10 +2,10 @@
 
 <div id="card">
 	<% unless defined? list_format and list_format %>
+		<%= render "posts/feature_links", post: post %>
 		<%= render "posts/time_ago", post: post %>
 		<%= render "posts/posted_by", post: post %>
 		<%= render "folders/inquire", post: post %>
-		<%= render "posts/feature_links", post: post %>
 
 		<table class="bottom_left_link_table">
 			<tr>

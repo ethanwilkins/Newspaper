@@ -5,7 +5,7 @@
 $info_color: rgb(190, 190, 190);
 
 @mixin feature_link($top, $right) {
-	color: $info_color;
+	color: black;
 	font-size: 10px;
 	position: absolute;
 	right: $right;
@@ -21,13 +21,23 @@ $info_color: rgb(190, 190, 190);
 }
 
 #days_left_clock {
-	@include feature_link(50px, 6px);
+	@include feature_link(50px, 3px);
 }
 
 #review_stars_link {
-	@include feature_link(75px, 10px);
+	@include feature_link(75px, 7.5px);
 }
 
 #event_going_link {
-	@include feature_link(50px, 10px);
+	@include feature_link(50px, 7.5px);
+}
+
+#card_feature_side_border {
+	background: rgb(50, 175, 225);
+	display: inline-block;
+	position: absolute;
+	top: -0.25px;
+	right: 0px;
+	width: 25px;
+	height: 100.5%;
 }

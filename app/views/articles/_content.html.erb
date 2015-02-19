@@ -1,6 +1,6 @@
 <!-- articles -->
 
-<article>
+<article id="article_content_container">
 	<% preview_length = 200 %>
 	
 	<h3 align="center">
@@ -42,5 +42,5 @@
 		<% if body.size > preview_length and not @article_shown %>
 			<%= link_to translate("Read more"), article_path(article) %>
 		<% end %>
-	</div></br>
+	</div>
 </article>
