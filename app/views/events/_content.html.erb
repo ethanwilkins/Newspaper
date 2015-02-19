@@ -1,13 +1,15 @@
 <!-- events -->
 
 <div align="center">
-	<h3><%= link_to text_shown(event, :title), event_path(event) %></h3>
+	<h3 id="title_of_event">
+		<%= link_to text_shown(event, :title), event_path(event) %>
+	</h3>
 
 	<% if event.image.url %>
 		<div>
 			<%= link_to image_tag(event.image,
 				id: :event_content_image), event_path(event) %>
-		</div></br>
+		</div>
 	<% end %>
 
 	<p>

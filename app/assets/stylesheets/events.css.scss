@@ -2,7 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#title_of_event {
+	margin: 0 auto;
+	padding: 15px 0px;
+	width: 85%;
+}
+
 #event_content_image {
 	width: 85%;
-	max-width: 500px;
+	padding-bottom: 10px;
 }

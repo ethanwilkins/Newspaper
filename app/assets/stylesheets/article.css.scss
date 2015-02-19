@@ -2,6 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#title_of_article {
+	margin: 10px auto;
+	width: 85%;
+}
+
 #body_of_article {
 	text-align: justify;
 	margin: 0 auto;
