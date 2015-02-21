@@ -4,12 +4,9 @@
 
 $info_color: rgb(190, 190, 190);
 
-@mixin feature_link($top, $right) {
+@mixin feature_link {
 	color: black;
 	font-size: 10px;
-	position: absolute;
-	right: $right;
-	top: $top;
 }
 
 #feature_turned_on {
@@ -20,20 +17,45 @@ $info_color: rgb(190, 190, 190);
 	color: $info_color;
 }
 
+#generic_feature_link {
+	@include feature_link;
+}
+
 #days_left_clock {
-	@include feature_link(50px, 3px);
+	@include feature_link;
+	padding-left: 7.5px;
+}
+
+#days_left_number {
+	@include feature_link;
+	padding-left: 7.5px;
 }
 
 #review_stars_link {
-	@include feature_link(75px, 7.5px);
+	@include feature_link;
+	padding-left: 7.5px;
 }
 
 #event_going_link {
-	@include feature_link(50px, 7.5px);
+	@include feature_link;
+	padding-left: 7.5px;
+}
+
+#event_going_icon_stacked {
+	display: block;
+}
+
+#feature_links_table {
+	position: absolute;
+	top: 35%;
+}
+
+.feature_row_spacing {
+	padding-bottom: 5px;
 }
 
 #card_feature_side_border {
-	background: rgb(90, 210, 225);
+	background: rgb(215, 245, 255);
 	display: inline-block;
 	position: absolute;
 	top: -0.25px;

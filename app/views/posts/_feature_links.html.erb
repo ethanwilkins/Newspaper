@@ -1,13 +1,29 @@
 <!-- posts -->
 
 <% if has_feature? [:post_expiration, :rank_feedback] %>
-	<div id="card_feature_side_border"></div>
-
-	<% if post.days_left.present? %>
-		<%= link_to post_path(post), title: translate("Days left until the post expires"), id: :days_left_clock do %>
-			<i class="fa fa-clock-o fa-lg"></i> <%= post.days_left %>	
-		<% end %>
-	<% end %>
-
-	<%= render "posts/review_link", post: post %>
+	<div id="card_feature_side_border">
+		<table id="feature_links_table">
+			<% if post.days_left.present? %>
+				<tr>
+					<td>
+						<%= link_to post_path(post), title: translate("Days left until the post expires"), id: :days_left_clock do %>
+							<i class="fa fa-clock-o fa-lg"></i>
+						<% end %>
+					<td>
+				</tr>
+				<tr>
+					<td class="feature_row_spacing">
+						<%= link_to post.days_left, post_path(post),
+							title: translate("Days left until the post expires"),
+							id: :days_left_number %>
+					</td>
+				</tr>
+			<% end %>
+			<tr>
+				<td>
+					<%= render "posts/review_link", post: post %>
+				</td>
+			</tr>
+		</table>
+	</div>
 <% end %>

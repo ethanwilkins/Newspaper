@@ -1,17 +1,30 @@
 <!-- events -->
 
 <% if has_feature? [:invite_attendance, :rank_feedback] %>
-	<div id="card_feature_side_border"></div>
-
-	<% if event.going.empty? %>
-		<%= link_to attendance_path(event), id: :event_going_link do %>
-			<i class="fa fa-user fa-lg"></i>
-		<% end %>
-	<% else %>
-		<%= link_to attendance_path(event), id: :event_going_link do %>
-			<i class="fa fa-user fa-lg"></i> <%= event.going.size.to_s %>
-		<% end %>
-	<% end %>
-
-	<%= render "events/review_link", event: event %>
+	<div id="card_feature_side_border">
+		<table id="feature_links_table">
+			<% if has_feature? :invite_attendance %>
+				<tr>
+					<td class="feature_row_spacing">
+						<% if event.going.empty? %>
+							<%= link_to attendance_path(event), id: :event_going_link do %>
+								<i class="fa fa-user fa-lg"></i>
+							<% end %>
+						<% else %>
+							<%= link_to attendance_path(event), id: :event_going_link do %>
+								<i class="fa fa-user fa-lg"></i> <%= event.going.size.to_s %>
+							<% end %>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+			<% if has_feature? :rank_feedback %>
+				<tr>
+					<td>
+						<%= render "events/review_link", event: event %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
 <% end %>
