@@ -5,7 +5,7 @@
 $info_color: rgb(190, 190, 190);
 
 @mixin feature_link {
-	color: black;
+	color: $info_color;
 	font-size: 10px;
 }
 
@@ -41,12 +41,9 @@ $info_color: rgb(190, 190, 190);
 	padding-left: 7.5px;
 }
 
-#event_going_icon_stacked {
-	display: block;
-}
-
 #feature_links_table {
 	position: absolute;
+	margin: auto;
 	top: 35%;
 }
 
@@ -55,7 +52,7 @@ $info_color: rgb(190, 190, 190);
 }
 
 #card_feature_side_border {
-	background: rgb(215, 245, 255);
+	border-left: 1px solid rgb(225, 225, 225);
 	display: inline-block;
 	position: absolute;
 	top: -0.25px;
