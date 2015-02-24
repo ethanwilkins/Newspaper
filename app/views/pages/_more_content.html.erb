@@ -4,6 +4,8 @@
 	<%= render "tabs/feed" %>
 <% elsif @subtab_shown %>
 	<%= render "subtabs/feed" %>
+<% elsif @tab_index_shown %>
+	<%= render "tabs/grid", tabs: @items %>
 <% elsif @user_shown %>
 	<%= render "users/feed" %>
 <% elsif @notes_shown %>

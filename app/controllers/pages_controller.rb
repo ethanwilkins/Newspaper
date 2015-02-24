@@ -28,6 +28,10 @@ class PagesController < ApplicationController
       @tab_shown = true
       tab = Tab.find_by_id(params[:tab_id])
       build_tab_feed_data(tab)
+    elsif params[:tabs]
+      @tab_index_shown = true
+      @all_items = Tab.approved
+      @items = paginate @all_items
     elsif params[:user_id]
       @user_shown = true
       @user = User.find_by_name(params[:user_id])

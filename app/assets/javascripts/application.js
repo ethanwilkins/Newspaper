@@ -32,15 +32,21 @@ $(window).bindWithDelay("scroll", function() {
 	if($(window).scrollTop() + $(window).height() > $(document).height() - 300) {
 		if ($("#more_content_anchor").length) {
 			var param = null;
-			if (document.URL.search("users") != -1) {
-				param = $.param({ user_id: document.URL.split("/")[4] });
-			} else if (document.URL.search("subtabs") != -1) {
-				param = $.param({ subtab_id: document.URL.split("/")[6] });
-			} else if (document.URL.search("tabs") != -1) {
-				param = $.param({ tab_id: document.URL.split("/")[4] });
-			} else if (document.URL.search("notes") != -1) {
+			var url = document.URL;
+			// user profile feeds
+			if (url.search("users") != -1) {
+				param = $.param({ user_id: url.split("/")[4] });
+			} // subtab feeds
+			else if (url.search("subtabs") != -1) {
+				param = $.param({ subtab_id: url.split("/")[6] });
+			} // tab feeds
+			else if (url.search("tabs") != -1) {
+				param = $.param({ tab_id: url.split("/")[4] });
+			} // notifications feed
+			else if (url.search("notes") != -1) {
 				param = $.param({ notes: true });
-			} else if (document.URL.search("search") != -1) {
+			} // search results feed
+			else if (url.search("search") != -1) {
 				param = $.param({ search: true });
 			}
 			if (param) {
