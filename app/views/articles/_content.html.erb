@@ -16,7 +16,7 @@
 	<% if article.body.size > 100 %>
 		<div id="body_of_article">
 	<% else %>
-		<div>
+		<div id="short_article_body">
 	<% end %>
 		<!-- translates if necessary -->
 		<% body = text_shown(article, :body) %>
