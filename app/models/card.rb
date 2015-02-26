@@ -67,6 +67,22 @@ class Card < ActiveRecord::Base
     return new_img
   end
   
+  def un_redeemed_img
+    new_img = ""
+    image.split('/').each do |string|
+      unless string == "color"
+        if new_img.empty?
+          new_img << string
+        else
+          new_img << "/" + string
+        end
+      else
+        new_img << "/bw"
+      end
+    end
+    return new_img
+  end
+  
   def self.redeem(code, user, board_num)
     _code = Code.find_by_code(code)
     _group = Group.find_by_id(_code.group_id) if _code

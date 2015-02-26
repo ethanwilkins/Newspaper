@@ -1,5 +1,5 @@
 class Code < ActiveRecord::Base
-  has_many :cards, dependent: :destroy
+  has_many :cards
   has_many :game_boards
   belongs_to :group
   
@@ -8,6 +8,8 @@ class Code < ActiveRecord::Base
   validate :board_num_if_board
   validate :group_assignment
   validate :valid_format
+  
+  before_destroy :reset_own_cards
   
   mount_uploader :image, ImageUploader
   
@@ -49,6 +51,13 @@ class Code < ActiveRecord::Base
   end
   
   private
+  
+  def reset_own_cards
+    for card in self.cards
+      card.update image: card.un_redeemed_img,
+        redeemed: false, code_id: 0, zip_code: 0
+    end
+  end
   
   def valid_format
     numbers = 0; letters = 0
