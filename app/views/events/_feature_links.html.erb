@@ -6,17 +6,20 @@
 			<% if has_feature? :invite_attendance %>
 				<tr>
 					<td class="feature_row_spacing">
-						<% if event.going.empty? %>
-							<%= link_to attendance_path(event), id: :event_going_link do %>
-								<i class="fa fa-user fa-lg"></i>
-							<% end %>
-						<% else %>
-							<%= link_to attendance_path(event), id: :event_going_link do %>
-								<i class="fa fa-user fa-lg"></i> <%= event.going.size.to_s %>
-							<% end %>
+						<%= link_to attendance_path(event), id: :event_going_link do %>
+							<i class="fa fa-user fa-lg"></i>
 						<% end %>
 					</td>
 				</tr>
+				<% unless event.going.empty? %>
+					<tr>
+						<td class="feature_row_spacing">
+							<%= link_to attendance_path(event), id: :days_left_number do %>
+								<%= event.going.size.to_s %>
+							<% end %>
+						</td>
+					</tr>
+				<% end %>
 			<% end %>
 			<% if has_feature? :rank_feedback %>
 				<tr>
