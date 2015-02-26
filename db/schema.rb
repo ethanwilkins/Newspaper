@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209190115) do
+ActiveRecord::Schema.define(version: 20150226042402) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -337,29 +337,30 @@ ActiveRecord::Schema.define(version: 20150209190115) do
   create_table "users", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name",         limit: 255
-    t.string   "password",     limit: 255
+    t.string   "name",          limit: 255
+    t.string   "password",      limit: 255
     t.boolean  "admin"
     t.boolean  "active"
     t.boolean  "writer"
     t.integer  "zip_code"
-    t.string   "email",        limit: 255
-    t.string   "icon",         limit: 255
+    t.string   "email",         limit: 255
+    t.string   "icon",          limit: 255
     t.text     "bio"
     t.integer  "network_size"
     t.boolean  "business"
     t.boolean  "english"
-    t.string   "ip",           limit: 255
+    t.string   "ip",            limit: 255
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address",      limit: 255
-    t.string   "auth_token",   limit: 255
+    t.string   "address",       limit: 255
+    t.string   "auth_token",    limit: 255
     t.boolean  "master"
     t.integer  "group_id"
     t.boolean  "dev"
     t.boolean  "test"
     t.boolean  "global"
     t.string   "privilege"
+    t.string   "password_salt"
   end
 
   create_table "votes", force: :cascade do |t|

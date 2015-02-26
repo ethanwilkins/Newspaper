@@ -39,6 +39,10 @@ gem 'spring', group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# encryption
+gem "bcrypt-ruby"
+gem "bcrypt"
+
 # uploader for images
 gem 'rmagick'
 gem 'carrierwave'

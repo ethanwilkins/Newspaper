@@ -47,9 +47,6 @@
 				<%= f.select :admin, options_for_select([[translate("Privilege: " + (@user.admin ? "Admin" : "User")), @user.admin],
 					[translate("User"), false], [translate("Admin"), true]]), {}, class: "form-control" %>
 			</p>
-			<p>
-				<%= f.text_field :password, placeholder: translate("Password"), class: "form-control" %>
-			</p>
 			<p class="form-control">
 				<%= f.label translate("Writer privileges") %>
 				<%= f.check_box :writer %>

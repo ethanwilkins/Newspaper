@@ -22,9 +22,8 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :name
   validate :numeric_zip_if_present
   
-  before_create :generate_token
-  before_save :current_location
-  before_save :downcase_fields
+  before_create :encrypt_password, :generate_token
+  before_save :current_location, :downcase_fields
   
   mount_uploader :icon, ImageUploader
   
@@ -75,14 +74,12 @@ class User < ActiveRecord::Base
     end
     return imgs
   end
-
-  def self.authenticate(name, password)
-    user = find_by_name(name.downcase)
-    user = find_by_email(name.downcase) unless user
-    if user && password == user.password
-      user
+  
+  def last_visit
+    if self.activities.present?
+      return self.activities.last.created_at
     else
-      nil
+      return self.created_at
     end
   end
   
@@ -96,30 +93,50 @@ class User < ActiveRecord::Base
     self.generate_token
     self.save
   end
-  
-  def last_visit
-    if self.activities.present?
-      return self.activities.last.created_at
+
+  def self.authenticate(name, password)
+    user = find_by_name(name.downcase)
+    user = find_by_email(name.downcase) unless user
+    if user && password == BCrypt::Engine.hash_secret(password, user.password_salt)
+      user
     else
-      return self.created_at
+      nil
+    end
+  end
+  
+  def self.encrypt_all_passwords
+    for user in self.all
+      unless user.password_salt
+        user.encrypt_password
+        user.save
+      end
+    end
+  end
+  
+  def encrypt_password
+    if password.present?
+      self.password_salt = BCrypt::Engine.generate_salt
+      self.password = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
   
   private
   
   def current_location
-    geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
-    if defined? geoip and geoip
-      self.latitude = geoip.latitude
-      self.longitude = geoip.longitude
-      if latitude and longitude
-        geocoder = Geocoder.search("#{latitude}, #{longitude}").first
-        if geocoder and geocoder.formatted_address
-          self.address = geocoder.formatted_address
+    unless zip_code
+      geoip = GeoIP.new('GeoLiteCity.dat').city(self.ip)
+      if defined? geoip and geoip
+        self.latitude = geoip.latitude
+        self.longitude = geoip.longitude
+        if latitude and longitude
+          geocoder = Geocoder.search("#{latitude}, #{longitude}").first
+          if geocoder and geocoder.formatted_address
+            self.address = geocoder.formatted_address
+          end
         end
       end
+      get_zip
     end
-    get_zip if self.zip_code.nil?
   end
 
   def get_zip

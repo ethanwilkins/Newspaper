@@ -4,8 +4,8 @@
 	<div align="center">
 		<% if user.icon.url %>
 			<div>
-				<%= link_to image_tag(user.icon, size: "50x50"), user_path(user.name) %>
-			</div></br>
+				<%= link_to image_tag(user.icon, id: :user_result_icon), user_path(user.name) %>
+			</div>
 		<% end %>
 		<%= link_to user.name.capitalize, user_path(user.name) %>
 	</div>
