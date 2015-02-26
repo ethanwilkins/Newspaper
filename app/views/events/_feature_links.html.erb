@@ -6,7 +6,8 @@
 			<% if has_feature? :invite_attendance %>
 				<tr>
 					<td class="feature_row_spacing">
-						<%= link_to attendance_path(event), id: :event_going_link do %>
+						<%= link_to attendance_path(event), id: :event_going_link,
+							 title: translate("See who's going to the event") do %>
 							<i class="fa fa-user fa-lg"></i>
 						<% end %>
 					</td>
@@ -14,7 +15,8 @@
 				<% unless event.going.empty? %>
 					<tr>
 						<td class="feature_row_spacing">
-							<%= link_to attendance_path(event), id: :days_left_number do %>
+							<%= link_to attendance_path(event), id: :days_left_number,
+								 title: translate("The number of people going to the event") do %>
 								<%= event.going.size.to_s %>
 							<% end %>
 						</td>

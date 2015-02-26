@@ -3,8 +3,8 @@
 <div id="card"></br>
 	<%= render "tabs/buttons" %>
 	<div align="center">
-		</br><%= image_tag @tab.icon, size: "200x200" %>
-		<h3>
+		<%= image_tag @tab.icon, id: :tab_profile_icon %>
+		<h3 id="tab_profile_name">
 			<%= text_shown(@tab, :name) %>
 		</h3>
 	</div>

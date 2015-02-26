@@ -6,6 +6,16 @@
 	margin-bottom: 5px;
 }
 
+#tab_profile_icon {
+	width: 200px;
+	height: 200px;
+	margin-top: 25px;
+}
+
+#tab_profile_name {
+	padding-bottom: 10px;
+}
+
 #tab_description {
 	margin-top: 5px;
 }
@@ -14,4 +24,16 @@
 	position: absolute;
 	right: 25px;
 	top: 75.5px;
+}
+
+#top_right_tab_buttons {
+	position: absolute;
+	right: 10px;
+	top: 10px;
+}
+
+#bottom_right_tab_link {
+	position: absolute;
+	right: 10px;
+	bottom: 17.5px;
 }

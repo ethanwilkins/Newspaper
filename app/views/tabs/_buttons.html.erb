@@ -1,14 +1,9 @@
 <!-- tabs -->
 
-<div class="top_right_link">
-	<div class="btn-group">
-		<% if current_user %>
-			<% if current_user.admin %>
-				<%= link_to destroy_tab_path(@tab), method: :delete, class: "btn btn-default",
-					data: { confirm: 'Are you sure you want to delete this tab?' },
-					title: translate("Permanently delete this tab") do %>
-					<span class="glyphicon glyphicon-trash"></span>
-				<% end %>
+<% if current_user %>
+	<div id="top_right_tab_buttons">
+		<div class="btn-group">
+			<% if privileged? %>
 				<%= link_to edit_tab_path(@tab), class: "btn btn-default",
 					 title: translate("Edit this tab") do %>
 					<span class="glyphicon glyphicon-edit"></span>
@@ -22,21 +17,21 @@
 				 title: translate("Page jump: automatically jump to this page at login") do %>
 				<span class="glyphicon glyphicon-star"></span>
 			<% end %>
+		</div>
+	</div>
+
+	<div id="bottom_right_tab_link">
+		<% if @tab.features.exists? action: :global %>
+			<% global = @tab.features.find_by_action :global %>
+			<% if global and global.turned_on %>
+				<%= link_to switch_global_path(tab_id: @tab.id), title: translate("Turn off the global feature.") do %>
+					<i class="fa fa-globe fa-2x" id="feature_turned_on"></i>
+				<% end %>
+			<% elsif global %>
+				<%= link_to switch_global_path(tab_id: @tab.id), title: translate("Turn on the global feature.") do %>
+					<i class="fa fa-globe fa-2x" id="feature_turned_off"></i>
+				<% end %>
+			<% end %>
 		<% end %>
 	</div>
-</div>
-
-<div class="bottom_right_link">
-	<% if @tab.features.exists? action: :global %>
-		<% global = @tab.features.find_by_action :global %>
-		<% if global and global.turned_on %>
-			<%= link_to switch_global_path(tab_id: @tab.id), title: translate("Turn off the global feature.") do %>
-				<i class="fa fa-globe fa-2x" id="feature_turned_on"></i>
-			<% end %>
-		<% elsif global %>
-			<%= link_to switch_global_path(tab_id: @tab.id), title: translate("Turn on the global feature.") do %>
-				<i class="fa fa-globe fa-2x" id="feature_turned_off"></i>
-			<% end %>
-		<% end %>
-	<% end %>
-</div>
+<% end %>
