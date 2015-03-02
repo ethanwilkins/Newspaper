@@ -4,7 +4,7 @@ class Zip < ActiveRecord::Base
   validates_uniqueness_of :zip_code
   validate :valid_format
   
-	scope :orphans, -> { where group_id: nil }
+	scope :orphans, -> { where group_id: [0, nil] }
   
   ZIP_CODE_RANGE = 10
   
@@ -32,8 +32,8 @@ class Zip < ActiveRecord::Base
     ZIP_CODE_RANGE
   end
   
-  def unassign_orphans
-    for zip in Zip.where.not group_id: nil
+  def self.unassign_orphans
+    for zip in self.where.not group_id: [0, nil]
       unless Group.find_by_id(zip.group_id).present?
         zip.update group_id: 0
       end
