@@ -17,6 +17,10 @@ class GameBoardsController < ApplicationController
       @game_board.populate
       log_action("game_boards_create", @game_board.id)
       redirect_to game_board_path(@game_board)
+    elsif @game_board and @game_board.errors.include? :code_already_redeemed
+      flash[:error] = translate(@game_board.errors[:code_already_redeemed].first)
+      log_action("game_boards_create_fail")
+      redirect_to :back
     else
       flash[:error] = translate("The code was not valid.")
       log_action("game_boards_create_fail")
@@ -29,7 +33,7 @@ class GameBoardsController < ApplicationController
     @game_board.destroy
     flash[:notice] = translate("The board was successfully deleted.")
     log_action("game_boards_destroy")
-    redirect_to game_boards_index_path
+    redirect_to boards_path
   end
   
   def show

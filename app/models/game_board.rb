@@ -4,6 +4,7 @@ class GameBoard < ActiveRecord::Base
   has_many :cards, dependent: :destroy
   
   validates_presence_of :group_id
+  validate :unique_to_user
   
   def card_names
     return Card.names(self.board_number)
@@ -53,6 +54,15 @@ class GameBoard < ActiveRecord::Base
       _code
     else
       nil
+    end
+  end
+  
+  private
+  
+  def unique_to_user
+    user = User.find_by_id(user_id)
+    if user and user.game_boards.exists? code_id: code_id
+      errors.add(:code_already_redeemed, "You've already redeemed this code.")
     end
   end
 end
