@@ -56,7 +56,6 @@ class Group < ActiveRecord::Base
       for group in self.all
         if group.zips.present? and group.zips.find_by_zip_code(user.zip_code)
           return group
-          break
         end
       end
     else
