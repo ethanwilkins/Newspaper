@@ -58,13 +58,15 @@ class Group < ActiveRecord::Base
           return group
         end
       end
+    else
+      return Group.default
     end
   end
   
   private
   
   def only_one_default
-    if Group.where(default: true).present?
+    if Group.exists? default: true
       errors.add(:only_one_default, "There can only be one default group.")
     end
   end
