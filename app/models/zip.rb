@@ -4,6 +4,8 @@ class Zip < ActiveRecord::Base
   validates_uniqueness_of :zip_code
   validate :valid_format
   
+	scope :orphans, -> { where group_id: nil }
+  
   ZIP_CODE_RANGE = 10
   
   def density
@@ -17,10 +19,6 @@ class Zip < ActiveRecord::Base
     return zips_in_range.size
   end
   
-  def self.orphans
-    where group_id: nil
-  end
-  
   def self.record(zip)
     unless self.find_by_zip_code(zip) or zip.nil?
       new_zip = self.new zip_code: zip
@@ -32,6 +30,14 @@ class Zip < ActiveRecord::Base
   
   def self.zip_code_range
     ZIP_CODE_RANGE
+  end
+  
+  def unassign_orphans
+    for zip in Zip.where.not group_id: nil
+      unless Group.find_by_id(zip.group_id).present?
+        zip.update group_id: 0
+      end
+    end
   end
   
   private

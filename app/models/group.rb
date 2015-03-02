@@ -6,6 +6,7 @@ class Group < ActiveRecord::Base
   has_many :game_boards
   
   validate :only_one_default
+  before_destroy :unassign_items
   
   def self.default
     return Group.where(default: true).last
@@ -68,6 +69,15 @@ class Group < ActiveRecord::Base
   def only_one_default
     if Group.exists? default: true
       errors.add(:only_one_default, "There can only be one default group.")
+    end
+  end
+  
+  def unassign_items
+    for zip in self.zips
+      zip.update group_id: 0
+    end
+    for user in self.users
+      user.update group_id: 0
     end
   end
 end
