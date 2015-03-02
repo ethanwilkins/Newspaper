@@ -12,7 +12,7 @@
 		</div>
 	<% end %>
 
-	<p>
+	<p id="event_content_text">
 		<% body = text_shown(event, :body) %>
 		<% if body.present? %>
 			<% for word in body.split(' ') %>
