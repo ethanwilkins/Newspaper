@@ -3,10 +3,14 @@
 <% if current_user and post.sale and post.user != current_user %>
 	<% folder = Folder.folder_between(current_user, post.user, post) %>
 	<% if folder %>
-		<%= link_to translate("Inquire"), folder_path(folder),
-		title: translate("Continue dialogue"), class: :bottom_center_right_link %>
+		<%= link_to folder_path(folder), id: :inquire_link,
+			title: translate("Continue dialogue") do %>
+			<i class="fa fa-dollar fa-lg"></i>
+		<% end %>
 	<% else %>
-		<%= link_to translate("Inquire"), inquire_path(post, post.user.name),
-		title: translate("Begin a dialogue for this item"), class: :bottom_center_right_link %>
+		<%= link_to inquire_path(post, post.user.name), id: :inquire_link,
+			title: translate("Begin a dialogue for this item") do %>
+			<i class="fa fa-dollar fa-lg"></i>
+		<% end %>
 	<% end %>
 <% end %>

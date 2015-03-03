@@ -1,6 +1,6 @@
 <!-- posts -->
 
-<% if has_feature? [:post_expiration, :rank_feedback] %>
+<% if has_feature? [:post_expiration, :rank_feedback, :sales_dialogue] %>
 	<div id="card_feature_side_border">
 		<table id="feature_links_table">
 			<% if post.days_left.present? %>
@@ -22,6 +22,11 @@
 			<tr>
 				<td>
 					<%= render "posts/review_link", post: post %>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<%= render "folders/inquire", post: post %>
 				</td>
 			</tr>
 		</table>

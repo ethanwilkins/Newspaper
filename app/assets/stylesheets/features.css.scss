@@ -21,6 +21,11 @@ $info_color: rgb(190, 190, 190);
 	@include feature_link;
 }
 
+#inquire_link {
+	@include feature_link;
+	padding: 9px;
+}
+
 #days_left_clock {
 	@include feature_link;
 	padding-left: 7.5px;
@@ -44,7 +49,7 @@ $info_color: rgb(190, 190, 190);
 #feature_links_table {
 	position: absolute;
 	margin: auto;
-	top: 35%;
+	top: 20%;
 }
 
 .feature_row_spacing {
