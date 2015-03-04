@@ -18,7 +18,7 @@
 	</p>
 	<p>
 		<% options = [[translate("Assign to group"), nil]] %>
-		<% Group.all.each { |group| options << [translate("Group ") + group.id.to_s, group.id] } %>
+		<% Group.all.each { |group| options << [translate("Group ") + (group.default ? translate("Default") : group.id.to_s), group.id] } %>
 		<%= f.select :group_id, options_for_select(options), {}, class: "form-control" %>
 	</p>
 	<p>

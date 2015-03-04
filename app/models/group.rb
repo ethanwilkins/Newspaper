@@ -8,10 +8,6 @@ class Group < ActiveRecord::Base
   validate :only_one_default
   before_destroy :unassign_items
   
-  def self.default
-    return Group.where(default: true).last
-  end
-  
   def available_prizes(combo_type, user=nil, return_size=nil)
     prizes_by_combo = prizes.where(combo_type: combo_type)
     won_by_user = prizes_by_combo.where(user_id: user.id) if user
@@ -62,6 +58,14 @@ class Group < ActiveRecord::Base
     else
       return Group.default
     end
+  end
+  
+  def self.default
+    Group.find_by_default true
+  end
+  
+  def default_zips
+    Zip.orphans
   end
   
   private

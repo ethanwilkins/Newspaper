@@ -16,10 +16,13 @@
 						", " if admin != group.users.last %>
 					<% end %>
 				</p>
-				<% zip_list = "" %>
-				<% group.zips.each { |zip| zip_list << zip.zip_code.to_s + \
-					((zip != group.zips.last and group.zips.size > 1) ? ", " : "") } %>
-				Zip codes: <%= zip_list %>
+				<% unless group.default %>
+					<% zip_list = "" %>
+					<% zips = group.zips %>
+					<% group.zips.each { |zip| zip_list << zip.zip_code.to_s + \
+						((zip != group.zips.last and group.zips.size > 1) ? ", " : "") } %>
+					Zip codes: <%= zip_list %>
+				<% end %>
 			</div>
 		</div>
 	<% end %>
