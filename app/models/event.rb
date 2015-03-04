@@ -13,6 +13,10 @@ class Event < ActiveRecord::Base
 
   mount_uploader :image, ImageUploader
   
+  def in_the_future?
+  	!((self.date - Date.current).to_i == 0)
+  end
+  
   def going
     members.where status: :going
   end
