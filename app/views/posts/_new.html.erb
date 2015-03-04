@@ -11,7 +11,7 @@
 	<% if has_feature? :invite_attendance %>
 		<%= link_to translate("Plan an event"),
 			(@subtab ? new_subtab_event_path(@subtab) :
-			new_tab_event_path(@tab)), class: :top_left_link %>
+			new_tab_event_path(@tab)), id: :top_left_plan_event_link %>
 	<% end %>
 	<%=raw "</br>" if has_feature? [:articles, :invite_attendance] %>
 	

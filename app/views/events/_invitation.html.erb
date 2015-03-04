@@ -1,5 +1,6 @@
 <!-- events -->
 
+<% if @event.user != current_user %>
 <% if @event.in_the_future? %>
 	<div id="card">
 		<div align="center">
@@ -23,4 +24,5 @@
 			<%= translate("This event has already passed.") %>
 		</div>
 	</div>
+<% end %>
 <% end %>
