@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo "\nCopying...\n"
 
 cd ~/Code/GitHub/

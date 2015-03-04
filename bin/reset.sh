@@ -1,12 +1,14 @@
+#!/bin/sh
+
 cd ~/Code/GitHub/elheroe/
 
-echo -e "\nUpdating...\n"
+echo "\nUpdating...\n"
 
 git fetch --all
 
 git reset --hard origin/master
 
-echo -e "Copying...\n"
+echo "Copying...\n"
 
 cp -r ~/Code/GitHub/elheroe/ ~/Code/rails/elheroe/
 

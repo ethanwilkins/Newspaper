@@ -6,7 +6,7 @@ alias immigrant_song='afplay /Users/ethanwilkins/Music/Led\ Zeppelin\ Discograph
 
 alias fucking='sudo'
 
-alias commit='./commit.sh'
+alias commit='sh commit.sh'
 
 alias cdrails='cd /Users/ethanwilkins/Code/rails'
 
