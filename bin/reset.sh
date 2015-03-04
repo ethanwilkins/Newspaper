@@ -1,5 +1,3 @@
-#!/bin/bash
-
 cd ~/Code/GitHub/elheroe/
 
 echo -e "\nUpdating...\n"

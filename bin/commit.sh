@@ -1,5 +1,3 @@
-#!/bin/bash
-
 echo -e "\nCopying...\n"
 
 cd ~/Code/GitHub/
