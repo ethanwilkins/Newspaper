@@ -61,7 +61,7 @@ class Group < ActiveRecord::Base
   end
   
   def self.default
-    Group.find_by_default true
+    find_by_default true
   end
   
   def default_zips

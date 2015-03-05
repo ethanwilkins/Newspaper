@@ -40,8 +40,8 @@ gem 'spring', group: :development
 # gem 'debugger', group: [:development, :test]
 
 # encryption
-gem "bcrypt-ruby"
-gem "bcrypt"
+gem 'bcrypt-ruby'
+gem 'bcrypt'
 
 # uploader for images
 gem 'rmagick'
@@ -57,3 +57,6 @@ gem 'area'
 # bootstrap
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
+
+# error handling
+gem 'gaffe'
