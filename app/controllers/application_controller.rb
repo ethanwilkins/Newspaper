@@ -9,73 +9,6 @@ class ApplicationController < ActionController::Base
 
   private
   
-  def build_search_results
-    # saves in session for pages
-    session[:query] = params[:query]
-    if session[:query].present?
-      @query = session[:query]
-      new_search @query
-      
-      # scans all item texts for query
-      @users = Search.users @query
-      @posts = Search.posts @query
-      @articles = Search.articles @query
-      @comments = Search.comments @query
-      @events = Search.events @query
-      @tabs = Search.tabs @query
-
-      # one array to rule them all
-      @all_results = [] # collects results into one array
-      @users.each { |user| @all_results << user }
-      @posts.each { |post| @all_results << post }
-      @articles.each { |article| @all_results << article }
-      @comments.each { |comment| @all_results << comment }
-      @events.each { |event| @all_results << event }
-      @tabs.each { |tab| @all_results << tab }
-      
-      # sorts results by rank
-      @all_results.sort_by! &:last
-      
-      # checks if any results were found
-      if @all_results.empty? # notifies user when no results are found
-        @no_results = translate("No results were found for") + " '#{@query}'"
-      end
-    else
-      @all_results = Search.recent(current_user).reverse
-      @recent = true
-    end
-    
-    # paginates all results as results
-    @results = paginate @all_results
-    @all_items = @all_results
-    @items = @results
-  end
-  
-  # builds data for tab inside the page
-  # controller to be rendered through javascript
-  def build_tab_feed_data(tab)
-    @tab = tab
-    @advert = Article.local_advert(current_user)
-    @posts = @tab.posts
-    @all_items = @posts + @tab.funnel_tagged
-    @all_items += @tab.approved_articles if @tab.approved_articles.present?
-    @all_items += @tab.events if @tab.events.present?
-    @all_items.sort_by! &:created_at
-    # popularity feature brings liked posts to top
-    if @tab.features.exists? action: "popularity_float" \
-      and not @tab.features.exists? action: "list_format"
-      @all_items.sort_by! { |item| item.score }
-    end
-    # alphabetize for list format feature
-    if @tab.features.exists? action: "list_format"
-      @all_items.delete_if { |item| not defined? item.title \
-        or item.title.nil? or item.title.empty? }.
-        sort_by! { |item| item.title }
-      @all_items.reverse!
-    end
-    @items = paginate @all_items
-  end
-  
   # returns a non-nil item from an array
   def chosen_one(items)
     for item in items
@@ -154,6 +87,81 @@ class ApplicationController < ActionController::Base
   def english?
     (current_user and current_user.english) or (request.host.to_s.include? "elhero.com" and \
       not (current_user and not current_user.english))
+  end
+  
+  def build_search_results
+    # saves in session for pages
+    session[:query] = params[:query]
+    if session[:query].present?
+      @query = session[:query]
+      new_search @query
+      
+      # scans all item texts for query
+      @users = Search.users @query
+      @posts = Search.posts @query
+      @articles = Search.articles @query
+      @comments = Search.comments @query
+      @events = Search.events @query
+      @tabs = Search.tabs @query
+
+      # one array to rule them all
+      @all_results = [] # collects results into one array
+      @users.each { |user| @all_results << user }
+      @posts.each { |post| @all_results << post }
+      @articles.each { |article| @all_results << article }
+      @comments.each { |comment| @all_results << comment }
+      @events.each { |event| @all_results << event }
+      @tabs.each { |tab| @all_results << tab }
+      
+      # sorts results by rank
+      @all_results.sort_by! &:last
+      
+      # checks if any results were found
+      if @all_results.empty? # notifies user when no results are found
+        @no_results = translate("No results were found for") + " '#{@query}'"
+      end
+    else
+      @all_results = Search.recent(current_user).reverse
+      @recent = true
+    end
+    
+    # paginates all results as results
+    @results = paginate @all_results
+    @all_items = @all_results
+    @items = @results
+  end
+  
+  # builds data for tab inside the page
+  # controller to be rendered through javascript
+  def build_tab_feed_data(tab)
+    @tab = tab
+    @advert = Article.local_advert(current_user)
+    @posts = @tab.posts
+    @all_items = @posts + @tab.funnel_tagged
+    @all_items += @tab.approved_articles if @tab.approved_articles.present?
+    @all_items += @tab.events if @tab.events.present?
+    @all_items.sort_by! &:created_at
+    
+    # popularity feature brings liked posts to top
+    if @tab.features.exists? action: "popularity_float" \
+      and not @tab.features.exists? action: "list_format"
+      @all_items.sort_by! { |item| item.score }
+    end
+    
+    # alphabetize for list format feature
+    if @tab.features.exists? action: "list_format"
+      @all_items.delete_if { |item| not defined? item.title \
+        or item.title.nil? or item.title.empty? }.
+        sort_by! { |item| item.title }
+      @all_items.reverse!
+    end
+    
+    # remove all non articles for articles features
+    if @tab.features.exists? action: "articles"
+    	@all_items.delete_if { |item| item.class.to_s != "Article" }
+    end
+    
+    @items = paginate @all_items
   end
   
   def writer?
