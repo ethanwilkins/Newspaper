@@ -143,7 +143,7 @@ class PostsController < ApplicationController
   
   def post_params
     params[:post].permit(:title, :body, :image,
-      :translation_requested, :repopulation_interval,
+      :translation_requested, :repopulation_interval, :expiration_date,
       :sale, pictures_attributes: [:id, :post_id, :image])
   end
   

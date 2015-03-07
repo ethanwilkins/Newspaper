@@ -8,7 +8,7 @@ git fetch --all
 
 git reset --hard origin/master
 
-echo "Copying...\n"
+echo "\nCopying...\n"
 
 cp -r ~/Code/GitHub/elheroe/ ~/Code/rails/elheroe/
 

@@ -47,6 +47,12 @@
 			<%= f.label translate("Request translation") %>
 			<%= f.check_box :translation_requested %>
 		</p>
+		<% if has_feature? "post_expiration" %>
+			<p class="form-control">
+				<%= f.label translate("Expiration date") %>
+				<%= f.date_select :expiration_date, use_month_numbers: true, class: "form-control" %>
+			</p>
+		<% end %>
 		<% if has_feature? "post_repopulation" %>
 			<% options = [[translate("Repopulation interval (optional)"), nil]] %>
 			<% (7..30).each { |i| options << i } %>

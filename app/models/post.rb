@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base
   
   accepts_nested_attributes_for :pictures
   
-  before_create :apply_expiration
+  # before_create :apply_expiration
   validate :title_required?, on: :create
   validate :text_or_image?, on: :create
   
