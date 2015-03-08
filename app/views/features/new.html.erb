@@ -6,6 +6,7 @@
 			<%= hidden_field_tag :tab_id, @tab.id if @tab %>
 			<%= hidden_field_tag :subtab_id, @subtab.id if @subtab %>
 			<p>
+				<!-- need to create features helper method for features array -->
 				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
 					[translate("Invite & Attendance"), "invite_attendance"],
 					[translate("Post repopulation"), "post_repopulation"],
@@ -16,6 +17,7 @@
 					[translate("Sales dialogue"), "sales_dialogue"],
 					[translate("Question tree"), "question_tree"],
 					[translate("List format"), "list_format"],
+					[translate("Invite only"), "invite_only"],
 					[translate("Photosets"), "photosets"],
 					[translate("Articles"), "articles"],
 					[translate("Tagged"), "tagged"],

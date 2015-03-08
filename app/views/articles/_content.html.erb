@@ -3,13 +3,15 @@
 <article id="article_content_container" align="center">
 	<% preview_length = 200 %>
 	
-	<h3 id="title_of_article">
+	<h3 id="title_of_article" align="center">
 		<%= link_to text_shown(article, :title), article_path(article) %>
 	</h3>
 
 	<% if article.image.url %>
-		<div id="article_image"><%= link_to image_tag(article.image,
-			id: :standard_post_image), article_path(article) %></div></br>
+		<div id="article_image" align="center">
+			<%= link_to image_tag(article.image,
+			id: :standard_post_image), article_path(article) %>
+		</div></br>
 	<% end %>
 	
 	<!-- tests size of article before applying justified style -->

@@ -11,10 +11,11 @@
 	<%= render "tabs/pop_tabs" %>
 </div>
 
-<% if @tab.approved and ((@tab.sponsored_only and current_user.business) or !@tab.sponsored_only) %>
-	<%= render "posts/new" %>
-<% end %>
-
-<%= render "tabs/feed" %>
+<% if (has_feature? :invite_only and invited?) or not has_feature? :invite_only %>
+	<% if @tab.approved and ((@tab.sponsored_only and current_user.business) or !@tab.sponsored_only) %>
+		<%= render "posts/new" %>
+	<% end %>
 	
-<%= render "loading_gifs/loading_footer", items: @items, all_items: @all_items %>
+	<%= render "tabs/feed" %>
+	<%= render "loading_gifs/loading_footer", items: @items, all_items: @all_items %>
+<% end %>

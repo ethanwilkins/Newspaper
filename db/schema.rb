@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226042402) do
+ActiveRecord::Schema.define(version: 20150308231656) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -196,6 +196,8 @@ ActiveRecord::Schema.define(version: 20150226042402) do
     t.datetime "updated_at"
     t.integer  "event_id"
     t.string   "status"
+    t.integer  "tab_id"
+    t.integer  "subtab_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -291,6 +293,7 @@ ActiveRecord::Schema.define(version: 20150226042402) do
     t.boolean  "translation_requested"
     t.string   "company"
     t.boolean  "english"
+    t.boolean  "invite_only"
   end
 
   create_table "tabs", force: :cascade do |t|
@@ -311,6 +314,7 @@ ActiveRecord::Schema.define(version: 20150226042402) do
     t.string   "address"
     t.boolean  "translation_requested"
     t.boolean  "english"
+    t.boolean  "invite_only"
   end
 
   create_table "tasks", force: :cascade do |t|
