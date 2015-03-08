@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# for mac only
+
 cd ~/Code/GitHub/elheroe/
 
 echo "\nUpdating...\n"

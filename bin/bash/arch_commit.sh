@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
-echo -e "Committing...\n"
+echo "Committing...\n"
 
 git add -A
 
@@ -8,4 +8,4 @@ git commit -m "$1"
 
 git push
 
-echo -e "\n"
+echo "\n"
