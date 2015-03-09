@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password
   validates_uniqueness_of :name
   validate :numeric_zip_if_present
+  validate :only_one_global
   
   before_create :encrypt_password, :generate_token
   before_save :current_location, :downcase_fields
@@ -33,8 +34,8 @@ class User < ActiveRecord::Base
   def close_enough(content)
     _close_enough = false
     # content always close enough when inside current users zip code or cherry picked tab
-    if content.zip_code and self.zip_code and content.zip_code == self.zip_code or (content.is_a? Tab and \
-      content.features.where(user_id: self.id).where(action: :cherry_pick).present?)
+    if (content.zip_code and self.zip_code and content.zip_code == self.zip_code) or (content.is_a? Tab and \
+      content.features.where(user_id: self.id).where(action: :cherry_pick).present?) or self.global
       _close_enough = true
     # close enough when within the users specified network size
     elsif content.latitude and self.latitude and self.network_size and \
@@ -161,6 +162,12 @@ class User < ActiveRecord::Base
   def downcase_fields
     email.downcase! if email
     name.downcase!
+  end
+  
+  def only_one_global
+  	if self.global and User.exists? global: true
+  		errors.add(:only_one_global, "There can only be one global account.")
+  	end
   end
   
   def numeric_zip_if_present
