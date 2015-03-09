@@ -32,10 +32,12 @@ class PostsController < ApplicationController
     @post.tab_id = params[:tab_id]
     
     # for locale targeted content
-    @post.zip_code = current_user.zip_code
-    @post.ip = request.remote_ip.to_s
-    @post.latitude = current_user.latitude
-    @post.longitude = current_user.longitude
+    unless current_user.global
+		  @post.ip = request.remote_ip.to_s
+		  @post.zip_code = current_user.zip_code
+		  @post.latitude = current_user.latitude
+		  @post.longitude = current_user.longitude
+    end
     
     # ignores expiration if unchanged
     if @post.expiration_date == Date.current

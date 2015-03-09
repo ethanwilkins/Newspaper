@@ -88,11 +88,12 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(params[:article].permit(:title, :body, :image,
       :hyperlink, :translation_requested))
-    @article.zip_code = current_user.zip_code
     @article.user_id = current_user.id
     @article.tab_id = params[:tab_id]
     @article.subtab_id = params[:subtab_id]
     @article.ad = params[:ad]
+    
+    @article.zip_code = current_user.zip_code unless current_user.global
     
     if @article.tab_id and not privileged?
       @article.requires_approval = true
