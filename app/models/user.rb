@@ -164,8 +164,8 @@ class User < ActiveRecord::Base
     name.downcase!
   end
   
-  def only_one_global
-  	if self.global and User.exists? global: true
+  def only_one_global # non admin account for posting global content
+  	if self.global and (User.exists? global: true or self.admin or self.master)
   		errors.add(:only_one_global, "There can only be one global account.")
   	end
   end
