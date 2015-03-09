@@ -6,7 +6,13 @@
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= favicon_link_tag 'favicon.ico' %>
 	<%= csrf_meta_tags %>
+	
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	
+	<% description = translate("El Heroe, an online spanish newspaper with social networking \
+		features designed to connect communities and support local business.") %>
+	<meta name=”description” content=”<%= description %>”>
+	<meta property=”og:description” content=”<%= description %>”/>
 </head>
 
 
