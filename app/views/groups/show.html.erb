@@ -8,20 +8,24 @@
 			
 		<div align="center">
 			<%= render "groups/name_header", group: @group %>
-			<p><%= "Admins: " %>
-				<% for admin in @group.users %>
-					<%= link_to admin.name.capitalize, groups_remove_member_path(user_id: admin.id), method: :put,
-						data: { confirm: translate('Are you sure you want to remove this member from the group?') } %><%= \
-					", " if admin != @group.users.last and @group.users.size > 1 %>
-				<% end %>
-			</p>
-			<p><%= "Zip codes: " %>
-				<% for zip in @zips %>
-					<%= link_to zip.zip_code.to_s, groups_remove_zip_path(zip_code: zip.zip_code), method: :put,
-						data: { confirm: translate('Are you sure you want to remove this zip code from the group?') } %><%= \
-						", " if zip != @group.zips.last and @group.zips.size > 1 %>
-				<% end %>
-			</p>
+			<% if @group.users.present? %>
+				<p><%= "Admins: " %>
+					<% for admin in @group.users %>
+						<%= link_to admin.name.capitalize, groups_remove_member_path(user_id: admin.id), method: :put,
+							data: { confirm: translate('Are you sure you want to remove this member from the group?') } %><%= \
+						", " if admin != @group.users.last and @group.users.size > 1 %>
+					<% end %>
+				</p>
+			<% end %>
+			<% if @group.zips.present? %>
+				<p><%= "Zip codes: " %>
+					<% for zip in @zips %>
+						<%= link_to zip.zip_code.to_s, groups_remove_zip_path(zip_code: zip.zip_code), method: :put,
+							data: { confirm: translate('Are you sure you want to remove this zip code from the group?') } %><%= \
+							", " if zip != @group.zips.last and @group.zips.size > 1 %>
+					<% end %>
+				</p>
+			<% end %>
 		</div>
 		<%= render "groups/forms" %>
 	</div>
