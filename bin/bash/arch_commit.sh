@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo -e "Committing...\n"
+echo -e "\nCommitting...\n"
 
 git add -A
 

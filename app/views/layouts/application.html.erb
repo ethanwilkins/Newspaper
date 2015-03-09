@@ -1,18 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><%= translate("El Hero")%></title>
+	<title>
+		<%= translate("El Hero")%>
+	</title>
+	
 	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 	<%= favicon_link_tag 'favicon.ico' %>
 	<%= csrf_meta_tags %>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-	
+
+	<% title = translate("El Heroe - Social Networking for Latinos") %>
 	<% description = translate("El Heroe, an online spanish newspaper with social networking \
 		features designed to connect communities and support local business.") %>
+	
+	<meta name=”twitter:card” content=”summary”>
+	<meta property=”og:title” content=”<%= title %>”>
+	<meta name=”twitter:title” content=”<%= title %>”>
 	<meta name=”description” content=”<%= description %>”>
-	<meta property=”og:description” content=”<%= description %>”/>
+	<meta property=”og:description” content=”<%= description %>”>
+	<meta name=”twitter:description” content=”<%= description %>”>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 </head>
 
 
