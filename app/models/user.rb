@@ -105,14 +105,21 @@ class User < ActiveRecord::Base
     end
   end
   
-  def self.encrypt_all_passwords
-    for user in self.all
-      unless user.password_salt
-        user.encrypt_password
-        user.save
-      end
-    end
+  def self.global
+  	self.find_by_global true
   end
+  
+	# no longer needed  
+#  def self.encrypt_all_passwords
+#    for user in self.all
+#      unless user.password_salt
+#        user.encrypt_password
+#        user.save
+#      end
+#    end
+#  end
+  
+  private
   
   def encrypt_password
     if password.present?
@@ -120,8 +127,6 @@ class User < ActiveRecord::Base
       self.password = BCrypt::Engine.hash_secret(password, password_salt)
     end
   end
-  
-  private
   
   def current_location
     unless zip_code
