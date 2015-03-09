@@ -71,7 +71,7 @@ class Group < ActiveRecord::Base
   private
   
   def only_one_default
-    if Group.exists? default: true
+    if self.default and Group.exists? default: true
       errors.add(:only_one_default, "There can only be one default group.")
     end
   end
