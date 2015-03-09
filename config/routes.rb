@@ -132,6 +132,10 @@ Rails.application.routes.draw do
   
   get 'tabs/:tab_id/feedbacks/new', to: 'feedbacks#new', as: 'new_tab_feedback'
   
+  post 'features/request_invite', as: 'request_invite'
+  
+  
+  
   
   # feature routes
   

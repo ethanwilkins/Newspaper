@@ -5,17 +5,23 @@
 		<div class="btn-group">
 			<% if privileged? %>
 				<%= link_to edit_tab_path(@tab), class: "btn btn-default",
-					 title: translate("Edit this tab") do %>
+					title: translate("Edit this tab") do %>
 					<span class="glyphicon glyphicon-edit"></span>
 				<% end %>
 				<%= link_to new_tab_feature_path(@tab), class: "btn btn-default",
-					 title: translate("Add a new feature to this tab") do %>
+					title: translate("Add a new feature to this tab") do %>
 					<span class="glyphicon glyphicon-plus-sign"></span>
 				<% end %>
 			<% end %>
 			<%= link_to page_jump_path(@tab), class: "btn btn-default",
-				 title: translate("Page jump: automatically jump to this page at login") do %>
+				title: translate("Page jump: automatically jump to this page at login") do %>
 				<span class="glyphicon glyphicon-star"></span>
+			<% end %>
+			<% if has_feature? :invite_only and not invited? %>
+				<%= link_to request_invite_path(tab_id: @tab.id), method: :post, class: "btn btn-default",
+					title: translate("Request an invitation") do %>
+					<span class="fa fa-user-plus"></span>
+				<% end %>
 			<% end %>
 		</div>
 	</div>

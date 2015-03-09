@@ -1,4 +1,18 @@
 class FeaturesController < ApplicationController
+	def request_invite
+		if params[:tab_id]
+			@item = Tab.find_by_id(params[:tab_id])
+		elsif params[:subtab_id]
+			@item = Subtab.find_by_id(params[:subtab_id])
+		end
+		if @item and not @item.members.exists? user_id: current_user.id
+			@item.members.create user_id: current_user.id
+		else
+			flash[:error] = translate("Failed to request an invite.")
+		end
+		redirect_to :back
+	end
+	
   def switch_global
     if params[:subtab_id]
       @item = Subtab.find_by_id(params[:subtab_id])
