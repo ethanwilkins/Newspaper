@@ -65,7 +65,11 @@ class Group < ActiveRecord::Base
   end
   
   def default_zips
-    Zip.orphans
+  	if self.default
+  		Zip.orphans
+  	else
+  		self.zips
+  	end
   end
   
   private

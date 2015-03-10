@@ -7,24 +7,7 @@
 	</div></br>
 	
 	<% for group in @groups %>
-		<div id="card">
-			<div align="center">
-				<%= render "groups/name_header", group: group %>
-				<p><%= "Admins: " %>
-					<% for admin in group.users %>
-						<%= link_to admin.name.capitalize, user_path(admin.name) %><%= \
-						", " if admin != group.users.last %>
-					<% end %>
-				</p>
-				<% unless group.default %>
-					<% zip_list = "" %>
-					<% zips = group.zips %>
-					<% group.zips.each { |zip| zip_list << zip.zip_code.to_s + \
-						((zip != group.zips.last and group.zips.size > 1) ? ", " : "") } %>
-					Zip codes: <%= zip_list %>
-				<% end %>
-			</div>
-		</div>
+		<%= render "groups/card", group: group %>
 	<% end %>
 
 	<% if @groups.empty? %>
