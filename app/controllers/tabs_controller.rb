@@ -57,11 +57,14 @@ class TabsController < ApplicationController
     @tab = Tab.new(params[:tab].permit(:icon, :name, :description, :company,
       :sponsored, :sponsored_only, :translation_requested))
     @tab.approved = true if current_user.admin
-    @tab.zip_code = current_user.zip_code
-    @tab.ip = request.remote_ip.to_s
     @tab.user_id = current_user.id
-    @tab.latitude = current_user.latitude
-    @tab.longitude = current_user.longitude
+    
+    unless current_user.global
+      @tab.zip_code = current_user.zip_code
+      @tab.ip = request.remote_ip.to_s
+      @tab.latitude = current_user.latitude
+      @tab.longitude = current_user.longitude
+    end
     
     if @tab.save
       if @tab.translation_requested
