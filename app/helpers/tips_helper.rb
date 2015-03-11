@@ -14,7 +14,16 @@ module TipsHelper
 		return position
 	end
   
+  # shows each tip 5 times per user
   def still_learning? kind
     current_user.tips.where(kind: kind).size < 5
+  end
+  
+  # checks for privilege if necessary to see tip
+  def tip_auth? kind
+    case kind
+    when :tab_features_button
+      return privileged?
+    end
   end
 end

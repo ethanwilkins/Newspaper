@@ -1,6 +1,7 @@
 <!-- tips -->
 
-<% if defined? tip and defined? kind and still_learning? kind %>
+<% if defined? tip and defined? kind \
+	and still_learning? kind and tip_auth? kind %>
 	<script><%= render "tips/fade_in.js", kind: kind %></script>
 	<script><%= render "tips/tip_clicked.js", kind: kind %></script>
 	<% top ||= nil; bottom ||= nil; right ||= nil; left ||= nil %>
