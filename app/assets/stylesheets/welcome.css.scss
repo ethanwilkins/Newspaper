@@ -2,39 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-$card_width: 94.5%;
-
-@mixin card($box_shadow) {
-	border: 1px solid rgb(225, 225, 225);
-	box-shadow: 0px 1px 2px $box_shadow;
-	position: relative;
-	padding: 15px 7.5px;
-	background: white;
-	max-width: 550px;
-	margin: 0 auto;
-	margin-bottom: 12.5px;
-	width: $card_width;
-}
-
-#card {
-	@include card(rgb(200, 200, 200));
-}
-
-#notice_card {
-	@include card(rgb(50, 175, 225));
-}
-
-#error_card {
-	@include card(red);
-}
-
-#large_button {
-	width: $card_width;
-	max-width: 550px;
-	margin: 0 auto;
-}
-
-#standard_img {
-	width: 80%;
-	max-width: 590px;
+#elheroe_logo {
+	margin-top: -5px;
 }

@@ -1,0 +1,12 @@
+<!-- tips -->
+
+<% if defined? tip and defined? tip_type \
+	and not current_user.tips.exists? tip_type: tip_type \
+	and (defined? top or defined? bottom) and (defined? right or defined? left) %>
+	<% top ||= nil; bottom ||= nil; right ||= nil; left ||= nil %>
+	<div class="tip_card" style="<%= inline_position(top, bottom, left, right) %>">
+		<div align="center">
+			<%= translate(tip) %>
+		</div>
+	</div>
+<% end %>

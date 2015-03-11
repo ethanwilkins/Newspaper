@@ -1,5 +1,7 @@
 <!-- tabs -->
 
+<% tip = "As an admin, you can add features to tabs by clicking here." %>
+
 <% if current_user %>
 	<div id="top_right_tab_buttons">
 		<div class="btn-group">
@@ -24,6 +26,7 @@
 				<% end %>
 			<% end %>
 		</div>
+		<%= render "tips/card", tip_type: :tab_features_button, tip: tip, top: 45, right: 20 %>
 	</div>
 
 	<div id="bottom_right_tab_link">
