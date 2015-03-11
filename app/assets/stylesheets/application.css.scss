@@ -21,9 +21,10 @@
 @import "font-awesome";
 
 $card_width: 94.5%;
+$link_color: rgb(225, 225, 225);
 
 @mixin card($box_shadow) {
-	border: 1px solid rgb(225, 225, 225);
+	border: 1px solid $link_color;
 	box-shadow: 0px 1px 2px $box_shadow;
 	position: relative;
 	padding: 15px 7.5px;
