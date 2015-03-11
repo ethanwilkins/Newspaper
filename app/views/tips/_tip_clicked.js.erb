@@ -1,0 +1,12 @@
+// tips
+
+function tip_clicked() {
+	var param = $.param({
+		kind: '<%= kind %>'
+	});
+	$.ajax({
+		type: "POST",
+		url: "/tips/create",
+		data: param
+	});
+}

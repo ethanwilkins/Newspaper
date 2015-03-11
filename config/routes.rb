@@ -215,6 +215,10 @@ Rails.application.routes.draw do
   
   get "pages/back", as: "back"
   
+  # tips
+  
+  post 'tips/create', as: 'tips_create'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

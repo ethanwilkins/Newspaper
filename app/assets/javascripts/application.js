@@ -17,7 +17,7 @@
 //= require bootstrap-sprockets
 //= require bindWithDelay
 //= require scrollView
-	
+
 setInterval(function() {
 	if ($("#instant_messaging_anchor").length) {
 		$.ajax({

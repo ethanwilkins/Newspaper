@@ -1,12 +1,12 @@
 <!-- tips -->
 
-<% if defined? tip and defined? tip_type \
-	and not current_user.tips.exists? tip_type: tip_type \
+<% if defined? tip and defined? kind \
+	and not current_user.tips.exists? kind: kind \
 	and (defined? top or defined? bottom) and (defined? right or defined? left) %>
+	<script><%= render "tips/tip_clicked.js", kind: kind %></script>
 	<% top ||= nil; bottom ||= nil; right ||= nil; left ||= nil %>
-	<div class="tip_card" style="<%= inline_position(top, bottom, left, right) %>">
-		<div align="center">
-			<%= translate(tip) %>
-		</div>
+	<div class="tip_card" id="<%= kind %>" onclick="tip_clicked()"
+		style="<%= inline_position(top, bottom, left, right) %>">
+		<%= translate(tip) %>
 	</div>
 <% end %>
