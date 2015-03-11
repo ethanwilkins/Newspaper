@@ -13,4 +13,8 @@ module TipsHelper
 		end
 		return position
 	end
+  
+  def still_learning? kind
+    current_user.tips.where(kind: kind).size < 5
+  end
 end
