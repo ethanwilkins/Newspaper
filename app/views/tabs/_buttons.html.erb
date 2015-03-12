@@ -5,6 +5,12 @@
 <% if current_user %>
 	<div id="top_right_tab_buttons">
 		<div class="btn-group">
+			<% if has_feature? :invite_only and not invited? %>
+				<%= link_to request_invite_path(tab_id: @tab.id), method: :post, class: "btn btn-default",
+					title: translate("Request an invitation") do %>
+					<span class="fa fa-user-plus"></span>
+				<% end %>
+			<% end %>
 			<% if privileged? %>
 				<%= link_to edit_tab_path(@tab), class: "btn btn-default",
 					title: translate("Edit this drop") do %>
@@ -19,14 +25,8 @@
 				title: translate("Page jump: automatically jump to this page at login") do %>
 				<span class="glyphicon glyphicon-star"></span>
 			<% end %>
-			<% if has_feature? :invite_only and not invited? %>
-				<%= link_to request_invite_path(tab_id: @tab.id), method: :post, class: "btn btn-default",
-					title: translate("Request an invitation") do %>
-					<span class="fa fa-user-plus"></span>
-				<% end %>
-			<% end %>
 		</div>
-		<%= render "tips/card", kind: :tab_features_button, tip: tip, top: 50, right: -25 %>
+		<%= render "tips/card", kind: :tab_features_button, tip: tip, top: 50, left: 15 %>
 	</div>
 
 	<div id="bottom_right_tab_link">
