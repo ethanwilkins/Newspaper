@@ -33,5 +33,16 @@
 			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
-	</br>
+	
+	<div id="card">
+		<p>
+			<%= label_tag translate("Choose some features for your drop") %>
+		</p>
+		<p class="form-control">
+			<%= check_box_tag :invite_attendance %>
+			<%= label_tag translate("Invite & Attendance") %>
+		</p>
+		
+	</div>
 <% end %>
+
