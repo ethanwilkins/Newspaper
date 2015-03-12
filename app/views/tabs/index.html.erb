@@ -3,9 +3,10 @@
 <div align="center">
 	<div class="btn-group">
 		<% local_or_global = (params[:scope] == "local" or params[:scope].nil?) ? :global : :local %>
+		<% local_or_global_string = (local_or_global.eql? :global) ? "Global drops" : "Local drops" %>
 		<%= link_to tabs_path(scope: local_or_global), class: "btn btn-default btn-lg",
 			title: translate("Show drops nearby or faraway") do %>
-			<%= translate local_or_global.to_s.capitalize %> 
+			<%= translate local_or_global_string %> 
 			<% unless local_or_global == :local %>
 				<span class="fa fa-globe"></span>
 			<% else %>
