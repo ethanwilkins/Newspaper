@@ -1,17 +1,17 @@
 <!-- tabs -->
 
-<% tip = "As an admin, you can add features to tabs by clicking here." %>
+<% tip = "As an admin, you can add features to drops by clicking here." %>
 
 <% if current_user %>
 	<div id="top_right_tab_buttons">
 		<div class="btn-group">
 			<% if privileged? %>
 				<%= link_to edit_tab_path(@tab), class: "btn btn-default",
-					title: translate("Edit this tab") do %>
+					title: translate("Edit this drop") do %>
 					<span class="glyphicon glyphicon-edit"></span>
 				<% end %>
 				<%= link_to new_tab_feature_path(@tab), class: "btn btn-default",
-					title: translate("Add a new feature to this tab") do %>
+					title: translate("Add a new feature to this drop") do %>
 					<span class="glyphicon glyphicon-plus-sign"></span>
 				<% end %>
 			<% end %>

@@ -1,16 +1,22 @@
 <!-- tabs -->
 
 <div align="center">
-	<%= link_to new_tab_path, title: translate("Create your own social media tab"), class: "btn btn-default btn-lg" do %>
-		<%= translate "Create a tab" %> <span class="glyphicon glyphicon-plus-sign"></span>
-	<% end %>
-</div></br>
-
-<div align="center">
-	<% local_or_global = (params[:scope] == "local" or params[:scope].nil?) ? :global : :local %>
-	<%= link_to tabs_path(scope: local_or_global), title: translate("Show tabs nearby or faraway"), class: "btn btn-default btn-lg" do %>
-		<%= translate local_or_global.to_s.capitalize %>
-	<% end %>
+	<div class="btn-group">
+		<% local_or_global = (params[:scope] == "local" or params[:scope].nil?) ? :global : :local %>
+		<%= link_to tabs_path(scope: local_or_global), class: "btn btn-default btn-lg",
+			title: translate("Show drops nearby or faraway") do %>
+			<%= translate local_or_global.to_s.capitalize %> 
+			<% unless local_or_global == :local %>
+				<span class="fa fa-globe"></span>
+			<% else %>
+				<span class="fa fa-home"></span>
+			<% end %>
+		<% end %>
+		<%= link_to new_tab_path, class: "btn btn-default btn-lg",
+			title: translate("Create a drop in the social media landscape") do %>
+			<%= translate "Create a drop" %> <span class="fa fa-tint"></span>
+		<% end %>
+	</div>
 </div></br>
 
 <% if @tabs.present? %>
