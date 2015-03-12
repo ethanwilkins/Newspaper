@@ -24,6 +24,8 @@ module TipsHelper
     case kind
     when :tab_features_button
       return privileged?
+    when :welcome
+    	return current_user
     end
   end
 end
