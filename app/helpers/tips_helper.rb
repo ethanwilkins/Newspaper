@@ -27,7 +27,7 @@ module TipsHelper
   
   # shows each tip 5 times per user
   def still_learning? kind
-    current_user.tips.where(kind: kind).size < 3
+    current_user.tips.where(kind: kind).size < 5
   end
   
   # checks for privilege if necessary to see tip

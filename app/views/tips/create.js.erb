@@ -1,9 +1,11 @@
 // tips
 
-var kind = '<%= @tip.kind %>'
+var kind = '<%= @tip.kind %>';
+var tip = $('#' + kind);
 
-$('#' + kind).fadeOut(1500);
+tip.fadeOut(1500);
 
+// will trigger hidden tips in order
 if (kind.search('welcome') != -1) {
 	$("#elheroe_button").fadeIn(3500);
 }

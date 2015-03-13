@@ -2,13 +2,12 @@
 
 <% if defined? tip and defined? kind and still_learning? kind \
 	and tip_auth? kind and (correct_order? kind or defined? triggered) %>
-	<% unless defined? triggered %>
-		<script><%= render "tips/fade_in.js", kind: kind %></script>
-	<% end %>
-	<script><%= render "tips/tip_clicked.js", kind: kind %></script>
 	<% top ||= nil; bottom ||= nil; right ||= nil; left ||= nil %>
-	<div class="tip_card" id="<%= kind %>" onclick="tip_clicked()"
-		style="<%= inline_position(top, right, bottom, left) %>" hidden>
+	<div class="tip_card" id="<%= kind %>" style="<%= inline_position(top, right, bottom, left) %>" hidden>
+		<% unless defined? triggered %>
+			<script><%= render "tips/fade_in.js", kind: kind %></script>
+		<% end %>
+		<script><%= render "tips/click_event.js", kind: kind %></script>
 		<div class="fa fa-times tip_exit"></div>
 		<% unless defined? no_arrow %>
 			<div class="tip_arrow"></div>

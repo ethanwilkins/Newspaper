@@ -1,7 +1,9 @@
 // tips
 
-function tip_clicked() {
-	var kind = '<%= kind %>';
+var kind = '<%= kind %>';
+var tip = $("#" + kind);
+
+tip.one('click', function() {
 	var param = $.param({
 		kind: kind
 	});
@@ -10,4 +12,4 @@ function tip_clicked() {
 		url: "/tips/create",
 		data: param
 	});
-}
+});
