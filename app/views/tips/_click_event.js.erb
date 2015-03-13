@@ -1,11 +1,8 @@
 // tips
 
-var kind = '<%= kind %>';
-var tip = $("#" + kind);
-
-tip.one('click', function() {
+$("#<%= kind %>").one("click", function() {
 	var param = $.param({
-		kind: kind
+		kind: "<%= kind %>"
 	});
 	$.ajax({
 		type: "POST",
