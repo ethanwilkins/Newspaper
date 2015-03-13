@@ -16,10 +16,12 @@ module TipsHelper
   
   def correct_order? kind
     case kind
-    when :tab_features_button
-      return current_user.tips.exists? kind: :welcome
     when :welcome
       return true
+    when :elheroe_button
+      return current_user.tips.exists? kind: :welcome
+    when :tab_features_button
+      return current_user.tips.exists? kind: :elheroe_button
     end
   end
   
@@ -33,7 +35,7 @@ module TipsHelper
     case kind
     when :tab_features_button
       return privileged?
-    when :welcome
+    when :welcome, :elheroe_button
     	return current_user
     end
   end

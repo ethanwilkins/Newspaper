@@ -1,3 +1,9 @@
 // tips
 
-$("#<%= @tip.kind %>").fadeOut(1500);
+var kind = '<%= @tip.kind %>'
+
+$('#' + kind).fadeOut(1500);
+
+if (kind.search('welcome') != -1) {
+	$("#elheroe_button").fadeIn(3500);
+}

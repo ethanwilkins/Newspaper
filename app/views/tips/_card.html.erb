@@ -1,8 +1,10 @@
 <!-- tips -->
 
-<% if defined? tip and defined? kind \
-	and still_learning? kind and tip_auth? kind and correct_order? kind %>
-	<script><%= render "tips/fade_in.js", kind: kind %></script>
+<% if defined? tip and defined? kind and still_learning? kind \
+	and tip_auth? kind and (correct_order? kind or defined? triggered) %>
+	<% unless defined? triggered %>
+		<script><%= render "tips/fade_in.js", kind: kind %></script>
+	<% end %>
 	<script><%= render "tips/tip_clicked.js", kind: kind %></script>
 	<% top ||= nil; bottom ||= nil; right ||= nil; left ||= nil %>
 	<div class="tip_card" id="<%= kind %>" onclick="tip_clicked()"

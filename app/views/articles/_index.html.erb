@@ -1,8 +1,5 @@
 <!-- articles -->
 
-<% tip = "Hi, this will be your home page for the site. It has articles and events that are close to you. Later, I'll show you how to choose a Drop " + '<i class="fa fa-tint"></i>' + " as your welcome screen." %>
-<%= render "tips/card", kind: :welcome, tip: tip.html_safe, no_arrow: true, top: 75, right: 25 %>
-
 <% if current_user %>
 	<div align="center">
 		<%= button_to events_path, method: :get, class: "btn btn-default btn-lg",

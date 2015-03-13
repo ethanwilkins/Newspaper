@@ -1,3 +1,11 @@
+<!-- welcome -->
+
+<% tip2 = "This is the home button and will bring you back here from anywhere on the site." %>
+<%= render "tips/card", kind: :elheroe_button, tip: tip2, triggered: true, top: 70, left: 35 %>
+
+<% tip1 = "Hi, this will be your home page for the site. It has articles and events that are close to you. Later, I'll show you how to choose a Drop " + '<i class="fa fa-tint"></i>' + " as your welcome screen." %>
+<%= render "tips/card", kind: :welcome, tip: tip1.html_safe, no_arrow: true, top: 75, right: 25 %>
+
 <% unless current_user %>
 	<%= render "sessions/new" %>
 <% end %>

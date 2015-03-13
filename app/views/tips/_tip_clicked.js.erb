@@ -1,8 +1,9 @@
 // tips
 
 function tip_clicked() {
+	var kind = '<%= kind %>';
 	var param = $.param({
-		kind: '<%= kind %>'
+		kind: kind
 	});
 	$.ajax({
 		type: "POST",
