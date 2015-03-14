@@ -60,3 +60,7 @@ gem 'font-awesome-sass'
 
 # error handling
 gem 'gaffe'
+
+# mobile browser detection
+gem 'useragent'
+gem 'browser'

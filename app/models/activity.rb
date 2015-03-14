@@ -35,8 +35,10 @@ class Activity < ActiveRecord::Base
     return _unique_locations
   end
   
-  def self.log_action(user, ip, action="visit", item_id=nil, data_string=nil, item_type=nil)
-    params = { action: action, ip: ip, item_id: item_id, data_string: data_string, item_type: item_type }
+  def self.log_action(user, ip, action="visit", item_id=nil,
+    data_string=nil, item_type=nil, browser_name=nil, mobile=nil)
+    params = { action: action, ip: ip, item_id: item_id, data_string: data_string,
+      item_type: item_type, browser_name: browser_name, mobile: mobile }
     if user and not user.master
       user.activities.create params
     elsif not user

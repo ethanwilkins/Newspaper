@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item, :chosen_one,
     :master?, :admin?, :privileged?, :log_action, :new_search, :save_search, :english?, :writer?,
-    :build_tab_feed_data, :build_search_results
+    :build_tab_feed_data, :build_search_results, :mobile?, :browser
 
   private
   
@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   
   def log_action(action="visit", item_id=nil, data_string=nil, item_type=nil)
     Activity.log_action(current_user, request.remote_ip.to_s,
-      action, item_id, data_string, item_type)
+      action, item_id, data_string, item_type, browser, mobile?)
   end
   
   def paginate(items, _page_size=page_size)
@@ -182,5 +182,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user ||= User.find_by_auth_token(cookies[:auth_token]) if cookies[:auth_token]
+  end
+  
+  def mobile?
+    browser.mobile? or browser.tablet?
+  end
+  
+  def browser
+    Browser.new(:ua => request.env['HTTP_USER_AGENT'].to_s, :accept_language => "en-us")
   end
 end
