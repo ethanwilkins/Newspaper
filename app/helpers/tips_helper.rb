@@ -1,4 +1,43 @@
 module TipsHelper
+  def context_validated? kind
+    tip_auth? kind and still_learning? kind and correct_device? kind
+  end
+  
+  def correct_device? kind
+    case kind
+    when :user_profile_button_tip, :notes_button_tip, :games_button_tip
+      not mobile?
+    else
+      true
+    end
+  end
+  
+  def correct_order? kind
+    case kind
+    when :welcome_tip
+      return true
+    when :elheroe_button_tip
+      return current_user.tips.exists? kind: :welcome_tip
+    when :tab_features_button_tip
+      return current_user.tips.exists? kind: :elheroe_button_tip
+    end
+  end
+  
+  # shows each tip 5 times per user
+  def still_learning? kind
+    current_user and current_user.tips.where(kind: kind).size < 1000 # for testing, 3 for production
+  end
+  
+  # checks for privilege if necessary to see tip
+  def tip_auth? kind
+    case kind
+    when :tab_features_button_tip
+      return privileged?
+    else
+    	return current_user
+    end
+  end
+  
 	def inline_position(top=nil, right=nil, bottom=nil, left=nil)
 		position = ""
 		if top.present?
@@ -13,30 +52,4 @@ module TipsHelper
 		end
 		return position
 	end
-  
-  def correct_order? kind
-    case kind
-    when :welcome
-      return true
-    when :elheroe_button
-      return current_user.tips.exists? kind: :welcome
-    when :tab_features_button
-      return current_user.tips.exists? kind: :elheroe_button
-    end
-  end
-  
-  # shows each tip 5 times per user
-  def still_learning? kind
-    current_user and current_user.tips.where(kind: kind).size < 5
-  end
-  
-  # checks for privilege if necessary to see tip
-  def tip_auth? kind
-    case kind
-    when :tab_features_button
-      return privileged?
-    when :welcome, :elheroe_button
-    	return current_user
-    end
-  end
 end

@@ -6,6 +6,17 @@ var tip = $('#' + kind);
 tip.fadeOut(1500);
 
 // will trigger hidden tips in order
-if (kind.search('welcome') != -1) {
-	$("#elheroe_button").fadeIn(3500);
+switch (kind) {
+case 'welcome_tip':
+	$("#elheroe_button_tip").fadeIn(3500);
+	break;
+case 'elheroe_button_tip':
+	$("#user_profile_button_tip").fadeIn(3500);
+	break;
+case 'user_profile_button_tip':
+	$("#notes_button_tip").fadeIn(3500);
+	break;
+case 'notes_button_tip':
+	$("#games_button_tip").fadeIn(3500);
+	break;
 }

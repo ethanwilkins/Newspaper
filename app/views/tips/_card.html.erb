@@ -1,7 +1,7 @@
 <!-- tips -->
 
-<% if defined? tip and defined? kind and still_learning? kind \
-	and tip_auth? kind and (correct_order? kind or defined? triggered) %>
+<% if defined? tip and defined? kind \
+	and context_validated? kind and (correct_order? kind or defined? triggered) %>
 	<% top ||= nil; bottom ||= nil; right ||= nil; left ||= nil %>
 	<div class="tip_card" id="<%= kind %>" style="<%= inline_position(top, right, bottom, left) %>" hidden>
 		<% unless defined? triggered %>
