@@ -1,12 +1,29 @@
 <!-- tabs -->
 
+<% tip3 = "Create a Drop " + '<i class="fa fa-tint"></i>' + ":" +
+	'<ol>' +
+		'<li>' + 'Come up with an idea' + '</li>' +
+		'<li>' + 'Give it a good name' + '</li>' +
+		'<li>' + 'Give it a cool icon' + '</li>' +
+		'<li>' + 'Add features' + '</li>' +
+		'<li>' + 'Let me check it for originality and appropriateness' + '</li>' +
+		'<li>' + 'Start posting and communicating with like minded people in your Drop.' + '</li>' +
+	'</ol>'
+ %>
+ 
+<% tip2 = "Drop " + '<i class="fa fa-tint"></i>' + ": A combination of multiple basic features that mix together to form original views for different interest." %>
+<% tip1 = "Global Drops: Check out the unique drops people around the world have created." %>
+
+<%= render "tips/card", kind: :tab_description_tip, tip: tip2.html_safe,
+	no_arrow: true, triggered: true, top: 75, right: 25 %>
+
 <div align="center">
 	<div class="btn-group">
 		<% local_or_global = (params[:scope] == "local" or params[:scope].nil?) ? :global : :local %>
 		<% local_or_global_string = (local_or_global.eql? :global) ? "Global drops" : "Local drops" %>
 		<%= link_to tabs_path(scope: local_or_global), class: "btn btn-default btn-lg",
 			title: translate("Show drops nearby or faraway") do %>
-			<%= translate local_or_global_string %> 
+			<%= translate local_or_global_string %>
 			<% unless local_or_global == :local %>
 				<span class="fa fa-globe"></span>
 			<% else %>
@@ -17,6 +34,8 @@
 			title: translate("Create a drop in the social media landscape") do %>
 			<%= translate "Create a drop" %> <span class="fa fa-tint"></span>
 		<% end %>
+		<%= render "tips/card", kind: :create_tab_tip, tip: tip3.html_safe, triggered: true, top: 65, right: 5 %>
+		<%= render "tips/card", kind: :global_tabs_button_tip, tip: tip1, top: 65, left: 5 %>
 	</div>
 </div></br>
 

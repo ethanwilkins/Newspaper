@@ -20,6 +20,8 @@ module TipsHelper
       return current_user.tips.exists? kind: :welcome_tip
     when :tab_features_button_tip
       return current_user.tips.exists? kind: :elheroe_button_tip
+    when :global_tabs_button_tip
+      return current_user.tips.exists? kind: :games_button_tip
     end
   end
   

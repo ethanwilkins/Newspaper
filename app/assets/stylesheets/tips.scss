@@ -10,10 +10,12 @@ $background: rgb(136, 204, 136);
 	display: inline-block;
 	background: $background;
 	box-shadow: 0px 1px 2.5px $shadow;
-	padding: 2.5px 10px;
+	padding: 2.5px 5px;
+	padding-right: 10px;
 	border-radius: 5px;
+	text-align: left;
 	color: black;
-	width: 150px;
+	width: 175px;
 	z-index: 5;
 }
 
