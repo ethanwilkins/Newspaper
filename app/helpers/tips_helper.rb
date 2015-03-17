@@ -25,6 +25,20 @@ module TipsHelper
     end
   end
   
+  def skipped?
+  	session[:tour_skipped]
+  end
+  
+  def learned?
+  	learned = true
+  	for kind in tip_kinds
+  		if current_user.where(kind: kind).size < 3
+  			learned = false
+  		end
+  	end
+  	return learned
+  end
+  
   # shows each tip 5 times per user
   def still_learning? kind
     current_user and current_user.tips.where(kind: kind).size < 1000 # for testing, 3 for production
@@ -53,5 +67,11 @@ module TipsHelper
 			position << "left:#{left}px;"
 		end
 		return position
+	end
+	
+	def tip_kinds
+		[:welcome_tip, :elheroe_button_tip, :tab_features_button_tip,
+			:global_tabs_button_tip, :user_profile_button_tip,
+			:games_button_tip, :notes_button_tip]
 	end
 end
