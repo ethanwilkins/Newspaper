@@ -57,6 +57,10 @@
 			<%= f.check_box :business %>
 		</p>
 	<% end %>
+	<p class="form-control">
+		<%= f.label translate("Skip tour") %>
+		<%= f.check_box :skipped_tour %>
+	</p>
 	<p>
 		<%= f.submit translate("Update"), class: "btn btn-default btn-lg btn-block" %>
 	</p>

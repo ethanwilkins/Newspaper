@@ -82,7 +82,7 @@ class UsersController < ApplicationController
     @user = User.find_by_name(params[:id])
     if (@user == current_user or privileged?) and \
       @user.update(params[:user].permit(:icon, :name, :email, :bio, :zip_code,
-      :network_size, :business, :english, :admin, :writer, :password))
+      :network_size, :business, :english, :admin, :writer, :password, :skipped_tour))
       if @user == current_user
         flash[:notice] = translate("Your account was successfully updated.")
       else

@@ -17,5 +17,3 @@ cp -r ~/Code/GitHub/elheroe/ ~/Code/rails/elheroe/
 cd ~/Code/rails/elheroe/
 
 rm -rf .git && rm -rf .gitignore
-
-rakes

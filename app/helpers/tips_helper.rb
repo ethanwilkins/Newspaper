@@ -1,6 +1,7 @@
 module TipsHelper
   def context_validated? kind
-    tip_auth? kind and still_learning? kind and correct_device? kind
+    tip_auth? kind and still_learning? kind \
+      and correct_device? kind and not current_user.skipped_tour
   end
   
   def correct_device? kind
@@ -22,17 +23,15 @@ module TipsHelper
       return current_user.tips.exists? kind: :elheroe_button_tip
     when :global_tabs_button_tip
       return current_user.tips.exists? kind: :games_button_tip
+    when :skip_tour_tip
+      return learned?
     end
-  end
-  
-  def skipped?
-  	session[:tour_skipped]
   end
   
   def learned?
   	learned = true
   	for kind in tip_kinds
-  		if current_user.where(kind: kind).size < 3
+  		if current_user.tips.where(kind: kind).size < 1 # for testing, 3 for production
   			learned = false
   		end
   	end

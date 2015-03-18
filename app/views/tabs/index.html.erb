@@ -1,17 +1,15 @@
 <!-- tabs -->
 
-<% tip3 = "Create a Drop " + '<i class="fa fa-tint"></i>' + ":" +
-	'<ol>' +
-		'<li>' + 'Come up with an idea' + '</li>' +
-		'<li>' + 'Give it a good name' + '</li>' +
-		'<li>' + 'Give it a cool icon' + '</li>' +
-		'<li>' + 'Add features' + '</li>' +
-		'<li>' + 'Let me check it for originality and appropriateness' + '</li>' +
-		'<li>' + 'Start posting and communicating with like minded people in your Drop.' + '</li>' +
-	'</ol>'
+<% tip3 = '<p>' + "Create a Drop " + '<i class="fa fa-tint"></i>' + ":" + '</p>' +
+		'<p>' + '1. Come up with an idea' + '</p>' +
+		'<p>' + '2. Provide a name and icon' + '</p>' +
+		'<p>' + '3. Add features for unique functionality' + '</p>' +
+		'<p>' + '4. Await approval for originality and appropriateness' + '</p>' +
+		'<p>' + '5. Start posting and communicating with like minded people in your Drop ' +
+			'<i class="fa fa-tint"></i>' + '.' + '</p>'
  %>
  
-<% tip2 = "Drop " + '<i class="fa fa-tint"></i>' + ": A combination of multiple basic features that mix together to form original views for different interest." %>
+<% tip2 = "Drop " + '<i class="fa fa-tint"></i>' + ": A combination of multiple basic features that mix together to form original views for different interests." %>
 <% tip1 = "Global Drops: Check out the unique drops people around the world have created." %>
 
 <%= render "tips/card", kind: :tab_description_tip, tip: tip2.html_safe,
