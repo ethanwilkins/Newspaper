@@ -3,7 +3,11 @@
 <div id="card"></br>
 	<%= render "tabs/buttons" %>
 	<div align="center">
-		<%= image_tag @tab.icon, id: :tab_profile_icon %>
+		<% if @tab.icon.present? %>
+			<%= image_tag @tab.icon, id: :tab_profile_icon %>
+		<% else %>
+			<span class="fa fa-tint fa-4x"></span>
+		<% end %>
 		<h3 id="tab_profile_name">
 			<%= text_shown(@tab, :name) %>
 		</h3>

@@ -20,7 +20,13 @@
 	<% end %>
 	<div align="center">
 		<div>
-			<%= link_to image_tag(tab.icon, size: "50x50", id: :tab_icon), tab_path(tab) %>
+			<%= link_to tab_path(tab) do %>
+				<% if tab.icon.present? %>
+					<%= image_tag(tab.icon, size: "50x50", id: :tab_icon) %>
+				<% else %>
+					<span class="fa fa-tint fa-4x"></span>
+				<% end %>
+			<% end %>
 		</div>
 		
 		<div>
