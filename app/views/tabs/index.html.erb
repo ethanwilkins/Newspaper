@@ -17,9 +17,9 @@
 <div align="center">
 	<div class="btn-group">
 		<% local_or_global = (params[:scope] == "local" or params[:scope].nil?) ? :global : :local %>
-		<% local_or_global_string = (local_or_global.eql? :global) ? "Global drops" : "Local drops" %>
+		<% local_or_global_string = (local_or_global.eql? :global) ? "Global Drops" : "Local Drops" %>
 		<%= link_to tabs_path(scope: local_or_global), class: "btn btn-default btn-lg",
-			title: translate("Show drops nearby or faraway") do %>
+			title: translate("Show Drops nearby or faraway") do %>
 			<%= translate local_or_global_string %>
 			<% unless local_or_global == :local %>
 				<span class="fa fa-globe"></span>
@@ -28,8 +28,8 @@
 			<% end %>
 		<% end %>
 		<%= link_to new_tab_path, class: "btn btn-default btn-lg",
-			title: translate("Create a drop in the social media landscape") do %>
-			<%= translate "Create a drop" %> <span class="fa fa-tint"></span>
+			title: translate("Create a Drop in the social media landscape") do %>
+			<%= translate "Create a Drop" %> <span class="fa fa-tint"></span>
 		<% end %>
 		<%= render "tips/card", kind: :create_tab_tip, tip: tip3.html_safe, triggered: true, top: 65, right: 5 %>
 		<%= render "tips/card", kind: :global_tabs_button_tip, tip: tip1, top: 65, left: 5 %>

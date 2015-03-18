@@ -9,36 +9,6 @@ class ApplicationController < ActionController::Base
 
   private
   
-  # returns a non-nil item from an array
-  def chosen_one(items)
-    for item in items
-      return item if item
-    end
-  end
-  
-  def get_item(item_class, item_id)
-    case item_class
-      when "User"
-        session[:user_id] = item_id
-        return User.find_by_name item_id
-      when "Post"
-        session[:post_id] = item_id
-        return Post.find_by_id item_id
-      when "Article"
-        session[:article_id] = item_id
-        return Article.find_by_id item_id
-      when "Comment"
-        session[:comment_id] = item_id
-        return Comment.find_by_id item_id
-      when "Event"
-        session[:event_id] = item_id
-        return Event.find_by_id item_id
-      when "Tab"
-        session[:tab_id] = item_id
-        return Tab.find_by_id item_id
-    end
-  end
-  
   def new_search(query)
     search = Search.new_search(query, current_user)
     session[:search_id] = search.id
@@ -87,6 +57,36 @@ class ApplicationController < ActionController::Base
   def english?
     (current_user and current_user.english) or (request.host.to_s.include? "elhero.com" and \
       not (current_user and not current_user.english))
+  end
+  
+  # returns a non-nil item from an array
+  def chosen_one(items)
+    for item in items
+      return item if item
+    end
+  end
+  
+  def get_item(item_class, item_id)
+    case item_class
+      when "User"
+        session[:user_id] = item_id
+        return User.find_by_name item_id
+      when "Post"
+        session[:post_id] = item_id
+        return Post.find_by_id item_id
+      when "Article"
+        session[:article_id] = item_id
+        return Article.find_by_id item_id
+      when "Comment"
+        session[:comment_id] = item_id
+        return Comment.find_by_id item_id
+      when "Event"
+        session[:event_id] = item_id
+        return Event.find_by_id item_id
+      when "Tab"
+        session[:tab_id] = item_id
+        return Tab.find_by_id item_id
+    end
   end
   
   def build_search_results
