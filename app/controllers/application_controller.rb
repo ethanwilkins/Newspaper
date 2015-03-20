@@ -51,7 +51,13 @@ class ApplicationController < ActionController::Base
     else
       spanish = Translation.site_english(english)
     end
-    return spanish.present? ? spanish.last.spanish : english
+    if spanish.present? and not english?
+    	return spanish.last.spanish
+    elsif english? or privileged?
+    	return english
+    else
+    	return " "
+    end
   end
   
   def english?
