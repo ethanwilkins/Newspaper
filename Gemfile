@@ -64,3 +64,6 @@ gem 'gaffe'
 # mobile browser detection
 gem 'useragent'
 gem 'browser'
+
+# language detection
+gem 'whatlanguage'

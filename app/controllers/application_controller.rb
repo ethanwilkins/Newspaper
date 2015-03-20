@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user, :translate, :page_size, :reset_page, :paginate, :get_item, :chosen_one,
     :master?, :admin?, :privileged?, :log_action, :new_search, :save_search, :english?, :writer?,
-    :build_tab_feed_data, :build_search_results, :mobile?, :browser
+    :build_tab_feed_data, :build_search_results, :mobile?, :browser, :language
 
   private
   
@@ -43,6 +43,11 @@ class ApplicationController < ActionController::Base
     unless session[:more]
       session[:page] = nil
     end
+  end
+  
+  def language(text)
+  	wl = WhatLanguage.new(:english, :spanish)
+  	return wl.language(text)
   end
   
   def translate(english)
