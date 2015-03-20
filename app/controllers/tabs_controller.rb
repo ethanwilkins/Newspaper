@@ -67,6 +67,11 @@ class TabsController < ApplicationController
     end
     
     if @tab.save
+    	params.each do |key, value|
+    		if key.include? "pre_feature" and not value.to_i.zero?
+    			@tab.features.create(action: key[0..-13])
+    		end
+    	end
       if @tab.translation_requested
         if current_user.english
           @tab.translations.create(request: true, english: @tab.name,

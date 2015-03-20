@@ -38,11 +38,12 @@
 		<p>
 			<%= label_tag translate("Choose some features for your Drop") %>
 		</p>
-		<p class="form-control">
-			<%= check_box_tag :invite_attendance %>
-			<%= label_tag translate("Invite & Attendance") %>
-		</p>
-		
+		<% tab_features.each do |key, value| %>
+			<p>
+				<%= check_box_tag key.to_s + "_pre_feature" %>
+				<%= translate(value.html_safe) %>
+			</p>
+		<% end %>
 	</div>
 <% end %>
 
