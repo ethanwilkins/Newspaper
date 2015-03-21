@@ -10,6 +10,11 @@ class Translation < ActiveRecord::Base
   
   validate :spanish_or_english
   
+	def self.language(text)
+		wl = WhatLanguage.new(:english, :spanish)
+		return wl.language(text)
+	end
+  
   def self.requests
     _requests = []
     where(english: [nil, ""]).each { |_request| _requests << _request }

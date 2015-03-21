@@ -42,6 +42,7 @@ gem 'spring', group: :development
 # encryption
 gem 'bcrypt-ruby'
 gem 'bcrypt'
+gem 'gpgme'
 
 # uploader for images
 gem 'rmagick'
