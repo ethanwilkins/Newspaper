@@ -44,4 +44,18 @@
 	<%= render "loading_gifs/new" %>
 <% end %>
 
+<% if privileged? %>
+	<div id="error_card">
+		<%= form_for @tab, url: destroy_tab_path(@tab), method: :delete do |f| %>
+			<%= hidden_field_tag id: @tab.id %>
+			<p align="center">
+				<%= translate "Deleting this Drop will permanently destroy some of its data." %>
+			</p>
+			<%= f.submit translate("Delete"), data: {
+				confirm: translate('Are you sure you want to delete this Drop?') },
+				class: "btn btn-default btn-lg btn-block" %>
+		<% end %>
+	</div>
+<% end %>
+
 <div id="footer_spacing"></div>
