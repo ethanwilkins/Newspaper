@@ -1,15 +1,21 @@
 <!-- welcome -->
 
-<% tip6 = '<p>' +
+<% tip8 = "Menu: From here you can access Games, Notes, Social, and your User Profile." %>
+<%= render "tips/card", kind: :dropdown_button_tip, tip: tip8, triggered: true, top: 75, right: 25 %>
+
+<% tip7 = '<p>' +
 			translate("Now that you've become more familiar with the site, feel free to end the tour by clicking this tip.") +
 		'</p>' + translate("You can restart the tour at any time by visiting your account settings.") %>
-<%= render "tips/card", kind: :skip_tour_tip, tip: tip6.html_safe, no_arrow: true, top: 265, right: 25 %>
+<%= render "tips/card", kind: :skip_tour_tip, tip: tip7.html_safe, no_arrow: true, top: 265, right: 25 %>
 
-<% tip5 = "Games: Click here for the best way to win prizes from El Heroe and other businesses in your area." %>
-<%= render "tips/card", kind: :games_button_tip, tip: tip5, triggered: true, top: 70, left: 175 %>
+<% tip6 = "Games: Click here for the best way to win prizes from El Heroe and other businesses in your area." %>
+<%= render "tips/card", kind: :games_button_tip, tip: tip6, triggered: true, top: 70, left: 175 %>
 
-<% tip4 = "Notes: Alerts on comments, invitations, sales inquiries, and much more." %>
-<%= render "tips/card", kind: :notes_button_tip, tip: tip4, triggered: true, top: 70, left: 250 %>
+<% tip5 = "Notes: Alerts on comments, invitations, sales inquiries, and much more." %>
+<%= render "tips/card", kind: :notes_button_tip, tip: tip5, triggered: true, top: 70, left: 250 %>
+
+<% tip4 = "Social: This is where you access social media on El Heroe, using Drops (explained later)." %>
+<%= render "tips/card", kind: :social_button_tip, tip: tip4, triggered: true, top: 70, left: 100 %>
 
 <% tip3 = "User Profile button: Manage your network size, language, and personal account settings." %>
 <%= render "tips/card", kind: :user_profile_button_tip, tip: tip3, triggered: true, top: 70, right: 200 %>

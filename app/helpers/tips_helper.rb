@@ -1,13 +1,15 @@
 module TipsHelper
   def context_validated? kind
-    tip_auth? kind and still_learning? kind \
+    tip_auth? kind and still_learning? kind and correct_order? kind \
       and correct_device? kind and not current_user.skipped_tour
   end
   
   def correct_device? kind
     case kind
-    when :user_profile_button_tip, :notes_button_tip, :games_button_tip
+    when :user_profile_button_tip, :notes_button_tip, :games_button_tip, :social_button_tip
       not mobile?
+    when :dropdown_button_tip
+    	mobile?
     else
       true
     end
@@ -19,10 +21,18 @@ module TipsHelper
       return true
     when :elheroe_button_tip
       return current_user.tips.exists? kind: :welcome_tip
-    when :tab_features_button_tip
+    when :dropdown_button_tip, :user_profile_button_tip
       return current_user.tips.exists? kind: :elheroe_button_tip
+    when :social_button_tip
+    	return current_user.tips.exists? kind: :user_profile_button_tip
+    when :notes_button_tip
+    	return current_user.tips.exists? kind: :social_button_tip
+    when :games_button_tip
+    	return current_user.tips.exists? kind: :notes_button_tip
     when :global_tabs_button_tip
-      return current_user.tips.exists? kind: :games_button_tip
+      return current_user.tips.
+      	where(kind: [:games_button_tip, :dropdown_button_tip]).
+      	present?
     when :skip_tour_tip
       return learned?
     end
@@ -71,6 +81,6 @@ module TipsHelper
 	def tip_kinds
 		[:welcome_tip, :elheroe_button_tip, :tab_features_button_tip,
 			:global_tabs_button_tip, :user_profile_button_tip,
-			:games_button_tip, :notes_button_tip]
+			:games_button_tip, :notes_button_tip, :social_button_tip]
 	end
 end

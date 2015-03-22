@@ -66,5 +66,8 @@ gem 'gaffe'
 gem 'useragent'
 gem 'browser'
 
-# language detection
+# languages
 gem 'whatlanguage'
+gem 'bing_translator'
+gem 'google-translate'
+gem 'easy_translate'
