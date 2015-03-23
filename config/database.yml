@@ -24,4 +24,4 @@ production:
   adapter: mysql2
   database: rails
   username: rails
-  password: <%= ENV['RAILS_DB_PWD'] %>
+  password: <%= ENV["RAILS_DB_PWD"] %>
