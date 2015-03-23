@@ -1,8 +1,5 @@
 <!-- welcome -->
 
-<% tip8 = "Menu: From here you can access Games, Notes, Social, and your User Profile." %>
-<%= render "tips/card", kind: :dropdown_button_tip, tip: tip8, triggered: true, top: 75, right: 25 %>
-
 <% tip7 = '<p>' +
 			translate("Now that you've become more familiar with the site, feel free to end the tour by clicking this tip.") +
 		'</p>' + translate("You can restart the tour at any time by visiting your account settings.") %>
@@ -25,3 +22,8 @@
 
 <% tip1 = translate("Welcome to El Heroe, this will be your home page for the site. It has articles and events that are close to you. Later, I'll show you how to choose a Drop") + " " + '<i class="fa fa-tint"></i>' + " " + translate("as your welcome screen.") %>
 <%= render "tips/card", kind: :welcome_tip, tip: tip1.html_safe, no_arrow: true, top: 75, right: 25 %>
+
+<% tip8 = '<p>' + translate("Dropdown Menu: From here you can access your User Profile, Social, Notes, and Games.") +
+	'</p>' + '<p>' + translate(tip3) + '</p>' + '<p>' + translate(tip4) + '</p>' + '<p>' + translate(tip5) +
+	'</p>' + '<p>' + translate(tip6) + '</p>' %>
+<%= render "tips/card", kind: :dropdown_button_tip, tip: tip8, triggered: true, top: 75, right: 25 %>
