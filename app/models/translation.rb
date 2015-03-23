@@ -9,11 +9,28 @@ class Translation < ActiveRecord::Base
   has_many :comments
   
   validate :spanish_or_english
-  
+
 	def self.language(text)
 		wl = WhatLanguage.new(:english, :spanish)
 		return wl.language(text)
 	end
+  
+  def self.translator text
+    unless language(text).nil?
+      translator = BingTranslator.new('EFW-1993',
+        ENV['BING_TRANSLATOR_CLIENT_SECRET'])
+      if language(text).eql? :english
+        translator.translate(text, :from => 'en', :to => 'es')
+      elsif language(text).eql? :spanish
+        translator.translate(text, :from => 'es', :to => 'en')
+      end
+    end
+  end
+  
+  def self.translate(english)
+    spanish = self.site_english(english)
+    return spanish.present? ? spanish.last.spanish : english
+  end
   
   def self.requests
     _requests = []
@@ -30,11 +47,6 @@ class Translation < ActiveRecord::Base
       end
     end
     return _translated
-  end
-  
-  def self.translate(english)
-    spanish = self.site_english(english)
-    return spanish.present? ? spanish.last.spanish : english
   end
   
   def self.translate_to_english(spanish)
