@@ -1,6 +1,6 @@
 module TipsHelper
   def context_validated? kind
-    tip_auth? kind and still_learning? kind and correct_order? kind \
+    tip_auth? kind and still_learning? kind \
       and correct_device? kind and not current_user.skipped_tour
   end
   
@@ -82,5 +82,11 @@ module TipsHelper
 		[:welcome_tip, :elheroe_button_tip, :tab_features_button_tip,
 			:global_tabs_button_tip, :user_profile_button_tip,
 			:games_button_tip, :notes_button_tip, :social_button_tip]
+	end
+	
+	def tip_kinds_mobile
+		kinds = tip_kinds
+		kinds << :dropdown_button_tip
+		kinds.delete_if { |kind| kind.eql? :user_profile_button_tip }
 	end
 end
