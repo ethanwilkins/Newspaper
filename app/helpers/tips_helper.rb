@@ -89,4 +89,37 @@ module TipsHelper
 		kinds << :dropdown_button_tip
 		kinds.delete_if { |kind| kind.eql? :user_profile_button_tip }
 	end
+	
+	def tip_defs
+		{ welcome_tip: html_safe(translate("Welcome to El Heroe, this will be your home page for the site. It has articles and events that are close to you. Later, I'll show you how to choose a Drop") + " " + '<i class="fa fa-tint"></i>' + " " + translate("as your welcome screen.")),
+		
+			elheroe_button_tip: "This is the home button and will bring you back here from anywhere on the site.",
+			
+			user_profile_button_tip: "User Profile button: Manage your network size, language, and personal account settings.",
+			
+			social_button_tip: "Social: This is where you access social media on El Heroe, using Drops (explained later).",
+			
+			notes_button_tip: "Notes: Alerts on comments, invitations, sales inquiries, and much more.",
+			
+			games_button_tip: "Games: Click here for the best way to win prizes from El Heroe and other businesses in your area.",
+			
+			dropdown_button_tip: "Dropdown Menu: From here you can access your User Profile, Social, Notes, and Games.",
+			
+			skip_tour_tip: html_safe('<p>' + translate("Now that you've become more familiar with the site, feel free to end the tour by clicking this tip.") + '</p>' + translate("You can restart the tour at any time by visiting your account settings.")),
+			
+			global_tabs_button_tip: "Global Drops: Check out the unique drops people around the world have created.",
+			
+			tab_features_button_tip: "As an admin, you can add features to drops by clicking here.",
+			
+			tab_description_tip: html_safe("Drop " + '<i class="fa fa-tint"></i>' + ": A combination of multiple basic features that mix together to form original views for different interests."),
+			
+			create_tab_tip: html_safe('<p>' + translate("Create a Drop") + " " + '<i class="fa fa-tint"></i>' + ":" + '</p>' +
+				'<p>' + '1. ' + translate('Come up with an idea') + '</p>' +
+				'<p>' + '2. ' + translate('Provide a name and icon') + '</p>' +
+				'<p>' + '3. ' + translate('Add features for unique functionality') + '</p>' +
+				'<p>' + '4. ' + translate('Await approval for originality and appropriateness') + '</p>' +
+				'<p>' + '5. ' + translate('Start posting and communicating with like minded people in your Drop') + ' ' +
+					'<i class="fa fa-tint"></i>' + '.' + '</p>')
+			}
+	end
 end

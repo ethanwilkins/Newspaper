@@ -1,17 +1,6 @@
 <!-- tabs -->
 
-<% tip3 = '<p>' + translate("Create a Drop") + " " + '<i class="fa fa-tint"></i>' + ":" + '</p>' +
-	'<p>' + '1. ' + translate('Come up with an idea') + '</p>' +
-	'<p>' + '2. ' + translate('Provide a name and icon') + '</p>' +
-	'<p>' + '3. ' + translate('Add features for unique functionality') + '</p>' +
-	'<p>' + '4. ' + translate('Await approval for originality and appropriateness') + '</p>' +
-	'<p>' + '5. ' + translate('Start posting and communicating with like minded people in your Drop') + ' ' +
-		'<i class="fa fa-tint"></i>' + '.' + '</p>'
-%>
-<% tip2 = "Drop " + '<i class="fa fa-tint"></i>' + ": A combination of multiple basic features that mix together to form original views for different interests." %>
-<% tip1 = "Global Drops: Check out the unique drops people around the world have created." %>
-
-<%= render "tips/card", kind: :tab_description_tip, tip: tip2.html_safe,
+<%= render "tips/card", kind: :tab_description_tip, tip: tip_defs[:tab_description_tip],
 	no_arrow: true, triggered: true, top: 75, right: 25 %>
 
 <div align="center">
@@ -31,8 +20,11 @@
 			title: translate("Create a Drop in the social media landscape") do %>
 			<%= translate "Create a Drop" %> <span class="fa fa-tint"></span>
 		<% end %>
-		<%= render "tips/card", kind: :create_tab_tip, tip: tip3.html_safe, triggered: true, top: 65, right: 5 %>
-		<%= render "tips/card", kind: :global_tabs_button_tip, tip: tip1, top: 65, left: 5 %>
+		
+		<%= render "tips/card", kind: :create_tab_tip,
+			tip: tip_defs[:create_tab_tip], triggered: true, top: 65, right: 5 %>
+		<%= render "tips/card", kind: :global_tabs_button_tip,
+			tip: tip_defs[:global_tabs_button_tip], top: 65, left: 5 %>
 	</div>
 </div></br>
 
