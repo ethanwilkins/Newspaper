@@ -59,7 +59,9 @@ gem 'area'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 
-# error handling
+# error handling and debugging
+gem 'tarantula'
+gem 'fuzzer'
 gem 'gaffe'
 
 # mobile browser detection
