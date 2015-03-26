@@ -1,12 +1,19 @@
 <!-- features -->
 
-<div id="card">
-	<%= link_to translate("Remove"),
-		destroy_feature_path(feature),
-		data: { confirm: translate('Are you sure?') },
-		method: :delete, class: :top_right_link %>
+<% unless (@tab and not tab_feature_titles.include? feature.action.to_sym) \
+	or (@user and not user_feature_titles.include? feature.action.to_sym) %>
+	<div id="card">
+		<%= link_to translate("Remove"),
+			destroy_feature_path(feature),
+			data: { confirm: translate('Are you sure?') },
+			method: :delete, class: :top_right_link %>
 	
-	<div align="center">
-		<%= feature.action %>
+		<div align="center">
+			<% if @tab %>
+				<%= tab_feature_titles[feature.action.to_sym] %>
+			<% elsif @user %>
+				<%= user_feature_titles[feature.action.to_sym] %>
+			<% end %>
+		</div>
 	</div>
-</div>
+<% end %>

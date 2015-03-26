@@ -38,7 +38,7 @@
 		<p>
 			<%= label_tag translate("Choose some features for your Drop") %>
 		</p>
-		<% tab_features.each do |key, value| %>
+		<% tab_feature_defs.each do |key, value| %>
 			<p>
 				<%= check_box_tag key.to_s + "_pre_feature" %>
 				<%= translate(value.html_safe) %>

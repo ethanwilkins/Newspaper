@@ -6,33 +6,16 @@
 			<%= hidden_field_tag :tab_id, @tab.id if @tab %>
 			<%= hidden_field_tag :subtab_id, @subtab.id if @subtab %>
 			<p>
-				<!-- need to create features helper method for features array -->
-				<%= f.select :action, options_for_select([[translate("Choose a feature to add"), nil],
-					[translate("Invite & Attendance"), "invite_attendance"],
-					[translate("Post repopulation"), "post_repopulation"],
-					[translate("Ranking and Feedback"), "rank_feedback"],
-					[translate("Popularity float"), "popularity_float"],
-					[translate("Custom load wheel"), "custom_loading"],
-					[translate("Post expiration"), "post_expiration"],
-					[translate("Sales dialogue"), "sales_dialogue"],
-					[translate("Question tree"), "question_tree"],
-					[translate("List format"), "list_format"],
-					[translate("Invite only"), "invite_only"],
-					[translate("Photosets"), "photosets"],
-					[translate("Articles"), "articles"],
-					[translate("Tagged"), "tagged"],
-					[translate("Global"), "global"]
-					]), {}, class: "form-control" %>
+				<% options = [[translate("Choose a feature to add"), nil]] %>
+				<% tab_feature_titles.each { |key, title| options << [translate(title), key.to_s] } %>
+				<%= f.select :action, options_for_select(options), {}, class: "form-control" %>
 			</p>
 		<% elsif @user %>
 			<%= hidden_field_tag :user_id, @user.id %>
 			<p>
-				<%= f.select :action, options_for_select([
-					[translate("Choose a feature to add"), nil],
-					[translate("Photo gallery"), "photo_gallery"],
-					[translate("Custom load wheel"), "custom_loading"],
-					[translate("Ratings and Feedback"), "user_feedback"]
-					]), {}, class: "form-control" %>
+				<% options = [[translate("Choose a feature to add"), nil]] %>
+				<% user_feature_titles.each { |key, title| options << [translate(title), key.to_s] }%>
+				<%= f.select :action, options_for_select(options), {}, class: "form-control" %>
 			</p>
 		<% end %>
 		<p>
@@ -41,14 +24,8 @@
 	<% end %>
 </div>
 
-<% if @subtab %>
-	<% item = @subtab %>
-<% elsif @tab %>
-	<% item = @tab %>
-<% elsif @user %>
-	<% item = @user %>
-<% end %>
 
+<% item = chosen_one [@subtab, @tab, @user] %>
 <% for feature in item.features.reverse %>
 	<%= render "features/card", feature: feature %>
 <% end %>

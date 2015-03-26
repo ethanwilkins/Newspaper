@@ -71,3 +71,6 @@ gem 'whatlanguage'
 gem 'bing_translator'
 gem 'google-translate'
 gem 'easy_translate'
+
+# audio
+# gem 'pocketsphinx-ruby'
