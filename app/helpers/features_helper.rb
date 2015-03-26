@@ -13,7 +13,8 @@ module FeaturesHelper
 		photosets: "<b>Photo Gallery</b> - Post multiple photos to the feed and view them in the gallery",
 		articles: "<b>Articles</b> - Write articles specific to your Drop",
 		tagged: "<b>Quantum Hash</b> - Specify hashtags to funnel content to your Drop",
-		global: "<b>Global</b> - Let anyone in any area see this Drop" }
+		global: "<b>Global</b> - Let anyone in any area see this Drop",
+    poll: "<b>Poll</b> - Anonymous voting and decision making" }
 	end
   
   def tab_feature_titles
@@ -27,7 +28,8 @@ module FeaturesHelper
   def user_feature_titles
     { user_feedback: "Ranking and Feedback",
       photo_gallery: "Photo Gallery",
-      custom_loading: "Custom Load" }
+      custom_loading: "Custom Load",
+      poll: "Poll" }
   end
 	
   def has_feature? action

@@ -1,5 +1,6 @@
 class Vote < ActiveRecord::Base
   belongs_to :posts
+  belongs_to :poll
   
   def self.up_vote!(obj, user)
     vote ||= obj.votes.find_by_voter_id(user.id)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318040937) do
+ActiveRecord::Schema.define(version: 20150326051649) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -69,6 +69,11 @@ ActiveRecord::Schema.define(version: 20150318040937) do
     t.boolean  "redeemed"
     t.integer  "board_loc"
     t.integer  "zip_code"
+  end
+
+  create_table "choices", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "codes", force: :cascade do |t|
@@ -231,6 +236,17 @@ ActiveRecord::Schema.define(version: 20150318040937) do
     t.datetime "updated_at"
   end
 
+  create_table "polls", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "tab_id"
+    t.integer  "subtab_id"
+    t.text     "question"
+    t.text     "proposal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "kind"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "title",                 limit: 255
@@ -317,6 +333,7 @@ ActiveRecord::Schema.define(version: 20150318040937) do
     t.boolean  "translation_requested"
     t.boolean  "english"
     t.boolean  "invite_only"
+    t.boolean  "hidden"
   end
 
   create_table "tasks", force: :cascade do |t|
