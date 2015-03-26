@@ -26,10 +26,11 @@ module FeaturesHelper
   end
   
   def user_feature_titles
-    { user_feedback: "Ranking and Feedback",
-      photo_gallery: "Photo Gallery",
-      custom_loading: "Custom Load",
-      poll: "Poll" }
+    titles = { user_feedback: "Ranking and Feedback", photo_gallery: "Photo Gallery" }
+    tab_feature_titles.each do |key, title|
+      titles[key] = title if [:poll, :custom_loading].include? key
+    end
+    return titles
   end
 	
   def has_feature? action
