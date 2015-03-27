@@ -2,4 +2,8 @@
 
 <%= render "polls/card", poll: @poll, choices: @choices %>
 
-<!-- comments section to go here -->
+<% @comments.each do |comment| %>
+	<%= render "comments/card", comment: comment %>
+<% end %>
+
+<%= render "comments/new" if current_user %>

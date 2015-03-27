@@ -35,6 +35,7 @@ class CommentsController < ApplicationController
     @comment.banner_id = params[:banner_id]
     @comment.event_id = params[:event_id]
     @comment.post_id = params[:post_id]
+    @comment.poll_id = params[:poll_id]
     
     @user = if @comment.post_id
               action = :post_comment
@@ -55,6 +56,11 @@ class CommentsController < ApplicationController
               action = :event_comment
               item_id = @comment.event_id
               User.find(Event.find(@comment.event_id).user_id)
+            
+            elsif @comment.poll_id
+              action = :poll_comment
+              item_id = @comment.poll_id
+              User.find(Poll.find(@comment.poll_id).user_id)
               
             elsif @comment.banner_id and Banner.find(@comment.banner_id).user_id.present?
               action = :banner_comment
