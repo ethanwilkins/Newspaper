@@ -24,12 +24,12 @@
 					</td>
 					<td>
 						<%= link_to up_vote_choice_path(poll.id, choice.id), method: :post do %>
-							<i class="fa fa-thumbs-o-up fa-lg up_vote_color"></i>
+							<i class="fa fa-thumbs-<%= "o-" unless up_voted? choice %>up fa-lg up_vote_color"></i>
 						<% end %>
 					</td>
 					<td>
 						<%= link_to down_vote_choice_path(poll.id, choice.id), method: :post do %>
-							<i class="fa fa-thumbs-o-down fa-lg down_vote_color"></i>
+							<i class="fa fa-thumbs-<%= "o-" unless down_voted? choice %>down fa-lg down_vote_color"></i>
 						<% end %>
 					</td>
 				</tr>
