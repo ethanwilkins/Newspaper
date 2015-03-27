@@ -22,6 +22,9 @@
 			<% when :activity_comment %>
 				<p><%= link_to note.message, activity_path(note.item_id) %></p>
 				
+			<% when :poll_comment %>
+				<p><%= link_to note.message, poll_path(note.item_id) %></p>
+				
 			<% when :comment_reply %>
 				<p><%= link_to note.message, comment_path(note.item_id) %></p>
 				

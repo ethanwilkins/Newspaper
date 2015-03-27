@@ -26,6 +26,8 @@ class Note < ActiveRecord::Base
           message = name + " " + Translation.translate("commented on your activity.")
         when :event_comment
           message = name + " " + Translation.translate("commented on your event.")
+        when :poll_comment
+          message = name + " " + Translation.translate("commented on your poll.")
         when :comment_reply
           message = name + " " + Translation.translate("replied to your comment.")
         when :event_invitation
