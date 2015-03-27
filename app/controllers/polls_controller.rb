@@ -1,4 +1,24 @@
-class PollsController < ApplicationController
+class PollsController < ApplicationController  
+  def up_vote
+    @poll = Poll.find(params[:poll_id])
+    @choice = @poll.choices.find(params[:choice_id]) if @poll
+    if @choice
+      Vote.up_vote! @choice, current_user
+      log_action("polls_up_vote", @poll.id)
+    end
+    redirect_to :back
+  end
+  
+  def down_vote
+    @poll = Poll.find(params[:poll_id])
+    @choice = @poll.choices.find(params[:choice_id]) if @poll
+    if @choice
+      Vote.down_vote! @choice, current_user
+      log_action("polls_down_vote", @poll.id)
+    end
+    redirect_to :back
+  end
+  
   def add_choice
     @choice_num = params[:choice_num].to_i
     @choice_num += 1
@@ -63,26 +83,6 @@ class PollsController < ApplicationController
   def edit
     @poll = Poll.find(params[:id])
     log_action("polls_edit")
-  end
-  
-  def up_vote
-    @poll = Poll.find(params[:poll_id])
-    @choice = @poll.choices.find(params[:choice_id]) if @poll
-    if @choice
-      Vote.up_vote! @choice, current_user
-      log_action("polls_up_vote", @poll.id)
-    end
-    redirect_to :back
-  end
-  
-  def down_vote
-    @poll = Poll.find(params[:poll_id])
-    @choice = @poll.choices.find(params[:choice_id]) if @poll
-    if @choice
-      Vote.down_vote! @choice, current_user
-      log_action("polls_down_vote", @poll.id)
-    end
-    redirect_to :back
   end
   
   private

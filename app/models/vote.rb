@@ -7,7 +7,7 @@ class Vote < ActiveRecord::Base
     unless vote
       obj.votes.create up: true, voter_id: user.id
     else
-      vote.update up: true, down: false
+      vote.update up: false, down: false
     end
   end
   
@@ -16,7 +16,7 @@ class Vote < ActiveRecord::Base
     unless vote
       obj.votes.create down: true, voter_id: user.id
     else
-      vote.update down: true, up: false
+      vote.update down: false, up: false
     end
   end
   
