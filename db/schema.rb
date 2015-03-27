@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326051649) do
+ActiveRecord::Schema.define(version: 20150326235845) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20150326051649) do
   create_table "choices", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "poll_id"
+    t.text     "text"
   end
 
   create_table "codes", force: :cascade do |t|
@@ -241,10 +243,9 @@ ActiveRecord::Schema.define(version: 20150326051649) do
     t.integer  "tab_id"
     t.integer  "subtab_id"
     t.text     "question"
-    t.text     "proposal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "kind"
+    t.string   "image"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -290,6 +291,11 @@ ActiveRecord::Schema.define(version: 20150326051649) do
     t.string   "chosen_result_type", limit: 255
     t.integer  "chosen_result_id"
     t.integer  "user_id"
+  end
+
+  create_table "stats", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "subtabs", force: :cascade do |t|
@@ -403,6 +409,7 @@ ActiveRecord::Schema.define(version: 20150326051649) do
     t.boolean  "down"
     t.integer  "voter_id"
     t.integer  "post_id"
+    t.integer  "choice_id"
   end
 
   create_table "zips", force: :cascade do |t|

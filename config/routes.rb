@@ -215,9 +215,21 @@ Rails.application.routes.draw do
   
   get "pages/back", as: "back"
   
+  
   # tips
   
   post 'tips/create', as: 'tips_create'
+  
+  
+  # polls
+  
+  get 'tabs/:tab_id/polls/new', to: 'polls#new', as: 'new_tab_poll'
+  
+  get 'polls/add_choice/:choice_num', to: 'polls#add_choice', as: 'add_choice'
+  
+  post 'polls/:poll_id/up_vote/:choice_id', to: 'polls#up_vote', as: 'up_vote_choice'
+  
+  post 'polls/:poll_id/down_vote/:choice_id', to: 'polls#down_vote', as: 'down_vote_choice'
   
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -258,6 +270,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :events
   resources :notes
+  resources :polls
   
   resources :game_boards do
     resources :cards

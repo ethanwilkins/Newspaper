@@ -1,0 +1,10 @@
+<!-- polls -->
+
+<p>
+	<%= text_field_tag "choice_#{choice_num}".to_sym, nil,
+		placeholder: translate("Choice #{choice_num}"), class: "form-control" %>
+</p>
+
+<p id="add_choice_anchor">
+	<%= link_to translate("Add choice"), add_choice_path(choice_num), remote: true, class: "btn btn-default btn-lg btn-block" %>
+</p>

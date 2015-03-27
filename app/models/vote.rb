@@ -7,13 +7,22 @@ class Vote < ActiveRecord::Base
     unless vote
       obj.votes.create up: true, voter_id: user.id
     else
-      vote.update up: true
+      vote.update up: true, down: false
+    end
+  end
+  
+  def self.down_vote!(obj, user)
+    vote ||= obj.votes.find_by_voter_id(user.id)
+    unless vote
+      obj.votes.create down: true, voter_id: user.id
+    else
+      vote.update down: true, up: false
     end
   end
   
   def self.un_vote!(obj, user)
     vote ||= obj.votes.find_by_voter_id(user.id)
-    vote.update up: false if vote
+    vote.update up: false, down: false if vote
   end
 
   def self.up_voted?(obj, user)
@@ -22,6 +31,8 @@ class Vote < ActiveRecord::Base
   end
   
   def self.score(obj)
-    obj.up_votes.size.to_i
+    up_votes = obj.votes.where(up: true).size
+    down_votes = obj.votes.where(down: true).size
+    return up_votes - down_votes
   end
 end

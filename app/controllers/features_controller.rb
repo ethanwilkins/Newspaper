@@ -116,6 +116,10 @@ class FeaturesController < ApplicationController
       elsif @user
         redirect_to user_path(@user.name)
       end
+    elsif @feature.errors.include? :already_added_to_user
+      flash[:error] = translate(@feature.errors[:already_added_to_user].first)
+      log_action("features_create_fail_already_added_by_user")
+      redirect_to :back
     else
       flash[:error] = translate("Invalid input.")
       log_action("features_create_fail")
@@ -125,23 +129,24 @@ class FeaturesController < ApplicationController
   
   def destroy
     @feature = Feature.find(params[:id])
-    if @feature.user and @feature.personal
-      @user = @feature.user
-    elsif @feature.tab
-      @tab = @feature.tab
+    if @feature.user_id and not @feature.tab_id
+      @user = User.find_by_id @feature.user_id
+    elsif @feature.tab_id
+      @tab = Tab.find_by_id @feature.tab_id
     end
-    
     if @feature.destroy
       flash[:notice] = translate("Feature removed successfully.")
-      log_action("")
+      log_action("features_destroy")
     else
       flash[:error] = translate("Feature could not removed.")
+      log_action("features_destroy")
     end
-    
     if @user
       redirect_to user_path(@user.name)
+    elsif @tab
+      redirect_to tab_path(@tab.id)
     else
-      redirect_to tab_path(@tab)
+      redirect_to :back
     end
   end
 end

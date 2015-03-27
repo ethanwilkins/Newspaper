@@ -3,17 +3,33 @@
 <% if current_user %>
 <div id="card">
 	<!-- feature links at top of new post card -->
-	<% if has_feature? :articles and writer? %>
-		<%= link_to translate("Write an article"),
-			(@subtab ? new_subtab_article_path(@subtab) :
-			new_tab_article_path(@tab)), class: :top_right_link %>
-	<% end %>
+	<table class="top_right_link_table">
+		<tr>
+			<% if has_feature? :polls %>
+				<td class="link_table_spacing">
+					<%= link_to translate("Create a poll"), new_tab_poll_path(@tab),
+						class: :card_link %>
+				</td>
+			<% end %>
+			<% if has_feature? [:articles, :polls] and writer? %>
+				<td class="link_table_spacing"><span class="card_link">·</span></td>
+			<% end %>
+			<% if has_feature? :articles and writer? %>
+				<td>
+					<%= link_to translate("Write an article"),
+						(@subtab ? new_subtab_article_path(@subtab) :
+						new_tab_article_path(@tab)), class: :card_link %>
+				</td>
+			<% end %>
+				
+		</tr>
+	</table>
 	<% if has_feature? :invite_attendance %>
 		<%= link_to translate("Plan an event"),
 			(@subtab ? new_subtab_event_path(@subtab) :
 			new_tab_event_path(@tab)), id: :top_left_plan_event_link %>
 	<% end %>
-	<%=raw "</br>" if has_feature? [:articles, :invite_attendance] %>
+	<%=raw "<br>" if has_any? [:articles, :invite_attendance] %>
 	
 	<!-- the actual form for new posts, adapts to tab/subtab and its features -->
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
@@ -22,7 +38,7 @@
 		<% elsif @tab %>
 			<%= hidden_field_tag :tab_id, params[:id] %>
 		<% end %>
-		<% if has_feature? [:photosets, :list_format] %>
+		<% if has_any? [:photosets, :list_format] %>
 			<p>
 				<%= f.text_field :title, placeholder: translate("Add a title..."),
 					class: "form-control" %>

@@ -16,7 +16,7 @@ class Post < ActiveRecord::Base
   # before_create :apply_expiration
   validate :title_required?, on: :create
   validate :text_or_image?, on: :create
-  
+    
   mount_uploader :image, ImageUploader
   
   def self.repopulate
@@ -56,12 +56,12 @@ class Post < ActiveRecord::Base
     end
   end
   
-  def score
-    Vote.score(self)
+  def up_votes
+    self.votes.where up: true
   end
   
-  def up_votes
-    votes.where up: true
+  def score
+    Vote.score(self)
   end
   
   private

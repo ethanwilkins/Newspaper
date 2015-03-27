@@ -1,0 +1,34 @@
+<!-- polls -->
+
+<div id="card">
+	<h4 align="center">
+		<%= @poll.question %>
+	</h4>
+	<div align="center">
+		<% if @poll.image.url %>
+			<p>
+				<%= image_tag @poll.image, id: :standard_post_image %>
+			</p>
+		<% end %>
+		
+		<table id="choices_listing">
+			<% for choice in @choices %>
+				<tr id="choice_listing_row">
+					<td class="table_spacing_poll_text">
+						<%= choice.text %>
+					</td>
+					<td>
+						<%= link_to up_vote_choice_path(@poll.id, choice.id), method: :post do %>
+							<i class="fa fa-thumbs-o-up fa-lg"></i>
+						<% end %>
+					</td>
+					<td>
+						<%= link_to down_vote_choice_path(@poll.id, choice.id), method: :post do %>
+							<i class="fa fa-thumbs-o-down fa-lg"></i>
+						<% end %>
+					</td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+</div>

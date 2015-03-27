@@ -14,7 +14,7 @@ module FeaturesHelper
 		articles: "<b>Articles</b> - Write articles specific to your Drop",
 		tagged: "<b>Quantum Hash</b> - Specify hashtags to funnel content to your Drop",
 		global: "<b>Global</b> - Let anyone in any area see this Drop",
-    poll: "<b>Poll</b> - Anonymous voting and decision making" }
+    polls: "<b>Polls</b> - Anonymous voting and decision making" }
 	end
   
   def tab_feature_titles
@@ -28,9 +28,18 @@ module FeaturesHelper
   def user_feature_titles
     titles = { user_feedback: "Ranking and Feedback", photo_gallery: "Photo Gallery" }
     tab_feature_titles.each do |key, title|
-      titles[key] = title if [:poll, :custom_loading].include? key
+      titles[key] = title if [:polls, :custom_loading].include? key
     end
     return titles
+  end
+  
+  def has_any? actions
+    if (@tab and @tab.features.where(action: actions).present?) \
+      or (@subtab and @subtab.features.where(action: actions).present?)
+      return true
+    else
+      return false
+    end
   end
 	
   def has_feature? action
@@ -42,12 +51,15 @@ module FeaturesHelper
         return false
       end
     else
-      if (@tab and @tab.features.where(action: action).present?) \
-        or (@subtab and @subtab.features.where(action: action).present?)
-        return true
-      else
-        return false
+      has_all = true
+      actions = action
+      for action in actions
+        unless (@tab and @tab.features.exists? action: action) \
+          or (@subtab and @subtab.features.exists? action: action)
+          has_all = false
+        end
       end
+      return has_all
     end
   end
 end

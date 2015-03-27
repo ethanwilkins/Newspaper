@@ -60,8 +60,8 @@ gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 
 # error handling and debugging
-gem 'tarantula'
-gem 'fuzzer'
+# gem 'tarantula'
+# gem 'fuzzer'
 gem 'gaffe'
 
 # mobile browser detection

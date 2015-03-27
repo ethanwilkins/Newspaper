@@ -1,3 +1,30 @@
 // Place all the styles related to the polls controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$link_color: rgb(190, 190, 190);
+
+@mixin standard_link {
+	color: $link_color;
+	font-size: 10px;
+	position: absolute;
+}
+
+#top_left_create_poll_link {
+	@include standard_link;
+	left: 150px;
+	top: 10px;
+}
+
+#choices_listing {
+	width: 80%;
+}
+
+#choice_listing_row {
+	height: 35px;
+}
+
+.table_spacing_poll_text {
+	padding-right: 15px;
+}
+

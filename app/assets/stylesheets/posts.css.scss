@@ -6,6 +6,12 @@ $info_color: rgb(190, 190, 190);
 $x_right_gap: 30px;
 $x_left_gap: 30px;
 
+@mixin standard_link {
+	color: $info_color;
+	font-size: 10px;
+	position: absolute;
+}
+
 #standard_post_image {
 	width: 85%;
 }
@@ -25,33 +31,25 @@ $x_left_gap: 30px;
 }
 
 .top_right_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
+	@include standard_link;
 	right: $x_right_gap;
 	top: 10px;
 }
 
 .top_left_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
+	@include standard_link;
 	left: $x_left_gap;
 	top: 10px;
 }
 
 .bottom_right_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
+	@include standard_link;
 	right: $x_right_gap;
 	bottom: 10px;
 }
 
 .bottom_left_link {
-	color: $info_color;
-	font-size: 10px;
-	position: absolute;
+	@include standard_link;
 	left: $x_left_gap;
 	bottom: 10px;
 }
