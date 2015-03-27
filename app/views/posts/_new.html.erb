@@ -34,7 +34,7 @@
 			(@subtab ? new_subtab_event_path(@subtab) :
 			new_tab_event_path(@tab)), id: :top_left_plan_event_link %>
 	<% end %>
-	<%=raw "<br>" if has_any? [:articles, :invite_attendance] or user_has_feature? :polls %>
+	<%=raw "<br>" if has_any? [:articles, :invite_attendance, :polls] or user_has_feature? :polls %>
 	
 	<!-- the actual form for new posts, adapts to tab/subtab and its features -->
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>
