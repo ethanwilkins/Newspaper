@@ -24,8 +24,12 @@ $link_color: rgb(190, 190, 190);
 	height: 35px;
 }
 
-.vote_link_color {
-	color: black;
+.up_vote_color {
+	color: green;
+}
+
+.down_vote_color {
+	color: red;
 }
 
 .table_spacing_poll_text {

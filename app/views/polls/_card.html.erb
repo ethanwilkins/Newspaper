@@ -14,17 +14,22 @@
 		<table id="choices_listing">
 			<% for choice in choices %>
 				<tr id="choice_listing_row">
+					<td>
+						<span class="badge">
+							<%= choice.score %>
+						</span>
+					</td>
 					<td class="table_spacing_poll_text">
 						<%= choice.text %>
 					</td>
 					<td>
 						<%= link_to up_vote_choice_path(poll.id, choice.id), method: :post do %>
-							<i class="fa fa-thumbs-o-up fa-lg vote_link_color"></i>
+							<i class="fa fa-thumbs-o-up fa-lg up_vote_color"></i>
 						<% end %>
 					</td>
 					<td>
 						<%= link_to down_vote_choice_path(poll.id, choice.id), method: :post do %>
-							<i class="fa fa-thumbs-o-down fa-lg vote_link_color"></i>
+							<i class="fa fa-thumbs-o-down fa-lg down_vote_color"></i>
 						<% end %>
 					</td>
 				</tr>
