@@ -225,6 +225,8 @@ Rails.application.routes.draw do
   
   get 'tabs/:tab_id/polls/new', to: 'polls#new', as: 'new_tab_poll'
   
+  get 'users/:user_id/polls/new', to: 'polls#new', as: 'new_user_poll'
+  
   get 'polls/add_choice/:choice_num', to: 'polls#add_choice', as: 'add_choice'
   
   post 'polls/:poll_id/up_vote/:choice_id', to: 'polls#up_vote', as: 'up_vote_choice'

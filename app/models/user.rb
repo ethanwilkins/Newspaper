@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   has_many :cards
   has_many :posts
   has_many :notes
+  has_many :polls
   has_many :tips
   
   belongs_to :group

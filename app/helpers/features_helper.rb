@@ -33,6 +33,14 @@ module FeaturesHelper
     return titles
   end
   
+  def user_has_feature? action
+    if @user and current_user.features.exists? action: action
+      return true
+    else
+      return false
+    end
+  end
+  
   def has_any? actions
     if (@tab and @tab.features.where(action: actions).present?) \
       or (@subtab and @subtab.features.where(action: actions).present?)

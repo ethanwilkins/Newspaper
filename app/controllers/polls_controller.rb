@@ -5,8 +5,9 @@ class PollsController < ApplicationController
   end
   
   def create
-    @poll = Poll.new poll_params
-    if @poll.save
+    @poll = current_user.polls.new poll_params if params[:user_id]
+    @poll = Tab.find(params[:tab_id]).polls.new poll_params if params[:tab_id]
+    if @poll and @poll.save
       # assembles choices
       params.each do |key, param|
         if key.include? "choice" and param.present?
@@ -25,13 +26,19 @@ class PollsController < ApplicationController
   
   def new
     @poll = Poll.new
+    if params[:user_id]
+      @user = current_user
+    elsif params[:tab_id]
+      @tab = Tab.find_by_id(params[:tab_id])
+    end
     log_action("polls_new")
   end
   
   def show
     @poll = Poll.find_by_id(params[:id])
-    @choices = @poll.choices.sort_by { |poll| poll.score }.reverse
-    log_action("polls_show")
+    @choices = @poll.choices.
+    sort_by { |poll| poll.score }.
+    reverse; log_action("polls_show")
   end
   
   def destroy

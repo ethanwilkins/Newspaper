@@ -10,6 +10,11 @@
 					<%= link_to translate("Create a poll"), new_tab_poll_path(@tab),
 						class: :card_link %>
 				</td>
+			<% elsif user_has_feature? :polls %>
+				<td class="link_table_spacing">
+					<%= link_to translate("Create a poll"), new_user_poll_path(@user.name),
+						class: :card_link %>
+				</td>
 			<% end %>
 			<% if has_feature? [:articles, :polls] and writer? %>
 				<td class="link_table_spacing"><span class="card_link">·</span></td>
@@ -29,7 +34,7 @@
 			(@subtab ? new_subtab_event_path(@subtab) :
 			new_tab_event_path(@tab)), id: :top_left_plan_event_link %>
 	<% end %>
-	<%=raw "<br>" if has_any? [:articles, :invite_attendance] %>
+	<%=raw "<br>" if has_any? [:articles, :invite_attendance] or user_has_feature? :polls %>
 	
 	<!-- the actual form for new posts, adapts to tab/subtab and its features -->
 	<%= form_for @post, html: {multipart: true, "data-ajax" => false} do |f| %>

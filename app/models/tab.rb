@@ -8,6 +8,7 @@ class Tab < ActiveRecord::Base
   has_many :loading_gifs, dependent: :destroy
   has_many :translations, dependent: :destroy
   has_many :members, dependent: :destroy
+  has_many :polls, dependent: :destroy
   
   mount_uploader :icon, ImageUploader
   
