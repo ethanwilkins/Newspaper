@@ -59,8 +59,9 @@ class Note < ActiveRecord::Base
         when :tab_denied
           message = Translation.translate("Your tab was denied.")
       end
-      receiver.notes.create!(message: message, sender_id: sender.id,
+      note = receiver.notes.new(message: message, sender_id: sender.id,
         action: action.to_s, item_id: item_id)
+      note.save 
     end
   end
   
