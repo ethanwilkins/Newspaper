@@ -4,19 +4,23 @@ class Vote < ActiveRecord::Base
   
   def self.up_vote!(obj, user)
     vote ||= obj.votes.find_by_voter_id(user.id)
-    unless vote
+    if not vote
       obj.votes.create up: true, voter_id: user.id
+    elsif vote and vote.up
+      vote.update up: false
     else
-      vote.update up: false, down: false
+      vote.update up: true, down: false
     end
   end
   
   def self.down_vote!(obj, user)
     vote ||= obj.votes.find_by_voter_id(user.id)
-    unless vote
+    if not vote
       obj.votes.create down: true, voter_id: user.id
+    elsif vote and vote.down
+      vote.update down: false
     else
-      vote.update down: false, up: false
+      vote.update down: true, up: false
     end
   end
   
