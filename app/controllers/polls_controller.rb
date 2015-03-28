@@ -57,11 +57,10 @@ class PollsController < ApplicationController
   
   def show
     @poll = Poll.find_by_id(params[:id])
-    @choices = @poll.choices.
-    sort_by { |poll| poll.score }.
-    reverse; log_action("polls_show")
+    @choices = @poll.choices
     @comments = @poll.comments.reverse
     @new_comment = Comment.new
+    log_action("polls_show")
   end
   
   def destroy

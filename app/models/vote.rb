@@ -4,11 +4,7 @@ class Vote < ActiveRecord::Base
   
   def self.up_vote! obj, user
     vote ||= obj.votes.find_by_voter_id(user.id)
-    if vote and vote.poll_id
-      Poll.find(poll_id).choices.each do |choice|
-        choice.votes.where(user.id).update_all up: true, down: false
-      end
-    end
+    un_vote_all user, vote
     if not vote
       obj.votes.create up: true, voter_id: user.id
     elsif vote and vote.up
@@ -18,18 +14,23 @@ class Vote < ActiveRecord::Base
     end
   end
   
-  def self.un_vote_all user, vote
-    
-  end
-  
   def self.down_vote! obj, user
     vote ||= obj.votes.find_by_voter_id(user.id)
+    un_vote_all user, vote
     if not vote
       obj.votes.create down: true, voter_id: user.id
     elsif vote and vote.down
       vote.update down: false
     else
       vote.update down: true, up: false
+    end
+  end
+  
+  def self.un_vote_all user=nil, vote=nil
+    if vote and vote.choice_id
+      Poll.find(Choice.find(vote.choice_id).poll_id).choices.each do |choice|
+        choice.votes.where(user.id).update_all up: false, down: false
+      end
     end
   end
   
