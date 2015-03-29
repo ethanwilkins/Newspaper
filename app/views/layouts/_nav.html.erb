@@ -14,27 +14,31 @@
 			<ul class="nav navbar-nav">
 				<% unless current_user %>
 				<li>
-					<%= link_to translate("Log in"), root_url, title: translate("Log in if you've already signed up") %>
+					<%= link_to html_safe(translate("Log in") + ' <i class="fa fa-sign-in"></i>'),
+						root_url, title: translate("Log in if you've already signed up") %>
 				</li>
 				<li>
-					<%= link_to translate("Sign up"), new_user_path, title: translate("Sign up to get more features") %>
+					<%= link_to html_safe(translate("Sign up") + ' <i class="fa fa-pencil-square-o"></i>'),
+						new_user_path, title: translate("Sign up to get more features") %>
 				</li>
 				<% else %>
 				<li>
-					<%= link_to translate("Social"), tabs_path,
+					<%= link_to html_safe(translate("Social") + ' <i class="fa fa-users"></i>'), tabs_path,
 						title: translate("Post and share content specific to your interests and locale") %>
 				</li>
 				<li>
-					<%= link_to translate("Games"), boards_path, title: translate("Play and win prizes") %>
+					<%= link_to html_safe(translate("Games") + ' <i class="fa fa-trophy"></i>'),
+						boards_path, title: translate("Play and win prizes") %>
 				</li>
 				<li id="notes_nav_li">
 					<%= link_to notes_path, title: translate("View your notifications") do %>
+						<% notes = translate("Notes") %>
 						<% if current_user.notes.unchecked.size > 0 %>
-							<div><%= translate("Notes") %> <span class="badge">
+							<div><%= html_safe(notes + ' <i class="fa fa-bell"></i>') %> <span class="badge">
 								<%= current_user.notes.unchecked.size %>
 							</span></div>
 						<% else %>
-							<div><%= translate("Notes") %></div>
+							<div><%= html_safe(notes + ' <i class="fa fa-bell-o"></i>') %></div>
 						<% end %>
 					<% end %>
 				</li>
@@ -54,16 +58,16 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li>
-							<%= link_to translate("Profile"), user_path(current_user.name),
-								title: translate("View your profile") %>
+							<%= link_to html_safe(translate("Profile") + ' <i class="fa fa-user"></i>'),
+								user_path(current_user.name), title: translate("View your profile") %>
 						</li>
 						<% if privileged? %>
 						<li>
-							<%= link_to translate("Admin"), admin_path %>
+							<%= link_to html_safe(translate("Admin") + ' <i class="fa fa-cogs"></i>'), admin_path %>
 						</li>
 						<% end %>
 						<li>
-							<%= link_to translate("Log out"), sessions_destroy_path,
+							<%= link_to html_safe(translate("Log out") + ' <i class="fa fa-power-off"></i>'), sessions_destroy_path,
 							data: { confirm: 'Are you sure you want to log out?' } %>
 						</li>
 					</ul>
