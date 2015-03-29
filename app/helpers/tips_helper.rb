@@ -34,12 +34,13 @@ module TipsHelper
       	where(kind: [:games_button_tip, :dropdown_button_tip]).
       	present?
     when :skip_tour_tip
-      return learned?
+    	learned?
     end
-  end
+  end 
   
   def learned?
   	learned = true
+  	kinds = mobile? ? tip_kinds_mobile : tip_kinds
   	for kind in tip_kinds
   		if current_user.tips.where(kind: kind).size < 1 # for testing, 3 for production
   			learned = false
@@ -79,9 +80,10 @@ module TipsHelper
 	end
 	
 	def tip_kinds
-		[:welcome_tip, :elheroe_button_tip, :tab_features_button_tip,
+		[ :welcome_tip, :elheroe_button_tip, :tab_features_button_tip,
 			:global_tabs_button_tip, :user_profile_button_tip,
-			:games_button_tip, :notes_button_tip, :social_button_tip]
+			:games_button_tip, :notes_button_tip,
+			:social_button_tip ]
 	end
 	
 	def tip_kinds_mobile
