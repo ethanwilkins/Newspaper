@@ -4,7 +4,6 @@ class Vote < ActiveRecord::Base
   
   def self.up_vote! obj, user
     vote ||= obj.votes.find_by_voter_id(user.id)
-    un_vote_all user, vote
     if not vote
       obj.votes.create up: true, voter_id: user.id
     elsif vote and vote.up
@@ -16,7 +15,6 @@ class Vote < ActiveRecord::Base
   
   def self.down_vote! obj, user
     vote ||= obj.votes.find_by_voter_id(user.id)
-    un_vote_all user, vote
     if not vote
       obj.votes.create down: true, voter_id: user.id
     elsif vote and vote.down
