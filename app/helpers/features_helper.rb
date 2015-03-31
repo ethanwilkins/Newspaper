@@ -14,6 +14,7 @@ module FeaturesHelper
 		articles: "<b>Articles</b> - Write articles specific to your Drop",
 		tagged: "<b>Quantum Hash</b> - Specify hashtags to funnel content to your Drop",
 		global: "<b>Global</b> - Let anyone in any area see this Drop",
+		sports: "<b>Sports</b> - Plan matches and organize teams.",
     polls: "<b>Polls</b> - Anonymous voting and decision making" }
 	end
   

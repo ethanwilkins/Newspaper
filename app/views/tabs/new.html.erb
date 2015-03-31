@@ -34,16 +34,39 @@
 		</p>
 	</div>
 	
-	<div id="card">
-		<p>
-			<%= label_tag translate("Choose some features for your Drop") %>
-		</p>
-		<% tab_feature_defs.each do |key, value| %>
-			<p>
-				<%= check_box_tag key.to_s + "_pre_feature" %>
-				<%= translate(value.html_safe) %>
-			</p>
-		<% end %>
+
+	<div align="center">
+		<div class="container-fluid">
+			<% interval = 0 %>
+			<% col_size = 2 %>
+			<% tab_feature_defs.each do |key, value| %>
+				<% if interval == 0 %>
+					<div class="row">
+						<div class="col-md-<%= col_size %>">
+							<%= render "features/pre_feature_card",
+								key: key, value: value %>
+						</div>
+				<% elsif interval < 3 %>
+					<div class="col-md-<%= col_size %>">
+						<%= render "features/pre_feature_card",
+							key: key, value: value %>
+					</div>
+				<% elsif interval % 3 == 0 %>
+				</div>
+				<div class="row">
+					<div class="col-md-<%= col_size %>">
+						<%= render "features/pre_feature_card",
+							key: key, value: value %>
+					</div>
+				<% elsif interval > 3 %>
+					<div class="col-md-<%= col_size %>">
+						<%= render "features/pre_feature_card",
+							key: key, value: value %>
+					</div>
+				<% end %>
+				<% interval += 1 %>
+			<% end %>
+		</div>
 	</div>
 <% end %>
 
