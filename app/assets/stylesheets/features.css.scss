@@ -9,6 +9,16 @@ $info_color: rgb(190, 190, 190);
 	font-size: 10px;
 }
 
+.pre_feature_row_centered {
+	text-align: center;
+}
+
+.pre_feature_col_centered {
+  display:inline-block;
+  float:none;
+  text-align:left;
+}
+
 #feature_turned_on {
 	color: black;
 }
