@@ -30,43 +30,14 @@
 		<% end %>
 		</p>
 		<p>
+			<%= link_to "Add features", insert_pre_feature_grid_path, remote: true,
+				id: :insert_pre_feature_grid_link, class: "btn btn-default btn-lg btn-block" %>
+		</p>
+		<p>
 			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
 		</p>
 	</div>
-	
 
-
-	<div class="container-fluid">
-		<% interval = 0 %>
-		<% col_size = 3 %>
-		<% tab_feature_defs.each do |key, value| %>
-			<% if interval == 0 %>
-				<div class="row row-offset-3">
-					<div class="col-md-<%= col_size %>">
-						<%= render "features/pre_feature_card",
-							key: key, value: value %>
-					</div>
-			<% elsif interval < 3 %>
-				<div class="col-md-<%= col_size %>">
-					<%= render "features/pre_feature_card",
-						key: key, value: value %>
-				</div>
-			<% elsif interval % 3 == 0 %>
-			</div>
-			<div class="row">
-				<div class="col-md-<%= col_size %>">
-					<%= render "features/pre_feature_card",
-						key: key, value: value %>
-				</div>
-			<% elsif interval > 3 %>
-				<div class="col-md-<%= col_size %>">
-					<%= render "features/pre_feature_card",
-						key: key, value: value %>
-				</div>
-			<% end %>
-			<% interval += 1 %>
-		<% end %>
-	</div>
 
 <% end %>
 

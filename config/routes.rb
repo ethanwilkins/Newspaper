@@ -149,6 +149,8 @@ Rails.application.routes.draw do
   
   delete 'features/destroy/:id', to: 'features#destroy', as: 'destroy_feature'
   
+  get 'features/insert_pre_feature_grid', as: 'insert_pre_feature_grid'
+  
   post 'features/create', as: 'features'
   
   

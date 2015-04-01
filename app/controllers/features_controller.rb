@@ -1,4 +1,7 @@
 class FeaturesController < ApplicationController
+  def insert_pre_feature_grid
+  end
+  
 	def request_invite
 		if params[:tab_id]
 			@item = Tab.find_by_id(params[:tab_id])
