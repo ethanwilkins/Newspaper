@@ -7,6 +7,9 @@ class Tab < ActiveRecord::Base
   has_many :articles, dependent: :destroy
   has_many :loading_gifs, dependent: :destroy
   has_many :translations, dependent: :destroy
+  has_many :sports_teams, dependent: :destroy
+  has_many :sports_matches, dependent: :destroy
+  has_many :tournaments, dependent: :destroy
   has_many :members, dependent: :destroy
   has_many :polls, dependent: :destroy
   
