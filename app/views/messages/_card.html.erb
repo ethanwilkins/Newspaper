@@ -3,7 +3,8 @@
 <div id="card">
 	<%= render "messages/time_ago", message: message %>
 	<div align="center" id="message_text_padding">
-		<%= link_to User.find(message.user_id).name, user_path(message.user_id) %>
+		<% user = User.find(message.user_id) %>
+		<%= link_to user.name, user_path(user.name) %>
 		<% for word in auto_translate(message.text).split(' ') %>
 			<%= render "posts/embed", word: word %>
 		<% end %>
