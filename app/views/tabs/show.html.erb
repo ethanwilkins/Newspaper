@@ -15,6 +15,12 @@
 	<%= render "tabs/pop_tabs" %>
 </div>
 
+<% if has_feature? :sports %>
+	<div id="card">
+		<%= link_to translate("Create a match"), new_sports_match_path %>
+	</div>
+<% end %>
+
 <% if (has_feature? :invite_only and invited?) or not has_feature? :invite_only or privileged? %>
 	<% if @tab.approved and ((@tab.sponsored_only and current_user.business) or !@tab.sponsored_only) %>
 		<%= render "posts/new" %>
