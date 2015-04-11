@@ -247,6 +247,7 @@ Rails.application.routes.draw do
   resources :loading_gifs
   resources :translations
   resources :sports_matches
+  resources :sports_teams
   resources :activities
   resources :feedbacks
   resources :articles
