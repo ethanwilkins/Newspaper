@@ -20,11 +20,11 @@ class TournamentsController < ApplicationController
           end
     		end
     	end
-      log_action("sports_matches_create")
+      log_action("tournaments_create")
       redirect_to @tournament
     else
-      flash[:error] = translate("The match could not be saved")
-      log_action("sports_matches_create_fail")
+      flash[:error] = translate("The tournament could not be saved")
+      log_action("tournaments_create_fail")
       redirect_to :back
     end
 	end
