@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150411014959) do
+ActiveRecord::Schema.define(version: 20150413012333) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -303,7 +303,8 @@ ActiveRecord::Schema.define(version: 20150411014959) do
     t.datetime "updated_at",    null: false
     t.integer  "tab_id"
     t.integer  "tournament_id"
-    t.boolean  "seasonal"
+    t.boolean  "exhibition"
+    t.string   "icon"
   end
 
   create_table "sports_teams", force: :cascade do |t|
@@ -313,6 +314,8 @@ ActiveRecord::Schema.define(version: 20150411014959) do
     t.integer  "tournament_id"
     t.integer  "wins"
     t.integer  "losses"
+    t.text     "name"
+    t.string   "icon"
   end
 
   create_table "stats", force: :cascade do |t|
@@ -321,6 +324,11 @@ ActiveRecord::Schema.define(version: 20150411014959) do
     t.integer  "sports_team_id"
     t.integer  "sports_match_id"
     t.integer  "tournament_id"
+    t.boolean  "win"
+    t.boolean  "loss"
+    t.boolean  "tie"
+    t.integer  "winning_score"
+    t.integer  "losing_score"
   end
 
   create_table "subtabs", force: :cascade do |t|
@@ -386,6 +394,7 @@ ActiveRecord::Schema.define(version: 20150411014959) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "tab_id"
+    t.string   "icon"
   end
 
   create_table "translations", force: :cascade do |t|

@@ -248,6 +248,7 @@ Rails.application.routes.draw do
   resources :translations
   resources :sports_matches
   resources :sports_teams
+  resources :tournaments
   resources :activities
   resources :feedbacks
   resources :articles

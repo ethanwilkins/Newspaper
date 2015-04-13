@@ -4,6 +4,15 @@ class SportsMatchesController < ApplicationController
   end
   
   def create
+		@match = SportsMatch.new(params[:sports_match].permit(:exhibition, :icon))
+    if @match.save
+      log_action("sports_matches_create")
+      redirect_to @match
+    else
+      flash[:error] = translate("The match could not be saved")
+      log_action("sports_matches_create_fail")
+      redirect_to :back
+    end
   end
   
   def show
