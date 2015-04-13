@@ -3,13 +3,14 @@
 <%= form_for @match do |f| %>
 	<div id="card">
 		<%= f.label translate("Cteate a match"), class: :form_label_text %>
-		<% options = [[translate("Choose the first team"), nil]] %>
-		<% SportsTeam.all.each { |team| options << [team.name, team.id] } %>
 		<p>
-			<%= select_tag :team1, options_for_select(options), class: "form-control" %>
+			<% options = [[translate("Choose the first team"), nil]] %>
+			<% SportsTeam.all.each { |team| options << [team.name, team.id] } %>
+			<%= select_tag :team_1, options_for_select(options), class: "form-control" %>
 		</p>
 		<p>
-			<%= select_tag :team2, options_for_select(options), class: "form-control" %>
+			<% options[0] = [translate("Choose the second team"), nil] %>
+			<%= select_tag :team_2, options_for_select(options), class: "form-control" %>
 		</p>
 		<p class="form-control">
 			<%= f.label "Exhibition" %>

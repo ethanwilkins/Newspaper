@@ -30,7 +30,7 @@ class Post < ActiveRecord::Base
         elsif new_post.reincarnations >= 5
           new_post.repopulation_interval = 0
         else
-          new_post.reincarnations = new_post.reincarnations + 1
+          new_post.reincarnations += 1
         end
         if new_post.save
           post.destroy

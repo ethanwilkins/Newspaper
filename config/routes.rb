@@ -233,6 +233,11 @@ Rails.application.routes.draw do
   
   post 'polls/:poll_id/down_vote/:choice_id', to: 'polls#down_vote', as: 'down_vote_choice'
   
+  
+  # tournaments
+  
+  get 'tournaments/add_team/:team_num', to: 'tournaments#add_team', as: 'add_team'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

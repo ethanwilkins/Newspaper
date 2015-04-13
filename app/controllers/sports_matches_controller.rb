@@ -6,6 +6,11 @@ class SportsMatchesController < ApplicationController
   def create
 		@match = SportsMatch.new(params[:sports_match].permit(:exhibition, :icon))
     if @match.save
+    	params.each do |key, value|
+    		if key.include? "team_"
+    			@match.members.create(sports_team_id: value)
+    		end
+    	end
       log_action("sports_matches_create")
       redirect_to @match
     else

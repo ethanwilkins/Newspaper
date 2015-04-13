@@ -1,0 +1,10 @@
+<!-- sports matches -->
+
+<div id="card">
+	<div align="center">
+		<p><%= translate("Teams") %></p>
+		<% for team in @match.teams %>
+			<div><%= link_to team.name, sports_team_path(team) %></div>
+		<% end %>
+	</div>
+</div>
