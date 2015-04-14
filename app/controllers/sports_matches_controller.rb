@@ -20,13 +20,23 @@ class SportsMatchesController < ApplicationController
     end
   end
   
+  def update
+		@match = SportsMatch.find_by_id(params[:id])
+    if @match.update(params[:sports_match].permit(:exhibition, :icon))
+      log_action("sports_matches_update")
+      redirect_to @match
+    else
+      flash[:error] = translate("The match could not be updated")
+      log_action("sports_matches_update_fail")
+      redirect_to :back
+    end
+  end
+  
   def show
     @match = SportsMatch.find(params[:id])
   end
   
   def edit
-  end
-  
-  def update
+    @match = SportsMatch.find(params[:id])
   end
 end

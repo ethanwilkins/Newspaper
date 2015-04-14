@@ -1,0 +1,17 @@
+<!-- sports matches -->
+
+<%= form_for @match do |f| %>
+	<div id="card">
+		<%= f.label translate("Update this match"), class: :form_label_text %>
+		<p class="form-control">
+			<%= f.label "Exhibition" %>
+			<%= f.check_box :exhibition %>
+		</p>
+		<p>
+			<%= f.file_field :image, class: "form-control" %>
+		</p>
+		<p>
+			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
+		</p>
+	</div>
+<% end %>
