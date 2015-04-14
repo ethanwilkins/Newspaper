@@ -251,9 +251,7 @@ Rails.application.routes.draw do
   resources :banners
   resources :loading_gifs
   resources :translations
-  resources :sports_matches
   resources :sports_teams
-  resources :tournaments
   resources :activities
   resources :feedbacks
   resources :articles
@@ -272,6 +270,8 @@ Rails.application.routes.draw do
   
   resources :tabs do
     resources :features
+    resources :tournaments
+    resources :sports_matches
     resources :subtabs do
       resources :features
     end

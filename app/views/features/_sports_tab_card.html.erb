@@ -1,9 +1,0 @@
-<% if has_feature? :sports %>
-	<div id="card">
-		<div align="center">
-			<p><%= link_to translate("Create a team"), new_sports_team_path %></p>
-			<p><%= link_to translate("Create a match"), new_sports_match_path %></p>
-			<%= link_to translate("Create a tournament"), new_tournament_path %>
-		</div>
-	</div>
-<% end %>

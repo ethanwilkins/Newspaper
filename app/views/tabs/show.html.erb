@@ -15,7 +15,7 @@
 	<%= render "tabs/pop_tabs" %>
 </div>
 
-<%= render "features/sports_tab_card" %>
+<%= render "sports_teams/sports_tab_card" %>
 
 <% if (has_feature? :invite_only and invited?) or not has_feature? :invite_only or privileged? %>
 	<% if @tab.approved and ((@tab.sponsored_only and current_user.business) or !@tab.sponsored_only) %>

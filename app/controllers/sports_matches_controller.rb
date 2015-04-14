@@ -4,15 +4,17 @@ class SportsMatchesController < ApplicationController
   end
   
   def create
-		@match = SportsMatch.new(params[:sports_match].permit(:exhibition, :icon))
-    if @match.save
+    @tab = Tab.find(params[:tab_id])
+		@match = @tab.sports_matches.new(params[:sports_match].
+      permit(:exhibition, :icon)) if @tab
+    if @match and @match.save
     	params.each do |key, value|
     		if key.include? "team_"
     			@match.members.create(sports_team_id: value)
     		end
     	end
       log_action("sports_matches_create")
-      redirect_to @match
+      redirect_to tab_sports_match_path(@tab, @match)
     else
       flash[:error] = translate("The match could not be saved")
       log_action("sports_matches_create_fail")

@@ -1,8 +1,9 @@
 <!-- sports matches -->
 
-<%= form_for @match do |f| %>
+<%= form_for @match, url: tab_sports_matches_path do |f| %>
+	<%= hidden_field_tag :tab_id, params[:tab_id] %>
 	<div id="card">
-		<%= f.label translate("Cteate a match"), class: :form_label_text %>
+		<%= f.label translate("Create a match"), class: :form_label_text %>
 		<p>
 			<% options = [[translate("Choose the first team"), nil]] %>
 			<% SportsTeam.all.each { |team| options << [team.name, team.id] } %>

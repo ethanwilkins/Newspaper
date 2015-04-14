@@ -1,4 +1,7 @@
+# for use in loteria and tournaments
+
 class Prize < ActiveRecord::Base
+  belongs_to :tournament
   belongs_to :group
   belongs_to :user
   

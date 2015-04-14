@@ -1,0 +1,23 @@
+<!-- sports teams -->
+
+<!-- may use ajax to insert creation forms inside the card as different creation links are clicked, using replaceWith()
+and have matches/tournaments listing as default, hits cancel to get back to this from creation -->
+
+<% if has_feature? :sports %>
+	<div id="card">
+		<%= link_to translate("Create a team"), new_sports_team_path, class: :top_right_link %>
+		<div align="center">
+			<div id="sports_tab_card_buttons">
+				<div class="btn-group">
+					<%= link_to new_tab_sports_match_path(@tab), class: "btn btn-default btn-lg" do %>
+						<%= translate "Create a match" %> <span class="fa fa-flag-checkered"></span>
+					<% end %>
+					<%= link_to new_tab_tournament_path(@tab), class: "btn btn-default btn-lg" do %>
+						<%= translate "Create a tournament" %> <span class="fa fa-flag"></span>
+					<% end %>
+				</div>
+			</div>
+			<%= render "sports_matches/listing" %>
+		</div>
+	</div>
+<% end %>

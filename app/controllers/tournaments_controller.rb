@@ -9,8 +9,10 @@ class TournamentsController < ApplicationController
 	end
 	
 	def create
-		@tournament = Tournament.new(tournament_params)
-    if @tournament.save
+    @tab = Tab.find_by_id(params[:tab_id])
+		@tournament = @tab.tournaments.
+      new(tournament_params) if @tab
+    if @tournament and @tournament.save
     	params.each do |key, value|
     		if key.include? "team_"
     			@tournament.members.create(sports_team_id: value)
@@ -21,7 +23,7 @@ class TournamentsController < ApplicationController
     		end
     	end
       log_action("tournaments_create")
-      redirect_to @tournament
+      redirect_to tab_tournament_path(@tab, @tournament)
     else
       flash[:error] = translate("The tournament could not be saved")
       log_action("tournaments_create_fail")
