@@ -1,0 +1,11 @@
+<!-- tournaments -->
+
+<div id="card">
+	<div align="center">
+		<p><%= translate("Matches") + ": #{@tournament.matches.size}" %></p>
+		<p><%= translate("Teams") %></p>
+		<% for team in @tournament.teams %>
+			<div><%= link_to team.name, sports_team_path(team) %></div>
+		<% end %>
+	</div>
+</div>
