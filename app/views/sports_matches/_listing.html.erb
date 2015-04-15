@@ -1,10 +1,10 @@
 <!-- sports matches -->
 
-<% for tournament in @tab.tournaments %>
+<% for tournament in @tab.tournaments.last(5).reverse %>
 	<p><%= link_to translate("Tournament") + sports_listing_info(tournament),
 		tab_tournament_path(@tab, tournament) %></p>
 <% end %>
-<% for match in @tab.sports_matches %>
+<% for match in @tab.sports_matches.last(5).reverse %>
 	<p><%= link_to translate("Match") + sports_listing_info(match),
 		tab_sports_match_path(@tab, match) %></p>
 <% end %>

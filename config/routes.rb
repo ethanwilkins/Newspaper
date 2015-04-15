@@ -238,6 +238,13 @@ Rails.application.routes.draw do
   
   get 'tournaments/add_team/:team_num', to: 'tournaments#add_team', as: 'add_team'
   
+  
+  # sports matches
+  
+  get 'sports_matches/:sports_match_id/team_won/:id', to: 'sports_matches#team_won', as: 'team_won'
+  
+  get 'sports_matches/:sports_match_id/teams_tied', to: 'sports_matches#teams_tied', as: 'teams_tied'
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
