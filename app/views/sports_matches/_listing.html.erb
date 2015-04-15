@@ -1,8 +1,10 @@
 <!-- sports matches -->
 
 <% for tournament in @tab.tournaments %>
-	<p><%= link_to translate("Tournament") + ": ", tab_tournament_path(@tab, tournament) %></p>
+	<p><%= link_to translate("Tournament") + sports_listing_info(tournament),
+		tab_tournament_path(@tab, tournament) %></p>
 <% end %>
 <% for match in @tab.sports_matches %>
-	<p><%= link_to translate("Match") + ": ", tab_sports_match_path(@tab, match) %></p>
+	<p><%= link_to translate("Match") + sports_listing_info(match),
+		tab_sports_match_path(@tab, match) %></p>
 <% end %>

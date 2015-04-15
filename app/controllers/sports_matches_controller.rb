@@ -5,8 +5,7 @@ class SportsMatchesController < ApplicationController
   
   def create
     @tab = Tab.find(params[:tab_id])
-		@match = @tab.sports_matches.new(params[:sports_match].
-      permit(:exhibition, :icon)) if @tab
+		@match = @tab.sports_matches.new(match_params) if @tab
     if @match and @match.save
     	params.each do |key, value|
     		if key.include? "team_"
@@ -24,7 +23,7 @@ class SportsMatchesController < ApplicationController
   
   def update
 		@match = SportsMatch.find_by_id(params[:id])
-    if @match.update(params[:sports_match].permit(:exhibition, :icon))
+    if @match.update(match_params)
       log_action("sports_matches_update")
       redirect_to @match
     else
@@ -40,5 +39,13 @@ class SportsMatchesController < ApplicationController
   
   def edit
     @match = SportsMatch.find(params[:id])
+  end
+  
+  private
+  
+  def match_params
+    if params[:sports_match]
+      params[:sports_match].permit(:icon, :date, :location, :exhibition)
+    end
   end
 end

@@ -38,10 +38,12 @@ class TournamentsController < ApplicationController
 	def index
 		@tournaments = Tournament.all
 	end
+	
+	private
   
   def tournament_params
     if params[:tournament]
-      params[:tournament].permit(:icon)
+      params[:tournament].permit(:icon, :date, :location)
     end
   end
 end

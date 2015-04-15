@@ -10,7 +10,11 @@
 			<%= select_tag :num_of_matches, options_for_select(num_of_matches), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.file_field :icon, class: "form-control" %>
+			<%= f.text_field :location, placeholder: translate("Location"), class: "form-control" %>
+		</p>
+		<p class="form-control">
+			<%= f.label translate("Date") %>
+			<%= f.date_select :date, use_month_numbers: true, class: "form-control" %>
 		</p>
 		<p>
 			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
