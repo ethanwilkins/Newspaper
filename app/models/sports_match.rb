@@ -4,14 +4,18 @@ class SportsMatch < ActiveRecord::Base
   
   has_many :members
   has_many :stats, dependent: :destroy
-	
+  
+  validates_presence_of :date, :location
+  
 	mount_uploader :image, ImageUploader
   
   def scores # live scores, not necessarily final
     stat = self.stats.where.not(first_teams_score: nil).
       where.not(second_teams_score: nil).last
-    if stat.first_teams_score and stat.second_teams_score
+    if stat and stat.first_teams_score and stat.second_teams_score
       return "(#{stat.first_teams_score} - #{stat.second_teams_score})"
+    else
+      return nil
     end
   end
   

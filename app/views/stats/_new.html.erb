@@ -4,6 +4,7 @@
 <% max_score = 31 + 1 %>
 
 <%= form_for @stat do |f| %>
+	<%= hidden_field_tag :tab_id, params[:tab_id] %>
 	<%= f.hidden_field :sports_match_id, value: params[:id] %>
 	<div id="card">
 		<%= f.label translate("What's current the score?"), class: :form_label_text %>

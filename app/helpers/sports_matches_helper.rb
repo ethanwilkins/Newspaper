@@ -1,9 +1,10 @@
 module SportsMatchesHelper
-	def sports_listing_info(item)
+	def sports_listing_info(match)
 		info = ": "
-		item.teams.each { |team| info << team.name + ", " }
-		info << item.date.to_s + ", " if item.date
-		info << item.location if item.location
+		match.teams.each { |team| info << team.name + ", " }
+    info << match.scores + ", " if match.scores
+		info << match.date.to_s + ", " if match.date
+		info << match.location if match.location
 		return info
 	end
 end
