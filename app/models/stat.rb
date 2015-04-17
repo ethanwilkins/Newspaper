@@ -3,6 +3,8 @@ class Stat < ActiveRecord::Base
 	belongs_to :sports_match
 	belongs_to :tournament
 	
+	mount_uploader :image, ImageUploader
+	
 	def points_awarded
 		if self.win
 			3

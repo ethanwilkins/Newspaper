@@ -6,6 +6,16 @@ class SportsMatch < ActiveRecord::Base
   has_many :stats
 	
 	mount_uploader :image, ImageUploader
+	
+	def finished
+		_finished = false
+		for stat in self.stats
+			if stat.finished
+				_finished = true
+			end
+		end
+		return _finished
+	end
   
   def teams
     _teams = []

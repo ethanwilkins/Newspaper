@@ -19,28 +19,5 @@
 </div>
 
 <% if privileged? %>
-	<div id="card">
-		<div align="center">
-			<div id="who_won_header"><%= translate("Who won?") %></div>
-			<table id="who_won_button_table">
-				<tr>
-					<td class="link_table_spacing">
-						<%= link_to team_won_path(@match, @match.teams.first), class: "btn btn-default" do %>
-							<%= @match.teams.first.name %>
-						<% end %>
-					</td>
-					<td class="link_table_spacing">
-						<%= link_to teams_tied_path(@match), class: "btn btn-default", title: translate("Tie") do %>
-							=
-						<% end %>
-					</td>
-					<td>
-						<%= link_to team_won_path(@match, @match.teams.second), class: "btn btn-default" do %>
-							<%= @match.teams.second.name %>
-						<% end %>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>
+	<%= render "stats/new" %>
 <% end %>

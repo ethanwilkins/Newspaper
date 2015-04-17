@@ -1,13 +1,4 @@
 class SportsMatchesController < ApplicationController
-  def team_won
-    @match = SportsMatch.find(params[:sports_match_id])
-    @team = SportsTeam.find(params[:id])
-  end
-  
-  def teams_tied
-    
-  end
-  
   def new
     @match = SportsMatch.new
   end
@@ -44,6 +35,7 @@ class SportsMatchesController < ApplicationController
   
   def show
     @match = SportsMatch.find(params[:id])
+    @stat = Stat.new
   end
   
   def edit

@@ -1,0 +1,28 @@
+<!-- stats -->
+
+<% max_score = 31 + 1 %>
+
+<%= form_for @stat do |f| %>
+	<%= hidden_field_tag :sports_match_id, params[:id] %>
+	<div id="card">
+		<%= f.label translate("What's current the score?"), class: :form_label_text %>
+		<p>
+			<% options = [[translate("The second teams score"), nil]]; max_score.times { |i| options << i } %>
+			<%= select_tag :team_1_score, options_for_select(options), class: "form-control" %>
+		</p>
+		<p>
+			<% options = [[translate("The second teams score"), nil]]; max_score.times { |i| options << i } %>
+			<%= select_tag :team_2_score, options_for_select(options), class: "form-control" %>
+		</p>
+		<p>
+			<%= f.file_field :image, class: "form-control" %>
+		</p>
+		<p class="form-control">
+			<%= f.label "Final scores" %>
+			<%= f.check_box :finished %>
+		</p>
+		<p>
+			<%= f.submit translate("Submit"), class: "btn btn-default btn-lg btn-block" %>
+		</p>
+	</div>
+<% end %>

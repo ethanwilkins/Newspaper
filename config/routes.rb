@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   # user routes
   
   get 'sessions/new'
@@ -238,20 +238,12 @@ Rails.application.routes.draw do
   
   get 'tournaments/add_team/:team_num', to: 'tournaments#add_team', as: 'add_team'
   
-  
-  # sports matches
-  
-  get 'sports_matches/:sports_match_id/team_won/:id', to: 'sports_matches#team_won', as: 'team_won'
-  
-  get 'sports_matches/:sports_match_id/teams_tied', to: 'sports_matches#teams_tied', as: 'teams_tied'
-  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'
-  
   
   resources :codes
   resources :posts
@@ -266,6 +258,7 @@ Rails.application.routes.draw do
   resources :events
   resources :notes
   resources :polls
+  resources :stats
   
   resources :game_boards do
     resources :cards
