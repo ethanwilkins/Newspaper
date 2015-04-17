@@ -4,9 +4,9 @@
 	<div align="center">
 		<p>
 			<%= translate("Teams") + ": " %>
-			<% for team in @match.teams %>
+			<% for team in @teams %>
 				<%= link_to team.name, sports_team_path(team) %><%= \
-					", " if team != @match.teams.last and @match.teams.size > 1 %>
+					", " if team != @teams.last and @teams.size > 1 %>
 			<% end %>
 		</p>
 		<p>

@@ -2,8 +2,8 @@ class SportsMatch < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :tab
   
-  has_many :members
-  has_many :stats
+  has_many :members, dependent: :destroy
+  has_many :stats, dependent: :destroy
 	
 	mount_uploader :image, ImageUploader
 	

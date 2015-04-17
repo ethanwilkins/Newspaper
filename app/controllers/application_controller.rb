@@ -70,6 +70,10 @@ class ApplicationController < ActionController::Base
       not (current_user and not current_user.english))
   end
   
+  def str_to_a str # convert array inside string to array
+    str.split("[").last.split("]").first.split(", ").map(&:to_i)
+  end
+  
   # returns a non-nil item from an array
   def chosen_one(items)
     for item in items

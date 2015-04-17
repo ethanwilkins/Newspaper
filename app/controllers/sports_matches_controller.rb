@@ -35,6 +35,7 @@ class SportsMatchesController < ApplicationController
   
   def show
     @match = SportsMatch.find(params[:id])
+    @teams = @match.teams
     @stat = Stat.new
   end
   
