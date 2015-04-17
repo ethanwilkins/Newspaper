@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150416220641) do
+ActiveRecord::Schema.define(version: 20150417061302) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -312,15 +312,13 @@ ActiveRecord::Schema.define(version: 20150416220641) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "tab_id"
-    t.integer  "wins"
-    t.integer  "losses"
     t.text     "name"
     t.string   "icon"
   end
 
   create_table "stats", force: :cascade do |t|
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.integer  "sports_team_id"
     t.integer  "sports_match_id"
     t.integer  "tournament_id"
@@ -334,6 +332,8 @@ ActiveRecord::Schema.define(version: 20150416220641) do
     t.integer  "losing_score"
     t.boolean  "finished"
     t.string   "image"
+    t.integer  "first_teams_score"
+    t.integer  "second_teams_score"
   end
 
   create_table "subtabs", force: :cascade do |t|

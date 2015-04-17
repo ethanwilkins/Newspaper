@@ -1,23 +1,7 @@
 <!-- sports matches -->
 
-<div id="card">
-	<div align="center">
-		<p>
-			<%= translate("Teams") + ": " %>
-			<% for team in @teams %>
-				<%= link_to team.name, sports_team_path(team) %><%= \
-					", " if team != @teams.last and @teams.size > 1 %>
-			<% end %>
-		</p>
-		<p>
-			<%= @match.date %>
-		</p>
-		<div>
-			<%= @match.location %>
-		</div>
-	</div>
-</div>
+<%= render "sports_matches/card" %>
 
-<% if privileged? %>
+<% if privileged? and not @match.finished? %>
 	<%= render "stats/new" %>
 <% end %>

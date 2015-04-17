@@ -5,6 +5,8 @@ class StatsController < ApplicationController
 
   def create
   	@stat = Stat.new(params[:stat].permit(:finished, :sports_match_id, :image))
+    @stat.first_teams_score = str_to_a(params[:team_1]).last
+    @stat.second_teams_score = str_to_a(params[:team_2]).last
   	if @stat.finished
 			scores = [str_to_a(params[:team_1]), str_to_a(params[:team_2])].
         sort_by { |team| team.last.to_i }

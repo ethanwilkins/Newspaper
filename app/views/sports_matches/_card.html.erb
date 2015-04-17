@@ -1,0 +1,24 @@
+<!-- sports matches -->
+
+<div id="card">
+	<div align="center">
+		<% if @match.finished? and not @match.tied? %>
+			<p id="victor_of_match_header">
+				<%= translate("Victor") + ": #{@match.victor.name} #{@match.scores}" %>
+			</p>
+		<% end %>
+		<p>
+			<%= translate("Teams") + ": " %>
+			<% for team in @teams %>
+				<%= link_to team.name, sports_team_path(team) %><%= \
+					", " if team != @teams.last and @teams.size > 1 %>
+			<% end %>
+		</p>
+		<p>
+			<%= @match.date %>
+		</p>
+		<div>
+			<%= @match.location %>
+		</div>
+	</div>
+</div>

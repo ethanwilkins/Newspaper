@@ -2,19 +2,34 @@ class SportsMatch < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :tab
   
-  has_many :members, dependent: :destroy
+  has_many :members
   has_many :stats, dependent: :destroy
 	
 	mount_uploader :image, ImageUploader
+  
+  def scores # live scores, not necessarily final
+    stat = self.stats.where.not(first_teams_score: nil).
+      where.not(second_teams_score: nil).last
+    if stat.first_teams_score and stat.second_teams_score
+      return "(#{stat.first_teams_score} - #{stat.second_teams_score})"
+    end
+  end
+  
+  def victor
+    if self.finished? and not self.tied?
+      return SportsTeam.find_by_id(self.stats.where.
+        not(winning_team_id: nil).last.winning_team_id)
+    else
+      return nil
+    end
+  end
+  
+  def tied?
+    self.stats.where(tie: true).present?
+  end
 	
-	def finished
-		_finished = false
-		for stat in self.stats
-			if stat.finished
-				_finished = true
-			end
-		end
-		return _finished
+	def finished?
+    self.stats.where(finished: true).present?
 	end
   
   def teams
