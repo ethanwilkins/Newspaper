@@ -1,0 +1,6 @@
+<!-- tournaments -->
+
+<% for tournament in @tab.tournaments.last(5).reverse %>
+	<p><%= link_to translate("Tournament") + tournament_listing_info(tournament),
+		tab_tournament_path(@tab, tournament) %></p>
+<% end %>

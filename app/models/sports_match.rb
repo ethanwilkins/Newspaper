@@ -29,7 +29,10 @@ class SportsMatch < ActiveRecord::Base
   end
   
   def tied?
-    self.stats.where(tie: true).present?
+  	self.stats.where(finished: true).
+  		where(winning_score: nil).
+  		where(losing_score: nil).
+  		present?
   end
 	
 	def finished?

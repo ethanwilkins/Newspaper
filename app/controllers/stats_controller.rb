@@ -10,10 +10,12 @@ class StatsController < ApplicationController
   	if @stat.finished
 			scores = [str_to_a(params[:team_1]), str_to_a(params[:team_2])].
         sort_by { |team| team.last.to_i }
-      @stat.winning_team_id = scores.last.first.to_i
-      @stat.losing_team_id = scores.first.first.to_i
-			@stat.winning_score = scores.last.last.to_i
-			@stat.losing_score = scores.first.last.to_i
+      unless scores.last.last.to_i.eql? scores.first.last.to_i
+		    @stat.winning_team_id = scores.last.first.to_i
+		    @stat.losing_team_id = scores.first.first.to_i
+				@stat.winning_score = scores.last.last.to_i
+				@stat.losing_score = scores.first.last.to_i
+			end
 			@stat.finished = true
 		end
   	if @stat.save

@@ -1,5 +1,5 @@
 module SportsMatchesHelper
-	def sports_listing_info(match)
+	def match_listing_info(match)
 		info = ": "
 		match.teams.each { |team| info << team.name + ", " }
     info << match.scores + ", " if match.scores
