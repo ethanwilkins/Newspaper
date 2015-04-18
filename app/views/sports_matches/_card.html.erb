@@ -2,15 +2,24 @@
 
 <div id="card">
 	<div align="center">
+		<% if @match.exhibition %>
+			<p><%= translate("Exhibition Match") %></p>
+		<% end %>
+		
 		<% if @match.finished? and not @match.tied? %>
 			<p id="victor_of_match_header">
 				<%= translate("Victor") + ": #{@match.victor.name} #{@match.scores}" %>
+			</p>
+		<% elsif @match.tied? %>
+			<p id="victor_of_match_header">
+				<%= translate("Tied") + ": #{@match.scores}" %>
 			</p>
 		<% elsif not @match.finished? and @match.scores %>
 			<p id="victor_of_match_header">
 				<%= translate("Current score") + ": #{@match.scores}" %>
 			</p>
 		<% end %>
+		
 		<p>
 			<%= translate("Teams") + ": " %>
 			<% for team in @teams %>

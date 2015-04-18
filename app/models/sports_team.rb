@@ -9,24 +9,28 @@ class SportsTeam < ActiveRecord::Base
 	def wins
 		wins = 0
 		self.matches.each { |match| wins += 1 \
-			if match.victor.eql? self }
+			if match.victor.eql? self and not match.exhibition }
 		return wins
 	end
 	
 	def losses
 		losses = 0
 		self.matches.each { |match| losses += 1 \
-			if not match.tied? and not match.victor.eql? self }
+			if match.finished? and not match.tied? \
+			and not match.victor.eql? self \
+			and not match.exhibition }
 		return losses
 	end
 	
 	def points
 		points = 0
 		for match in self.matches
-			if match.victor.eql? self
-				points += 3
-			elsif match.tied?
-				points += 1
+			unless match.exhibition
+				if match.victor.eql? self
+					points += 3
+				elsif match.tied?
+					points += 1
+				end
 			end
 		end
 		return points
