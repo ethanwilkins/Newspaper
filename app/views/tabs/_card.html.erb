@@ -1,23 +1,7 @@
 <!-- tabs -->
 
 <div id="card">
-	<% if current_user %>
-		<% unless tab.cherry_picked? current_user %>
-			<div class="top_right_link">
-				<%= link_to cherry_pick_path(tab_id: tab.id), class: "btn btn-default",
-					title: translate("Always show this tab regardless of locale") do %>
-					<span class="glyphicon glyphicon-plus"></span>
-				<% end %>
-			</div>
-		<% else %>
-			<div class="top_right_link">
-				<%= link_to un_cherry_pick_path(tab_id: tab.id), class: "btn btn-default",
-					title: translate("Stop showing this tab regardless of locale") do %>
-					<span class="glyphicon glyphicon-minus"></span>
-				<% end %>
-			</div>
-		<% end %>
-	<% end %>
+	<%= render "features/cherry_pick_link", tab: tab %>
 	<div align="center">
 		<div>
 			<%= link_to tab_path(tab) do %>
