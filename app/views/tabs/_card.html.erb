@@ -1,7 +1,12 @@
 <!-- tabs -->
 
 <div id="card">
+	<span id="cherry_pick_link">
 	<%= render "features/cherry_pick_link", tab: tab %>
+	</span>
+	<span id="un_cherry_pick_link">
+		<%= render "features/un_cherry_pick_link", tab: tab %>
+	</span>
 	<div align="center">
 		<div>
 			<%= link_to tab_path(tab) do %>

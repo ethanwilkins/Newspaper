@@ -1,0 +1,12 @@
+<!-- features -->
+
+<% if current_user %>
+	<% if tab.cherry_picked? current_user %>
+		<div class="top_right_link">
+			<%= link_to un_cherry_pick_path(tab_id: tab.id), class: "btn btn-default",
+				title: translate("Stop showing this tab regardless of locale") do %>
+				<span class="glyphicon glyphicon-minus"></span>
+			<% end %>
+		</div>
+	<% end %>
+<% end %>
