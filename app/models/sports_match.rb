@@ -5,7 +5,7 @@ class SportsMatch < ActiveRecord::Base
   has_many :members
   has_many :stats, dependent: :destroy
   
-  validates_presence_of :date, :location
+  validate :valid_if_non_tournament
   
 	mount_uploader :image, ImageUploader
   
@@ -46,5 +46,13 @@ class SportsMatch < ActiveRecord::Base
       _teams << team if team
     end
     return _teams
+  end
+  
+  private
+  
+  def valid_if_non_tournament
+    if self.tournament_id.nil? and (self.date.nil? or self.location.nil?)
+      errors.add(:date_and_location_required, "Date and location are required.")
+    end
   end
 end
