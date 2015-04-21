@@ -2,7 +2,14 @@
 
 <div id="card">
 	<div align="center">
-		<p><%= @team.name %></p>
+		<p id="team_name_header">
+			<%= @team.name %>
+		</p>
+		<% if @team.icon.url %>
+			<div>
+				<%= image_tag @team.icon, id: :team_icon %>
+			</div>
+		<% end %>
 		<p><%= translate("Wins") + ": #{@team.wins} · " + \
 			translate("Losses") + ": #{@team.losses}" %></p>
 		<div><%= translate("Total points") + ": #{@team.points}" %></div>

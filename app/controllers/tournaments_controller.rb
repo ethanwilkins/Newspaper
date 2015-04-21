@@ -22,6 +22,9 @@ class TournamentsController < ApplicationController
           end
     		end
     	end
+    	for match in @tournament.matches
+    		
+    	end
       log_action("tournaments_create")
       redirect_to tab_tournament_path(@tab, @tournament)
     else

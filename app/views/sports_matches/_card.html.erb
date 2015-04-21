@@ -1,6 +1,7 @@
 <!-- sports matches -->
 
 <div id="card">
+	<%= link_to translate("Posted to") + " #{@match.tab.name}", tab_path(@match.tab), class: :top_right_link %> 
 	<div align="center">
 		<% if @match.exhibition %>
 			<p><%= translate("Exhibition Match") %></p>
