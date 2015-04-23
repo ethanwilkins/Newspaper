@@ -25,16 +25,14 @@ class TournamentsController < ApplicationController
     	end
       # creates team pairs, best with worst
       @teams = @tournament.teams.sort_by { |team| team.points }
-      # there's a problem with pair creation, some teams getting ignored
-      # at about 10 teams, the 7th gets matched up with itself
-      team_pairs = []; outliers = []; @teams.each do |team|
-        if @teams.size >= 2
-          team_pairs << [team, @teams.last]
-          @teams.delete team; @teams.delete @teams.last
-        else
-          outliers << team
-        end
+      pairs = (@teamn.size/2).times.map do
+      	[@teams.shift, @teams.pop]
       end
+      
+      # need to account for outliers, reserving
+      # some pairs for the second or
+      # third set of tournament matches
+      
       # inserts team pairs into matches
       for match in @tournament.matches
     		match.members.new

@@ -39,6 +39,9 @@ gem 'spring', group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# sports
+gem 'bracket_tree'
+
 # encryption
 gem 'bcrypt-ruby'
 gem 'bcrypt'
