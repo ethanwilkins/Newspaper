@@ -5,9 +5,9 @@
 	<div id="card">
 		<%= f.label translate("Create a tournament"), class: :form_label_text %>
 		<%= render "tournaments/another_team", team_num: 1 %>
-		<p>
-			<% num_of_matches = [translate("Number of matches")]; (5..20).each { |i| num_of_matches << i } %>
-			<%= select_tag :num_of_matches, options_for_select(num_of_matches), class: "form-control" %>
+		<p class="form-control">
+			<%= f.label "Double elimination" %>
+			<%= f.check_box :double_elimination %>
 		</p>
 		<p>
 			<%= f.text_field :location, placeholder: translate("Location"), class: "form-control" %>

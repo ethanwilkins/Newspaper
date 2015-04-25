@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150417210445) do
+ActiveRecord::Schema.define(version: 20150425003325) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -299,14 +299,15 @@ ActiveRecord::Schema.define(version: 20150417210445) do
   end
 
   create_table "sports_matches", force: :cascade do |t|
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "tab_id"
     t.integer  "tournament_id"
     t.boolean  "exhibition"
     t.string   "icon"
     t.text     "location"
     t.datetime "date"
+    t.integer  "round",         default: 0
   end
 
   create_table "sports_teams", force: :cascade do |t|
@@ -394,12 +395,15 @@ ActiveRecord::Schema.define(version: 20150417210445) do
   end
 
   create_table "tournaments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "tab_id"
     t.string   "icon"
     t.datetime "date"
     t.text     "location"
+    t.boolean  "double_elimination"
+    t.integer  "total_rounds",       default: 0
+    t.integer  "current_round",      default: 0
   end
 
   create_table "translations", force: :cascade do |t|
