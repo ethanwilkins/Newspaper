@@ -6,7 +6,7 @@ class Tournament < ActiveRecord::Base
   
   belongs_to :tab
 	
-	mount_uploader :image, ImageUploader
+	mount_uploader :icon, ImageUploader
 	
 	def assemble params
     # creates teams
@@ -23,13 +23,12 @@ class Tournament < ActiveRecord::Base
     end
     
     # sets number of rounds
-		self.update total_rounds: (self.teams.size / 2.to_f).ceil
-    
-    # could create future matches by only inserting one team
+		self.update total_rounds: (self.teams.size / 2.to_f).ceil.to_i
     
     # inserts team pairs into matches
     for pair in pairs
-  		match = @tournament.matches.create round: pairs.index(pair) + 1
+      break if self.matches.size.eql? self.teams.size - 1 # ensures correct num of matches
+  		match = self.matches.create round: self.total_rounds - (pairs.index(pair) + 1)
   		match.members.create sports_team_id: pair.first.id
   		match.members.create sports_team_id: pair.last.id
   	end

@@ -1,7 +1,7 @@
 <!-- tournaments -->
 
 <%= form_for @tournament, url: tab_tournaments_path do |f| %>
-	<%= hidden_field_tag :tournament_id, @tournament.id %>
+	<%= hidden_field_tag :tab_id, params[:tab_id] %>
 	<div id="card">
 		<%= f.label translate("Create a tournament"), class: :form_label_text %>
 		<%= render "tournaments/another_team", team_num: 1 %>
