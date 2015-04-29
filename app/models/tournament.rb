@@ -9,41 +9,54 @@ class Tournament < ActiveRecord::Base
 	mount_uploader :icon, ImageUploader
 	
 	def assemble params
-    # creates teams
+    # creates team objects
   	params.each do |key, value|
   		if key.include? "team_"
   			self.members.create(sports_team_id: value)
   		end
   	end
-    # creates team pairs, best with worst
+    # creates pairs, best with worst, as list shortens
     teams = self.teams.sort_by { |team| team.points }
     teams_size = teams.size # to be later validated
     pairs = (teams.size/2).times.map do
     	[teams.shift, teams.pop]
     end
-    # sets number of rounds
+    # sets correct number of total rounds for the tournament
 		self.update total_rounds: (self.teams.size / 2.to_f).ceil.to_i
-    
-    # inserts teams into matches
+		# correctly inserts teams based mainly on team size
+    self.build_matches teams, teams_size, pairs
+	end
+  
+	def build_matches teams, teams_size, pairs
+	  # creates matches and inserts teams
     for pair in pairs
 			break if self.matches.size.eql? self.teams.size - 1 # ensures correct num of matches
 			match = self.matches.create round: self.get_round(pairs.index(pair) + 1)
 			match.members.create sports_team_id: pair.first.id
 			match.members.create sports_team_id: pair.last.id
 		end
-    # inserts more if any missing
+    # creates more matches if any missing
     if teams.present?
       match = self.matches.create round: self.total_rounds
       match.members.create sports_team_id: teams.last.id
+      if self.num_missing(teams_size) > 0	
+		    self.num_missing(teams_size).times do
+		      self.matches.create round: teams_size / 2 # make shift round number
+		    end
+      end
     elsif teams_size.even?
-      ((teams_size - 1) - self.matches.size).times do
+      self.num_missing(teams_size).times do
         self.matches.create round: self.total_rounds
       end
     end
 	end
 	
+	# matches missing
+	def num_missing teams_size
+		return (teams_size - 1) - self.matches.size
+	end
+	
 	# gets correct round for each match
-	# factors: team size, match size, total_rounds, index
 	def get_round index
 		case self.teams.size
 		when 3
@@ -66,7 +79,6 @@ class Tournament < ActiveRecord::Base
 			else
 				return 3
 			end
-		# and so on and so on
 		end
 	end
   
