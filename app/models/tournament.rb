@@ -26,11 +26,11 @@ class Tournament < ActiveRecord::Base
     
     # inserts teams into matches
     for pair in pairs
-      break if self.matches.size.eql? self.teams.size - 1 # ensures correct num of matches
-  		match = self.matches.create round: self.get_round pairs.index(pair)
-  		match.members.create sports_team_id: pair.first.id
-  		match.members.create sports_team_id: pair.last.id
-  	end
+			break if self.matches.size.eql? self.teams.size - 1 # ensures correct num of matches
+			match = self.matches.create round: self.get_round(pairs.index(pair) + 1)
+			match.members.create sports_team_id: pair.first.id
+			match.members.create sports_team_id: pair.last.id
+		end
     # inserts more if any missing
     if teams.present?
       match = self.matches.create round: self.total_rounds
@@ -45,6 +45,29 @@ class Tournament < ActiveRecord::Base
 	# gets correct round for each match
 	# factors: team size, match size, total_rounds, index
 	def get_round index
+		case self.teams.size
+		when 3
+			if index < 2
+				return 1
+			else
+				return 2
+			end
+		when 4
+			if index < 3
+				return 1
+			else
+				return 2
+			end
+		when 5
+			if index < 3
+				return 1
+			elsif index < 4
+				return 2
+			else
+				return 3
+			end
+		# and so on and so on
+		end
 	end
   
   def teams
