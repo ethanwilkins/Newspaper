@@ -79,6 +79,24 @@ class Tournament < ActiveRecord::Base
 			else
 				return 3
 			end
+		when 6
+			if index < 3
+				return 1
+			elsif index < 5
+				return 2
+			else
+				return 3
+			end
+		when 7
+			if index < 3
+				return 1
+			elsif index < 5
+				return 2
+			elsif index < 6
+				return 3
+			else
+				return 4
+			end
 		end
 	end
   
