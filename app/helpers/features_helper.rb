@@ -2,7 +2,7 @@ module FeaturesHelper
 	def tab_feature_defs
 		{ invite_attendance: "<b>Event Invites and Attendance</b> - Plan events within your Drop and keep track of who's attending",
 		post_repopulation: "<b>Auto Repost</b> - Keep your posts at the top of the feed with repopulation",
-		rank_feedback: "<b>Ranking and Feedback</b> - See what people really think of you and your content",
+		rank_feedback: "<b>Ranking and Feedback</b> - See what people think of you and your content",
 		popularity_float: "<b>Popularity Float</b> - Sort posts by the number of likes and comments",
 		custom_loading: "<b>Custom Load</b> - Upload your own image for a custom load wheel",
 		post_expiration: "<b>Self Destruct</b> - Make sure your post is deleted at an appropriate time",
