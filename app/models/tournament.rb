@@ -11,6 +11,14 @@
 
 # (team_size - ideal_bracket_size) + 1 = qualifying_team_pool_size
 
+# instead of finding total rounds, could go through list of pairs,
+# creating initial matches and parent matches based on team_size,
+# then accounting for qualifying or bye rounds afterwards if teams
+# are left over from fitting teams into ideal bracket size
+
+# the matches within each round do not have to be played
+# in any particular order
+
 class Tournament < ActiveRecord::Base
 	has_many :sports_matches, dependent: :destroy
 	has_many :members
