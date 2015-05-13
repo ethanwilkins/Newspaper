@@ -154,6 +154,7 @@ class ApplicationController < ActionController::Base
     @posts = @tab.posts
     @all_items = @posts + @tab.funnel_tagged
     @all_items += @tab.approved_articles if @tab.approved_articles.present?
+    @all_items += @tab.tournaments if @tab.tournaments.present?
     @all_items += @tab.events if @tab.events.present?
     @all_items += @tab.polls if @tab.polls.present?
     @all_items.sort_by! &:created_at

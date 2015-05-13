@@ -1,38 +1,45 @@
 <!-- sports matches -->
 
 <div id="card">
-	<%= link_to translate("Posted to") + " #{@match.tab.name}", tab_path(@match.tab), class: :top_right_link %> 
+	<% unless match.tab.nil? %>
+		<%= link_to translate("Posted to") + " #{match.tab.name}",
+			tab_path(match.tab), class: :top_right_link %>
+	<% end %>
 	<div align="center">
-		<% if @match.exhibition %>
+		<% if match.exhibition %>
 			<p><%= translate("Exhibition Match") %></p>
 		<% end %>
 		
-		<% if @match.finished? and not @match.tied? %>
+		<% if match.finished? and not match.tied? %>
 			<p id="victor_of_match_header">
 				<%= translate("Victor") + ": #{@match.victor.name} #{@match.scores}" %>
 			</p>
-		<% elsif @match.tied? %>
+		<% elsif match.tied? %>
 			<p id="victor_of_match_header">
 				<%= translate("Tied") + ": #{@match.scores}" %>
 			</p>
-		<% elsif not @match.finished? and @match.scores %>
+		<% elsif not match.finished? and match.scores %>
 			<p id="victor_of_match_header">
-				<%= translate("Current score") + ": #{@match.scores}" %>
+				<%= translate("Current score") + ": #{match.scores}" %>
 			</p>
 		<% end %>
 		
 		<p>
 			<%= translate("Teams") + ": " %>
-			<% for team in @teams %>
+			<% for team in teams %>
 				<%= link_to team.name, sports_team_path(team) %><%= \
-					", " if team != @teams.last and @teams.size > 1 %>
+					", " if team != teams.last and teams.size > 1 %>
 			<% end %>
 		</p>
-		<p>
-			<%= @match.date %>
-		</p>
-		<div>
-			<%= @match.location %>
-		</div>
+		<% if match.date %>
+			<p>
+				<%= match.date %>
+			</p>
+		<% end %>
+		<% if match.location %>
+			<div>
+				<%= match.location %>
+			</div>
+		<% end %>
 	</div>
 </div>

@@ -20,6 +20,8 @@
 			<%= render "events/card", event: item, list_format: @tab.list_format? %>
 		<% when "Poll" %>
 			<%= render "polls/card", poll: item, choices: item.choices %>
+		<% when "Tournament" %>
+			<%= render "tournaments/card", tournament: item %>
 	<% end %>
 <% end %>
 

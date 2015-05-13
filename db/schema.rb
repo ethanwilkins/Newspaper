@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427044613) do
+ActiveRecord::Schema.define(version: 20150512203615) do
 
   create_table "activities", force: :cascade do |t|
     t.datetime "created_at"
@@ -404,6 +404,7 @@ ActiveRecord::Schema.define(version: 20150427044613) do
     t.boolean  "double_elimination"
     t.integer  "total_rounds"
     t.integer  "current_round",      default: 0
+    t.boolean  "qualifying"
   end
 
   create_table "translations", force: :cascade do |t|

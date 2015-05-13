@@ -1,6 +1,7 @@
 <!-- sports matches -->
 
-<%= render "sports_matches/card" %>
+<%= render "sports_matches/card",
+	match: @match, teams: @teams, stat: @stat %>
 
 <% if privileged? and not @match.finished? %>
 	<%= render "stats/new" %>

@@ -1,5 +1,18 @@
+# qualifying matches will always consist of lowest ranked teams
+# user chooses qualifying or by rounds at creation
+# by round gives a freebe match to the best team
+# freebe match does not give points, just next round
+# by rounds by default, number of by rounds can vary
+# ideal brackets: 4, 8, 16, 32, 64, 128
+
+# winning teams pushed into correct match in
+# next round based off of parent/child hierarchy
+# hierarchy defined at creation, teams just move up as they win
+
+# (team_size - ideal_bracket_size) + 1 = qualifying_team_pool_size
+
 class Tournament < ActiveRecord::Base
-	has_many :sports_matches
+	has_many :sports_matches, dependent: :destroy
 	has_many :members
   has_many :prizes
 	has_many :stats
@@ -54,6 +67,17 @@ class Tournament < ActiveRecord::Base
 	# matches missing
 	def num_missing teams_size
 		return (teams_size - 1) - self.matches.size
+	end
+	
+	def get_ideal_bracket_size
+		case self.teams.size
+		when 3
+			if self.qualifying
+				2
+			else
+				4
+			end
+		end
 	end
 	
 	# gets correct round for each match

@@ -1,8 +1,10 @@
 class SportsMatch < ActiveRecord::Base
   belongs_to :tournament
+  belongs_to :sports_match
   belongs_to :tab
   
   has_many :members
+  has_many :sports_matches
   has_many :stats, dependent: :destroy
   
   validate :valid_if_non_tournament
