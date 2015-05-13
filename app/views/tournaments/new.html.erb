@@ -6,7 +6,11 @@
 		<%= f.label translate("Create a tournament"), class: :form_label_text %>
 		<%= render "tournaments/another_team", team_num: 1 %>
 		<p class="form-control">
-			<%= f.label "Double elimination" %>
+			<%= f.label translate("Qualifying matches") %>
+			<%= f.check_box :qualifying %>
+		</p>
+		<p class="form-control">
+			<%= f.label translate("Double elimination") %>
 			<%= f.check_box :double_elimination %>
 		</p>
 		<p>

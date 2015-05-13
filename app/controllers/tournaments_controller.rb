@@ -35,7 +35,7 @@ class TournamentsController < ApplicationController
   
   def tournament_params
     if params[:tournament]
-      params[:tournament].permit(:icon, :date, :location)
+      params[:tournament].permit(:icon, :date, :location, :qualifying)
     end
   end
 end

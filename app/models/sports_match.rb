@@ -40,6 +40,14 @@ class SportsMatch < ActiveRecord::Base
 	def finished?
     self.stats.where(finished: true).present?
 	end
+	
+	def parent
+		self.sports_match
+	end
+	
+	def children
+		self.sports_matches
+	end
   
   def teams
     _teams = []
