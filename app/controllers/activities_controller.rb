@@ -1,4 +1,9 @@
-class ActivitiesController < ApplicationController 
+class ActivitiesController < ApplicationController
+  def destroy_all
+    Activity.destroy_all
+    redirect_to :back
+  end
+  
   def get_location
     @activity = Activity.find_by_id(params[:id])
     if @activity.get_location and @activity.save

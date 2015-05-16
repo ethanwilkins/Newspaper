@@ -1,5 +1,9 @@
 <% if master? %>
 <div id="card">
+	<%= link_to translate("Purge activity data"), destroy_all_activities_path, method: :delete,
+		data: { confirm: translate('Are you sure you want to delete all activity data?') },
+		title: translate("Permanently delete all activity data"), class: :top_right_link %>
+		
 	<div align="center">
 		<p><%= link_to translate("Unique locations:") + " " + Activity.unique_locations.size.to_s, unique_locations_path %></p>
 		<p><%= link_to translate("Total actions:") + " " + Activity.all.size.to_s, activities_path %></p>

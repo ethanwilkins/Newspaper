@@ -42,94 +42,66 @@ class Tournament < ActiveRecord::Base
     pairs = (teams.size/2).times.map do
     	[teams.shift, teams.pop]
     end
-    # sets correct number of total rounds for the tournament
-		self.update total_rounds: (self.teams.size / 2.to_f).ceil.to_i
 		# correctly inserts teams based mainly on team size
     self.build_matches teams, teams_size, pairs
 	end
   
-	def build_matches teams, teams_size, pairs
-	  # creates matches and inserts teams
+	def build_initial_matches teams, teams_size, pairs
+    initial_matches_size = ideal_bracket_size / 2
     for pair in pairs
-			break if self.matches.size.eql? self.teams.size - 1 # ensures correct num of matches
-			match = self.matches.create round: self.get_round(pairs.index(pair) + 1)
+			break if self.matches.size.eql? initial_matches_size
+			match = self.matches.create!
 			match.members.create sports_team_id: pair.first.id
 			match.members.create sports_team_id: pair.last.id
 		end
-    # creates more matches if any missing
-    if teams.present?
-      match = self.matches.create round: self.total_rounds
-      match.members.create sports_team_id: teams.last.id
-      if self.num_missing(teams_size) > 0	
-		    self.num_missing(teams_size).times do
-		      self.matches.create round: teams_size / 2 # make shift round number
-		    end
-      end
-    elsif teams_size.even?
-      self.num_missing(teams_size).times do
-        self.matches.create round: self.total_rounds
-      end
-    end
 	end
+  
+  def build_parent_matches
+    
+  end
+  
+  def build_qualifying_matches
+    
+  end
 	
 	# matches missing
 	def num_missing teams_size
 		return (teams_size - 1) - self.matches.size
 	end
 	
-	def get_ideal_bracket_size
-		case self.teams.size
-		when 3
-			if self.qualifying
-				2
-			else
-				4
-			end
-		end
-	end
-	
-	# gets correct round for each match
-	def get_round index
-		case self.teams.size
-		when 3
-			if index < 2
-				return 1
-			else
-				return 2
-			end
-		when 4
-			if index < 3
-				return 1
-			else
-				return 2
-			end
-		when 5
-			if index < 3
-				return 1
-			elsif index < 4
-				return 2
-			else
-				return 3
-			end
-		when 6
-			if index < 3
-				return 1
-			elsif index < 5
-				return 2
-			else
-				return 3
-			end
-		when 7
-			if index < 3
-				return 1
-			elsif index < 5
-				return 2
-			elsif index < 6
-				return 3
-			else
-				return 4
-			end
-		end
+	def ideal_bracket_size
+    infinity = 1.0 / 0.0
+    if self.qualifying
+      case self.matches.size
+      when 4..7
+        return 4
+      when 8..15
+        return 8
+      when 16..31
+        return 16
+      when 32..63
+        return 32
+      when 64..127
+        return 64
+      when 128..infinity
+        return 128
+      end
+    else
+      case self.matches.size
+      when 3..4
+        return 4
+      when 5..8
+        return 8
+      when 9..16
+        return 16
+      when 17..32
+        return 32
+      when 33..64
+        return 64
+      when 65..128
+        return 128
+      end
+    end
 	end
   
   def teams

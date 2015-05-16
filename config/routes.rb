@@ -192,6 +192,8 @@ Rails.application.routes.draw do
   
   get 'activities/unique_visits', as: 'unique_visits'
   
+  delete 'activities/destroy_all', as: 'destroy_all_activities'
+  
   
   # translation routes 
   

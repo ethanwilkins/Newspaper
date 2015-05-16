@@ -17,17 +17,16 @@ ActiveRecord::Schema.define(version: 20150513023617) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "action"
-    t.string   "ip"
+    t.string   "action",       limit: 255
+    t.string   "ip",           limit: 255
     t.text     "info_text"
-    t.string   "data_string"
+    t.string   "data_string",  limit: 255
     t.integer  "item_id"
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "address",      limit: 255
     t.integer  "zip_code"
-    t.string   "city"
-    t.string   "address"
-    t.string   "item_type"
+    t.string   "item_type",    limit: 255
     t.string   "browser_name"
     t.boolean  "mobile"
   end
@@ -35,14 +34,14 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   create_table "articles", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
+    t.string   "title",                 limit: 255
     t.text     "body"
     t.integer  "user_id"
     t.boolean  "draft"
-    t.string   "image"
+    t.string   "image",                 limit: 255
     t.boolean  "ad"
     t.integer  "zip_code"
-    t.string   "hyperlink"
+    t.string   "hyperlink",             limit: 255
     t.integer  "views"
     t.boolean  "english"
     t.boolean  "translation_requested"
@@ -52,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   end
 
   create_table "banners", force: :cascade do |t|
-    t.string   "image"
+    t.string   "image",      limit: 255
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -65,8 +64,8 @@ ActiveRecord::Schema.define(version: 20150513023617) do
     t.integer  "code_id"
     t.integer  "user_id"
     t.integer  "game_board_id"
-    t.string   "image"
-    t.string   "name"
+    t.string   "image",         limit: 255
+    t.string   "name",          limit: 255
     t.boolean  "redeemed"
     t.integer  "board_loc"
     t.integer  "zip_code"
@@ -80,13 +79,13 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   end
 
   create_table "codes", force: :cascade do |t|
-    t.string   "code"
-    t.string   "card_name"
-    t.string   "image"
+    t.string   "code",         limit: 255
+    t.string   "card_name",    limit: 255
+    t.string   "image",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_a_board"
-    t.string   "advertiser"
+    t.string   "advertiser",   limit: 255
     t.integer  "board_number"
     t.integer  "board_loc"
     t.date     "expiration"
@@ -111,15 +110,15 @@ ActiveRecord::Schema.define(version: 20150513023617) do
 
   create_table "events", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "title"
+    t.string   "title",                 limit: 255
     t.text     "body"
     t.date     "date"
     t.time     "time"
     t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "image"
-    t.string   "location"
+    t.string   "image",                 limit: 255
+    t.string   "location",              limit: 255
     t.boolean  "translation_requested"
     t.boolean  "english"
     t.integer  "zip_code"
@@ -130,12 +129,12 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   create_table "features", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "tab_id"
-    t.string   "action"
+    t.string   "action",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "personal"
     t.integer  "subtab_id"
-    t.boolean  "turned_on",  default: true
+    t.boolean  "turned_on",              default: true
   end
 
   create_table "feedbacks", force: :cascade do |t|
@@ -177,7 +176,7 @@ ActiveRecord::Schema.define(version: 20150513023617) do
 
   create_table "hashtags", force: :cascade do |t|
     t.integer  "post_id"
-    t.string   "tag"
+    t.string   "tag",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "article_id"
@@ -205,7 +204,7 @@ ActiveRecord::Schema.define(version: 20150513023617) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "event_id"
-    t.string   "status"
+    t.string   "status",          limit: 255
     t.integer  "tab_id"
     t.integer  "subtab_id"
     t.boolean  "made_member"
@@ -224,20 +223,20 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.string   "message"
-    t.string   "action"
-    t.boolean  "checked",    default: false
+    t.string   "message",    limit: 255
+    t.string   "action",     limit: 255
+    t.boolean  "checked",                default: false
     t.integer  "item_id"
     t.integer  "user_id"
     t.integer  "sender_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "url"
+    t.string   "url",        limit: 255
     t.integer  "zip_code"
   end
 
   create_table "pictures", force: :cascade do |t|
-    t.string   "image"
+    t.string   "image",      limit: 255
     t.integer  "post_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -255,19 +254,19 @@ ActiveRecord::Schema.define(version: 20150513023617) do
 
   create_table "posts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "title"
+    t.string   "title",                 limit: 255
     t.text     "body"
-    t.string   "image"
+    t.string   "image",                 limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tab_id"
     t.integer  "subtab_id"
     t.integer  "zip_code"
     t.boolean  "translation_requested"
-    t.string   "ip"
+    t.string   "ip",                    limit: 255
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address"
+    t.string   "address",               limit: 255
     t.date     "expiration_date"
     t.integer  "repopulation_interval"
     t.integer  "reincarnations"
@@ -279,21 +278,21 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   create_table "prizes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "cash_prize"
-    t.string   "winning_combo"
+    t.string   "winning_combo", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "board_number"
     t.integer  "game_board_id"
     t.integer  "group_id"
     t.integer  "code_id"
-    t.string   "combo_type"
+    t.string   "combo_type",    limit: 255
   end
 
   create_table "searches", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "query"
-    t.string   "chosen_result_type"
+    t.string   "query",              limit: 255
+    t.string   "chosen_result_type", limit: 255
     t.integer  "chosen_result_id"
     t.integer  "user_id"
   end
@@ -338,17 +337,17 @@ ActiveRecord::Schema.define(version: 20150513023617) do
 
   create_table "subtabs", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "name"
-    t.string   "description"
-    t.string   "icon"
+    t.string   "name",                  limit: 255
+    t.string   "description",           limit: 255
+    t.string   "icon",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "approved"
     t.integer  "tab_id"
-    t.string   "ip"
+    t.string   "ip",                    limit: 255
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address"
+    t.string   "address",               limit: 255
     t.integer  "zip_code"
     t.boolean  "sponsored_only"
     t.boolean  "sponsored"
@@ -359,21 +358,21 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   end
 
   create_table "tabs", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "description"
-    t.string   "icon"
+    t.string   "description",           limit: 255
+    t.string   "icon",                  limit: 255
     t.boolean  "approved"
     t.integer  "user_id"
     t.boolean  "sponsored"
-    t.string   "company"
+    t.string   "company",               limit: 255
     t.boolean  "sponsored_only"
     t.integer  "zip_code"
-    t.string   "ip"
+    t.string   "ip",                    limit: 255
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address"
+    t.string   "address",               limit: 255
     t.boolean  "translation_requested"
     t.boolean  "english"
     t.boolean  "invite_only"
@@ -409,8 +408,8 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   end
 
   create_table "translations", force: :cascade do |t|
-    t.string   "english"
-    t.string   "spanish"
+    t.string   "english",    limit: 255
+    t.string   "spanish",    limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "request"
@@ -418,7 +417,7 @@ ActiveRecord::Schema.define(version: 20150513023617) do
     t.integer  "post_id"
     t.integer  "event_id"
     t.integer  "article_id"
-    t.string   "field"
+    t.string   "field",      limit: 255
     t.integer  "subtab_id"
     t.integer  "user_id"
   end
@@ -426,23 +425,23 @@ ActiveRecord::Schema.define(version: 20150513023617) do
   create_table "users", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "password"
+    t.string   "name",          limit: 255
+    t.string   "password",      limit: 255
     t.boolean  "admin"
     t.boolean  "active"
     t.boolean  "writer"
     t.integer  "zip_code"
-    t.string   "email"
-    t.string   "icon"
+    t.string   "email",         limit: 255
+    t.string   "icon",          limit: 255
     t.text     "bio"
     t.integer  "network_size"
     t.boolean  "business"
     t.boolean  "english"
-    t.string   "ip"
+    t.string   "ip",            limit: 255
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "address"
-    t.string   "auth_token"
+    t.string   "address",       limit: 255
+    t.string   "auth_token",    limit: 255
     t.boolean  "master"
     t.integer  "group_id"
     t.boolean  "dev"
