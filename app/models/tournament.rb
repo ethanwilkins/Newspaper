@@ -39,16 +39,17 @@ class Tournament < ActiveRecord::Base
     # creates pairs, best with worst, as list shortens
     teams = self.teams.sort_by { |team| team.points }
     teams_size = teams.size # to be later validated
-    pairs = (teams.size/2).times.map do
+    team_pairs = (teams.size/2).times.map do
     	[teams.shift, teams.pop]
     end
 		# correctly inserts teams based mainly on team size
-    self.build_matches teams, teams_size, pairs
+    build_initial_matches teams, teams_size, team_pairs
+    build_parent_matches
 	end
   
-	def build_initial_matches teams, teams_size, pairs
+	def build_initial_matches teams, teams_size, team_pairs
     initial_matches_size = ideal_bracket_size / 2
-    for pair in pairs
+    for pair in team_pairs
 			break if self.matches.size.eql? initial_matches_size
 			match = self.matches.create!
 			match.members.create sports_team_id: pair.first.id
@@ -57,22 +58,33 @@ class Tournament < ActiveRecord::Base
 	end
   
   def build_parent_matches
-    
+    # builds second level of hierarchy
+    match_pairs = build_pairs matches
+    for pair in match_pairs
+      match = self.matches.create!
+      pair.first.update sports_match_id: match.id
+      pair.last.update sports_match_id: match.id
+    end
+    # builds on top until root is met
+    loop do
+      parent_pairs = build_pairs parent_matches
+      break if parent_pairs.empty?
+      for pair in parent_pairs
+        match = self.matches.create!
+        pair.first.update sports_match_id: match.id
+        pair.last.update sports_match_id: match.id
+      end
+    end
   end
   
   def build_qualifying_matches
     
   end
 	
-	# matches missing
-	def num_missing teams_size
-		return (teams_size - 1) - self.matches.size
-	end
-	
 	def ideal_bracket_size
     infinity = 1.0 / 0.0
     if self.qualifying
-      case self.matches.size
+      case self.teams.size
       when 4..7
         return 4
       when 8..15
@@ -87,7 +99,7 @@ class Tournament < ActiveRecord::Base
         return 128
       end
     else
-      case self.matches.size
+      case self.teams.size
       when 3..4
         return 4
       when 5..8
@@ -115,5 +127,25 @@ class Tournament < ActiveRecord::Base
   
   def matches
     self.sports_matches
+  end
+  
+  # matches that have children but
+  # don't have parents yet
+  def parent_matches
+    parents = []
+    for match in matches
+      if match.children.present? and not match.parent
+        parents << match
+      end
+    end
+    return parents
+  end
+  
+  def build_pairs list
+    list = list.sort_by { |i| i }
+    pairs = (list.size/2).times.map do
+    	[list.shift, list.pop]
+    end
+    return pairs
   end
 end

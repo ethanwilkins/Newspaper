@@ -9,7 +9,7 @@ class SportsMatch < ActiveRecord::Base
   
   validate :valid_if_non_tournament
   
-	mount_uploader :image, ImageUploader
+	mount_uploader :icon, ImageUploader
   
   def scores # live scores, not necessarily final
     stat = self.stats.where.not(first_teams_score: nil).
