@@ -78,9 +78,10 @@ class Tournament < ActiveRecord::Base
   def build_qualifying_matches
     for match in first_round_matches
       break if extra_teams.size.zero?
-      qualifier = match.children.create
-      extra_teams.last.update sports_match_id: qualifier.id
-      match.teams.last.update sports_match_id: qualifier.id
+      qualifier = match.children.create tournament_id: self.id
+      qualifier.members.create sports_team_id: extra_teams.last.id
+      qualifier.members.create sports_team_id: match.teams.last.id
+      match.members.last.destroy
     end
   end
 	
