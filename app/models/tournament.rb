@@ -36,15 +36,13 @@ class Tournament < ActiveRecord::Base
   			self.members.create(sports_team_id: value)
   		end
   	end
+    # to be later validated
+    teams_size = teams.size
     # creates pairs, best with worst, as list shortens
-    teams = self.teams.sort_by { |team| team.points }
-    teams_size = teams.size # to be later validated
-    team_pairs = (teams.size/2).times.map do
-    	[teams.shift, teams.pop]
-    end
+    team_pairs = build_pairs self.teams, :points
 		# correctly inserts teams based mainly on team size
     build_initial_matches teams, teams_size, team_pairs
-    build_parent_matches
+    build_parent_matches; build_qualifying_matches
 	end
   
 	def build_initial_matches teams, teams_size, team_pairs
@@ -78,7 +76,12 @@ class Tournament < ActiveRecord::Base
   end
   
   def build_qualifying_matches
-    
+    for match in first_round_matches
+      break if extra_teams.size.zero?
+      qualifier = match.children.create
+      extra_teams.last.update sports_match_id: qualifier.id
+      match.teams.last.update sports_match_id: qualifier.id
+    end
   end
 	
 	def ideal_bracket_size
@@ -125,6 +128,21 @@ class Tournament < ActiveRecord::Base
     return _teams
   end
   
+  # for qualifying rounds
+  def extra_teams
+    extras = []
+    for team in teams
+      left_out = true
+      for match in matches
+        if match.teams.include? team
+          left_out = false
+        end
+      end
+      extras << team if left_out
+    end
+    return extras
+  end
+  
   def matches
     self.sports_matches
   end
@@ -141,8 +159,24 @@ class Tournament < ActiveRecord::Base
     return parents
   end
   
-  def build_pairs list
-    list = list.sort_by { |i| i }
+  def first_round_matches
+    first_round = []
+    for match in matches
+      if match.children.empty?
+        first_round << match
+      end
+    end
+    return first_round
+  end
+  
+  def build_pairs list, sort_method=nil
+    list = list.sort_by do |i|
+      if sort_method and i.respond_to? sort_method
+        i.send sort_method.to_sym
+      else
+        i
+      end
+    end
     pairs = (list.size/2).times.map do
     	[list.shift, list.pop]
     end

@@ -5,6 +5,10 @@ class SportsTeam < ActiveRecord::Base
 	validates_presence_of :name
 	
 	mount_uploader :icon, ImageUploader
+  
+  def rank
+    
+  end
 	
 	def wins
 		wins = 0
