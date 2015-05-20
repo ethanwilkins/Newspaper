@@ -41,11 +41,12 @@ class Tournament < ActiveRecord::Base
     # creates pairs, best with worst, as list shortens
     team_pairs = build_pairs self.teams, :points
 		# correctly inserts teams based mainly on team size
-    build_initial_matches teams, teams_size, team_pairs
-    build_parent_matches; build_qualifying_matches
+    build_initial_matches team_pairs; build_parent_matches
+    # accounts for any remaining teams
+    build_qualifying_matches
 	end
   
-	def build_initial_matches teams, teams_size, team_pairs
+	def build_initial_matches team_pairs
     initial_matches_size = ideal_bracket_size / 2
     for pair in team_pairs
 			break if self.matches.size.eql? initial_matches_size
@@ -53,6 +54,9 @@ class Tournament < ActiveRecord::Base
 			match.members.create sports_team_id: pair.first.id
 			match.members.create sports_team_id: pair.last.id
 		end
+    # bye rounds need to be accounted for during
+    # the creation of initial matches somehow
+    build_bye_rounds unless self.qualifying
 	end
   
   def build_parent_matches
@@ -72,6 +76,13 @@ class Tournament < ActiveRecord::Base
         pair.first.update sports_match_id: match.id
         pair.last.update sports_match_id: match.id
       end
+    end
+  end
+  
+  def build_bye_rounds
+    for team in extra_teams
+      match = self.matches.create!
+      match.members.create sports_team_id: team.id
     end
   end
   
