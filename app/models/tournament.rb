@@ -36,8 +36,6 @@ class Tournament < ActiveRecord::Base
   			self.members.create(sports_team_id: value)
   		end
   	end
-    # to be later validated
-    teams_size = teams.size
     # creates pairs, best with worst, as list shortens
     team_pairs = build_pairs self.teams, :points
 		# correctly inserts teams based mainly on team size
@@ -51,12 +49,13 @@ class Tournament < ActiveRecord::Base
     for pair in team_pairs
 			break if self.matches.size.eql? initial_matches_size
 			match = self.matches.create!
+      # adds first team to match
 			match.members.create sports_team_id: pair.first.id
-			match.members.create sports_team_id: pair.last.id
+      # adds second team unless bye rounds and missing teams
+      if missing_teams_size.zero?
+  			match.members.create sports_team_id: pair.last.id
+      end
 		end
-    # bye rounds need to be accounted for during
-    # the creation of initial matches somehow
-    build_bye_rounds unless self.qualifying
 	end
   
   def build_parent_matches
@@ -76,13 +75,6 @@ class Tournament < ActiveRecord::Base
         pair.first.update sports_match_id: match.id
         pair.last.update sports_match_id: match.id
       end
-    end
-  end
-  
-  def build_bye_rounds
-    for team in extra_teams
-      match = self.matches.create!
-      match.members.create sports_team_id: team.id
     end
   end
   
@@ -155,8 +147,29 @@ class Tournament < ActiveRecord::Base
     return extras
   end
   
+  def missing_teams_size
+    unless self.qualifying
+      actual = ideal_bracket_size - self.teams.size
+      return actual - self.bye_matches.size
+    else
+      return 0
+    end
+  end
+  
   def matches
     self.sports_matches
+  end
+  
+  def bye_matches
+    byes = []
+    unless self.qualifying
+      for match in matches
+        if match.children.size.eql? 1
+          byes << match
+        end
+      end
+    end
+    return byes
   end
   
   # matches that have children but
