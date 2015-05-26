@@ -7,8 +7,23 @@ class SportsTeam < ActiveRecord::Base
 	mount_uploader :icon, ImageUploader
   
   def rank
-    
+    ranked = SportsTeam.all.sort_by { |team| team.points }
+    return ranked.reverse.index self
   end
+	
+	def points
+		points = 0
+		for match in self.matches
+			unless match.exhibition
+				if match.victor.eql? self
+					points += 3
+				elsif match.tied?
+					points += 1
+				end
+			end
+		end
+		return points
+	end
 	
 	def wins
 		wins = 0
@@ -24,20 +39,6 @@ class SportsTeam < ActiveRecord::Base
 			and not match.victor.eql? self \
 			and not match.exhibition }
 		return losses
-	end
-	
-	def points
-		points = 0
-		for match in self.matches
-			unless match.exhibition
-				if match.victor.eql? self
-					points += 3
-				elsif match.tied?
-					points += 1
-				end
-			end
-		end
-		return points
 	end
 	
 	def matches

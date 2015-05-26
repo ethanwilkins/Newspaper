@@ -36,26 +36,41 @@ class Tournament < ActiveRecord::Base
   			self.members.create(sports_team_id: value)
   		end
   	end
-    # creates pairs, best with worst, as list shortens
-    team_pairs = build_pairs self.teams, :points
 		# correctly inserts teams based mainly on team size
-    build_initial_matches team_pairs; build_parent_matches
+    build_initial_matches; build_parent_matches
     # accounts for any remaining teams
     build_qualifying_matches
 	end
   
-	def build_initial_matches team_pairs
+	def build_initial_matches
+    # first set of matches always half of bracket size
     initial_matches_size = ideal_bracket_size / 2
+    # pairs best with worst as list shortens
+    team_pairs = build_pairs self.teams, :points
+    # creates empty matches
+    initial_matches_size.times { self.matches.create! }
+    bye_matches_missing.times {  }
+    for match in self.matches
+      if bye_matches_missing.zero?
+        match.members.create sports_team_id: pair.first.id
+      else
+        
+      end
+    end
+    
     for pair in team_pairs
 			break if self.matches.size.eql? initial_matches_size
 			match = self.matches.create!
       # adds first team to match
 			match.members.create sports_team_id: pair.first.id
       # adds second team unless bye rounds and missing teams
-      if missing_teams_size.zero?
+      unless bye_matches_missing.zero?
   			match.members.create sports_team_id: pair.last.id
       end
 		end
+    # needs to account for left out teams
+    # some how and prevent too many non
+    # bye rounds from being created
 	end
   
   def build_parent_matches
@@ -147,10 +162,11 @@ class Tournament < ActiveRecord::Base
     return extras
   end
   
-  def missing_teams_size
+  # returns the number of bye matches missing
+  def bye_matches_missing
     unless self.qualifying
-      actual = ideal_bracket_size - self.teams.size
-      return actual - self.bye_matches.size
+      teams_missing = ideal_bracket_size - self.teams.size
+      return teams_missing - self.bye_matches.size
     else
       return 0
     end
@@ -164,12 +180,24 @@ class Tournament < ActiveRecord::Base
     byes = []
     unless self.qualifying
       for match in matches
-        if match.children.size.eql? 1
+        if match.teams.size.eql? 1
           byes << match
         end
       end
     end
     return byes
+  end
+  
+  def qualifying_matches
+    qualifiers = []
+    if self.qualifying
+      for match in matches
+        if match.parent and match.parent.teams.size.eql? 1
+          qualifiers << match
+        end
+      end
+    end
+    return qualifiers
   end
   
   # matches that have children but
