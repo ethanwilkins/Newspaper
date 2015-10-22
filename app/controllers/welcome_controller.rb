@@ -5,7 +5,7 @@ class WelcomeController < ApplicationController
     @banner = Banner.last
     @user = User.new
     if current_user
-      @advert = Article.local_advert(current_user)
+      @advert = true # Article.local_advert(current_user)
     end
     log_action("welcome_index")
   end
