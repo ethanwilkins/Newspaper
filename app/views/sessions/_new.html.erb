@@ -1,4 +1,11 @@
 <div id="card">
+
+<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button>
+
+<div id="status">
+</div>
+
 <%= form_tag sessions_create_path do %>
   <p>
     <%= text_field_tag :name, nil, placeholder: translate("Name"), class: "form-control" %>
