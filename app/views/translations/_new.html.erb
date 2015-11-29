@@ -3,10 +3,10 @@
 	<%= form_for @translation do |f| %>
 		<%= hidden_field_tag :user_id, current_user.id %>
 		<p>
-			<%= f.text_field :english, placeholder: translate("English"), class: "form-control" %>
+			<%= f.text_area :english, placeholder: translate("English"), class: "form-control" %>
 		</p>
 		<p>
-			<%= f.text_field :spanish, placeholder: translate("Spanish"), class: "form-control" %>
+			<%= f.text_area :spanish, placeholder: translate("Spanish"), class: "form-control" %>
 		</p>
 		<p class="form-control">
 			<%= f.label translate("Request translation") %>

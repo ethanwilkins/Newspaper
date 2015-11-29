@@ -12,6 +12,6 @@
 		<% unless defined? no_arrow %>
 			<div class="tip_arrow"></div>
 		<% end %>
-		<%= translate(tip) %>
+		<%= translate(tip).html_safe %>
 	</div>
 <% end %>
